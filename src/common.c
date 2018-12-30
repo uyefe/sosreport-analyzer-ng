@@ -872,8 +872,8 @@ void read_file_pre ( const char *member, const char *dir_name )
     memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
-    char result_tmp_pre [ MAX_LINE_LENGTH - 18 ]; 
-    memset ( result_tmp_pre, '\0', MAX_LINE_LENGTH - 18 ); 
+    char result_tmp_pre [ MAX_LINE_LENGTH - 21 ]; 
+    memset ( result_tmp_pre, '\0', MAX_LINE_LENGTH - 21 ); 
     char result_tmp [ MAX_LINE_LENGTH ]; 
     memset ( result_tmp, '\0', MAX_LINE_LENGTH ); 
 
@@ -911,7 +911,7 @@ void read_file_pre ( const char *member, const char *dir_name )
     )
     {
         search_list ( &header_obj, member, result_tmp_pre );
-        snprintf ( result_tmp, MAX_LINE_LENGTH, "(config setting==%s)", result_tmp_pre );
+        snprintf ( result_tmp, MAX_LINE_LENGTH, "(config setting is %s)", result_tmp_pre );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
         append_list ( &line_obj, "" );
         append_list ( &line_obj, str_tmp2 );

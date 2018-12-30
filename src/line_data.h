@@ -96,9 +96,9 @@ int append_list ( node **obj, char *line );
  *
  * This function search given string from the node and if found, set string to char array
  *
- *  Caller : 
+ *  Caller : read_file_pre ()
  *
- *  Calls :
+ *  Calls : none
  *
  */
 char *search_list ( node **obj, const char *line, char result [ MAX_LINE_LENGTH ] );

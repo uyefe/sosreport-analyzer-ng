@@ -40,7 +40,7 @@ const char msg_cfg_read [ 36 ] = "cfg_read was called by SIG_VALUE !\n";
 const char msg_cfg_read_ok [ 40 ] = "file value was reloaded by SIG_VALUE !\n";
 
 /* the delimiters of tokens */
-#define TOKEN_DELIM ":"
+#define TOKEN_DELIM "="
 
 /* set the configuration information to the defaults after memory is allocated */
 void cfg_defaults ( struct sosreport_analyzer_config *cfg )
@@ -295,7 +295,7 @@ void append_header_obj ( const char *member, struct sosreport_analyzer_config *c
 {
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
-    snprintf (str_tmp, strlen ( member ) + 2, "%s:", member );
+    snprintf (str_tmp, strlen ( member ) + 2, "%s=", member );
     if ( strcmp ( member, "date" ) == 0 )
         strcat ( str_tmp, cfg->date );
     else if ( strcmp ( member, "lsb-release" ) == 0 )

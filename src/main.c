@@ -84,17 +84,18 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tail_obj );
     init_list ( &var_log_messages_obj );
 
-    char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
-    char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
-    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
+    char str_tmp [ MAX_LINE_LENGTH ]; 
+    char str_tmp2 [ MAX_LINE_LENGTH ]; 
+    memset ( str_tmp, '\0', MAX_LINE_LENGTH ); 
+    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
     append_list ( &header_obj, "########" );
-    //snprintf ( str_tmp2, MAX_LINE_LENGTH, "sosreport-analyzer: Verrion-%d.%d.%d", PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE); 
-    snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE); 
+    snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
     append_list ( &header_obj, str_tmp2 );
     append_list ( &header_obj, "########" );
     append_list ( &tail_obj, "########" );
-    append_list ( &tail_obj, "sosreport-analyzer-ng ends." );
+    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
+    snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s ends.", app_name ); 
+    append_list ( &tail_obj, str_tmp2 );
     /* Try to process all command line arguments */
     while ( ( value = getopt_long ( argc, argv, "hD:", long_options, &option_index ) ) != -1 ) {
         switch ( value ) {
@@ -103,11 +104,11 @@ int main ( int argc, char *argv [ ] )
                 dir_len = strlen ( dir_name );
                 if ( strstr ( dir_name,"\n" ) != NULL || ( dir_len > dir_len_check ) )
                 {
-                    printf("Can not analyze this directory.\n");
+                    printf("Can't analyze this directory.\n");
                     print_help ( );
                     return EXIT_FAILURE;
                 }else{
-                    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
+                    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
                     snprintf ( str_tmp2, MAX_LINE_LENGTH, "dirname:%s",dir_name );
                     append_list ( &header_obj, str_tmp2 );
                     append_list ( &header_obj, "" );

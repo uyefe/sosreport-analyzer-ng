@@ -87,20 +87,20 @@ char *search_list ( node **obj, const char *line, char result [ MAX_LINE_LENGTH 
     memset ( str_cmp__line, '\0', MAX_LINE_LENGTH ); 
     strcpy ( str_cmp_line, line );
     memset ( result, '\0', MAX_LINE_LENGTH ); 
-
-    const char s [ 8 ] = ":"; /* this is the delimiter */
-
     char *result_p = & ( result [ MAX_LINE_LENGTH ] );
+
+    const char s [ 8 ] = "="; /* this is the delimiter */
+
     while ( ptr_tmp != NULL )
     {
         strcpy ( str_cmp__line, ptr_tmp->_line );
 
         char *token = NULL;
-        token = strtok ( (char*)ptr_tmp->_line, s );
+        token = strtok ( ( char * ) str_cmp__line, s );
 
-        if ( ( strcmp ( str_cmp__line, "" ) !=0 ) && ( strstr ( str_cmp_line, token) != NULL ) )
+        if ( ( strcmp ( str_cmp__line, "" ) != 0 ) && ( strstr ( str_cmp_line, token) != NULL ) )
         {
-            strcpy ( result, str_cmp__line );
+            strcpy ( result, ptr_tmp->_line );
             return ( result_p );
         }
         ptr_tmp = ptr_tmp->next;
