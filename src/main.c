@@ -32,7 +32,7 @@
 /* configuration file of this program/library */
 static const char *fname = "/etc/sosreport-analyzerd.conf";
 
-const char *app_name = "sosreport-analyzer";
+const char *app_name = "sosreport-analyzer-ng";
 
 /* brief Print help for this application */
 static void print_help ( void )
@@ -89,11 +89,12 @@ int main ( int argc, char *argv [ ] )
     memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
     append_list ( &header_obj, "########" );
-    snprintf ( str_tmp2, MAX_LINE_LENGTH, "sosreport-analyzer: Verrion-%d.%d.%d", PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE); 
+    //snprintf ( str_tmp2, MAX_LINE_LENGTH, "sosreport-analyzer: Verrion-%d.%d.%d", PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE); 
+    snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE); 
     append_list ( &header_obj, str_tmp2 );
     append_list ( &header_obj, "########" );
     append_list ( &tail_obj, "########" );
-    append_list ( &tail_obj, "sosreport-analyzer ends." );
+    append_list ( &tail_obj, "sosreport-analyzer-ng ends." );
     /* Try to process all command line arguments */
     while ( ( value = getopt_long ( argc, argv, "hD:", long_options, &option_index ) ) != -1 ) {
         switch ( value ) {
