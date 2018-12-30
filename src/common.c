@@ -254,30 +254,30 @@ int arr_max0 = 0;
 int arr_max2 = 2;
 int arr_max12 = 12;
 int arr_max20 = 20;
-const char *items_date [ 0 ];
-const char *items_lsb_release [ 0 ];
-const char *items_uname [ 0 ];
-const char *items_hostname [ 0 ];
-const char *items_uptime [ 0 ];
+const char *items_date;
+const char *items_lsb_release;
+const char *items_uname;
+const char *items_hostname;
+const char *items_uptime;
 const char *items_root_anaconda_ks_cfg [ 11 ];
 const char *items_dmidecode [ 11 ];
 const char *items_lsmod [ 11 ];
 const char *items_lspci [ 19 ];
-const char *items_sos_commands_scsi_lsscsi [ 0 ];
+const char *items_sos_commands_scsi_lsscsi;
 const char *items_installed_rpms [ 11 ];
 const char *items_df [ 1 ];
-const char *items_vgdisplay [ 0 ];
-const char *items_free [ 0 ];
-const char *items_ip_addr [ 0 ];
-const char *items_route [ 0 ];
+const char *items_vgdisplay;
+const char *items_free;
+const char *items_ip_addr;
+const char *items_route;
 const char *items_last [ 11 ];
 const char *items_ps [ 11 ];
 const char *items_lsof [ 11 ];
 const char *items_netstat [ 11 ];
-const char *items_etc_kdump_conf [ 0 ];
-const char *items_etc_sysctl_conf [ 0 ];
+const char *items_etc_kdump_conf;
+const char *items_etc_sysctl_conf;
 const char *items_proc_meminfo [ 11 ];
-const char *items_proc_net_dev [ 0 ];
+const char *items_proc_net_dev;
 const char *items_var_log_messages [ 11 ];
 const char *items_sos_commands_kernel_sysctl__a [ 11 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 11 ];
@@ -353,15 +353,15 @@ void read_file ( const char *file_name )
          * this part should survive through while loop 
          */
         if ( strstr ( file_name, "date" ) != NULL )
-            append_item_to_line_obj ( line, "date", items_date [ 0 ] );
+            append_item_to_line_obj ( line, "date", items_date );
         else if ( strstr ( file_name, "lsb-release" ) != NULL )
-            append_item_to_line_obj ( line, "lsb-release", items_lsb_release [ 0 ] );
+            append_item_to_line_obj ( line, "lsb-release", items_lsb_release );
         else if ( strstr ( file_name, "uname" ) != NULL )
-            append_item_to_line_obj ( line, "uname", items_uname [ 0 ] );
+            append_item_to_line_obj ( line, "uname", items_uname );
         else if ( strstr ( file_name, "hostname" ) != NULL )
-            append_item_to_line_obj ( line, "hostname", items_hostname [ 0 ] );
+            append_item_to_line_obj ( line, "hostname", items_hostname );
         else if ( strstr ( file_name, "uptime" ) != NULL )
-            append_item_to_line_obj ( line, "uptime", items_uptime [ 0 ] );
+            append_item_to_line_obj ( line, "uptime", items_uptime );
         else if ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL )
             append_item_to_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
         else if ( strstr ( file_name, "dmidecode" ) != NULL )
@@ -374,7 +374,7 @@ void read_file ( const char *file_name )
             for ( x = 0; x < lspci ; x++ )
                 append_item_to_line_obj ( line, "lspci", items_lspci [ x ] );
         else if ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL )
-            append_item_to_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi [ 0 ] );
+            append_item_to_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
         else if ( strstr ( file_name, "installed-rpms" ) != NULL )
             for ( x = 0; x < installed_rpms ; x++ )
                 append_item_to_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
@@ -382,13 +382,13 @@ void read_file ( const char *file_name )
             for ( x = 0; x < df ; x++ )
                 append_item_to_line_obj ( line, "df", items_df [ x ] );
         else if ( strstr ( file_name, "vgdisplay" ) != NULL )
-            append_item_to_line_obj ( line, "vgdisplay", items_vgdisplay [ 0 ] );
+            append_item_to_line_obj ( line, "vgdisplay", items_vgdisplay );
         else if ( strstr ( file_name, "free" ) != NULL )
-            append_item_to_line_obj ( line, "free", items_free [ 0 ] );
+            append_item_to_line_obj ( line, "free", items_free );
         else if ( strstr ( file_name, "ip_addr" ) != NULL )
-            append_item_to_line_obj ( line, "ip_addr", items_ip_addr [ 0 ] );
+            append_item_to_line_obj ( line, "ip_addr", items_ip_addr );
         else if ( strstr ( file_name, "route" ) != NULL )
-            append_item_to_line_obj ( line, "route", items_route [ 0 ] );
+            append_item_to_line_obj ( line, "route", items_route );
         else if ( strstr ( file_name, "last" ) != NULL )
             for ( x = 0; x < last ; x++ )
                 append_item_to_line_obj ( line, "last", items_last [ x ] );
@@ -402,14 +402,14 @@ void read_file ( const char *file_name )
             for ( x = 0; x < netstat ; x++ )
                 append_item_to_line_obj ( line, "netstat", items_netstat [ x ] );
         else if ( strstr ( file_name, "etc/kdump.conf" ) != NULL )
-            append_item_to_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf [ 0 ] );
+            append_item_to_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
         else if ( strstr ( file_name, "etc/sysctl.conf" ) != NULL )
-            append_item_to_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf [ 0 ] );
+            append_item_to_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
         else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
             for ( x = 0; x < proc_meminfo ; x++ )
                 append_item_to_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
         else if ( strstr ( file_name, "proc/net/dev" ) != NULL )
-            append_item_to_line_obj ( line, "proc/net/dev", items_proc_net_dev [ 0 ] );
+            append_item_to_line_obj ( line, "proc/net/dev", items_proc_net_dev );
         else if ( strstr ( file_name, "var/log/messages" ) != NULL )
         {
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -477,35 +477,35 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->date, s );
-        items_date [ 0 ] = token;
+        items_date = token;
     }
     /* member lsb_release */
     else if ( ( strstr ( file_name, "lsb-release" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->lsb_release, s );
-        items_lsb_release [ 0 ] = token;
+        items_lsb_release = token;
     }
     /* member uname */
     else if ( ( strstr ( file_name, "uname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uname, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->uname, s );
-        items_uname [ 0 ] = token;
+        items_uname = token;
     }
     /* member hostname */
     else if ( ( strstr ( file_name, "hostname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->hostname, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->hostname, s );
-        items_hostname [ 0 ] = token;
+        items_hostname = token;
     }
     /* member uptime */
     else if ( ( strstr ( file_name, "uptime" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uptime, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->uptime, s );
-        items_uptime [ 0 ] = token;
+        items_uptime = token;
     }
     /* member root/anaconda-ks.cfg */
     else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg, "" ) != 0 ) )
@@ -582,7 +582,7 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi, s );
-        items_sos_commands_scsi_lsscsi [ 0 ] = token;
+        items_sos_commands_scsi_lsscsi = token;
     }
     /* member installed-rpms */
     else if ( ( strstr ( file_name, "installed-rpms" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms, "" ) != 0 ) )
@@ -631,28 +631,28 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->vgdisplay, s );
-        items_vgdisplay [ 0 ] = token;
+        items_vgdisplay = token;
     }
     /* member free */
     else if ( ( strstr ( file_name, "free" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->free, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->free, s );
-        items_free [ 0 ] = token;
+        items_free = token;
     }
     /* member ip_addr */
     else if ( ( strstr ( file_name, "ip_addr" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->ip_addr, s );
-        items_ip_addr [ 0 ] = token;
+        items_ip_addr = token;
     }
     /* member route */
     else if ( ( strstr ( file_name, "route" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->route, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->route, s );
-        items_route [ 0 ] = token;
+        items_route = token;
     }
     /* member last */
     else if ( ( strstr ( file_name, "last" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->last, "" ) != 0 ) )
@@ -743,14 +743,14 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_kdump_conf, s );
-        items_etc_kdump_conf [ 0 ] = token;
+        items_etc_kdump_conf = token;
     }
     /* member etc/sysctl.conf */
     else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_sysctl_conf, s );
-        items_etc_sysctl_conf [ 0 ] = token;
+        items_etc_sysctl_conf = token;
     }
     /* member proc/meminfo */
     else if ( ( strstr ( file_name, "proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) )
@@ -778,7 +778,7 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_net_dev, s );
-        items_proc_net_dev [ 0 ] = token;
+        items_proc_net_dev = token;
     }
     /* member var/log/messages */
     else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) )

@@ -40,7 +40,32 @@ You can use 'sosreport-analyzer-ng' in current directory.
 
 But, alert, you should have sosreport-analyzer.conf.
 
-You shoul copy sosreport-analyzer.conf.example to /etc/sosreport-analyzer.conf
+You should copy sosreport-analyzer.conf.example to /etc/sosreport-analyzer.conf
 
 
-Wait...
+Next, let's make shared library.
+You type this.
+
+$ gcc -g -fPIC -Wall -Werror -Wextra -pedantic *.c -shared -o sosreport-analyzer.so
+
+$ ls
+cfg.c  cfg.h  common.c  common.h  line_data.c  line_data.h  main.c sosreport-analyzer.so
+
+Here, you get sosreport-analyzer.so.
+
+As we did before, let's get main.o.
+
+$ gcc -c main.c
+cfg.c  cfg.h  common.c  common.h  line_data.c  line_data.h  main.c main.o sosreport-analyzer.so
+
+
+Now you can make a very tiny program, compared to formerly direct linked one.
+
+$ gcc -o sosreport-analyzer-ng main.o sosreport-analyzer.so
+
+$ ls
+cfg.c  cfg.h  common.c  common.h  line_data.c  line_data.h  main.c  main.o  sosreport-analyzer-ng  sosreport-analyzer.so
+
+You can use this sosreport-analyzer-ng as usual.
+
+Wait for more...

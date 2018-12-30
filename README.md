@@ -9,6 +9,6 @@ and get results?
 
 Here, I try to implement the needs above.
 
-This program is in test-fase, so, be patient.
+This program is in test phase, so, be patient.
 
 Enjoy!
