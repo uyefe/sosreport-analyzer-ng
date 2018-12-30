@@ -1,0 +1,1 @@
+# sosreport-analyzer-ng
