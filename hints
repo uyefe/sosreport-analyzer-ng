@@ -1,3 +1,46 @@
 Hey dude, let's play with making library.
 
-Wait a sec...
+Let's do some experiment.
+
+Fisrt, you do this.
+
+$ cd src
+$ gcc -c cfg.c common.c line_data.c
+cfg.c  cfg.h  cfg.o  common.c  common.h  common.o  line_data.c  line_data.h  line_data.o  main.c
+
+As you can see, you get .o files.
+
+Next, you do this.
+
+$ ar crv sosreport-analyzer.a cfg.o common.o line_data.o
+a - cfg.o
+a - common.o
+a - line_data.o
+
+Check the result.
+
+$ ls
+cfg.c  cfg.h  cfg.o  common.c  common.h  common.o  line_data.c  line_data.h  line_data.o  main.c  sosreport-analyzer.a
+
+You get sosreport-analyzer.a.
+
+Now, you do this.
+
+$ gcc -c main.c
+$ ls
+cfg.c  cfg.h  cfg.o  common.c  common.h  common.o  line_data.c  line_data.h  line_data.o  main.c  main.o  sosreport-analyzer.a
+
+So, let's make a program which is useful.
+
+$ gcc -o sosreport-analyzer-ng main.o sosreport-analyzer.a 
+$ ls
+cfg.c  cfg.h  cfg.o  common.c  common.h  common.o  line_data.c  line_data.h  line_data.o  main.c  main.o  sosreport-analyzer-ng  sosreport-analyzer.a
+
+You can use 'sosreport-analyzer-ng' in current directory.
+
+But, alert, you should have sosreport-analyzer.conf.
+
+You shoul copy sosreport-analyzer.conf.example to /etc/sosreport-analyzer.conf
+
+
+Wait...

@@ -1,0 +1,191 @@
+# This is the configuration file for the sosreport-analyzer.
+# If you installed this program before, new version will not override.
+# Please check /usr/share/sosreport-analyzer/sosreport-nalayzerd.conf.example, and
+# copy it to /etc/sosreport-analyzerd.conf.
+#
+#
+# 'all' echos every line in the file.
+# In some items, you can set any item-name. 
+# Sometimes, certain files are not made by sosreport.
+# sosreport-analyzer will stop to analyze when file does not exist.
+# In such cases, you can skip the file, setting item-name to 'skip'.
+# ex. lsb-release: skip
+
+## date
+##
+## All you can set is 'all'
+
+date: all
+
+## lsb-release
+##
+## All you can set is 'all'
+
+lsb-release: all
+
+## uname 
+##
+## All you can set is 'all'
+
+uname: all
+
+## hostname
+##
+## All you can set is 'all'
+
+hostname: all
+
+## uptime
+##
+## All you can set is 'all'
+
+uptime: all
+
+## root/anaconda-ks.cfg 
+##
+## All you can set is 'all'
+
+root/anaconda-ks.cfg: all
+
+## dmidecode: <item> ...
+##
+## Presently, you can set these item-name, 'bios', 'memory' or 'all'
+
+dmidecode: bios memory Smart Firmware firmware
+
+## lsmod: <item> ...
+##
+## You can set arbitrary item-name including 'all' up to 12
+
+lsmod: Module kvm video 
+
+## lspci: <item> ...
+##
+## You can set arbitrary item-name including 'all' up to 20
+
+lspci: 00: 01: 02: 03: 04: 05: 06: 07: 08: 09: 
+
+## sos_commands/scsi/lsscsi 
+##
+## All you can set is 'all'
+
+sos_commands/scsi/lsscsi: all 
+
+## installed-rpms: <item> ...
+##
+## You can set arbitrary item-name including 'all' up to 12
+
+installed-rpms: kernel 
+
+## df: <item> ...
+##
+## You can set arbitrary item-name including 'all' up to 2
+
+df: /dev 
+
+## vgdisplay
+##
+## All you can set is 'all'
+
+vgdisplay: all
+
+## free
+##
+## All you can set is 'all'
+
+free: all
+
+## ip_addr 
+##
+## All you can set is 'all'
+
+ip_addr: all
+
+## route 
+##
+## All you can set is 'all'
+
+route: all 
+
+## last
+##
+## You can set 'username' including 'all' up to 12
+## example1 - last: fujiwara
+## example2 - last: fujiwara root
+## example3 - last: all
+
+last: all
+
+## ps 
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. ps: java 
+
+ps: all 
+
+## lsof 
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. lsof: bash 
+
+lsof: bash 
+
+## netstat 
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. netstat: TIME_WAIT 
+
+netstat: TIME_WAIT 
+
+## etc/kdump.conf 
+##
+## All you can set is 'all'
+
+etc/kdump.conf: all 
+
+## etc/sysctl.conf 
+##
+## All you can set is 'all'
+
+etc/sysctl.conf: all 
+
+## proc/meminfo
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. proc/meminfo: HugePage Hugepages
+
+proc/meminfo: all
+
+## proc/net/dev
+##
+## All you can set is 'all'
+
+proc/net/dev: all
+
+## var/log/messages 
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. var/log/messages: error 
+
+var/log/messages: error
+
+## sos_commands/sysctl_-a 
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. sos_commands/kernel/sysctl_-a: panic 
+
+sos_commands/kernel/sysctl_-a: panic
+
+## sos_commands/logs/journalctl_--no-pager
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. sos_commands/logs/journalctl_--no-pager: kdump 
+
+sos_commands/logs/journalctl_--no-pager: kdump 
+
+## sos_commands/networking/ethtool_-S
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. sos_commands/networking/ethtool_-S: error 
+
+sos_commands/networking/ethtool_-S: all
