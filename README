@@ -1,0 +1,86 @@
+sosreport-analyzer-ng
+
+This is the next version of sosreport-analyzer.
+
+You all know that sosreport analyzer includes sar-analyzer.
+
+You have to execute 2 programs, sosreport-analyzer and sar-analyzer.
+
+But, isn't it convenient to execute only one program with config file and get results?
+
+Here, I try to implement the needs above.
+
+This program is in test phase, so, be patient.
+
+Enjoy!
+
+# sosreport-analyzer
+Analyze sosreport in many different ways
+
+This software installs 1 binaries, 'sosreport-analyzer'.
+
+How to build:
+
+ $ ./autogen.sh
+ $ ./configure
+ $ make
+ # make install
+
+ It will install 1 program, 'sosreport-analyzer'.
+
+1. sosreport-analyzer
+
+Program Name: sosreport-analyzer
+
+Binary path: /usr/local/bin/sosreport-analyzer
+
+  New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzerd.conf.example.
+  Copy it as /etc/sosreport-analyzerd.conf.
+
+  Echo date file.
+  Echo lsg-release file.
+  Echo uname file.
+  Echo hostname file.
+  Echo uptime file.
+  Echo root/anaconda-ks.cfg file.
+  Analyze dmidecode file.
+  Analyze lsmod file.
+  Analyze lspci file.
+  Echo sos_commands/scsi/lsscsi file.
+  Analyze installed-rpms file.
+  Analyze df file.
+  Echo vgdisplay file.
+  Echo free file.
+  Echo ip_addr file.
+  Echo route file.
+  Analyze last file.
+  Analyze ps file.
+  Analyze lsof file.
+  Analyze netstat file.
+  Analyze etc/kdump.conf
+  Analyze etc/sysctl.conf
+  Analyze proc/meminfo file.
+  Echo proc/net/dev file.
+  Analyze var/log/messages files.
+  Analyze sos_commands/kernel/sysctl_-a file.
+  Analyze sos_commands/logs/journalctl_--no-pager files.
+  Analyze sos_commands/networking/ethtool_-S files.
+
+## Before using
+
+  Check /etc/sosreport-analyzerd.conf
+
+  You can set analyzing word for each analyzing member.
+
+  If you are not sure, consult /usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example.
+
+## Usage
+
+  $ sosreport-analyzer -D <sosreport-dir>
+
+  If you want to redirect to a file
+
+  $ sosreport-analyzer -D <sosreport-dir> > 'output_file'
+
+  Please read 'output_file' carefully.
+
