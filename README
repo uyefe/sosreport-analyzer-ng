@@ -61,6 +61,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze etc/sysctl.conf
   Analyze proc/meminfo file.
   Echo proc/net/dev file.
+  Echo proc/net/sockstat file.
   Analyze var/log/messages files.
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.

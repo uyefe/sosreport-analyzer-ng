@@ -20,16 +20,16 @@
  *  02110-1301 USA
  */
 
-#include <ctype.h> /* for is_space */
-#include <dirent.h>
-#include <errno.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include <fcntl.h>
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <ctype.h> /* for is_space */
+#include <dirent.h>
+#include <stddef.h>
+#include <errno.h>
 #include "common.h"
 #include "cfg.h"
 
@@ -145,6 +145,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->proc_meminfo, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
             strncpy ( cfg->proc_net_dev, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
+            strncpy ( cfg->proc_net_sockstat, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
             strncpy ( cfg->var_log_messages, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
@@ -215,7 +217,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     /* open config file */
     if ( ( fp = fopen ( file_name,"r" ) ) == NULL )
     {
-        printf("cannot open config file (%s): %s", file_name, strerror ( errno ) );
+        printf("can't open config file (%s): %s", file_name, strerror ( errno ) );
         close ( fd );
         exit ( EXIT_FAILURE );
     }
@@ -280,6 +282,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     append_sos_header_obj ( "etc/sysctl.conf", cfg );
     append_sos_header_obj ( "proc/meminfo", cfg );
     append_sos_header_obj ( "proc/net/dev", cfg );
+    append_sos_header_obj ( "proc/net/sockstat", cfg );
     append_sos_header_obj ( "var/log/messages", cfg );
     append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg );
     append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg );
@@ -340,6 +343,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->proc_meminfo );
     else if ( strcmp ( member, "proc/net/dev" ) == 0 )
         strcat ( str_tmp, cfg->proc_net_dev );
+    else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )
+        strcat ( str_tmp, cfg->proc_net_sockstat );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
         strcat ( str_tmp, cfg->var_log_messages );
     else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
