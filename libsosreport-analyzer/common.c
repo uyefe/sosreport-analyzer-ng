@@ -23,12 +23,12 @@
 #include <unistd.h> /* should be above for declaring macro */
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <dirent.h>
-#include <errno.h>
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
+#include <ctype.h>
+#include <errno.h>
 #include "common.h"
 #include "cfg.h"
 
@@ -278,6 +278,7 @@ const char *items_etc_kdump_conf;
 const char *items_etc_sysctl_conf;
 const char *items_proc_meminfo [ 11 ];
 const char *items_proc_net_dev;
+const char *items_proc_net_sockstat;
 const char *items_var_log_messages [ 11 ];
 const char *items_sos_commands_kernel_sysctl__a [ 11 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 11 ];
@@ -410,6 +411,8 @@ void read_file ( const char *file_name )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
         else if ( strstr ( file_name, "proc/net/dev" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
+        else if ( strstr ( file_name, "proc/net/sockstat" ) != NULL )
+            append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
         else if ( strstr ( file_name, "var/log/messages" ) != NULL )
         {
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -780,6 +783,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->proc_net_dev, s );
         items_proc_net_dev = token;
     }
+    /* member proc/net/sockstat */
+    else if ( ( strstr ( file_name, "proc/net/sockstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat, s );
+        items_proc_net_sockstat = token;
+    }
     /* member var/log/messages */
     else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) )
     {
@@ -904,6 +914,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/sysctl.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) ) ||
@@ -973,8 +984,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
                 append_list ( &sos_line_obj, line );
         }
     }
-    /* These should echo matched lines which had been set by config file, note item 
-     * number is limited by set_token_to_item_arr.
+    /* These should echo matched lines which had been set by config file, note item number is 
+     * limited by set_token_to_item_arr. members which could have only one item is excluded here.
      */
     else if ( 
         ( strcmp ( member, "dmidecode" ) == 0 ) ||

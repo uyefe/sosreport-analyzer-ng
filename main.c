@@ -21,8 +21,8 @@
  */
 
 #include <getopt.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include "libsosreport-analyzer/cfg.h"
@@ -152,6 +152,7 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "etc/sysctl.conf", dir_name );
     read_file_pre ( "proc/meminfo", dir_name );
     read_file_pre ( "proc/net/dev", dir_name );
+    read_file_pre ( "proc/net/sockstat", dir_name );
     read_file_pre ( "var/log/messages", dir_name );
     read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
     read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
