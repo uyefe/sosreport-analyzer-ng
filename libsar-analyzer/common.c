@@ -20,12 +20,12 @@
  *  02110-1301 USA
  */
 
+#include <unistd.h> /* should be above for declaring macro */
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
 #include <ctype.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include "common.h"
 #include "line_data.h"
 #include "setter_getter.h"
