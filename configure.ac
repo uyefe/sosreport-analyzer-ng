@@ -1,6 +1,6 @@
 # configure.ac - process this file with autoconf to produce configure
 #
-# Copyright (C) 2018 Shintaro Fujiwara 
+# Copyright (C) 2018-2019 Shintaro Fujiwara 
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 
 AC_PREREQ([2.69])
 AC_COPYRIGHT(
-[Copyright (C) 2018 Shintaro Fujiwara 
+[Copyright (C) 2018-2019 Shintaro Fujiwara 
 
 This configure script is derived from configure.ac which is free software;
 you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -28,7 +28,7 @@ version 2.1 of the License, or (at your option) any later version. See the
 configure.ac file for more details.])
 
 # initialize and set version and bugreport address
-AC_INIT([sosreport-analyzer], [0.1.0], [shintaro.fujiwara@gmail.com])
+AC_INIT([sosreport-analyzer], [0.1.1], [shintaro.fujiwara@gmail.com])
 RELEASE_MONTH="Jan 2019"
 AC_SUBST(RELEASE_MONTH)
 AC_CONFIG_MACRO_DIR([m4])
@@ -134,7 +134,16 @@ AC_ARG_WITH(sosreport-analyzerd-data-file,
 AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_DATA_PATH, "$SOSREPORT_ANALYZERD_DATA_PATH", [Path to sosreport-analyzerd data file.])
 AC_SUBST(SOSREPORT_ANALYZERD_DATA_PATH)
 
-# check the name of the lib file
+# check the name of the include/sosreport-analyzer file
+AC_ARG_WITH(sosreport-analyzerd-include-file,
+            AS_HELP_STRING([--with-sosreport-analyzerd-include-file=PATH],
+                           [path to sosreport-analyzerd include file @<:@/usr/local/include/sosreport-analyzerd/cfg.h@:>@]),
+            [ SOSREPORT_ANALYZERD_INCLUDE_PATH="$with_sosreport_analyzerd_include_file" ],
+            [ SOSREPORT_ANALYZERD_INCLUDE_PATH="/usr/local/include/sosreport-analyzerd" ])
+AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_INCLUDE_PATH, "$SOSREPORT_ANALYZERD_INCLUDE_PATH", [Path to sosreport-analyzerd include file.])
+AC_SUBST(SOSREPORT_ANALYZERD_INCLUDE_PATH)
+
+# check the name of the libsosreport-analyzer file
 AC_ARG_WITH(sosreport-analyzerd-lib-file,
             AS_HELP_STRING([--with-sosreport-analyzerd-lib-file=PATH],
                            [path to sosreport-analyzerd lib file @<:@/usr/local/lib/libsosreport-analyzer.so@:>@]),
@@ -143,9 +152,19 @@ AC_ARG_WITH(sosreport-analyzerd-lib-file,
 AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_LIB_PATH, "$SOSREPORT_ANALYZERD_LIB_PATH", [Path to sosreport-analyzerd lib file.])
 AC_SUBST(SOSREPORT_ANALYZERD_LIB_PATH)
 
+# check the name of the libsar-analyzer file
+AC_ARG_WITH(sar-analyzerd-lib-file,
+            AS_HELP_STRING([--with-sar-analyzerd-lib-file=PATH],
+                           [path to sar-analyzerd lib file @<:@/usr/local/lib/libsar-analyzer.so@:>@]),
+            [ SAR_ANALYZERD_LIB_PATH="$with_sar_analyzerd_lib_file" ],
+            [ SAR_ANALYZERD_LIB_PATH="/usr/local/lib" ])
+AC_DEFINE_UNQUOTED(SAR_ANALYZERD_LIB_PATH, "$SAR_ANALYZERD_LIB_PATH", [Path to sar-analyzerd lib file.])
+AC_SUBST(SAR_ANALYZERD_LIB_PATH)
+
 AC_PROG_CC
 AC_CONFIG_FILES([
   Makefile
   libsosreport-analyzer/Makefile
+  libsar-analyzer/Makefile
 ])
 AC_OUTPUT

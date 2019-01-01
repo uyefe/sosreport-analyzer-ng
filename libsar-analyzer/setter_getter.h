@@ -2,7 +2,7 @@
  *  setter_getter.h - setter_getter definitions
  *  This file contains the contents of sar-analyzer.
  *
- *  Copyright (C) 2018 Shintaro Fujiwara
+ *  Copyright (C) 2018-2019 Shintaro Fujiwara
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public

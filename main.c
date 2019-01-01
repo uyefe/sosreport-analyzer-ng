@@ -2,7 +2,7 @@
  * main.c - main file for sosreport-analyzer.
  * This file contains the contents of sosreport-analyzer.
  *
- *  Copyright (C) 2018 Shintaro Fujiwara
+ *  Copyright (C) 2018-2019 Shintaro Fujiwara
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include "cfg.h"
-#include "common.h"
-#include "line_data.h"
+#include "libsosreport-analyzer/cfg.h"
+#include "libsosreport-analyzer/common.h"
+#include "libsosreport-analyzer/line_data.h"
 
 /* configuration file of this program/library */
 static const char *fname = "/etc/sosreport-analyzerd.conf";
