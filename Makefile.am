@@ -52,4 +52,3 @@ install-sosreport_analyzerd_lib:
 
 uninstall-sosreport_analyzerd_lib:
 	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzer.so
-
