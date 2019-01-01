@@ -74,6 +74,9 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   If you are not sure, consult /usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example.
 
+  New version will not override the conf file. When you build new version, be sure to copy file
+  or at least, copy lines needed.
+
 ## Usage
 
   $ sosreport-analyzer -D <sosreport-dir>

@@ -62,40 +62,40 @@ int main ( int argc, char *argv [ ] )
     int dir_len_check = 256;
     const char *dir_name = NULL;
 
-    header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    sos_header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    sos_tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     var_log_messages_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    if ( ( header_obj == NULL ) || ( line_obj == NULL ) || ( tail_obj == NULL ) )
+    if ( ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
     {
         printf ("Failed to allocate memory for report obj.");
-        free ( header_obj );
-        free ( line_obj );
-        free ( tail_obj );
+        free ( sos_header_obj );
+        free ( sos_line_obj );
+        free ( sos_tail_obj );
         free ( var_log_messages_obj );
-        header_obj = NULL;
-        line_obj = NULL;
-        tail_obj = NULL;
+        sos_header_obj = NULL;
+        sos_line_obj = NULL;
+        sos_tail_obj = NULL;
         var_log_messages_obj = NULL;
     }
     /* initialize the line list object (node) */
-    init_list ( &header_obj );
-    init_list ( &line_obj );
-    init_list ( &tail_obj );
+    init_list ( &sos_header_obj );
+    init_list ( &sos_line_obj );
+    init_list ( &sos_tail_obj );
     init_list ( &var_log_messages_obj );
 
     char str_tmp [ MAX_LINE_LENGTH ]; 
     char str_tmp2 [ MAX_LINE_LENGTH ]; 
     memset ( str_tmp, '\0', MAX_LINE_LENGTH ); 
     memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
-    append_list ( &header_obj, "########" );
+    append_list ( &sos_header_obj, "########" );
     snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
-    append_list ( &header_obj, str_tmp2 );
-    append_list ( &header_obj, "########" );
-    append_list ( &tail_obj, "########" );
+    append_list ( &sos_header_obj, str_tmp2 );
+    append_list ( &sos_header_obj, "########" );
+    append_list ( &sos_tail_obj, "########" );
     memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
     snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s ends.", app_name ); 
-    append_list ( &tail_obj, str_tmp2 );
+    append_list ( &sos_tail_obj, str_tmp2 );
     /* Try to process all command line arguments */
     while ( ( value = getopt_long ( argc, argv, "hD:", long_options, &option_index ) ) != -1 ) {
         switch ( value ) {
@@ -110,8 +110,8 @@ int main ( int argc, char *argv [ ] )
                 }else{
                     memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
                     snprintf ( str_tmp2, MAX_LINE_LENGTH, "dirname:%s",dir_name );
-                    append_list ( &header_obj, str_tmp2 );
-                    append_list ( &header_obj, "" );
+                    append_list ( &sos_header_obj, str_tmp2 );
+                    append_list ( &sos_header_obj, "" );
                     break;
                 }
             case 'h':
@@ -156,22 +156,22 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
     read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
     read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
-    append_list ( &header_obj, "Also, read these files." );
-    append_list ( &header_obj, "--------" );
+    append_list ( &sos_header_obj, "Also, read these files." );
+    append_list ( &sos_header_obj, "--------" );
     append_list ( &var_log_messages_obj, "--------" );
     append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
-    print_list ( &header_obj );
+    print_list ( &sos_header_obj );
     print_list ( &var_log_messages_obj );
     print_list ( &sos_commands_logs_journalctl___no_pager_obj );
     print_list ( &sos_commands_networking_ethtool__S_obj );
-    print_list ( &line_obj );
-    print_list ( &tail_obj );
+    print_list ( &sos_line_obj );
+    print_list ( &sos_tail_obj );
     cfg_clear (); 
-    clear_list ( &header_obj ); 
-    clear_list ( &line_obj ); 
+    clear_list ( &sos_header_obj ); 
+    clear_list ( &sos_line_obj ); 
     clear_list ( &var_log_messages_obj ); 
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
-    clear_list ( &tail_obj ); 
+    clear_list ( &sos_tail_obj ); 
     return EXIT_SUCCESS;
 }

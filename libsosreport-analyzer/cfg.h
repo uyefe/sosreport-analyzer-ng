@@ -26,6 +26,9 @@
 /* the maximum line length in the configuration file */
 #define MAX_LINE_LENGTH    4096
 
+/* the delimiters of tokens */
+#define TOKEN_DELIM "="
+
 /*
  *  These are the data which should be analyzed
  *  'all' means every thing on it.
@@ -102,7 +105,8 @@ extern struct sosreport_analyzer_config *sosreport_analyzer_cfg;
 void cfg_init ( const char *file_name );
 
 /* Check that the condition is true and otherwise log an error
-   and bail out */
+   and bail out.
+ */
 void check_argumentcount ( const char *file_name, int lnr,
                                const char *keyword, int condition );
 
@@ -120,7 +124,7 @@ void cfg_defaults ( struct sosreport_analyzer_config *cfg );
 /* This function reads config file. */
 void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg );
 
-/* This function sets member to appropriate struct . */
+/* This function sets member to appropriate struct. */
 int set_member_to_struct ( const char *keyword, char *line, struct sosreport_analyzer_config *cfg );
 
 /*  This function frees the memory which had been allocated
@@ -128,8 +132,7 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
  */
 void cfg_clear ( void );
 
-/*  This function appends member strigs to header_obj with their items
- */
-void append_header_obj ( const char *member, struct sosreport_analyzer_config *cfg );
+/*  This function appends member strigs to sos_header_obj with their items. */
+void append_sos_header_obj ( const char *member, struct sosreport_analyzer_config *cfg );
 
 #endif /* SOSREPORT_ANALYZER__CFG_H */
