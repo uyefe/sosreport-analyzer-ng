@@ -28,8 +28,8 @@ version 2.1 of the License, or (at your option) any later version. See the
 configure.ac file for more details.])
 
 # initialize and set version and bugreport address
-AC_INIT([sosreport-analyzer], [0.0.3], [shintaro.fujiwara@gmail.com])
-RELEASE_MONTH="Dec 2018"
+AC_INIT([sosreport-analyzer], [0.1.0], [shintaro.fujiwara@gmail.com])
+RELEASE_MONTH="Jan 2019"
 AC_SUBST(RELEASE_MONTH)
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -146,6 +146,6 @@ AC_SUBST(SOSREPORT_ANALYZERD_LIB_PATH)
 AC_PROG_CC
 AC_CONFIG_FILES([
   Makefile
-  lib/Makefile
+  libsosreport-analyzer/Makefile
 ])
 AC_OUTPUT

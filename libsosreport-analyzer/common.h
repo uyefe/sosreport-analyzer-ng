@@ -26,8 +26,8 @@
 #define SOSREPORT_ANALYZER_COMMON_H
 
 #define PROGRAM_VERSION 0
-#define PROGRAM_RELEASE 0
-#define PROGRAM_SUB_RELEASE 3
+#define PROGRAM_RELEASE 1
+#define PROGRAM_SUB_RELEASE 0
 
 /* the maximum line length of file name */
 #define MAX_FULL_PATH_LENGTH  512
@@ -45,9 +45,9 @@
  * These are pointers to the global data, it should be available
  * once sosreport_analyzer_init() was called.
  */
-extern struct line_data *header_obj;
-extern struct line_data *line_obj;
-extern struct line_data *tail_obj;
+extern struct line_data *sos_header_obj;
+extern struct line_data *sos_line_obj;
+extern struct line_data *sos_tail_obj;
 extern struct line_data *var_log_messages_obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
@@ -113,6 +113,6 @@ void set_token_to_item_arr ( const char *file_name );
  * This function check line and if something matches, append to line_obj 
  *
  */
-int append_item_to_line_obj ( char *line, const char *member, const char *item );
+int append_item_to_sos_line_obj ( char *line, const char *member, const char *item );
 
 #endif /* SOSREPORT_ANALYZER_COMMON_H */

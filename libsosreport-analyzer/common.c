@@ -32,22 +32,22 @@
 #include "common.h"
 #include "cfg.h"
 
-/* header_obj */
-struct line_data header_obj_raw =
+/* sos_header_obj */
+struct line_data sos_header_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
     };
 
 /* line_obj */
-struct line_data line_obj_raw =
+struct line_data sos_line_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
     };
 
 /* tail_obj */
-struct line_data tail_obj_raw =
+struct line_data sos_tail_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
@@ -75,9 +75,9 @@ struct line_data sos_commands_networking_ethtool__S_obj_raw =
     };
 
 /* initialise */
-struct line_data *header_obj = &header_obj_raw;
-struct line_data *line_obj = &line_obj_raw;
-struct line_data *tail_obj = &tail_obj_raw;
+struct line_data *sos_header_obj = &sos_header_obj_raw;
+struct line_data *sos_line_obj = &sos_line_obj_raw;
+struct line_data *sos_tail_obj = &sos_tail_obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
@@ -124,7 +124,7 @@ char *cut_str_from_the_last_slash ( char *str_tmp, int str_len )
     strncpy ( str2, str_tmp, str_len );
     for ( i = 0; i < str_len; i ++ )
     {
-        // 47 means '/'
+        /* 47 means '/' */
         if ( str2 [ i ] == 47 )
         {
             l = i;
@@ -353,104 +353,104 @@ void read_file ( const char *file_name )
          * this part should survive through while loop 
          */
         if ( strstr ( file_name, "date" ) != NULL )
-            append_item_to_line_obj ( line, "date", items_date );
+            append_item_to_sos_line_obj ( line, "date", items_date );
         else if ( strstr ( file_name, "lsb-release" ) != NULL )
-            append_item_to_line_obj ( line, "lsb-release", items_lsb_release );
+            append_item_to_sos_line_obj ( line, "lsb-release", items_lsb_release );
         else if ( strstr ( file_name, "uname" ) != NULL )
-            append_item_to_line_obj ( line, "uname", items_uname );
+            append_item_to_sos_line_obj ( line, "uname", items_uname );
         else if ( strstr ( file_name, "hostname" ) != NULL )
-            append_item_to_line_obj ( line, "hostname", items_hostname );
+            append_item_to_sos_line_obj ( line, "hostname", items_hostname );
         else if ( strstr ( file_name, "uptime" ) != NULL )
-            append_item_to_line_obj ( line, "uptime", items_uptime );
+            append_item_to_sos_line_obj ( line, "uptime", items_uptime );
         else if ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL )
-            append_item_to_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
+            append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
         else if ( strstr ( file_name, "dmidecode" ) != NULL )
             for ( x = 0; x < dmidecode ; x++ )
-                append_item_to_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
+                append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
         else if ( strstr ( file_name, "lsmod" ) != NULL )
             for ( x = 0; x < lsmod ; x++ )
-                append_item_to_line_obj ( line, "lsmod", items_lsmod [ x ] );
+                append_item_to_sos_line_obj ( line, "lsmod", items_lsmod [ x ] );
         else if ( strstr ( file_name, "lspci" ) != NULL )
             for ( x = 0; x < lspci ; x++ )
-                append_item_to_line_obj ( line, "lspci", items_lspci [ x ] );
+                append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
         else if ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL )
-            append_item_to_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
+            append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
         else if ( strstr ( file_name, "installed-rpms" ) != NULL )
             for ( x = 0; x < installed_rpms ; x++ )
-                append_item_to_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
+                append_item_to_sos_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
         else if ( strstr ( file_name, "df" ) != NULL )
             for ( x = 0; x < df ; x++ )
-                append_item_to_line_obj ( line, "df", items_df [ x ] );
+                append_item_to_sos_line_obj ( line, "df", items_df [ x ] );
         else if ( strstr ( file_name, "vgdisplay" ) != NULL )
-            append_item_to_line_obj ( line, "vgdisplay", items_vgdisplay );
+            append_item_to_sos_line_obj ( line, "vgdisplay", items_vgdisplay );
         else if ( strstr ( file_name, "free" ) != NULL )
-            append_item_to_line_obj ( line, "free", items_free );
+            append_item_to_sos_line_obj ( line, "free", items_free );
         else if ( strstr ( file_name, "ip_addr" ) != NULL )
-            append_item_to_line_obj ( line, "ip_addr", items_ip_addr );
+            append_item_to_sos_line_obj ( line, "ip_addr", items_ip_addr );
         else if ( strstr ( file_name, "route" ) != NULL )
-            append_item_to_line_obj ( line, "route", items_route );
+            append_item_to_sos_line_obj ( line, "route", items_route );
         else if ( strstr ( file_name, "last" ) != NULL )
             for ( x = 0; x < last ; x++ )
-                append_item_to_line_obj ( line, "last", items_last [ x ] );
+                append_item_to_sos_line_obj ( line, "last", items_last [ x ] );
         else if ( strstr ( file_name, "ps" ) != NULL )
             for ( x = 0; x < ps ; x++ )
-                append_item_to_line_obj ( line, "ps", items_ps [ x ] );
+                append_item_to_sos_line_obj ( line, "ps", items_ps [ x ] );
         else if ( strstr ( file_name, "lsof" ) != NULL )
             for ( x = 0; x < lsof ; x++ )
-                append_item_to_line_obj ( line, "lsof", items_lsof [ x ] );
+                append_item_to_sos_line_obj ( line, "lsof", items_lsof [ x ] );
         else if ( strstr ( file_name, "netstat" ) != NULL )
             for ( x = 0; x < netstat ; x++ )
-                append_item_to_line_obj ( line, "netstat", items_netstat [ x ] );
+                append_item_to_sos_line_obj ( line, "netstat", items_netstat [ x ] );
         else if ( strstr ( file_name, "etc/kdump.conf" ) != NULL )
-            append_item_to_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
+            append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
         else if ( strstr ( file_name, "etc/sysctl.conf" ) != NULL )
-            append_item_to_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
+            append_item_to_sos_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
         else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
             for ( x = 0; x < proc_meminfo ; x++ )
-                append_item_to_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
+                append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
         else if ( strstr ( file_name, "proc/net/dev" ) != NULL )
-            append_item_to_line_obj ( line, "proc/net/dev", items_proc_net_dev );
+            append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
         else if ( strstr ( file_name, "var/log/messages" ) != NULL )
         {
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_messages, filename_var_log_messages_curr) != 0 )
             {
-                append_list ( &line_obj, "----------------" );
-                append_list ( &line_obj, (char *)file_name );
-                append_list ( &line_obj, "----------------" );
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
             }
             snprintf (filename_var_log_messages, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < var_log_messages; x++ )
-                append_item_to_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
+                append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
         }
         else if ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL )
             for ( x = 0; x < sos_commands_kernel_sysctl__a ; x++ )
-                append_item_to_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
         else if ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL )
         {
             snprintf (filename_sos_commands_logs_journalctl___no_pager_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_logs_journalctl___no_pager, filename_sos_commands_logs_journalctl___no_pager_curr) != 0 )
             {
-                append_list ( &line_obj, "----------------" );
-                append_list ( &line_obj, (char *)file_name );
-                append_list ( &line_obj, "----------------" );
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
             }
             snprintf ( filename_sos_commands_logs_journalctl___no_pager, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sos_commands_logs_journalctl___no_pager; x++ )
-                append_item_to_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
         }
         else if ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL )
         {
             snprintf (filename_sos_commands_networking_ethtool__S_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_networking_ethtool__S, filename_sos_commands_networking_ethtool__S_curr) != 0 )
             {
-                append_list ( &line_obj, "----------------" );
-                append_list ( &line_obj, (char *)file_name );
-                append_list ( &line_obj, "----------------" );
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
             }
             snprintf ( filename_sos_commands_networking_ethtool__S, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sos_commands_networking_ethtool__S; x++ )
-                append_item_to_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
         }
         else
             break;
@@ -910,13 +910,13 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, "" ) != 0 ) )
     )
     {
-        search_list ( &header_obj, member, result_tmp_pre );
+        search_list ( &sos_header_obj, member, result_tmp_pre );
         snprintf ( result_tmp, MAX_LINE_LENGTH, "(config setting is %s)", result_tmp_pre );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
-        append_list ( &line_obj, "" );
-        append_list ( &line_obj, str_tmp2 );
-        append_list ( &line_obj, result_tmp );
-        append_list ( &line_obj, "" );
+        append_list ( &sos_line_obj, "" );
+        append_list ( &sos_line_obj, str_tmp2 );
+        append_list ( &sos_line_obj, result_tmp );
+        append_list ( &sos_line_obj, "" );
 
         /* for ones of which should be read directory */
         if (
@@ -930,14 +930,14 @@ void read_file_pre ( const char *member, const char *dir_name )
     }
 }
 
-int append_item_to_line_obj ( char *line, const char *member, const char *item )
+int append_item_to_sos_line_obj ( char *line, const char *member, const char *item )
 {
     /* These should echo only needed lines, note item number is limited by
      * set_token_to_item_arr.
      */
     /* First, check if item has 'all'. When item is 'all', should echo every lines */
     if ( strcmp ( item, "all" ) == 0 )
-        append_list ( &line_obj, line );
+        append_list ( &sos_line_obj, line );
     if ( ( strcmp ( member, "dmidecode" ) == 0 ) && ( strcmp ( item, "bios" ) == 0 ) )
     {
         if ( strcmp ( line, "BIOS Information" ) == 0 )
@@ -948,9 +948,9 @@ int append_item_to_line_obj ( char *line, const char *member, const char *item )
             return 1;
         }
         if ( bios_information == 1 )
-            append_list ( &line_obj, line );
+            append_list ( &sos_line_obj, line );
         if ( strstr ( line , "BIOS Revision:" ) != NULL )
-            append_list ( &line_obj, line );
+            append_list ( &sos_line_obj, line );
     }
     else if ( ( strcmp ( member, "dmidecode" ) == 0 ) && ( strcmp ( item, "memory" ) == 0 ) )
     {
@@ -960,17 +960,17 @@ int append_item_to_line_obj ( char *line, const char *member, const char *item )
             memory_array_information = 0;
         if ( strcmp ( line, "Memory Device" ) == 0 )
         {
-            append_list ( &line_obj, line );
+            append_list ( &sos_line_obj, line );
             memory_information = 1;
         }
         if ( strcmp ( line, "OEM" ) == 0 )
             memory_information = 0;
         if ( memory_array_information == 1 )
-            append_list ( &line_obj, line );
+            append_list ( &sos_line_obj, line );
         if ( memory_information == 1 )
         {
             if ( strstr ( line , "Size:" ) != NULL )
-                append_list ( &line_obj, line );
+                append_list ( &sos_line_obj, line );
         }
     }
     /* These should echo matched lines which had been set by config file, note item 
@@ -995,7 +995,7 @@ int append_item_to_line_obj ( char *line, const char *member, const char *item )
     )
     {
         if ( strstr ( line , item ) != NULL )
-            append_list ( &line_obj, line );
+            append_list ( &sos_line_obj, line );
     }
     return EXIT_SUCCESS;
 }

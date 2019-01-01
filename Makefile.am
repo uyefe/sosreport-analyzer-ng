@@ -1,14 +1,14 @@
 # Makefile.am - use automake to generate Makefile.in
 
-SUBDIRS = lib
+SUBDIRS = libsosreport-analyzer
 
 AM_CXFLAGS = $(INIT_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I$(top_srcdir)/libsosreport-analyzer
 AM_LDFLAGS = "-L/usr/local/lib"
 
 bin_PROGRAMS = sosreport-analyzer
 sosreport_analyzer_SOURCES = main.c
-sosreport_analyzer_LDADD = lib/.libs/libsosreport-analyzer.so 
+sosreport_analyzer_LDADD = libsosreport-analyzer/.libs/libsosreport-analyzer.so 
 
 SOSREPORT_ANALYZERD_CONF_PATH = @SOSREPORT_ANALYZERD_CONF_PATH@
 SOSREPORT_ANALYZERD_DATA_PATH = @SOSREPORT_ANALYZERD_DATA_PATH@
@@ -44,10 +44,10 @@ uninstall-sosreport_analyzerd_data:
 # install libsosreport-analyzerd.so
 install-sosreport_analyzerd_lib:
 	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH) ]; then \
-            $(INSTALL) -m 775 $(srcdir)/lib/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzerd.so; \
+            $(INSTALL) -m 775 $(srcdir)/libsosreport-analyzer/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzerd.so; \
 	else \
             $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH); \
-            $(INSTALL) -m 775 $(srcdir)/lib/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzer.so; \
+            $(INSTALL) -m 775 $(srcdir)/libsosreport-analyzer/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzer.so; \
 	fi
 
 uninstall-sosreport_analyzerd_lib:

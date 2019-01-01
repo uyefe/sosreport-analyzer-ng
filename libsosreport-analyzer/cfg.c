@@ -39,10 +39,6 @@ struct sosreport_analyzer_config *sosreport_analyzer_cfg = NULL;
 const char msg_cfg_read [ 36 ] = "cfg_read was called by SIG_VALUE !\n";
 const char msg_cfg_read_ok [ 40 ] = "file value was reloaded by SIG_VALUE !\n";
 
-/* the delimiters of tokens */
-#define TOKEN_DELIM "="
-
-/* set the configuration information to the defaults after memory is allocated */
 void cfg_defaults ( struct sosreport_analyzer_config *cfg )
 {
     memset ( cfg, 0, sizeof ( struct sosreport_analyzer_config ) );
@@ -192,8 +188,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     snprintf ( str_tmp2, MAX_LINE_LENGTH, "Config file %s opened for parsing",file_name );
-    append_list ( &header_obj, str_tmp2 );
-    append_list ( &header_obj, "--------" );
+    append_list ( &sos_header_obj, str_tmp2 );
+    append_list ( &sos_header_obj, "--------" );
 
     if ( fstat ( fd, &st ) < 0) {
         printf("Error fstat'ing %s (%s)\n",file_name,strerror(errno)); 
@@ -260,38 +256,38 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     fclose ( fp );
 
     /* appending member strigs with their items which had been set by config file */
-    append_header_obj ( "date", cfg );
-    append_header_obj ( "lsb-release", cfg );
-    append_header_obj ( "uname", cfg );
-    append_header_obj ( "hostname", cfg );
-    append_header_obj ( "uptime", cfg );
-    append_header_obj ( "root/anaconda-ks.cfg", cfg );
-    append_header_obj ( "dmidecode", cfg );
-    append_header_obj ( "lsmod", cfg );
-    append_header_obj ( "lspci", cfg );
-    append_header_obj ( "sos_commands/scsi/lsscsi", cfg );
-    append_header_obj ( "installed-rpms", cfg );
-    append_header_obj ( "df", cfg );
-    append_header_obj ( "vgdisplay", cfg );
-    append_header_obj ( "free", cfg );
-    append_header_obj ( "ip_addr", cfg );
-    append_header_obj ( "route", cfg );
-    append_header_obj ( "last", cfg );
-    append_header_obj ( "ps", cfg );
-    append_header_obj ( "lsof", cfg );
-    append_header_obj ( "netstat", cfg );
-    append_header_obj ( "etc/kdump.conf", cfg );
-    append_header_obj ( "etc/sysctl.conf", cfg );
-    append_header_obj ( "proc/meminfo", cfg );
-    append_header_obj ( "proc/net/dev", cfg );
-    append_header_obj ( "var/log/messages", cfg );
-    append_header_obj ( "sos_commands/kernel/sysctl_-a", cfg );
-    append_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg );
-    append_header_obj ( "sos_commands/networking/ethtool_-S", cfg );
-    append_list ( &header_obj, "--------" );
+    append_sos_header_obj ( "date", cfg );
+    append_sos_header_obj ( "lsb-release", cfg );
+    append_sos_header_obj ( "uname", cfg );
+    append_sos_header_obj ( "hostname", cfg );
+    append_sos_header_obj ( "uptime", cfg );
+    append_sos_header_obj ( "root/anaconda-ks.cfg", cfg );
+    append_sos_header_obj ( "dmidecode", cfg );
+    append_sos_header_obj ( "lsmod", cfg );
+    append_sos_header_obj ( "lspci", cfg );
+    append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg );
+    append_sos_header_obj ( "installed-rpms", cfg );
+    append_sos_header_obj ( "df", cfg );
+    append_sos_header_obj ( "vgdisplay", cfg );
+    append_sos_header_obj ( "free", cfg );
+    append_sos_header_obj ( "ip_addr", cfg );
+    append_sos_header_obj ( "route", cfg );
+    append_sos_header_obj ( "last", cfg );
+    append_sos_header_obj ( "ps", cfg );
+    append_sos_header_obj ( "lsof", cfg );
+    append_sos_header_obj ( "netstat", cfg );
+    append_sos_header_obj ( "etc/kdump.conf", cfg );
+    append_sos_header_obj ( "etc/sysctl.conf", cfg );
+    append_sos_header_obj ( "proc/meminfo", cfg );
+    append_sos_header_obj ( "proc/net/dev", cfg );
+    append_sos_header_obj ( "var/log/messages", cfg );
+    append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg );
+    append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg );
+    append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg );
+    append_list ( &sos_header_obj, "--------" );
 }
 
-void append_header_obj ( const char *member, struct sosreport_analyzer_config *cfg )
+void append_sos_header_obj ( const char *member, struct sosreport_analyzer_config *cfg )
 {
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
@@ -352,7 +348,7 @@ void append_header_obj ( const char *member, struct sosreport_analyzer_config *c
         strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager );
     else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
         strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S );
-    append_list ( &header_obj, str_tmp );
+    append_list ( &sos_header_obj, str_tmp );
 }
 
 void cfg_init ( const char *file_name )
