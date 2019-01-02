@@ -32,6 +32,9 @@
 #include "common.h"
 #include "cfg.h"
 
+/* should be set to NULL */
+struct sosreport_analyzer_data *sosreport_analyzer_d = NULL;
+
 /* sos_header_obj */
 struct line_data sos_header_obj_raw =
     {
@@ -277,6 +280,7 @@ const char *items_netstat [ 11 ];
 const char *items_etc_kdump_conf;
 const char *items_etc_sysctl_conf;
 const char *items_proc_meminfo [ 11 ];
+const char *items_proc_interrupts;
 const char *items_proc_net_dev;
 const char *items_proc_net_sockstat;
 const char *items_var_log_messages [ 11 ];
@@ -409,6 +413,8 @@ void read_file ( const char *file_name )
         else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
             for ( x = 0; x < proc_meminfo ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
+        else if ( strstr ( file_name, "proc/interrupts" ) != NULL )
+            append_item_to_sos_line_obj ( line, "proc/interrupts", items_proc_interrupts );
         else if ( strstr ( file_name, "proc/net/dev" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
         else if ( strstr ( file_name, "proc/net/sockstat" ) != NULL )
@@ -776,6 +782,13 @@ void set_token_to_item_arr ( const char *file_name )
             items_proc_meminfo  [ proc_meminfo ] = token;
         }
     }
+    /* member proc/interrupts */
+    else if ( ( strstr ( file_name, "proc/interrupts" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->proc_interrupts, s );
+        items_proc_interrupts = token;
+    }
     /* member proc/net/dev */
     else if ( ( strstr ( file_name, "proc/net/dev" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) )
     {
@@ -913,6 +926,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/kdump.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/sysctl.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
@@ -939,6 +953,39 @@ void read_file_pre ( const char *member, const char *dir_name )
         else
             read_file ( str_tmp );
     }
+}
+
+int file_to_write ( void )
+{
+    char buff [ MAX_FILE_NAME_LENGTH ]; 
+    char buff2 [ MAX_FILE_NAME_LENGTH ]; 
+    char f_t [ 40 ];
+    memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( f_t, '\0', 40 ); 
+    strncpy ( buff, "/usr/share/sosreort-analyzerd", MAX_FILE_NAME_LENGTH );
+    strncpy ( buff2, "/usr/share/sosreort-analyzerd", MAX_FILE_NAME_LENGTH );
+    strncat ( buff, "/result_all", 12 );
+    strncat ( buff2, "/result_all", 12 );
+
+
+    struct tm *timenow;
+    time_t now = time ( NULL );
+    timenow = localtime ( &now );
+
+    strftime ( f_t, sizeof ( f_t ), "_%Y%m%d%H%M%S", timenow );
+
+    strncat ( buff, f_t, MAX_FILE_NAME_LENGTH - 1 );
+    strncat ( buff2, f_t, MAX_FILE_NAME_LENGTH - 1 );
+
+    strncat ( buff, ".txt", MAX_FILE_NAME_LENGTH - 1 );
+
+    /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
+    strcpy ( sosreport_analyzer_d->file_name_to_be_written, buff );
+    /* We create postscript file name too*/
+    strcpy ( sosreport_analyzer_d->file_name_to_be_written, buff2 );
+
+    return ( 0 );
 }
 
 int append_item_to_sos_line_obj ( char *line, const char *member, const char *item )

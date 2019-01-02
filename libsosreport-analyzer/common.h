@@ -41,6 +41,13 @@
 /* the maximum analyze files */
 #define MAX_ANALYZE_FILES  12
 
+/* This is the sosreport_analyzer data object*/
+struct sosreport_analyzer_data
+{
+    /* file name to be written */
+    char file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
+};
+
 /*
  * These are pointers to the global data, it should be available
  * once sosreport_analyzer_init() was called.
@@ -99,6 +106,16 @@ void read_file ( const char *file_name );
  *
  */
 void read_file_pre ( const char *member, const char *dir_name );
+
+/*
+ *  Function Name: file_to_write ()
+ *
+ *  This function sets file name to be written to the sosreport_analyzer_obj.
+ *
+ *  Caller : main ()
+ *
+ */
+int file_to_write ( void );
 
 /*
  * set_token_to_item_arr ()

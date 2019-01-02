@@ -143,6 +143,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->etc_sysctl_conf, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
             strncpy ( cfg->proc_meminfo, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/interrupts" ) == 0 )
+            strncpy ( cfg->proc_interrupts, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
             strncpy ( cfg->proc_net_dev, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
@@ -281,6 +283,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     append_sos_header_obj ( "etc/kdump.conf", cfg );
     append_sos_header_obj ( "etc/sysctl.conf", cfg );
     append_sos_header_obj ( "proc/meminfo", cfg );
+    append_sos_header_obj ( "proc/interrupts", cfg );
     append_sos_header_obj ( "proc/net/dev", cfg );
     append_sos_header_obj ( "proc/net/sockstat", cfg );
     append_sos_header_obj ( "var/log/messages", cfg );
@@ -341,6 +344,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->etc_sysctl_conf );
     else if ( strcmp ( member, "proc/meminfo" ) == 0 )
         strcat ( str_tmp, cfg->proc_meminfo );
+    else if ( strcmp ( member, "proc/interrupts" ) == 0 )
+        strcat ( str_tmp, cfg->proc_interrupts );
     else if ( strcmp ( member, "proc/net/dev" ) == 0 )
         strcat ( str_tmp, cfg->proc_net_dev );
     else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )

@@ -82,9 +82,4 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   $ sosreport-analyzer -D <sosreport-dir>
 
-  If you want to redirect to a file
-
-  $ sosreport-analyzer -D <sosreport-dir> > 'output_file'
-
-  Please read 'output_file' carefully.
-
+  You can't redirect to a file.

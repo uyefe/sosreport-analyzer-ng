@@ -38,6 +38,8 @@ const char *app_name = "sosreport-analyzer-ng";
 static void print_help ( void )
 {
     printf("\n VERSION %d.%d.%d\n",PROGRAM_VERSION,PROGRAM_RELEASE,PROGRAM_SUB_RELEASE);
+    printf("\n Before use: Edit %s.\n", fname);
+    printf("\n If you are unsure, copy from /usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example to %s.\n", fname);
     printf("\n Usage: %s -D <path_to_sosreport_directory>  \n\n", app_name);
     printf("  Options:\n");
     printf("   -D|--directory <path_to_sosreport_directory>   analyze files in the directory\n\n");
@@ -151,6 +153,7 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "etc/kdump.conf", dir_name );
     read_file_pre ( "etc/sysctl.conf", dir_name );
     read_file_pre ( "proc/meminfo", dir_name );
+    read_file_pre ( "proc/interrupts", dir_name );
     read_file_pre ( "proc/net/dev", dir_name );
     read_file_pre ( "proc/net/sockstat", dir_name );
     read_file_pre ( "var/log/messages", dir_name );
