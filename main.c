@@ -20,6 +20,7 @@
  *  02110-1301 USA
  */
 
+#include <unistd.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,6 +51,12 @@ static void print_help ( void )
 /* Main function */
 int main ( int argc, char *argv [ ] )
 {
+    if ( ! isatty ( fileno ( stdout ) ) )
+    {
+        fprintf(stderr,"You are not a terminal!\n");
+        fprintf(stderr,"You are not allowed to redirect to a file.\n");
+        return EXIT_FAILURE;
+    }
     if ( argc <=2 )
     {
         print_help ( );
@@ -195,7 +202,7 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
     file_write_list ( &sos_line_obj, fp_w );
     file_write_list ( &sos_tail_obj, fp_w );
-    printf("Wrote file to %s\n",file_write);
+    printf("Wrote file to ./%s\n",file_write);
     
     /* close the file pointer */
     fclose ( fp_w );
