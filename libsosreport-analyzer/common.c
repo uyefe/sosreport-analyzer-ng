@@ -32,9 +32,6 @@
 #include "common.h"
 #include "cfg.h"
 
-/* should be set to NULL */
-struct sosreport_analyzer_data *sosreport_analyzer_d = NULL;
-
 /* sos_header_obj */
 struct line_data sos_header_obj_raw =
     {
@@ -77,6 +74,12 @@ struct line_data sos_commands_networking_ethtool__S_obj_raw =
         NULL /* next pointer */
     };
 
+/* file_data_obj */
+struct file_data file_data_obj_raw =
+    {
+        "",
+    };
+
 /* initialise */
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
@@ -84,6 +87,7 @@ struct line_data *sos_tail_obj = &sos_tail_obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
+struct file_data *file_data_obj = &file_data_obj_raw;
 
 char str_orig [ MAX_LINE_LENGTH ];  
 char str [ MAX_LINE_LENGTH ];  
@@ -955,35 +959,57 @@ void read_file_pre ( const char *member, const char *dir_name )
     }
 }
 
+const char *get_dirname ( void )
+{
+    return file_data_obj->dirname;
+}
+
+const char *get_file_name_to_be_written ( void )
+{
+    return file_data_obj->file_name_to_be_written;
+}
+
+int check_result_dir ( const char *dname )
+{
+    if ( dname != NULL )
+    {
+        /* if open directory fails, create it, if it fails, exit with error message */
+        if ( !opendir ( dname ) ) 
+        {
+            printf("can't open directory %s\n",dname);
+            printf("Creating directory %s\n",dname);
+            if ( mkdir ( dname, 0755 ) == 0 )
+            {
+                printf("Created directory %s\n",dname);
+            }
+            else
+            {
+                printf("can't open directory %s\n",dname);
+                exit ( EXIT_FAILURE );
+            }
+        }
+    }
+    return ( 0 );
+}
+
 int file_to_write ( void )
 {
     char buff [ MAX_FILE_NAME_LENGTH ]; 
-    char buff2 [ MAX_FILE_NAME_LENGTH ]; 
-    char f_t [ 40 ];
     memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
-    memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
+    char f_t [ 40 ];
     memset ( f_t, '\0', 40 ); 
-    strncpy ( buff, "/usr/share/sosreort-analyzerd", MAX_FILE_NAME_LENGTH );
-    strncpy ( buff2, "/usr/share/sosreort-analyzerd", MAX_FILE_NAME_LENGTH );
-    strncat ( buff, "/result_all", 12 );
-    strncat ( buff2, "/result_all", 12 );
-
+    strncpy ( buff, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
+    strcat ( buff, get_dirname ( ) );
 
     struct tm *timenow;
     time_t now = time ( NULL );
     timenow = localtime ( &now );
 
     strftime ( f_t, sizeof ( f_t ), "_%Y%m%d%H%M%S", timenow );
-
     strncat ( buff, f_t, MAX_FILE_NAME_LENGTH - 1 );
-    strncat ( buff2, f_t, MAX_FILE_NAME_LENGTH - 1 );
-
     strncat ( buff, ".txt", MAX_FILE_NAME_LENGTH - 1 );
-
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
-    strcpy ( sosreport_analyzer_d->file_name_to_be_written, buff );
-    /* We create postscript file name too*/
-    strcpy ( sosreport_analyzer_d->file_name_to_be_written, buff2 );
+    strcpy ( file_data_obj->file_name_to_be_written, buff );
 
     return ( 0 );
 }

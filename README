@@ -82,4 +82,6 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   $ sosreport-analyzer -D <sosreport-dir>
 
+  It writes a file to './sosreport-analyzer-results/<dirname_time>.txt'.
+
   You can't redirect to a file.

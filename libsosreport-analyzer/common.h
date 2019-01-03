@@ -25,9 +25,9 @@
 #ifndef SOSREPORT_ANALYZER_COMMON_H
 #define SOSREPORT_ANALYZER_COMMON_H
 
-#define PROGRAM_VERSION 0
-#define PROGRAM_RELEASE 1
-#define PROGRAM_SUB_RELEASE 2
+#define PROGRAM_VERSION 1
+#define PROGRAM_RELEASE 0
+#define PROGRAM_SUB_RELEASE 1
 
 /* the maximum line length of file name */
 #define MAX_FULL_PATH_LENGTH  512
@@ -41,9 +41,11 @@
 /* the maximum analyze files */
 #define MAX_ANALYZE_FILES  12
 
-/* This is the sosreport_analyzer data object*/
-struct sosreport_analyzer_data
+/* This is the file data object*/
+struct file_data
 {
+    /* file name to be written */
+    char dirname [ MAX_FILE_NAME_LENGTH ];
     /* file name to be written */
     char file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
 };
@@ -58,6 +60,7 @@ extern struct line_data *sos_tail_obj;
 extern struct line_data *var_log_messages_obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
+extern struct file_data *file_data_obj;
 
 /*
  * reverse_the_string()
@@ -106,6 +109,43 @@ void read_file ( const char *file_name );
  *
  */
 void read_file_pre ( const char *member, const char *dir_name );
+
+/* 
+ *  Function Name: check_result_dir ()
+ *
+ *  This function checks result directory.
+ *  If result directory does not exist, creates it.
+ *
+ *  Caller : main ()
+ *
+ *  Calls : none
+ *
+ */
+int check_result_dir ( const char *dname );
+
+/*
+ * Function Name: get_dirname ()
+ *
+ * This function returns dirname for analyzed result
+ * 
+ * Caller : main ()
+ *
+ * Calls : none
+ *
+ */
+const char *get_dirname ( void );
+
+/*
+ * Function Name: get_file_name_to_be_written ()
+ *
+ * This function returns file_name_to_be_written for analyzed result
+ * 
+ * Caller : main ()
+ *
+ * Calls : none
+ *
+ */
+const char *get_file_name_to_be_written ( void );
 
 /*
  *  Function Name: file_to_write ()

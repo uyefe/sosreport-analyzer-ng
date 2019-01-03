@@ -1,3 +1,6 @@
+1.0.1
+Fix Makefile.am with others including writing to a file every time execute the
+program.
 0.1.2
 Add to echo proc/net/sockstat file.
 0.1.1

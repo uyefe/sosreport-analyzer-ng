@@ -111,6 +111,7 @@ int main ( int argc, char *argv [ ] )
                     return EXIT_FAILURE;
                 }else{
                     memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
+                    strcpy ( file_data_obj->dirname, dir_name );
                     snprintf ( str_tmp2, MAX_LINE_LENGTH, "dirname:%s",dir_name );
                     append_list ( &sos_header_obj, str_tmp2 );
                     append_list ( &sos_header_obj, "" );
@@ -170,6 +171,35 @@ int main ( int argc, char *argv [ ] )
     print_list ( &sos_commands_networking_ethtool__S_obj );
     print_list ( &sos_line_obj );
     print_list ( &sos_tail_obj );
+
+    file_to_write ( );
+
+    const char *file_write = ""; 
+    FILE *fp_w;
+    /* --------  for file write --------*/
+    file_write = get_file_name_to_be_written ( );
+    /* open result directory */
+    if ( check_result_dir ( "./sosreport-analyzer-results" ) != 0 )
+        printf("can't open dir ./sosreport-analyzer-results (%s)\n",strerror(errno));
+
+    /* open result file */
+    if ( ( fp_w = fopen ( file_write, "a" ) ) == NULL )
+    {
+        printf("can't open file (%s): %s\n",file_write,strerror(errno));
+        exit ( EXIT_FAILURE );
+    }
+
+    file_write_list ( &sos_header_obj, fp_w );
+    file_write_list ( &var_log_messages_obj, fp_w );
+    file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
+    file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
+    file_write_list ( &sos_line_obj, fp_w );
+    file_write_list ( &sos_tail_obj, fp_w );
+    printf("Wrote file to %s\n",file_write);
+    
+    /* close the file pointer */
+    fclose ( fp_w );
+
     cfg_clear (); 
     clear_list ( &sos_header_obj ); 
     clear_list ( &sos_line_obj ); 
