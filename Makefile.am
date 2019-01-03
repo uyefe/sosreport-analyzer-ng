@@ -1,10 +1,11 @@
 # Makefile.am - use automake to generate Makefile.in
+#
 
 SUBDIRS = libsosreport-analyzer libsar-analyzer
 
 AM_CXFLAGS = $(INIT_CFLAGS)
 AM_CPPFLAGS = -I$(top_srcdir)/libsosreport-analyzer -I$(top_srcdir)/libsar-analyzer
-AM_LDFLAGS = -L/usr/local/lib -Wl,-rpath,/usr/local/lib
+AM_LDFLAGS = -L$(top_srcdir)/libsosreport-analyzer -L$(top_srcdir)/libsar-analyzer -Wl,-rpath,/usr/local/lib
 
 bin_PROGRAMS = sosreport-analyzer
 sosreport_analyzer_SOURCES = main.c

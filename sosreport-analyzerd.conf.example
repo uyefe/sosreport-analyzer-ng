@@ -168,6 +168,12 @@ proc/net/dev=all
 
 proc/net/sockstat=all
 
+## proc/interrupts
+##
+## All you can set is 'all'
+
+proc/interrupts=all
+
 ## var/log/messages 
 ##
 ## You can set arbitrary item-name including 'all' upto 12

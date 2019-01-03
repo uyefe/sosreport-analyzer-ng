@@ -20,6 +20,7 @@
  *  02110-1301 USA
  */
 
+#include <unistd.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +39,8 @@ const char *app_name = "sosreport-analyzer-ng";
 static void print_help ( void )
 {
     printf("\n VERSION %d.%d.%d\n",PROGRAM_VERSION,PROGRAM_RELEASE,PROGRAM_SUB_RELEASE);
+    printf("\n Before use: Edit %s.\n", fname);
+    printf("\n If you are unsure, copy from /usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example to %s.\n", fname);
     printf("\n Usage: %s -D <path_to_sosreport_directory>  \n\n", app_name);
     printf("  Options:\n");
     printf("   -D|--directory <path_to_sosreport_directory>   analyze files in the directory\n\n");
@@ -48,6 +51,12 @@ static void print_help ( void )
 /* Main function */
 int main ( int argc, char *argv [ ] )
 {
+    if ( ! isatty ( fileno ( stdout ) ) )
+    {
+        fprintf(stderr,"You are not a terminal!\n");
+        fprintf(stderr,"You are not allowed to redirect to a file.\n");
+        return EXIT_FAILURE;
+    }
     if ( argc <=2 )
     {
         print_help ( );
@@ -109,6 +118,7 @@ int main ( int argc, char *argv [ ] )
                     return EXIT_FAILURE;
                 }else{
                     memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
+                    strcpy ( file_data_obj->dirname, dir_name );
                     snprintf ( str_tmp2, MAX_LINE_LENGTH, "dirname:%s",dir_name );
                     append_list ( &sos_header_obj, str_tmp2 );
                     append_list ( &sos_header_obj, "" );
@@ -151,6 +161,7 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "etc/kdump.conf", dir_name );
     read_file_pre ( "etc/sysctl.conf", dir_name );
     read_file_pre ( "proc/meminfo", dir_name );
+    read_file_pre ( "proc/interrupts", dir_name );
     read_file_pre ( "proc/net/dev", dir_name );
     read_file_pre ( "proc/net/sockstat", dir_name );
     read_file_pre ( "var/log/messages", dir_name );
@@ -167,6 +178,35 @@ int main ( int argc, char *argv [ ] )
     print_list ( &sos_commands_networking_ethtool__S_obj );
     print_list ( &sos_line_obj );
     print_list ( &sos_tail_obj );
+
+    file_to_write ( );
+
+    const char *file_write = ""; 
+    FILE *fp_w;
+    /* --------  for file write --------*/
+    file_write = get_file_name_to_be_written ( );
+    /* open result directory */
+    if ( check_result_dir ( "./sosreport-analyzer-results" ) != 0 )
+        printf("can't open dir ./sosreport-analyzer-results (%s)\n",strerror(errno));
+
+    /* open result file */
+    if ( ( fp_w = fopen ( file_write, "a" ) ) == NULL )
+    {
+        printf("can't open file (%s): %s\n",file_write,strerror(errno));
+        exit ( EXIT_FAILURE );
+    }
+
+    file_write_list ( &sos_header_obj, fp_w );
+    file_write_list ( &var_log_messages_obj, fp_w );
+    file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
+    file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
+    file_write_list ( &sos_line_obj, fp_w );
+    file_write_list ( &sos_tail_obj, fp_w );
+    printf("Wrote file to ./%s\n",file_write);
+    
+    /* close the file pointer */
+    fclose ( fp_w );
+
     cfg_clear (); 
     clear_list ( &sos_header_obj ); 
     clear_list ( &sos_line_obj ); 
