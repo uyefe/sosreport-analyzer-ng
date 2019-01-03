@@ -22,6 +22,7 @@
 
 #include <dirent.h>
 #include <string.h>
+#include "../common/global.h"
 #include "line_data.h"
 #include "make_report.h"
 #include "setter_getter.h"

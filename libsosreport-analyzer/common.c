@@ -964,9 +964,9 @@ const char *get_dirname ( void )
     return file_data_obj->dirname;
 }
 
-const char *get_file_name_to_be_written ( void )
+const char *get_sos_file_name_to_be_written ( void )
 {
-    return file_data_obj->file_name_to_be_written;
+    return file_data_obj->sos_file_name_to_be_written;
 }
 
 int check_result_dir ( const char *dname )
@@ -992,7 +992,7 @@ int check_result_dir ( const char *dname )
     return ( 0 );
 }
 
-int file_to_write ( void )
+int sos_file_to_write ( void )
 {
     char buff [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
@@ -1009,7 +1009,7 @@ int file_to_write ( void )
     strncat ( buff, f_t, MAX_FILE_NAME_LENGTH - 1 );
     strncat ( buff, ".txt", MAX_FILE_NAME_LENGTH - 1 );
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
-    strcpy ( file_data_obj->file_name_to_be_written, buff );
+    strcpy ( file_data_obj->sos_file_name_to_be_written, buff );
 
     return ( 0 );
 }

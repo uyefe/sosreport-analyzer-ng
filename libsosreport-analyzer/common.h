@@ -20,26 +20,27 @@
  *  02110-1301 USA
  */
 
+#include "../common/global.h"
 #include "line_data.h"
 
 #ifndef SOSREPORT_ANALYZER_COMMON_H
 #define SOSREPORT_ANALYZER_COMMON_H
 
-#define PROGRAM_VERSION 1
-#define PROGRAM_RELEASE 0
-#define PROGRAM_SUB_RELEASE 1
+//#define PROGRAM_VERSION 1
+//#define PROGRAM_RELEASE 0
+//#define PROGRAM_SUB_RELEASE 1
 
 /* the maximum line length of file name */
-#define MAX_FULL_PATH_LENGTH  512
+//#define MAX_FULL_PATH_LENGTH  512
 
 /* the maximum line length in the sar file */
-#define MAX_LINE_LENGTH  4096
+//#define MAX_LINE_LENGTH  4096
 
 /* the maximum line length of file name */
-#define MAX_FILE_NAME_LENGTH  255
+//#define MAX_FILE_NAME_LENGTH  255
 
 /* the maximum analyze files */
-#define MAX_ANALYZE_FILES  12
+//#define MAX_ANALYZE_FILES  12
 
 /* This is the file data object*/
 struct file_data
@@ -47,7 +48,7 @@ struct file_data
     /* file name to be written */
     char dirname [ MAX_FILE_NAME_LENGTH ];
     /* file name to be written */
-    char file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
+    char sos_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
 };
 
 /*
@@ -136,26 +137,26 @@ int check_result_dir ( const char *dname );
 const char *get_dirname ( void );
 
 /*
- * Function Name: get_file_name_to_be_written ()
+ * Function Name: get_sos_file_name_to_be_written ()
  *
- * This function returns file_name_to_be_written for analyzed result
+ * This function returns sos_file_name_to_be_written for analyzed result
  * 
  * Caller : main ()
  *
  * Calls : none
  *
  */
-const char *get_file_name_to_be_written ( void );
+const char *get_sos_file_name_to_be_written ( void );
 
 /*
- *  Function Name: file_to_write ()
+ *  Function Name: sos_file_to_write ()
  *
  *  This function sets file name to be written to the sosreport_analyzer_obj.
  *
  *  Caller : main ()
  *
  */
-int file_to_write ( void );
+int sos_file_to_write ( void );
 
 /*
  * set_token_to_item_arr ()
