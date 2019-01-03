@@ -135,7 +135,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     /* Check the number of files in the directory and if 0, exit */
     if ( str_arr_valid_size == 0 )
     {
-        printf("There are no files in this directory (%s):%s\n",dname,strerror(errno));
+        printf("-There are no files in this directory (%s):%s\n",dname,strerror(errno));
         /* freeing object and setting it to NULL */
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );
@@ -664,11 +664,12 @@ int file_to_write ( int SAR_OPTION )
     memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( f_t, '\0', 40 ); 
-    strncpy ( buff, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH );
-    strncpy ( buff2, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH );
-    strncat ( buff, "/result_all", 12 );
-    strncat ( buff2, "/result_all", 12 );
-
+    /* strncpy ( buff, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH ); */
+    /* strncpy ( buff2, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH ); */
+    strncpy ( buff, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
+    strncpy ( buff2, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
+    strncat ( buff, "/sar_result_all", 16 );
+    strncat ( buff2, "/sar_result_all", 16 );
 
     struct tm *timenow;
     time_t now = time ( NULL );

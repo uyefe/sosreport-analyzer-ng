@@ -29,6 +29,8 @@
 #include "libsosreport-analyzer/cfg.h"
 #include "libsosreport-analyzer/common.h"
 #include "libsosreport-analyzer/line_data.h"
+#include "libsar-analyzer/common.h"
+#include "libsar-analyzer/line_data.h"
 
 /* configuration file of this program/library */
 static const char *fname = "/etc/sosreport-analyzerd.conf";
@@ -179,20 +181,20 @@ int main ( int argc, char *argv [ ] )
     print_list ( &sos_line_obj );
     print_list ( &sos_tail_obj );
 
-    file_to_write ( );
+    sos_file_to_write ( );
 
-    const char *file_write = ""; 
+    const char *sos_file_write = ""; 
     FILE *fp_w;
     /* --------  for file write --------*/
-    file_write = get_file_name_to_be_written ( );
+    sos_file_write = get_sos_file_name_to_be_written ( );
     /* open result directory */
     if ( check_result_dir ( "./sosreport-analyzer-results" ) != 0 )
         printf("can't open dir ./sosreport-analyzer-results (%s)\n",strerror(errno));
 
     /* open result file */
-    if ( ( fp_w = fopen ( file_write, "a" ) ) == NULL )
+    if ( ( fp_w = fopen ( sos_file_write, "a" ) ) == NULL )
     {
-        printf("can't open file (%s): %s\n",file_write,strerror(errno));
+        printf("can't open file (%s): %s\n",sos_file_write,strerror(errno));
         exit ( EXIT_FAILURE );
     }
 
@@ -202,10 +204,165 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
     file_write_list ( &sos_line_obj, fp_w );
     file_write_list ( &sos_tail_obj, fp_w );
-    printf("Wrote file to ./%s\n",file_write);
+    /* printf("Wrote file to ./%s\n",sos_file_write); */
     
     /* close the file pointer */
     fclose ( fp_w );
+
+    /* for sar-analyzer stuff */
+    int SAR_OPTION = 'Z';
+    int REPORT = 0;
+    int MESSAGE_ONLY = 1;
+    /*
+     *  initialize sar_analyzer object, line object
+     *  also, starts analyzing
+     */
+    const char *file_name = NULL;
+    memset ( str_tmp, '\0', MAX_LINE_LENGTH ); 
+    snprintf ( str_tmp, MAX_LINE_LENGTH, "%s/var/log/sa", ( char * ) dir_name ); 
+    sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
+    char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
+    char str_tmp_sar [ 10 ] = "dir_name:";
+    strncpy ( str_num, str_tmp_sar, 10 );
+    strncat ( str_num, get_dir_name_analyze ( ), MAX_DIR_NAME_LENGTH );
+    append_list ( &report_obj, "--------" );
+    append_list ( &report_obj, str_num );
+    append_list ( &report_obj, "--------" );
+
+    print_list ( &line_all_obj );
+    /* print 'files names' which had been analyzed*/
+    print_and_file_write_analyzed_files ( &line_all_obj, "filename", "print" ,NULL );
+    /* printing report objects */
+    print_list ( &line_all_obj );
+    print_list ( &header_obj );
+    print_list ( &report_cpu_obj );
+    for ( int v = 0; v <= get_core_numbers ( ); v++ )
+        print_list ( &report_cpu_spike_obj [ v ] );
+    print_list ( &report_cpu_explanation_obj );
+    print_list ( &report_tasks_obj );
+    print_list ( &report_tasks_spike_obj );
+    print_list ( &report_tasks_explanation_obj );
+    print_list ( &report_pswap_obj );
+    print_list ( &report_pswap_spike_obj );
+    print_list ( &report_pswap_explanation_obj );
+    print_list ( &report_paging_obj );
+    print_list ( &report_paging_spike_obj );
+    print_list ( &report_paging_explanation_obj );
+    print_list ( &report_io_transfer_rate_obj );
+    print_list ( &report_io_transfer_rate_spike_obj );
+    print_list ( &report_io_transfer_rate_explanation_obj );
+    print_list ( &report_memory_obj );
+    print_list ( &report_memory_spike_obj );
+    print_list ( &report_memory_explanation_obj );
+    print_list ( &report_swpused_obj );
+    print_list ( &report_swpused_spike_obj );
+    print_list ( &report_swpused_explanation_obj );
+    print_list ( &report_kernel_table_obj );
+    print_list ( &report_kernel_table_spike_obj );
+    print_list ( &report_kernel_table_explanation_obj );
+    print_list ( &report_ldavg_obj );
+    print_list ( &report_ldavg_spike_obj );
+    print_list ( &report_ldavg_explanation_obj );
+    print_list ( &report_block_device_obj );
+    for ( int v = 0; v <= get_block_device_numbers ( ); v++ )
+        print_list ( &report_block_device_spike_obj [ v ] );
+    print_list ( &report_block_device_explanation_obj );
+    print_list ( &report_network_obj );
+    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+        print_list ( &report_network_spike_obj [ v ] );
+    print_list ( &report_network_explanation_obj );
+    print_list ( &report_network_error_obj );
+    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+        print_list ( &report_network_error_spike_obj [ v ] );
+    print_list ( &report_network_error_explanation_obj );
+    print_list ( &report_thrashing_obj );
+    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+        print_list ( &report_network_down_obj [ v ] );
+    print_list ( &report_obj );
+    /* print "Linux" lines (top of sar file)*/
+    print_and_file_write_analyzed_files ( &line_all_obj, "Linux", "print" ,NULL );
+    /* --------  for file write --------*/
+    /* creating file name to be written from SAR_OPTION */
+    file_to_write ( SAR_OPTION );
+
+    const char *file_write = ""; 
+    /* char *file_ps_write = ""; */
+    file_write = get_file_name_to_be_written ( );
+    /* file_ps_write = get_file_ps_name_to_be_written ( ); */
+    FILE *fp_sar_w;
+    /*
+    FILE *fp_ps_w [ MAX_ANALYZE_FILES ];
+    FILE *fp_ps2_w [ MAX_ANALYZE_FILES ];
+    FILE *fp_ps3_w [ MAX_ANALYZE_FILES ];
+    FILE *fp_ps4_w [ MAX_ANALYZE_FILES ];
+    */
+
+    /* open result file */
+    if ( ( fp_sar_w = fopen ( file_write, "a" ) ) == NULL )
+    {
+        printf("can't open file (%s): %s\n",file_write,strerror(errno));
+        exit ( EXIT_FAILURE );
+    }
+
+    print_and_file_write_analyzed_files ( &line_all_obj, "filename", NULL, fp_sar_w );
+
+    /* writing report object to result file */
+    file_write_list ( &line_all_obj, fp_sar_w );
+    file_write_list ( &header_obj, fp_sar_w );
+    file_write_list ( &report_cpu_obj, fp_sar_w );
+    for ( int v = 0; v <= get_core_numbers ( ); v++ )
+        file_write_list ( &report_cpu_spike_obj [ v ], fp_sar_w );
+    file_write_list ( &report_cpu_explanation_obj, fp_sar_w );
+    file_write_list ( &report_tasks_obj, fp_sar_w );
+    file_write_list ( &report_tasks_spike_obj, fp_sar_w );
+    file_write_list ( &report_tasks_explanation_obj, fp_sar_w );
+    file_write_list ( &report_pswap_obj, fp_sar_w );
+    file_write_list ( &report_pswap_spike_obj, fp_sar_w );
+    file_write_list ( &report_pswap_explanation_obj, fp_sar_w );
+    file_write_list ( &report_paging_obj, fp_sar_w );
+    file_write_list ( &report_paging_spike_obj, fp_sar_w );
+    file_write_list ( &report_paging_explanation_obj, fp_sar_w );
+    file_write_list ( &report_io_transfer_rate_obj, fp_sar_w );
+    file_write_list ( &report_io_transfer_rate_spike_obj, fp_sar_w );
+    file_write_list ( &report_io_transfer_rate_explanation_obj, fp_sar_w );
+    file_write_list ( &report_memory_obj, fp_sar_w );
+    file_write_list ( &report_memory_spike_obj, fp_sar_w );
+    file_write_list ( &report_memory_explanation_obj, fp_sar_w );
+    file_write_list ( &report_swpused_obj, fp_sar_w );
+    file_write_list ( &report_swpused_spike_obj, fp_sar_w );
+    file_write_list ( &report_swpused_explanation_obj, fp_sar_w );
+    file_write_list ( &report_kernel_table_obj, fp_sar_w );
+    file_write_list ( &report_kernel_table_spike_obj, fp_sar_w );
+    file_write_list ( &report_kernel_table_explanation_obj, fp_sar_w );
+    file_write_list ( &report_ldavg_obj, fp_sar_w );
+    file_write_list ( &report_ldavg_spike_obj, fp_sar_w );
+    file_write_list ( &report_ldavg_explanation_obj, fp_sar_w );
+    file_write_list ( &report_block_device_obj, fp_sar_w );
+    for ( int v = 0; v <= get_block_device_numbers ( ); v++ )
+        file_write_list ( &report_block_device_spike_obj [ v ], fp_sar_w );
+    file_write_list ( &report_block_device_explanation_obj, fp_sar_w );
+    file_write_list ( &report_network_obj, fp_sar_w );
+    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+        file_write_list ( &report_network_spike_obj [ v ], fp_sar_w );
+    file_write_list ( &report_network_explanation_obj, fp_sar_w );
+    file_write_list ( &report_network_error_obj, fp_sar_w );
+    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+        file_write_list ( &report_network_error_spike_obj [ v ], fp_sar_w );
+    file_write_list ( &report_network_error_explanation_obj, fp_sar_w );
+    file_write_list ( &report_thrashing_obj, fp_sar_w );
+    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+        file_write_list ( &report_network_down_obj [ v ], fp_sar_w );
+    file_write_list ( &report_obj, fp_sar_w );
+
+    /* writing "Linux" lines (top of sar file) to result file */
+    print_and_file_write_analyzed_files ( &line_all_obj, "Linux", NULL, fp_sar_w );
+
+    puts("------------------------");
+    printf("Please check result file ./%s\n",sos_file_write);
+    printf("Also check sar result file ./%s\n",file_write);
+
+    /* close the file pointers */
+    fclose ( fp_sar_w );
 
     cfg_clear (); 
     clear_list ( &sos_header_obj ); 
@@ -214,5 +371,9 @@ int main ( int argc, char *argv [ ] )
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
     clear_list ( &sos_tail_obj ); 
+
+    /* freeing sar-analyzer objects */
+    free_sar_analyzer_obj ( );
+
     return EXIT_SUCCESS;
 }

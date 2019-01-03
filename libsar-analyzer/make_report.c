@@ -22,6 +22,7 @@
 
 #include <dirent.h>
 #include <string.h>
+#include "../common/global.h"
 #include "line_data.h"
 #include "make_report.h"
 #include "setter_getter.h"
@@ -49,7 +50,7 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         memset ( str_tmp, '\0', MAX_LINE_LENGTH - 1001 );
         memset ( s, '\0', MAX_LINE_LENGTH - 1001 );
 
-        snprintf ( str_tmp, MAX_LINE_LENGTH, "\n#### Report by sar-analyzer %d.%d.%d ####", PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE );
+        snprintf ( str_tmp, MAX_LINE_LENGTH, "\n#### Report by sar-analyzer enforced by sosreport-analyzer %d.%d.%d ####", PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE );
         append_list ( &header_obj, str_tmp );
 
         int i = 0, ii = -1, j = 1;

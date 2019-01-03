@@ -1,6 +1,6 @@
 /*
- *  line_data.h - object definitions
- *  This file contains the contents of sar-analyzer.
+ *  global.h - common definitions
+ *  This file contains the contents of sosreport-analyzer.
  *
  *  Copyright (C) 2018-2019 Shintaro Fujiwara
  *
@@ -20,10 +20,23 @@
  *  02110-1301 USA
  */
 
-#include "common.h" 
-#include "../common/common_line_data.h" 
+#ifndef SOSREPORT_ANALYZER_GLOBAL_H
+#define SOSREPORT_ANALYZER_GLOBAL_H
 
-#ifndef SAR_ANALYZER_LINE_DATA_H
-#define SAR_ANALYZER_LINE_DATA_H
+#define PROGRAM_VERSION 1
+#define PROGRAM_RELEASE 0
+#define PROGRAM_SUB_RELEASE 1
 
-#endif /* SAR_ALANYZER_LINE_DATA_H */
+/* the maximum line length of file name */
+#define MAX_FULL_PATH_LENGTH  512
+
+/* the maximum line length in the sar file */
+#define MAX_LINE_LENGTH  4096
+
+/* the maximum line length of file name */
+#define MAX_FILE_NAME_LENGTH  255
+
+/* the maximum analyze files */
+#define MAX_ANALYZE_FILES 31 
+
+#endif /* SOSREPORT_ANALYZER_GLOBAL_H */
