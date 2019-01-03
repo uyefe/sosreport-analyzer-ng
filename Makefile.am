@@ -9,7 +9,6 @@ AM_LDFLAGS = -L$(top_srcdir)/libsosreport-analyzer -L$(top_srcdir)/libsar-analyz
 
 bin_PROGRAMS = sosreport-analyzer
 sosreport_analyzer_SOURCES = main.c
-#sosreport_analyzer_LDADD = libsosreport-analyzer/.libs/libsosreport-analyzer.so
 sosreport_analyzer_LDADD = -lsosreport-analyzer -lsar-analyzer
 
 SOSREPORT_ANALYZERD_CONF_PATH = @SOSREPORT_ANALYZERD_CONF_PATH@
