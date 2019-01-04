@@ -1,3 +1,5 @@
+1.0.4
+Fix to set proper file name for sar-analyzer feature file.
 1.0.3
 Fix to set proper directory name when writing to files.
 1.0.2
