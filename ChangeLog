@@ -1,3 +1,5 @@
+1.0.3
+Fix to set proper directory name when writing to files.
 1.0.2
 Incorporate sar-analyzer functionality except graphs.
 1.0.1
