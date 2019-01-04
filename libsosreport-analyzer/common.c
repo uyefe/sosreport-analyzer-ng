@@ -996,10 +996,16 @@ int sos_file_to_write ( void )
 {
     char buff [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
+    char buff2 [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
+    char buff3 [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
     char f_t [ 40 ];
     memset ( f_t, '\0', 40 ); 
     strncpy ( buff, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
-    strcat ( buff, get_dirname ( ) );
+    strcpy ( buff2, get_dirname ( ) );
+    strcpy ( buff3, cut_str_from_the_last_slash ( reverse_the_string ( buff2, strlen ( buff2 ) ), strlen ( buff2 ) ) );
+    strcat ( buff, buff3 );
 
     struct tm *timenow;
     time_t now = time ( NULL );
