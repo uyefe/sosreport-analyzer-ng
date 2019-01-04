@@ -285,9 +285,10 @@ int main ( int argc, char *argv [ ] )
     /* creating file name to be written from SAR_OPTION */
     file_to_write ( SAR_OPTION );
 
-    const char *file_write = ""; 
+    const char *sar_file_write = ""; 
     /* char *file_ps_write = ""; */
-    file_write = get_file_name_to_be_written ( );
+    /* --------  for file write --------*/
+    sar_file_write = get_sar_file_name_to_be_written ( );
     /* file_ps_write = get_file_ps_name_to_be_written ( ); */
     FILE *fp_sar_w;
     /*
@@ -298,9 +299,9 @@ int main ( int argc, char *argv [ ] )
     */
 
     /* open result file */
-    if ( ( fp_sar_w = fopen ( file_write, "a" ) ) == NULL )
+    if ( ( fp_sar_w = fopen ( sar_file_write, "a" ) ) == NULL )
     {
-        printf("can't open file (%s): %s\n",file_write,strerror(errno));
+        printf("can't open file (%s): %s\n",sar_file_write,strerror(errno));
         exit ( EXIT_FAILURE );
     }
 
@@ -359,7 +360,7 @@ int main ( int argc, char *argv [ ] )
 
     puts("------------------------");
     printf("Please check result file ./%s\n",sos_file_write);
-    printf("Also check sar result file ./%s\n",file_write);
+    printf("Also check sar result file ./%s\n",sar_file_write);
 
     /* close the file pointers */
     fclose ( fp_sar_w );

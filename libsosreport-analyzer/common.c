@@ -969,6 +969,11 @@ const char *get_sos_file_name_to_be_written ( void )
     return file_data_obj->sos_file_name_to_be_written;
 }
 
+const char *get_sar_file_name_to_be_written ( void )
+{
+    return file_data_obj->sar_file_name_to_be_written;
+}
+
 int check_result_dir ( const char *dname )
 {
     if ( dname != NULL )
@@ -994,28 +999,43 @@ int check_result_dir ( const char *dname )
 
 int sos_file_to_write ( void )
 {
-    char buff [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
+    char buff_sos [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff_sos, '\0', MAX_FILE_NAME_LENGTH ); 
+    char buff_sar [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff_sar, '\0', MAX_FILE_NAME_LENGTH ); 
     char buff2 [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
     char buff3 [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( buff3, '\0', MAX_FILE_NAME_LENGTH ); 
     char f_t [ 40 ];
     memset ( f_t, '\0', 40 ); 
-    strncpy ( buff, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
+    char f_t2 [ 40 ];
+    memset ( f_t2, '\0', 40 ); 
+    strncpy ( buff_sos, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
+    strncpy ( buff_sar, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
     strcpy ( buff2, get_dirname ( ) );
+    /* this will copy directory name of the sosreport */
     strcpy ( buff3, cut_str_from_the_last_slash ( reverse_the_string ( buff2, strlen ( buff2 ) ), strlen ( buff2 ) ) );
-    strcat ( buff, buff3 );
+    strcat ( buff_sos, buff3 );
+    strcat ( buff_sar, buff3 );
 
     struct tm *timenow;
     time_t now = time ( NULL );
     timenow = localtime ( &now );
 
+    /* for sos file */
     strftime ( f_t, sizeof ( f_t ), "_%Y%m%d%H%M%S", timenow );
-    strncat ( buff, f_t, MAX_FILE_NAME_LENGTH - 1 );
-    strncat ( buff, ".txt", MAX_FILE_NAME_LENGTH - 1 );
+    strncat ( buff_sos, f_t, MAX_FILE_NAME_LENGTH - 1 );
+    strncat ( buff_sos, ".txt", MAX_FILE_NAME_LENGTH - 1 );
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
-    strcpy ( file_data_obj->sos_file_name_to_be_written, buff );
+    strcpy ( file_data_obj->sos_file_name_to_be_written, buff_sos );
+
+    /* for sar file */
+    strftime ( f_t2, sizeof ( f_t2 ), "_sar_%Y%m%d%H%M%S", timenow );
+    strncat ( buff_sar, f_t2, MAX_FILE_NAME_LENGTH - 1 );
+    strncat ( buff_sar, ".txt", MAX_FILE_NAME_LENGTH - 1 );
+    /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
+    strcpy ( file_data_obj->sar_file_name_to_be_written, buff_sar );
 
     return ( 0 );
 }
