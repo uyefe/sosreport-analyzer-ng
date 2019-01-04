@@ -664,8 +664,6 @@ int file_to_write ( int SAR_OPTION )
     memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( f_t, '\0', 40 ); 
-    /* strncpy ( buff, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH ); */
-    /* strncpy ( buff2, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH ); */
     strncpy ( buff, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
     strncpy ( buff2, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
     strncat ( buff, "/sar_result_all", 16 );

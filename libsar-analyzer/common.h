@@ -29,10 +29,6 @@
 #ifndef SAR_ANALYZER_COMMON_H
 #define SAR_ANALYZER_COMMON_H
 
-//#define PROGRAM_VERSION 10 
-//#define PROGRAM_RELEASE 23 
-//#define PROGRAM_SUB_RELEASE 2
-
 /* ---------- macros ( tweak if needed ) ---------- */
 #define TITLE_TOKEN_LIMIT 10 
 

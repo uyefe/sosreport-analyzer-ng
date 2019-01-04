@@ -26,29 +26,15 @@
 #ifndef SOSREPORT_ANALYZER_COMMON_H
 #define SOSREPORT_ANALYZER_COMMON_H
 
-//#define PROGRAM_VERSION 1
-//#define PROGRAM_RELEASE 0
-//#define PROGRAM_SUB_RELEASE 1
-
-/* the maximum line length of file name */
-//#define MAX_FULL_PATH_LENGTH  512
-
-/* the maximum line length in the sar file */
-//#define MAX_LINE_LENGTH  4096
-
-/* the maximum line length of file name */
-//#define MAX_FILE_NAME_LENGTH  255
-
-/* the maximum analyze files */
-//#define MAX_ANALYZE_FILES  12
-
 /* This is the file data object*/
 struct file_data
 {
     /* file name to be written */
     char dirname [ MAX_FILE_NAME_LENGTH ];
-    /* file name to be written */
+    /* sos file name to be written */
     char sos_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
+    /* sar file name to be written */
+    char sar_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
 };
 
 /*
@@ -147,6 +133,18 @@ const char *get_dirname ( void );
  *
  */
 const char *get_sos_file_name_to_be_written ( void );
+
+/*
+ * Function Name: get_sar_file_name_to_be_written ()
+ *
+ * This function returns sar_file_name_to_be_written for analyzed result
+ * 
+ * Caller : main ()
+ *
+ * Calls : none
+ *
+ */
+const char *get_sar_file_name_to_be_written ( void );
 
 /*
  *  Function Name: sos_file_to_write ()
