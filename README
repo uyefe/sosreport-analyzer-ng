@@ -61,7 +61,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
 2. sar-analyzer
 
-  Presently, it gives -ZM option to usual sar-analyzer.
+  Presently, it gives -ZM option to usual sar-analyzer functionality.
 
 ## Before using
 
@@ -78,7 +78,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   $ sosreport-analyzer -D <sosreport-dir>
 
-  It writes a file to './sosreport-analyzer-results/<dirname_time>.txt'.
-  It also writes a file to './sosreport-analyzer-results/sar_results_all_<time>.txt'.
+  It writes a file to './sosreport-analyzer-results/<dirname>_<time>.txt'.
+  It also writes a file to './sosreport-analyzer-results/<dirname>_sar_<time>.txt'.
 
   You can't redirect to a file.
