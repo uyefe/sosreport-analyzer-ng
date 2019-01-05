@@ -175,10 +175,11 @@ int delete_obj ( node **obj )
 
 int clear_list ( node **obj )
 {
+    if ( *obj == NULL )
+        return ( 0 );
     while ( *obj != NULL )
     {
         delete_obj ( obj );
     }
-
     return ( 0 );
 }

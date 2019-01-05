@@ -77,6 +77,9 @@ int main ( int argc, char *argv [ ] )
     sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     sos_tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     var_log_messages_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    sos_commands_logs_journalctl___no_pager_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    sos_commands_networking_ethtool__S_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+
     if ( ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
     {
         printf ("Failed to allocate memory for report obj.");
@@ -84,28 +87,34 @@ int main ( int argc, char *argv [ ] )
         free ( sos_line_obj );
         free ( sos_tail_obj );
         free ( var_log_messages_obj );
+        free ( sos_commands_logs_journalctl___no_pager_obj );
+        free ( sos_commands_networking_ethtool__S_obj );
         sos_header_obj = NULL;
         sos_line_obj = NULL;
         sos_tail_obj = NULL;
         var_log_messages_obj = NULL;
+        sos_commands_logs_journalctl___no_pager_obj = NULL;
+        sos_commands_networking_ethtool__S_obj = NULL;
     }
     /* initialize the line list object (node) */
     init_list ( &sos_header_obj );
     init_list ( &sos_line_obj );
     init_list ( &sos_tail_obj );
     init_list ( &var_log_messages_obj );
+    init_list ( &sos_commands_logs_journalctl___no_pager_obj );
+    init_list ( &sos_commands_networking_ethtool__S_obj );
 
-    char str_tmp [ MAX_LINE_LENGTH ]; 
-    char str_tmp2 [ MAX_LINE_LENGTH ]; 
-    memset ( str_tmp, '\0', MAX_LINE_LENGTH ); 
-    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
+    char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
+    char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
     append_list ( &sos_header_obj, "########" );
-    snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
+    snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
     append_list ( &sos_header_obj, str_tmp2 );
     append_list ( &sos_header_obj, "########" );
     append_list ( &sos_tail_obj, "########" );
-    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
-    snprintf ( str_tmp2, MAX_LINE_LENGTH, "%s ends.", app_name ); 
+    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
+    snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s ends.", app_name ); 
     append_list ( &sos_tail_obj, str_tmp2 );
     /* Try to process all command line arguments */
     while ( ( value = getopt_long ( argc, argv, "hD:", long_options, &option_index ) ) != -1 ) {
@@ -119,9 +128,20 @@ int main ( int argc, char *argv [ ] )
                     print_help ( );
                     return EXIT_FAILURE;
                 }else{
-                    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
                     strcpy ( file_data_obj->dirname, dir_name );
-                    snprintf ( str_tmp2, MAX_LINE_LENGTH, "dirname:%s",dir_name );
+                    strcpy ( str_tmp2, reverse_the_string ( ( char * ) dir_name, strlen ( dir_name ) ) );
+                    for ( int i = 0; i < strlen ( dir_name ); i++ )
+                    {
+                        if ( i > 0 )
+                            str_tmp2[i] = '\0';
+                    }    
+                    if ( strcmp ( str_tmp2, "/" ) == 0 )
+                    {
+                        strcpy ( str_tmp2, ( char * ) dir_name );
+                        str_tmp2 [ strlen ( dir_name ) -1 ] = '\0';
+                        strcpy ( file_data_obj->dirname, str_tmp2 );
+                    }
+                    snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "dirname:%s",dir_name );
                     append_list ( &sos_header_obj, str_tmp2 );
                     append_list ( &sos_header_obj, "" );
                     break;
@@ -197,7 +217,6 @@ int main ( int argc, char *argv [ ] )
         printf("can't open file (%s): %s\n",sos_file_write,strerror(errno));
         exit ( EXIT_FAILURE );
     }
-
     file_write_list ( &sos_header_obj, fp_w );
     file_write_list ( &var_log_messages_obj, fp_w );
     file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
@@ -218,8 +237,8 @@ int main ( int argc, char *argv [ ] )
      *  also, starts analyzing
      */
     const char *file_name = NULL;
-    memset ( str_tmp, '\0', MAX_LINE_LENGTH ); 
-    snprintf ( str_tmp, MAX_LINE_LENGTH, "%s/var/log/sa", ( char * ) dir_name ); 
+    memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
+    snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( ) ); 
     sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
     char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
     char str_tmp_sar [ 10 ] = "dir_name:";

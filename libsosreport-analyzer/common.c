@@ -29,6 +29,7 @@
 #include <dirent.h>
 #include <ctype.h>
 #include <errno.h>
+#include "../common/global.c"
 #include "common.h"
 #include "cfg.h"
 
@@ -74,12 +75,6 @@ struct line_data sos_commands_networking_ethtool__S_obj_raw =
         NULL /* next pointer */
     };
 
-/* file_data_obj */
-struct file_data file_data_obj_raw =
-    {
-        "",
-    };
-
 /* initialise */
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
@@ -87,64 +82,6 @@ struct line_data *sos_tail_obj = &sos_tail_obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
-struct file_data *file_data_obj = &file_data_obj_raw;
-
-char str_orig [ MAX_LINE_LENGTH ];  
-char str [ MAX_LINE_LENGTH ];  
-char str2 [ MAX_LINE_LENGTH ];  
-char str3 [ MAX_LINE_LENGTH ];  
-
-char *reverse_the_string ( char *str_tmp, int str_len )
-{
-    int i = 0, j = 0;
-    char tmp;
-    memset ( str, '\0', sizeof ( str ) ); 
-    j = strlen ( str_tmp ) - 1;
-    strncpy ( str, str_tmp, str_len );
-    while ( i < j )
-    {
-        tmp = str [ i ];
-        str [ i ] = str [ j ];
-        str [ j ] = tmp;
-        i++;
-        j--;
-    }
-    return str;
-}
-
-char *cut_str_by_the_last_slash ( char *str_tmp, int str_len )
-{
-    int i = 0;
-    memset ( str3, '\0', sizeof ( str3 ) ); 
-    strncpy ( str3, str_tmp, str_len );
-    for ( i = 0; i < str_len; i ++ )
-        str3 [ i ] = str_orig [ i ];
-    str3 [ i + 1 ] = '\0';
-
-    return str3;
-}
-
-char *cut_str_from_the_last_slash ( char *str_tmp, int str_len )
-{
-    int i = 0, k = 0, l = 0;
-    memset ( str2, '\0', sizeof ( str2 ) ); 
-    strncpy ( str2, str_tmp, str_len );
-    for ( i = 0; i < str_len; i ++ )
-    {
-        /* 47 means '/' */
-        if ( str2 [ i ] == 47 )
-        {
-            l = i;
-            break;
-        }
-    }
-    k = str_len - l;
-    for ( i = 0; k <= str_len - 1; i ++, k ++ )
-        str2 [ i ] = str_orig [ k ];
-    str2 [ i ] = '\0';
-
-    return str2;
-}
 
 void read_analyze_dir ( const char *member, const char *dname )
 {
@@ -156,6 +93,7 @@ void read_analyze_dir ( const char *member, const char *dname )
     char *fname_part, *dname_full;
     char full_path [ MAX_LINE_LENGTH ];  
     char read_path [ MAX_LINE_LENGTH ];  
+    char str_ret [ MAX_LINE_LENGTH ];  
     char fname_part_path [ MAX_LINE_LENGTH ];  
 
     memset ( full_path, '\0', sizeof ( full_path ) ); 
@@ -165,7 +103,7 @@ void read_analyze_dir ( const char *member, const char *dname )
     str_len = strlen ( full_path );
     full_path [ str_len ] = '\0';
     strcpy ( str_orig, full_path );
-    fname_part = cut_str_from_the_last_slash ( reverse_the_string ( full_path, str_len ), str_len );
+    fname_part = cut_str_from_the_last_slash ( reverse_the_string ( full_path, str_len ), str_len, str_ret );
     snprintf (fname_part_path, MAX_LINE_LENGTH, "%s", fname_part );
     str_len_fname_part = strlen ( fname_part );
     str_len_dname_full = str_len - str_len_fname_part;
@@ -904,7 +842,8 @@ void read_file_pre ( const char *member, const char *dir_name )
     char result_tmp [ MAX_LINE_LENGTH ]; 
     memset ( result_tmp, '\0', MAX_LINE_LENGTH ); 
 
-    snprintf (str_tmp, strlen ( dir_name ) + strlen ( member ) + 2, "%s/%s", dir_name, member );
+    //snprintf (str_tmp, strlen ( dir_name ) + strlen ( member ) + 2, "%s/%s", dir_name, member );
+    snprintf (str_tmp, strlen ( get_dirname ( ) ) + strlen ( member ) + 2, "%s/%s", get_dirname ( ), member );
 
     if (
         ( ( strcmp ( member, "date") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) ) ||
@@ -953,15 +892,11 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
            )
-            read_analyze_dir ( member, dir_name );
+            //read_analyze_dir ( member, dir_name );
+            read_analyze_dir ( member, get_dirname ( ) );
         else
             read_file ( str_tmp );
     }
-}
-
-const char *get_dirname ( void )
-{
-    return file_data_obj->dirname;
 }
 
 const char *get_sos_file_name_to_be_written ( void )
@@ -982,10 +917,10 @@ int check_result_dir ( const char *dname )
         if ( !opendir ( dname ) ) 
         {
             printf("can't open directory %s\n",dname);
-            printf("Creating directory %s\n",dname);
+            printf("creating directory %s\n",dname);
             if ( mkdir ( dname, 0755 ) == 0 )
             {
-                printf("Created directory %s\n",dname);
+                printf("created directory %s\n",dname);
             }
             else
             {
@@ -993,51 +928,69 @@ int check_result_dir ( const char *dname )
                 exit ( EXIT_FAILURE );
             }
         }
+        else
+            printf("directory %s exists\n",dname);
     }
     return ( 0 );
 }
 
-int sos_file_to_write ( void )
+void sos_file_to_write ( void )
 {
+    char * result_dir = "sosreport-analyzer-results";
+    char * result_dir_with_slash = "sosreport-analyzer-results/";
+    char buff_dir [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff_dir, '\0', MAX_FILE_NAME_LENGTH ); 
+    strcpy ( buff_dir, result_dir );
+    char buff_dir_analyzed [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff_dir_analyzed, '\0', MAX_FILE_NAME_LENGTH ); 
+
     char buff_sos [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff_sos, '\0', MAX_FILE_NAME_LENGTH ); 
     char buff_sar [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff_sar, '\0', MAX_FILE_NAME_LENGTH ); 
     char buff2 [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
-    char buff3 [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( buff3, '\0', MAX_FILE_NAME_LENGTH ); 
     char f_t [ 40 ];
     memset ( f_t, '\0', 40 ); 
     char f_t2 [ 40 ];
     memset ( f_t2, '\0', 40 ); 
-    strncpy ( buff_sos, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
-    strncpy ( buff_sar, "sosreport-analyzer-results/", MAX_FILE_NAME_LENGTH );
     strcpy ( buff2, get_dirname ( ) );
-    /* this will copy directory name of the sosreport */
-    strcpy ( buff3, cut_str_from_the_last_slash ( reverse_the_string ( buff2, strlen ( buff2 ) ), strlen ( buff2 ) ) );
-    strcat ( buff_sos, buff3 );
-    strcat ( buff_sar, buff3 );
-
+    /* firstly, we create results directory */
+    check_result_dir ( buff_dir );
+    char str_ret [ MAX_FILE_NAME_LENGTH ]; 
+    /* secondly, we create sosreport directory which has been analyed in the results directory we've just created */
+    if ( strstr ( buff2, "/" ) != NULL )
+        strcpy ( buff_dir_analyzed, cut_str_from_the_last_slash ( reverse_the_string ( buff2, strlen ( buff2 ) ), strlen ( buff2 ), str_ret ) );
+    else
+        strcpy ( buff_dir_analyzed, buff2 );
+    strcat ( buff_dir, "/" );
+    strcat ( buff_dir, buff_dir_analyzed );
+    check_result_dir ( buff_dir );
+    /* thirdly, we set file name */
+    strcat ( buff_sos, result_dir_with_slash );
+    strcat ( buff_sar, result_dir_with_slash );
+    strcat ( buff_sos, buff_dir_analyzed );
+    strcat ( buff_sar, buff_dir_analyzed );
+    strcat ( buff_sos, "/" );
+    strcat ( buff_sar, "/" );
+    strcat ( buff_sos, buff_dir_analyzed );
+    strcat ( buff_sar, buff_dir_analyzed );
+    /* each analyed file should have unique name */
     struct tm *timenow;
     time_t now = time ( NULL );
     timenow = localtime ( &now );
-
     /* for sos file */
     strftime ( f_t, sizeof ( f_t ), "_%Y%m%d%H%M%S", timenow );
     strncat ( buff_sos, f_t, MAX_FILE_NAME_LENGTH - 1 );
-    strncat ( buff_sos, ".txt", MAX_FILE_NAME_LENGTH - 1 );
+    strncat ( buff_sos, ".txt", MAX_FILE_NAME_LENGTH - 1);
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
     strcpy ( file_data_obj->sos_file_name_to_be_written, buff_sos );
-
     /* for sar file */
     strftime ( f_t2, sizeof ( f_t2 ), "_sar_%Y%m%d%H%M%S", timenow );
     strncat ( buff_sar, f_t2, MAX_FILE_NAME_LENGTH - 1 );
     strncat ( buff_sar, ".txt", MAX_FILE_NAME_LENGTH - 1 );
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
     strcpy ( file_data_obj->sar_file_name_to_be_written, buff_sar );
-
-    return ( 0 );
 }
 
 int append_item_to_sos_line_obj ( char *line, const char *member, const char *item )

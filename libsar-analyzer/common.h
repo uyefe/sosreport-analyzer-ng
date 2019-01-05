@@ -41,20 +41,11 @@
 /* maximum date string */
 #define MAX_DATE_STRINGS  40 
 
-/* maximum file numbers in the directory to be analyzed */
-//#define MAX_ANALYZE_FILES  31 /* should be 31 now */ 
-
 /* maximum block device numbers to be analyzed ( minus 1 )*/
 #define MAX_BLOCK_DEVICE_NUMBERS  65  /* we save it to 64 */
 
 /* maximum network device numbers to be analyzed */
 #define MAX_NETWORK_DEVICE_NUMBERS  64 /* hopefully 1025, because NI_MAXHOST is 1025, but we save it */
-
-/* the maximum line length in the sar file */
-//#define MAX_LINE_LENGTH  4096 
-
-/* the maximum line length of file name */
-//#define MAX_FILE_NAME_LENGTH  255 
 
 /* the maximum line length of directory name */
 #define MAX_DIR_NAME_LENGTH  255 
