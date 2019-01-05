@@ -29,6 +29,7 @@
 #include "common.h"
 #include "line_data.h"
 #include "setter_getter.h"
+#include "../common/global.c"
 #include "check.c"
 
 void initialize_block_device_name ( void )
@@ -199,6 +200,8 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
+    /* stripping last slash if any */
+
     int i = 0;
     /* new array: MAX_ANALYZE_FILES tupples with MAX_DIR_NAME_LENGTH characters */
 

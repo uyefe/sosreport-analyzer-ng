@@ -26,17 +26,6 @@
 #ifndef SOSREPORT_ANALYZER_COMMON_H
 #define SOSREPORT_ANALYZER_COMMON_H
 
-/* This is the file data object*/
-struct file_data
-{
-    /* file name to be written */
-    char dirname [ MAX_FILE_NAME_LENGTH ];
-    /* sos file name to be written */
-    char sos_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
-    /* sar file name to be written */
-    char sar_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
-};
-
 /*
  * These are pointers to the global data, it should be available
  * once sosreport_analyzer_init() was called.
@@ -48,30 +37,6 @@ extern struct line_data *var_log_messages_obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
 extern struct file_data *file_data_obj;
-
-/*
- * reverse_the_string()
- *
- * This function reverse the string 
- *
- */
-char *reverse_the_string ( char *str_p, int str_len );
-
-/*
- * cut_str_from_the_last_slash()
- *
- * This function returns the string from the last slash when string given with the length. 
- *
- */
-char *cut_str_from_the_last_slash ( char *str_p, int str_len );
-
-/*
- * cut_str_by_the_last_slash()
- *
- * This function returns the string to the last slash when string given with the length. 
- *
- */
-char *cut_str_by_the_last_slash ( char *str_p, int str_len );
 
 /*
  * read_analyze_dir()
@@ -111,18 +76,6 @@ void read_file_pre ( const char *member, const char *dir_name );
 int check_result_dir ( const char *dname );
 
 /*
- * Function Name: get_dirname ()
- *
- * This function returns dirname for analyzed result
- * 
- * Caller : main ()
- *
- * Calls : none
- *
- */
-const char *get_dirname ( void );
-
-/*
  * Function Name: get_sos_file_name_to_be_written ()
  *
  * This function returns sos_file_name_to_be_written for analyzed result
@@ -154,7 +107,7 @@ const char *get_sar_file_name_to_be_written ( void );
  *  Caller : main ()
  *
  */
-int sos_file_to_write ( void );
+void sos_file_to_write ( void );
 
 /*
  * set_token_to_item_arr ()

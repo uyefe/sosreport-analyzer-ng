@@ -29,6 +29,7 @@
 #include "common.h"
 #include "line_data.h"
 #include "setter_getter.h"
+#include "../common/global.c"
 #include "check.c"
 
 void initialize_block_device_name ( void )

@@ -1,6 +1,6 @@
 sosreport-analyzer-ng
 
-This is the next version of sosreport-analyzer.
+This is the next version of sosreport-analyzer or sar-analyzer.
 
 This program includes both sosreport analyzer and sar-analyzer.
 
@@ -9,7 +9,8 @@ Enjoy!
 # sosreport-analyzer
 Analyze sosreport in many different ways
 
-This software installs 1 binaries, 'sosreport-analyzer'.
+This software installs 1 binary file, 'sosreport-analyzer' linked with libsar-analyzer.so and libsosreport-analyzer.so.
+You can check linkage with '$ ldd /usr/local/bin/sosreport-analyzer'.
 
 How to build:
 
@@ -18,7 +19,7 @@ How to build:
  $ make
  # make install
 
- It will install 1 program, 'sosreport-analyzer'.
+ It will install 1 program, 'sosreport-analyzer' in '/usr/local/bin'.
 
 1. sosreport-analyzer
 
@@ -78,7 +79,11 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   $ sosreport-analyzer -D <sosreport-dir>
 
-  It writes a file to './sosreport-analyzer-results/<dirname>_<time>.txt'.
-  It also writes a file to './sosreport-analyzer-results/<dirname>_sar_<time>.txt'.
+  It writes a file to './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_<time>.txt',
+  and './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_sar_<time>.txt'.
 
   You can't redirect to a file.
+
+## Uninstall
+
+  # make uninstall
