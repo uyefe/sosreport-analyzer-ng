@@ -595,16 +595,6 @@ char *get_hostname ( void )
     return sar_analyzer_all_obj->hostname;
 }
 
-const char *get_file_name_to_be_written ( void )
-{
-    return sar_analyzer_obj->file_name_to_be_written;
-}
-
-char *get_file_ps_name_to_be_written ( void )
-{
-    return sar_analyzer_all_obj->file_name_to_be_written;
-}
-
 int get_core_numbers ( void )
 {
     return sar_analyzer_obj->cores_n;
@@ -667,8 +657,6 @@ int file_to_write ( int SAR_OPTION )
     memset ( buff, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( buff2, '\0', MAX_FILE_NAME_LENGTH ); 
     memset ( f_t, '\0', 40 ); 
-    /* strncpy ( buff, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH ); */
-    /* strncpy ( buff2, SAR_ANALYZER_RESULT_DIR, MAX_FILE_NAME_LENGTH ); */
     strncpy ( buff, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
     strncpy ( buff2, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
     strncat ( buff, "/sar_result_all", 16 );
@@ -758,9 +746,9 @@ int file_to_write ( int SAR_OPTION )
     else
         strncat ( buff, ".txt", MAX_FILE_NAME_LENGTH - 1 );
 
-    /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
+    /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */
     strcpy ( sar_analyzer_obj->file_name_to_be_written, buff );
-    /* We create postscript file name too*/
+    /* We create postscript file name too */
     strcpy ( sar_analyzer_all_obj->file_name_to_be_written, buff2 );
 
     return ( 0 );

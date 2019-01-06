@@ -100,6 +100,18 @@ const char *get_sos_file_name_to_be_written ( void );
 const char *get_sar_file_name_to_be_written ( void );
 
 /*
+ * Function Name: get_ps_file_name_to_be_written ()
+ *
+ * This function returns ps_file_name_to_be_written for analyzed result
+ * 
+ * Caller : main ()
+ *
+ * Calls : none
+ *
+ */
+const char *get_ps_file_name_to_be_written ( void );
+
+/*
  *  Function Name: sos_file_to_write ()
  *
  *  This function sets file name to be written to the sosreport_analyzer_obj.

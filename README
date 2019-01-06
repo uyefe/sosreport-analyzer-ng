@@ -64,6 +64,20 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   Presently, it gives -ZM option to usual sar-analyzer functionality.
 
+  There are six features.
+
+  Show highest and lowest average lines on the console and to a file with a report.
+  Show highest and lowest all lines on the console and to a file with a report.
+  Show highest spike on the console and to a file with a report.
+  Show possible thrashing.
+  Show network down.
+  Generate graphs as postscript files.
+
+  When the file sanity check fails, program stops echoing the reason.
+  In that case, move the very file to other than <sosreport-dir>/var/log/sa and run the program again. 
+  Or you may reading file including japanese although machine locale is not JP.
+  In that case, edit libsar-analyzer/Makefile.am to use common_jp.c and sar_analyzer_jp.c.
+
 ## Before using
 
   Check /etc/sosreport-analyzerd.conf

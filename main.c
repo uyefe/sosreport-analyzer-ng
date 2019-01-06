@@ -305,17 +305,15 @@ int main ( int argc, char *argv [ ] )
     file_to_write ( SAR_OPTION );
 
     const char *sar_file_write = ""; 
-    /* char *file_ps_write = ""; */
+    char *file_ps_write = "";
     /* --------  for file write --------*/
     sar_file_write = get_sar_file_name_to_be_written ( );
-    /* file_ps_write = get_file_ps_name_to_be_written ( ); */
+    file_ps_write = ( char * ) get_ps_file_name_to_be_written ( );
     FILE *fp_sar_w;
-    /*
     FILE *fp_ps_w [ MAX_ANALYZE_FILES ];
     FILE *fp_ps2_w [ MAX_ANALYZE_FILES ];
     FILE *fp_ps3_w [ MAX_ANALYZE_FILES ];
     FILE *fp_ps4_w [ MAX_ANALYZE_FILES ];
-    */
 
     /* open result file */
     if ( ( fp_sar_w = fopen ( sar_file_write, "a" ) ) == NULL )
@@ -383,6 +381,175 @@ int main ( int argc, char *argv [ ] )
 
     /* close the file pointers */
     fclose ( fp_sar_w );
+/////////////////////////
+    for ( int v = 0, x = 1; v < MAX_ANALYZE_FILES; v++, x++ )
+    {
+        char str_tmp [ MAX_LINE_LENGTH ] = { '\0' };
+        memset ( str_tmp, '\0', MAX_LINE_LENGTH );
+        snprintf ( str_tmp, MAX_LINE_LENGTH, "%s%s%d%s", file_ps_write, "-cpu-", x, ".ps" );
+        if ( ( fp_ps_w [ v ] = fopen ( str_tmp,"a" ) ) == NULL )
+        {
+            printf("can't open file (%s): %s\n",str_tmp,strerror(errno));
+            exit ( EXIT_FAILURE );
+        }
+        snprintf ( str_tmp, MAX_LINE_LENGTH, "%s%s%d%s", file_ps_write, "-mem-", x, ".ps" );
+        if ( ( fp_ps2_w [ v ] = fopen ( str_tmp,"a" ) ) == NULL )
+        {
+            printf("can't open file (%s): %s\n",str_tmp,strerror(errno));
+            exit ( EXIT_FAILURE );
+        }
+        snprintf ( str_tmp, MAX_LINE_LENGTH, "%s%s%d%s", file_ps_write, "-ldv-", x, ".ps" );
+        if ( ( fp_ps3_w [ v ] = fopen ( str_tmp,"a" ) ) == NULL )
+        {
+            printf("can't open file (%s): %s\n",str_tmp,strerror(errno));
+            exit ( EXIT_FAILURE );
+        }
+        snprintf ( str_tmp, MAX_LINE_LENGTH, "%s%s%d%s", file_ps_write, "-ior-", x, ".ps" );
+        if ( ( fp_ps4_w [ v ] = fopen ( str_tmp,"a" ) ) == NULL )
+        {
+            printf("can't open file (%s): %s\n",str_tmp,strerror(errno));
+            exit ( EXIT_FAILURE );
+        }
+    }
+    /* appending needed lines to ps obj -- this is needed we don't know the last line of each graph when drawing */
+    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    {
+        /* for file cpu */
+        append_list ( &ps_cpu_usr_obj [ v ], "stroke");
+        append_list ( &ps_cpu_sys_obj [ v ] , "stroke");
+        append_list ( &ps_cpu_iowait_obj [ v ], "stroke");
+        append_list ( &ps_cpu_idle_obj [ v ], "stroke");
+        append_list ( &ps_paging_pgpgin_obj [ v ], "stroke");
+        append_list ( &ps_paging_pgpgout_obj [ v ], "stroke");
+        append_list ( &ps_paging_fault_obj [ v ], "stroke");
+        append_list ( &ps_paging_mjflt_obj [ v ], "stroke");
+        append_list ( &ps_paging_vmeff_obj [ v ], "stroke");
+        /* for file mem */
+        append_list ( &ps_memory_memused_obj [ v ], "stroke");
+        append_list ( &ps_memory_kbcommit_obj [ v ], "stroke");
+        append_list ( &ps_memory_commit_obj [ v ], "stroke");
+        append_list ( &ps_swapping_pswpin_obj [ v ], "stroke");
+        append_list ( &ps_swapping_pswpout_obj [ v ], "stroke");
+        /* for file ldv */
+        append_list ( &ps_ldavg_runq_obj [ v ], "stroke");
+        append_list ( &ps_ldavg_plist_obj [ v ], "stroke");
+        append_list ( &ps_ldavg_ldavg_one_obj [ v ], "stroke");
+        append_list ( &ps_ldavg_ldavg_five_obj [ v ], "stroke");
+        append_list ( &ps_ldavg_ldavg_15_obj [ v ], "stroke");
+        append_list ( &ps_tasks_proc_obj [ v ], "stroke");
+        append_list ( &ps_tasks_cswch_obj [ v ], "stroke");
+        /* for file ior */
+        append_list ( &ps_io_transfer_rate_tps_obj [ v ], "stroke");
+        append_list ( &ps_io_transfer_rate_bread_obj [ v ], "stroke");
+        append_list ( &ps_io_transfer_rate_bwrtn_obj [ v ], "stroke");
+        append_list ( &ps_kernel_table_dentunusd_obj [ v ], "stroke");
+        append_list ( &ps_kernel_table_file_obj [ v ], "stroke");
+        append_list ( &ps_kernel_table_inode_obj [ v ], "stroke");
+        /* for linux restart string */
+        append_list ( &ps_restart_obj [ v ], "stroke");
+        append_list ( &ps_restart_obj [ v ], "%");
+    }
+    /* appending needed lines to ps obj -- adding % to the very last of each ps file */
+    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    {
+        /* for file cpu */
+        append_list ( &ps_paging_vmeff_obj [ v ], "%");
+        /* for file mem */
+        append_list ( &ps_swapping_pswpout_obj [ v ], "%");
+        /* for file ldv */
+        append_list ( &ps_ldavg_ldavg_15_obj [ v ], "%");
+        /* for file ior */
+        append_list ( &ps_kernel_table_inode_obj [ v ], "%");
+    }
+    /* appending needed lines to ps obj -- adding % to the very last of each box */
+    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    {
+        /* for file cpu */
+        append_list ( &ps_cpu_label_obj [ v ], "stroke");
+        append_list ( &ps_cpu_label_obj [ v ], "%");
+        append_list ( &ps_paging_label_obj [ v ], "stroke");
+        append_list ( &ps_paging_label_obj [ v ], "%");
+        /* for file mem */
+        append_list ( &ps_memory_label_obj [ v ], "stroke");
+        append_list ( &ps_memory_label_obj [ v ], "%");
+        append_list ( &ps_swapping_label_obj [ v ], "stroke");
+        append_list ( &ps_swapping_label_obj [ v ], "%");
+        /* for file ldv */
+        append_list ( &ps_ldavg_label_obj [ v ], "stroke");
+        append_list ( &ps_ldavg_label_obj [ v ], "%");
+        append_list ( &ps_tasks_label_obj [ v ], "stroke");
+        append_list ( &ps_tasks_label_obj [ v ], "%");
+        /* for file ior */
+        append_list ( &ps_io_transfer_rate_label_obj [ v ], "stroke");
+        append_list ( &ps_io_transfer_rate_label_obj [ v ], "%");
+        append_list ( &ps_kernel_table_label_obj [ v ], "stroke");
+        append_list ( &ps_kernel_table_label_obj [ v ], "%");
+    }
+    /* now we write obj to postscript (.ps) file */
+    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    {
+        /* for file cpu */
+        file_write_list ( &ps_common_cpu_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_cpu_label_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_cpu_usr_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_cpu_sys_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_cpu_iowait_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_cpu_idle_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_paging_label_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_paging_pgpgin_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_paging_pgpgout_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_paging_fault_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_paging_mjflt_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_paging_vmeff_obj [ v ], fp_ps_w [ v ] );
+        /* for file mem */
+        file_write_list ( &ps_common_memory_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_memory_label_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_memory_memused_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_memory_kbcommit_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_memory_commit_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_swapping_label_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_swapping_pswpin_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_swapping_pswpout_obj [ v ], fp_ps2_w [ v ] );
+        /* for file ldv */
+        file_write_list ( &ps_common_ldavg_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_ldavg_label_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_ldavg_runq_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_ldavg_plist_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_ldavg_ldavg_one_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_ldavg_ldavg_five_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_ldavg_ldavg_15_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_tasks_label_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_tasks_proc_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_tasks_cswch_obj [ v ], fp_ps3_w [ v ] );
+        /* for file ior */
+        file_write_list ( &ps_common_io_transfer_rate_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_io_transfer_rate_label_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_io_transfer_rate_tps_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_io_transfer_rate_bread_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_io_transfer_rate_bwrtn_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_kernel_table_label_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_kernel_table_dentunusd_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_kernel_table_file_obj [ v ], fp_ps4_w [ v ] );
+        file_write_list ( &ps_kernel_table_inode_obj [ v ], fp_ps4_w [ v ] );
+        /* for linux restart string */
+        file_write_list ( &ps_restart_obj [ v ], fp_ps_w [ v ] );
+        file_write_list ( &ps_restart_obj [ v ], fp_ps2_w [ v ] );
+        file_write_list ( &ps_restart_obj [ v ], fp_ps3_w [ v ] );
+        file_write_list ( &ps_restart_obj [ v ], fp_ps4_w [ v ] );
+    }
+    char str_tmp_echo [ MAX_LINE_LENGTH ] = { '\0' };
+    memset ( str_tmp_echo, '\0', MAX_LINE_LENGTH );
+    snprintf ( str_tmp_echo, MAX_LINE_LENGTH, "%s%s", file_ps_write, "-<item>-<no>.ps" );
+    printf("Please check graphs in the ps file: %s\n\n",str_tmp_echo);
+    /* close the file pointers */
+    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    { 
+        fclose ( fp_ps_w [ v ] );
+        fclose ( fp_ps2_w [ v ] );
+        fclose ( fp_ps3_w [ v ] );
+        fclose ( fp_ps4_w [ v ] );
+    }
+/////////////////////////
 
     cfg_clear (); 
     clear_list ( &sos_header_obj ); 

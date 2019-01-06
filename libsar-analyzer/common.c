@@ -20,12 +20,12 @@
  *  02110-1301 USA
  */
 
-#include <unistd.h> /* should be above for declaring macro */
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
 #include <ctype.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include "common.h"
 #include "line_data.h"
 #include "setter_getter.h"
@@ -200,6 +200,8 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
+    /* stripping last slash if any */
+
     int i = 0;
     /* new array: MAX_ANALYZE_FILES tupples with MAX_DIR_NAME_LENGTH characters */
 
@@ -593,16 +595,6 @@ char *get_hostname ( void )
     return sar_analyzer_all_obj->hostname;
 }
 
-const char *get_file_name_to_be_written ( void )
-{
-    return sar_analyzer_obj->file_name_to_be_written;
-}
-
-char *get_file_ps_name_to_be_written ( void )
-{
-    return sar_analyzer_all_obj->file_name_to_be_written;
-}
-
 int get_core_numbers ( void )
 {
     return sar_analyzer_obj->cores_n;
@@ -669,7 +661,6 @@ int file_to_write ( int SAR_OPTION )
     strncpy ( buff2, "sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
     strncat ( buff, "/sar_result_all", 16 );
     strncat ( buff2, "/sar_result_all", 16 );
-
 
     struct tm *timenow;
     time_t now = time ( NULL );
@@ -755,9 +746,9 @@ int file_to_write ( int SAR_OPTION )
     else
         strncat ( buff, ".txt", MAX_FILE_NAME_LENGTH - 1 );
 
-    /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
+    /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */
     strcpy ( sar_analyzer_obj->file_name_to_be_written, buff );
-    /* We create postscript file name too*/
+    /* We create postscript file name too */
     strcpy ( sar_analyzer_all_obj->file_name_to_be_written, buff2 );
 
     return ( 0 );
