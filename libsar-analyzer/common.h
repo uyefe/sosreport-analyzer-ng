@@ -1607,30 +1607,6 @@ char *get_hostname ( void );
 int get_files_n ( void );
 
 /*
- * Function Name: get_file_name_to_be_written ()
- *
- * This function returns file_name_to_be_written for analyzed result
- * 
- * Caller : main ()
- *
- * Calls : none
- *
- */
-const char *get_file_name_to_be_written ( void );
-
-/*
- * Function Name: get_file_ps_name_to_be_written ()
- *
- * This function returns file_name_to_be_written for postscript
- * 
- * Caller : main ()
- *
- * Calls : none
- *
- */
-char *get_file_ps_name_to_be_written ( void );
-
-/*
  * Function Name: get_core_numbers ()
  *
  * This function returns number of cores read from sar files

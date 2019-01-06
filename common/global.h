@@ -25,7 +25,7 @@
 
 #define PROGRAM_VERSION 1
 #define PROGRAM_RELEASE 0
-#define PROGRAM_SUB_RELEASE 5
+#define PROGRAM_SUB_RELEASE 6
 
 /* the maximum line length of file name */
 #define MAX_FULL_PATH_LENGTH  512
@@ -48,6 +48,8 @@ struct file_data
     char sos_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
     /* sar file name to be written */
     char sar_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
+    /* sar file name to be written */
+    char ps_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
 };
 
 /*
