@@ -381,7 +381,7 @@ int main ( int argc, char *argv [ ] )
 
     /* close the file pointers */
     fclose ( fp_sar_w );
-/////////////////////////
+
     for ( int v = 0, x = 1; v < MAX_ANALYZE_FILES; v++, x++ )
     {
         char str_tmp [ MAX_LINE_LENGTH ] = { '\0' };
@@ -549,7 +549,6 @@ int main ( int argc, char *argv [ ] )
         fclose ( fp_ps3_w [ v ] );
         fclose ( fp_ps4_w [ v ] );
     }
-/////////////////////////
 
     cfg_clear (); 
     clear_list ( &sos_header_obj ); 
