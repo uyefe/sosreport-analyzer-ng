@@ -88,4 +88,11 @@ char *cut_str_by_the_last_slash ( char *str_p, int str_len );
  */
 const char *get_dirname ( void );
 
+int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
+
+int set_network_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+
+int set_network_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+
+int set_network_former_val_each_file ( int x,  double var, int y, const char *element );
 #endif /* SOSREPORT_ANALYZER_GLOBAL_H */

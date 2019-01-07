@@ -1409,6 +1409,11 @@ struct sar_analyzer_data_all
 
     /*cpu as paragraph*/
     int cpu_as_paragraph;
+
+    /* tmp_val */
+    double tmp_val;
+    double tmp2_val;
+    double tmp3_val;
 };
 
 /* This is the sar_analyzer_peak_each_file object*/
@@ -1986,7 +1991,8 @@ void set_this_date_all ( const char *date_string );
  *
  *  Calls : none 
  */
-const char *get_this_date ( void );
+//const char *get_this_date ( void );
+//const char *get_this_date ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 
 /* 
  * Function Name: get_this_date_all ()
@@ -1997,7 +2003,8 @@ const char *get_this_date ( void );
  *
  *  Calls : none 
  */
-const char *get_this_date_all ( void );
+//const char *get_this_date_all ( void );
+//const char *get_this_date_all ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 
 /*
  * Function Name: tar_pdf_files ()
