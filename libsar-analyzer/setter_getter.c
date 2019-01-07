@@ -818,147 +818,6 @@ int set_block_device_spike_val_each_file ( int x,  double var, int y, const char
         return EXIT_FAILURE;
 }
 
-int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item )
-{
-    if ( strcmp ( "spike", analyze_item ) == 0 )
-    {
-        if ( strcmp ( "rxpck", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txpck", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txpck_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxkb", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txkb", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txkb_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxerr", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txerr", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txerr_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxdrop", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txdrop", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_spike_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else
-            return EXIT_FAILURE;
-    }
-    else if ( strcmp ( "highest", analyze_item ) == 0 )
-    {
-        if ( strcmp ( "rxpck", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txpck", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txpck_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxkb", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txkb", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txkb_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxerr", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txerr", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txerr_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxdrop", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txdrop", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_highest_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else
-            return EXIT_FAILURE;
-    }
-    else if ( strcmp ( "down", analyze_item ) == 0 )
-    {
-        if ( strcmp ( "rxpck", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txpck", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txpck_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxkb", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txkb", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txkb_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxerr", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txerr", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txerr_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxdrop", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txdrop", element ) == 0 )
-        {
-            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_down_val_each_file [ x ] [ y ] = var;
-            return EXIT_SUCCESS;
-        }
-        else
-            return EXIT_FAILURE;
-    }
-    else
-        return EXIT_FAILURE;
-}
-
 /* -- former val each file -- */
 
 int set_cpu_former_val_each_file ( int x, double var, int y, const char *element )
@@ -1172,52 +1031,6 @@ int set_block_device_former_val_each_file ( int x,  double var, int y, const cha
     else if ( strcmp ( "util", element ) == 0 )
     {
         sar_analyzer_spike_obj->block_devices_spike_each_file.util_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else
-        return EXIT_FAILURE;
-}
-
-int set_network_former_val_each_file ( int x,  double var, int y, const char *element )
-{
-    if ( strcmp ( "rxpck", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.rxpck_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "txpck", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.txpck_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "rxkb", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.rxkb_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "txkb", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.txkb_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "rxerr", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.rxerr_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "txerr", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.txerr_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "rxdrop", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_former_val_each_file [ x ] [ y ] = var;
-        return EXIT_SUCCESS;
-    }
-    else if ( strcmp ( "txdrop", element ) == 0 )
-    {
-        sar_analyzer_spike_obj->networks_spike_each_file.txdrop_former_val_each_file [ x ] [ y ] = var;
         return EXIT_SUCCESS;
     }
     else
@@ -2185,147 +1998,6 @@ int set_block_device_spike_date_each_file ( int x, const char *date_string, int 
         return EXIT_FAILURE;
 }
 
-int set_network_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item )
-{
-    if ( strcmp ( "spike", analyze_item ) == 0 )
-    {
-        if ( strcmp ( "rxpck", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txpck", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxkb", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txkb", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxerr", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txerr", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxdrop", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txdrop", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else
-            return EXIT_FAILURE;
-    }
-    else if ( strcmp ( "highest", analyze_item ) == 0 )
-    {
-        if ( strcmp ( "rxpck", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txpck", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxkb", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txkb", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxerr", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txerr", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxdrop", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txdrop", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else
-            return EXIT_FAILURE;
-    }
-    else if ( strcmp ( "down", analyze_item ) == 0 )
-    {
-        if ( strcmp ( "rxpck", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txpck", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxkb", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txkb", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxerr", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txerr", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "rxdrop", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else if ( strcmp ( "txdrop", element ) == 0 )
-        {
-            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
-            return EXIT_SUCCESS;
-        }
-        else
-            return EXIT_FAILURE;
-    }
-    else
-        return EXIT_FAILURE;
-}
-
 /* -- spike time each file -- */
 
 int set_cpu_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item )
@@ -2777,7 +2449,7 @@ int set_block_device_spike_time_each_file ( int x, const char *date_string, int 
     else
         return EXIT_FAILURE;
 }
-
+/*
 int set_network_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item )
 {
     if ( strcmp ( "spike", analyze_item ) == 0 )
@@ -2918,7 +2590,7 @@ int set_network_spike_time_each_file ( int x, const char *date_string, int y, co
     else
         return EXIT_FAILURE;
 }
-
+*/
 /* -- average highest date -- */
 int set_cpu_avg_highest_date ( const char *date_string, int x, const char *element)
 {

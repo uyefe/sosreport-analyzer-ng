@@ -29,7 +29,6 @@
 #include "common.h"
 #include "line_data.h"
 #include "setter_getter.h"
-//#include "sar_analyzer.h"
 #include "../common/global.c"
 #include "check.c"
 
@@ -1081,61 +1080,61 @@ int create_sar_analyzer_obj ( )
         set_network_former_val ( -0.01, i, "txdrop" );
     }
 
-    /*  initialize spike each */
+    /*  initialize spike and former each file */
 
     /* up to MAX_NETWORK_DEVICE_NUMBERS */
     for ( int x = 0; i < MAX_ANALYZE_FILES ; x++ )
     {
         for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
         {
-        set_network_spike_val_each_file ( x, -0.01, i, "rxpck", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxpck", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxpck", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txpck", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txpck", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txpck", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxkb", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxkb", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxkb", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txkb", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txkb", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txkb", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxerr", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxerr", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxerr", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txerr", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txerr", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txerr", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxdrop", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxdrop", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxdrop", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txdrop", "highest" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txdrop", "highest" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txdrop", "highest" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxpck", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxpck", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxpck", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txpck", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txpck", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txpck", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxkb", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxkb", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxkb", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txkb", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txkb", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txkb", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxerr", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxerr", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxerr", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txerr", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txerr", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txerr", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "rxdrop", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "rxdrop", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "rxdrop", "spike" );
-        set_network_spike_val_each_file ( x, -0.01, i, "txdrop", "spike" );
-        set_network_spike_date_each_file ( x, "1970/1/1", i, "txdrop", "spike" );
-        set_network_spike_time_each_file ( x, "1970/1/1", i, "txdrop", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxpck", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxpck", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxpck", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txpck", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txpck", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txpck", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxkb", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxkb", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxkb", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txkb", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txkb", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txkb", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxerr", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxerr", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxerr", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txerr", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txerr", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txerr", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxdrop", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxdrop", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxdrop", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txdrop", "highest" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txdrop", "highest" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txdrop", "highest" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxpck", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxpck", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxpck", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txpck", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txpck", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txpck", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxkb", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxkb", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxkb", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txkb", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txkb", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txkb", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxerr", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxerr", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxerr", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txerr", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txerr", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txerr", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "rxdrop", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "rxdrop", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "rxdrop", "spike" );
+            set_network_spike_val_each_file ( x, -0.01, i, "txdrop", "spike" );
+            set_network_spike_date_each_file ( x, "1970/1/1", i, "txdrop", "spike" );
+            set_network_spike_time_each_file ( x, "1970/1/1", i, "txdrop", "spike" );
             set_network_former_val_each_file ( x, -0.01, i, "rxerr" );
             set_network_former_val_each_file ( x, -0.01, i, "txerr" );
             set_network_former_val_each_file ( x, -0.01, i, "rxdrop" );

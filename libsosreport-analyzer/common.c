@@ -842,7 +842,6 @@ void read_file_pre ( const char *member, const char *dir_name )
     char result_tmp [ MAX_LINE_LENGTH ]; 
     memset ( result_tmp, '\0', MAX_LINE_LENGTH ); 
 
-    //snprintf (str_tmp, strlen ( dir_name ) + strlen ( member ) + 2, "%s/%s", dir_name, member );
     snprintf (str_tmp, strlen ( get_dirname ( ) ) + strlen ( member ) + 2, "%s/%s", get_dirname ( ), member );
 
     if (
@@ -892,7 +891,6 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
            )
-            //read_analyze_dir ( member, dir_name );
             read_analyze_dir ( member, get_dirname ( ) );
         else
             read_file ( str_tmp );
