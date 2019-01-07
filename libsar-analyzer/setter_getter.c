@@ -4436,12 +4436,24 @@ int set_network_lowest_time ( const char *date_string, int x, const char *elemen
 /* -------- getters -------- */
 
 const char *get_this_date ( void )
+//const char *get_this_date ( char this_date_tmp [ MAX_DATE_STRINGS ] )
 {
+//    memset ( this_date_tmp, '\0', MAX_DATE_STRINGS ); 
+//    strncpy ( this_date_tmp, "1970/1/1", 9 );
+//    strcpy ( this_date_tmp, sar_analyzer_obj->this_date );
+
+//    return this_date_tmp;
     return sar_analyzer_obj->this_date;
 }
 
 const char *get_this_date_all ( void )
+//const char *get_this_date_all ( char this_date_tmp [ MAX_DATE_STRINGS] )
 {
+//    memset ( this_date_tmp, '\0', MAX_DATE_STRINGS ); 
+//    strncpy ( this_date_tmp, "1970/1/1", 9 );
+//    strcpy ( this_date_tmp, sar_analyzer_all_obj->this_date );
+
+//    return this_date_tmp;
     return sar_analyzer_all_obj->this_date;
 }
 
@@ -5292,6 +5304,21 @@ double get_network_former_val_each_file ( int x, int y, const char *element )
 int get_cpu_as_paragraph ( void )
 {
     return sar_analyzer_all_obj->cpu_as_paragraph;
+}
+
+double get_tmp_val ( void )
+{
+    return sar_analyzer_all_obj->tmp_val;
+}
+
+double get_tmp2_val ( void )
+{
+    return sar_analyzer_all_obj->tmp2_val;
+}
+
+double get_tmp3_val ( void )
+{
+    return sar_analyzer_all_obj->tmp3_val;
 }
 
 /* -------------------------------------------------- */
@@ -6893,6 +6920,21 @@ int set_network_lowest_val ( double var, int x, const char *element )
 void set_cpu_as_paragraph ( int x )
 {
     sar_analyzer_all_obj->cpu_as_paragraph = x;
+}
+
+void set_tmp_val ( double x )
+{
+    sar_analyzer_all_obj->tmp_val = x;
+}
+
+void set_tmp2_val ( double x )
+{
+    sar_analyzer_all_obj->tmp2_val = x;
+}
+
+void set_tmp3_val ( double x )
+{
+    sar_analyzer_all_obj->tmp3_val = x;
 }
 
 /* getters */

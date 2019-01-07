@@ -291,7 +291,9 @@ struct sar_analyzer_data_all sar_analyzer_all_obj_raw =
         "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01"}}, /* network_date_highest */
         {{"1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01",
         "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01"}}, /* network_date_lowest */
-        0, /* cpu_as_paragraph*/
+        0, /* cpu_as_paragraph */
+        0.0, /* tmp_val */
+        0.0, /* tmp2_val */
     };
 
 /* 
@@ -1339,7 +1341,9 @@ int set_network_lowest_time ( const char *date_string, int x, const char *elemen
 
 /**** getters ****/
 const char *get_this_date ( void );
+//const char *get_this_date ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 const char *get_this_date_all ( void );
+//const char *get_this_date_all ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 
 /* columns */
 int get_column_cpu ( const char *element);
@@ -1367,7 +1371,12 @@ double get_ldavg_former_val_each_file ( int x, const char *element );
 double get_block_device_former_val_each_file ( int x, int y, const char *element );
 double get_network_former_val_each_file ( int x, int y, const char *element );
 
-/* cpu as paragraph*/
+/* cpu as paragraph */
 int get_cpu_as_paragraph ( void );
+
+/* tmp_val */
+double get_tmp_val ( void );
+double get_tmp2_val ( void );
+double get_tmp3_val ( void );
 
 #endif /* SAR__ANALYZER_H */

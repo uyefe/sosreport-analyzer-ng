@@ -488,7 +488,6 @@ double check_time_value ( double initial_val, double horizontal_notch, int count
     token = strtok ( time_value, s );
     while ( token != NULL )
     {
-        printf(" %s\n",token);
         if ( l == 0 )
         {
             if ( strcmp ( "00", token ) == 0 )
@@ -573,7 +572,9 @@ double check_time_value ( double initial_val, double horizontal_notch, int count
 int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION )
 {
     char this_date_all [ MAX_DATE_STRINGS ];
+    memset ( this_date_all, '\0', MAX_DATE_STRINGS ); 
     char this_date [ MAX_DATE_STRINGS ];
+    memset ( this_date, '\0', MAX_DATE_STRINGS ); 
     const char s [ 4 ] = "  \t"; /* this is the delimiter */
     char *endp;
     int i = 0, network_device_setter = 0;
@@ -582,10 +583,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     int set_to_struct = 1; /* set 0 when setting values to the struct */
     char *token = NULL;
     char time_value [ 20 ] = {'\0'};
-    double t = 0, h, l; /* means this value, highest value, lowest value */
-    double h0, h1, h2, h3, h4, l0, l1, l2, l3, l4; /* highest value, lowest value for Z option */
-    double s0, s1, s2, s3, s4, f0, f1, f2, f3, f4; /* spike value, former value for Z option */
-    double ss0, ss1, ss2, ss3, ss4, ff0, ff1, ff2, ff3, ff4, hh0, hh1, hh2, hh3, hh4; /* spike each file value for Z option */
+
+    double t2 = 0, t3 = 0;
+    double t = 0, h = 0, l = 0; /* means this value, highest value, lowest value */
+    double h0 = 0, h1 = 0, h2 = 0, h3 = 0, h4 = 0, l0 = 0, l1 = 0, l2 = 0, l3 = 0, l4 = 0; /* highest value, lowest value for Z option */
+    double s0 = 0, s1 = 0, s2 = 0, s3 = 0, s4 = 0, f0 = 0, f1 = 0, f2 = 0, f3 = 0, f4 = 0; /* spike value, former value for Z option */
+    double ss0 = 0, ss1 = 0, ss2 = 0, ss3 = 0, ss4 = 0, ff0 = 0, ff1 = 0, ff2 = 0, ff3 = 0, ff4 = 0, hh0 = 0, hh1 = 0, hh2 = 0, hh3 = 0, hh4 = 0; /* spike each file value for Z option */
 
     /* get the first token */
     token = strtok ( *line, s );
@@ -700,18 +703,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_cpu_spike_val ( ( t - f0 ), utility, "usr" );
+                        set_cpu_spike_val ( t3, utility, "usr" );
                         set_cpu_spike_date ( this_date_all, utility, "usr" );
                         set_cpu_spike_time ( time_value, utility, "usr" );
                     }
                     set_cpu_former_val ( t, utility, "usr" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_cpu_spike_val_each_file ( file_number, ( t - ff0 ), utility, "usr", "spike" );
+                        set_cpu_spike_val_each_file ( file_number, t2, utility, "usr", "spike" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
                     }
@@ -795,18 +804,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_cpu_spike_val ( ( t - f1 ), utility, "sys" );
+                        set_cpu_spike_val ( t3, utility, "sys" );
                         set_cpu_spike_date ( this_date_all, utility, "sys" );
                         set_cpu_spike_time ( time_value, utility, "sys" );
                     }
                     set_cpu_former_val ( t, utility, "sys" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_cpu_spike_val_each_file ( file_number, ( t - ff1 ), utility, "sys", "spike" );
+                        set_cpu_spike_val_each_file ( file_number, t2, utility, "sys", "spike" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
                     }
@@ -875,18 +890,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_cpu_spike_val ( ( t - f2 ), utility, "iowait" );
+                        set_cpu_spike_val ( t3, utility, "iowait" );
                         set_cpu_spike_date ( this_date_all, utility, "iowait" );
                         set_cpu_spike_time ( time_value, utility, "iowait" );
                     }
                     set_cpu_former_val ( t, utility, "iowait" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_cpu_spike_val_each_file ( file_number, ( t - ff2 ), utility, "iowait", "spike" );
+                        set_cpu_spike_val_each_file ( file_number, t2, utility, "iowait", "spike" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
                     }
@@ -955,18 +976,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff3 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f3 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f3 ) > s3 ) && ( f3 != 0 ) )
+                    if ( ( t3 > s3 ) && ( f3 != 0 ) )
                     {
-                        set_cpu_spike_val ( ( t -f3 ), utility, "idle" );
+                        set_cpu_spike_val ( t3, utility, "idle" );
                         set_cpu_spike_date ( this_date_all, utility, "idle" );
                         set_cpu_spike_time ( time_value, utility, "idle" );
                     }
                     set_cpu_former_val ( t, utility, "idle" );
-                    if ( ( ( t - ff3 ) > ss3 ) && ( ff3 != 0 ) )
+                    if ( ( t2 > ss3 ) && ( ff3 != 0 ) )
                     {
-                        set_cpu_spike_val_each_file ( file_number, ( t - ff3 ), utility, "idle", "spike" );
+                        set_cpu_spike_val_each_file ( file_number, t2, utility, "idle", "spike" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
                     }
@@ -1054,18 +1081,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_tasks_spike_val ( ( t - f0 ), "proc" );
+                        set_tasks_spike_val ( t3, "proc" );
                         set_tasks_spike_date ( this_date_all, "proc" );
                         set_tasks_spike_time ( time_value, "proc" );
                     }
                     set_tasks_former_val ( t, "proc" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_tasks_spike_val_each_file ( file_number, ( t - ff0 ), "proc", "spike" );
+                        set_tasks_spike_val_each_file ( file_number, t2, "proc", "spike" );
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "proc", "spike" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "proc", "spike" );
                     }
@@ -1144,18 +1177,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_tasks_spike_val ( ( t - f1 ), "cswch" );
+                        set_tasks_spike_val ( t3, "cswch" );
                         set_tasks_spike_date ( this_date_all, "cswch" );
                         set_tasks_spike_time ( time_value, "cswch" );
                     }
                     set_tasks_former_val ( t, "cswch" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_tasks_spike_val_each_file ( file_number, ( t - ff1 ), "cswch", "spike" );
+                        set_tasks_spike_val_each_file ( file_number, t2, "cswch", "spike" );
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "cswch", "spike" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "cswch", "spike" );
                     }
@@ -1240,18 +1279,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_pswap_spike_val ( ( t - f0 ), "pswpin" );
+                        set_pswap_spike_val ( t3, "pswpin" );
                         set_pswap_spike_date ( this_date_all, "pswpin" );
                         set_pswap_spike_time ( time_value, "pswpin" );
                     }
                     set_pswap_former_val ( t, "pswpin" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_pswap_spike_val_each_file ( file_number, ( t - ff0 ), "pswpin", "spike" );
+                        set_pswap_spike_val_each_file ( file_number, t2, "pswpin", "spike" );
                         set_pswap_spike_date_each_file ( file_number, this_date_all, "pswpin", "spike" );
                         set_pswap_spike_time_each_file ( file_number, time_value, "pswpin", "spike" );
                     }
@@ -1330,18 +1375,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_pswap_spike_val ( ( t - f1 ), "pswpout" );
+                        set_pswap_spike_val ( t3, "pswpout" );
                         set_pswap_spike_date ( this_date_all, "pswpout" );
                         set_pswap_spike_time ( time_value, "pswpout" );
                     }
                     set_pswap_former_val ( t, "pswpout" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_pswap_spike_val_each_file ( file_number, ( t - ff1 ), "pswpout", "spike" );
+                        set_pswap_spike_val_each_file ( file_number, t2, "pswpout", "spike" );
                         set_pswap_spike_date_each_file ( file_number, this_date_all, "pswpout", "spike" );
                         set_pswap_spike_time_each_file ( file_number, time_value, "pswpout", "spike" );
                     }
@@ -1447,18 +1498,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_paging_spike_val ( ( t - f0 ), "pgpgin" );
+                        set_paging_spike_val ( t3, "pgpgin" );
                         set_paging_spike_date ( this_date_all, "pgpgin" );
                         set_paging_spike_time ( time_value, "pgpgin" );
                     }
                     set_paging_former_val ( t, "pgpgin" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_paging_spike_val_each_file ( file_number, ( t - ff0 ), "pgpgin", "spike" );
+                        set_paging_spike_val_each_file ( file_number, t2, "pgpgin", "spike" );
                         set_paging_spike_date_each_file ( file_number, this_date_all, "pgpgin", "spike" );
                         set_paging_spike_time_each_file ( file_number, time_value, "pgpgin", "spike" );
                     }
@@ -1537,18 +1594,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_paging_spike_val ( ( t - f0 ), "pgpgout" );
+                        set_paging_spike_val ( t3, "pgpgout" );
                         set_paging_spike_date ( this_date_all, "pgpgout" );
                         set_paging_spike_time ( time_value, "pgpgout" );
                     }
                     set_paging_former_val ( t, "pgpgout" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_paging_spike_val_each_file ( file_number, ( t - ff1 ), "pgpgout", "spike" );
+                        set_paging_spike_val_each_file ( file_number, t2, "pgpgout", "spike" );
                         set_paging_spike_date_each_file ( file_number, this_date_all, "pgpgout", "spike" );
                         set_paging_spike_time_each_file ( file_number, time_value, "pgpgout", "spike" );
                     }
@@ -1614,18 +1677,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_paging_spike_val ( ( t - f2 ), "fault" );
+                        set_paging_spike_val ( t3, "fault" );
                         set_paging_spike_date ( this_date_all, "fault" );
                         set_paging_spike_time ( time_value, "fault" );
                     }
                     set_paging_former_val ( t, "fault" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_paging_spike_val_each_file ( file_number, ( t - ff2 ), "fault", "spike" );
+                        set_paging_spike_val_each_file ( file_number, t2, "fault", "spike" );
                         set_paging_spike_date_each_file ( file_number, this_date_all, "fault", "spike" );
                         set_paging_spike_time_each_file ( file_number, time_value, "fault", "spike" );
                     }
@@ -1692,18 +1761,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff3 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f3 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f3 ) > s3 ) && ( f3 != 0 ) )
+                    if ( ( t3 > s3 ) && ( f3 != 0 ) )
                     {
-                        set_paging_spike_val ( ( t - f3 ), "majflt" );
+                        set_paging_spike_val ( t3, "majflt" );
                         set_paging_spike_date ( this_date_all, "majflt" );
                         set_paging_spike_time ( time_value, "majflt" );
                     }
                     set_paging_former_val ( t, "majflt" );
-                    if ( ( ( t - ff3 ) > ss3 ) && ( ff3 != 0 ) )
+                    if ( ( t2 > ss3 ) && ( ff3 != 0 ) )
                     {
-                        set_paging_spike_val_each_file ( file_number, ( t - ff3 ), "majflt", "spike" );
+                        set_paging_spike_val_each_file ( file_number, t2, "majflt", "spike" );
                         set_paging_spike_date_each_file ( file_number, this_date_all, "majflt", "spike" );
                         set_paging_spike_time_each_file ( file_number, time_value, "majflt", "spike" );
                     }
@@ -1769,18 +1844,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff4 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f4 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f4 ) > s4 ) && ( f4 != 0 ) )
+                    if ( ( t3 > s4 ) && ( f4 != 0 ) )
                     {
-                        set_paging_spike_val ( ( t - f4 ), "vmeff");
+                        set_paging_spike_val ( t3, "vmeff");
                         set_paging_spike_date ( this_date_all, "vmeff" );
                         set_paging_spike_time ( time_value, "vmeff" );
                     }
                     set_paging_former_val ( t, "vmeff" );
-                    if ( ( ( t - ff4 ) > ss4 ) && ( ff4 != 0 ) )
+                    if ( ( t2 > ss4 ) && ( ff4 != 0 ) )
                     {
-                        set_paging_spike_val_each_file ( file_number, ( t - ff4 ), "vmeff", "spike" );
+                        set_paging_spike_val_each_file ( file_number, t2, "vmeff", "spike" );
                         set_paging_spike_date_each_file ( file_number, this_date_all, "vmeff", "spike" );
                         set_paging_spike_time_each_file ( file_number, time_value, "vmeff", "spike" );
                     }
@@ -1873,18 +1954,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_io_transfer_rate_spike_val ( ( t - f0 ), "tps" );
+                        set_io_transfer_rate_spike_val ( t3, "tps" );
                         set_io_transfer_rate_spike_date ( this_date_all, "tps" );
                         set_io_transfer_rate_spike_time ( time_value, "tps" );
                     }
                     set_io_transfer_rate_former_val ( t, "tps" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_io_transfer_rate_spike_val_each_file ( file_number, ( t - ff0 ), "tps", "spike" );
+                        set_io_transfer_rate_spike_val_each_file ( file_number, t2, "tps", "spike" );
                         set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "tps", "spike" );
                         set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "tps", "spike" );
                     }
@@ -1963,18 +2050,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_io_transfer_rate_spike_val ( ( t - f1 ), "bread" );
+                        set_io_transfer_rate_spike_val ( t3, "bread" );
                         set_io_transfer_rate_spike_date ( this_date_all, "bread" );
                         set_io_transfer_rate_spike_time ( time_value, "bread" );
                     }
                     set_io_transfer_rate_former_val ( t, "bread" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_io_transfer_rate_spike_val_each_file ( file_number, ( t - ff1 ), "bread", "spike" );
+                        set_io_transfer_rate_spike_val_each_file ( file_number, t2, "bread", "spike" );
                         set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "bread", "spike" );
                         set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "bread", "spike" );
                     }
@@ -2040,18 +2133,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_io_transfer_rate_spike_val ( ( t - f2 ), "bwrtn" );
+                        set_io_transfer_rate_spike_val ( t3, "bwrtn" );
                         set_io_transfer_rate_spike_date ( this_date_all, "bwrtn" );
                         set_io_transfer_rate_spike_time ( time_value, "bwrtn" );
                     }
                     set_io_transfer_rate_former_val ( t, "bwrtn" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_io_transfer_rate_spike_val_each_file ( file_number, ( t - ff2 ), "bwrtn", "spike" );
+                        set_io_transfer_rate_spike_val_each_file ( file_number, t2, "bwrtn", "spike" );
                         set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "bwrtn", "spike" );
                         set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "bwrtn", "spike" );
                     }
@@ -2143,19 +2242,25 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_memory_double_spike_val ( ( t - f0 ), "memused");
+                        set_memory_double_spike_val ( t3, "memused");
                         set_memory_spike_date ( this_date_all, "memused" );
                         set_memory_spike_time ( time_value, "memused" );
 
                     }
                     set_memory_double_former_val ( t, "memused" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_memory_double_spike_val_each_file ( file_number, ( t - ff0 ), "memused", "spike" );
+                        set_memory_double_spike_val_each_file ( file_number, t2, "memused", "spike" );
                         set_memory_spike_date_each_file ( file_number, this_date_all, "memused", "spike" );
                         set_memory_spike_time_each_file ( file_number, time_value, "memused", "spike" );
                     }
@@ -2234,18 +2339,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_memory_int_spike_val ( ( t - f1 ), "kbcommit" );
+                        set_memory_int_spike_val ( t3, "kbcommit" );
                         set_memory_spike_date ( this_date_all, "kbcommit" );
                         set_memory_spike_time ( time_value, "kbcommit" );
                     }
                     set_memory_int_former_val ( t, "kbcommit" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_memory_int_spike_val_each_file ( file_number, ( t - ff1 ), "kbcommit", "spike" );
+                        set_memory_int_spike_val_each_file ( file_number, t2, "kbcommit", "spike" );
                         set_memory_spike_date_each_file ( file_number, this_date_all, "kbcommit", "spike" );
                         set_memory_spike_time_each_file ( file_number, time_value, "kbcommit", "spike" );
                     }
@@ -2311,18 +2422,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_memory_double_spike_val ( ( t - f2 ), "commit" );
+                        set_memory_double_spike_val ( t3, "commit" );
                         set_memory_spike_date ( this_date_all, "commit" );
                         set_memory_spike_time ( time_value, "commit" );
                     }
                     set_memory_double_former_val ( t, "commit" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_memory_double_spike_val_each_file ( file_number, ( t - ff2 ), "commit", "spike" );
+                        set_memory_double_spike_val_each_file ( file_number, t2, "commit", "spike" );
                         set_memory_spike_date_each_file ( file_number, this_date_all, "commit", "spike" );
                         set_memory_spike_time_each_file ( file_number, time_value, "commit", "spike" );
                     }
@@ -2400,18 +2517,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_swpused_spike_val ( t - f0 );
+                        set_swpused_spike_val ( t3 );
                         set_swpused_spike_date ( this_date_all );
                         set_swpused_spike_time ( time_value );
                     }
                     set_swpused_former_val ( t );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_swpused_spike_val_each_file ( file_number, ( t - ff0 ), "spike" );
+                        set_swpused_spike_val_each_file ( file_number, t2, "spike" );
                         set_swpused_spike_date_each_file ( file_number, this_date_all, "spike" );
                         set_swpused_spike_time_each_file ( file_number, time_value, "spike" );
                     }
@@ -2484,18 +2607,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_kernel_table_spike_val ( (t - f0 ), "dentunusd" );
+                        set_kernel_table_spike_val ( t3, "dentunusd" );
                         set_kernel_table_spike_date ( this_date_all, "dentunusd" );
                         set_kernel_table_spike_time ( time_value, "dentunusd" );
                     }
                     set_kernel_table_former_val ( t, "dentunusd" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_kernel_table_spike_val_each_file ( file_number, ( t - ff0 ), "dentunusd", "spike" );
+                        set_kernel_table_spike_val_each_file ( file_number, t2, "dentunusd", "spike" );
                         set_kernel_table_spike_date_each_file ( file_number, this_date_all, "dentunusd", "spike" );
                         set_kernel_table_spike_time_each_file ( file_number, time_value, "dentunusd", "spike" );
                     }
@@ -2574,18 +2703,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_kernel_table_spike_val ( ( t - f1 ), "file" );
+                        set_kernel_table_spike_val ( t3, "file" );
                         set_kernel_table_spike_date ( this_date_all, "file" );
                         set_kernel_table_spike_time ( time_value, "file" );
                     }
                     set_kernel_table_former_val ( t, "file" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_kernel_table_spike_val_each_file ( file_number, ( t - ff1 ), "file", "spike" );
+                        set_kernel_table_spike_val_each_file ( file_number, t2, "file", "spike" );
                         set_kernel_table_spike_date_each_file ( file_number, this_date_all, "file", "spike" );
                         set_kernel_table_spike_time_each_file ( file_number, time_value, "file", "spike" );
                     }
@@ -2651,18 +2786,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_kernel_table_spike_val ( ( t - f2 ), "inode" );
+                        set_kernel_table_spike_val ( t3, "inode" );
                         set_kernel_table_spike_date ( this_date_all, "inode" );
                         set_kernel_table_spike_time ( time_value, "inode" );
                     }
                     set_kernel_table_former_val ( t, "inode" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_kernel_table_spike_val_each_file ( file_number, ( t - ff2 ), "inode", "spike" );
+                        set_kernel_table_spike_val_each_file ( file_number, t2, "inode", "spike" );
                         set_kernel_table_spike_date_each_file ( file_number, this_date_all, "inode", "spike" );
                         set_kernel_table_spike_time_each_file ( file_number, time_value, "inode", "spike" );
                     }
@@ -2770,18 +2911,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = atoi ( token );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_ldavg_int_spike_val ( (t - f0), "runq_sz" );
+                        set_ldavg_int_spike_val ( t3, "runq_sz" );
                         set_ldavg_spike_date ( this_date_all, "runq_sz" );
                         set_ldavg_spike_time ( time_value, "runq_sz" );
                     }
                     set_ldavg_int_former_val ( t, "runq_sz" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_ldavg_int_spike_val_each_file ( file_number, ( t - ff0 ), "runq_sz", "spike" );
+                        set_ldavg_int_spike_val_each_file ( file_number, t2, "runq_sz", "spike" );
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "runq_sz", "spike" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "runq_sz", "spike" );
                     }
@@ -2861,18 +3008,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = atoi ( token );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_ldavg_int_spike_val ( (t - f0), "plist_sz" );
+                        set_ldavg_int_spike_val ( t3, "plist_sz" );
                         set_ldavg_spike_date ( this_date_all, "plist_sz" );
                         set_ldavg_spike_time ( time_value, "plist_sz" );
                     }
                     set_ldavg_int_former_val ( t, "plist_sz" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_ldavg_int_spike_val_each_file ( file_number, ( t - ff1 ), "plist_sz", "spike" );
+                        set_ldavg_int_spike_val_each_file ( file_number, t2, "plist_sz", "spike" );
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "plist_sz", "spike" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "plist_sz", "spike" );
                     }
@@ -2939,18 +3092,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_ldavg_double_spike_val ( (t - f2), "ldavg_one" );
+                        set_ldavg_double_spike_val ( t3, "ldavg_one" );
                         set_ldavg_spike_date ( this_date_all, "ldavg_one" );
                         set_ldavg_spike_time ( time_value, "ldavg_one" );
                     }
                     set_ldavg_double_former_val ( t, "ldavg_one" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_ldavg_double_spike_val_each_file ( file_number, ( t - ff2 ), "ldavg_one", "spike" );
+                        set_ldavg_double_spike_val_each_file ( file_number, t2, "ldavg_one", "spike" );
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_one", "spike" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_one", "spike" );
                     }
@@ -3016,18 +3175,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff3 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f3 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f3 ) > s3 ) && ( f3 != 0 ) )
+                    if ( ( t3 > s3 ) && ( f3 != 0 ) )
                     {
-                        set_ldavg_double_spike_val ( (t - f3), "ldavg_five" );
+                        set_ldavg_double_spike_val ( t3, "ldavg_five" );
                         set_ldavg_spike_date ( this_date_all, "ldavg_five" );
                         set_ldavg_spike_time ( time_value, "ldavg_five" );
                     }
                     set_ldavg_double_former_val ( t, "ldavg_five" );
-                    if ( ( ( t - ff3 ) > ss3 ) && ( ff3 != 0 ) )
+                    if ( ( t2 > ss3 ) && ( ff3 != 0 ) )
                     {
-                        set_ldavg_double_spike_val_each_file ( file_number, ( t - ff3 ), "ldavg_five", "spike" );
+                        set_ldavg_double_spike_val_each_file ( file_number, t2, "ldavg_five", "spike" );
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_five", "spike" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_five", "spike" );
                     }
@@ -3093,18 +3258,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff4 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f4 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f4 ) > s4 ) && ( f4 != 0 ) )
+                    if ( ( t3 > s4 ) && ( f4 != 0 ) )
                     {
-                        set_ldavg_double_spike_val ( (t - f4), "ldavg_15" );
+                        set_ldavg_double_spike_val ( t3, "ldavg_15" );
                         set_ldavg_spike_date ( this_date_all, "ldavg_15" );
                         set_ldavg_spike_time ( time_value, "ldavg_15" );
                     }
                     set_ldavg_double_former_val ( t, "ldavg_15" );
-                    if ( ( ( t - ff4 ) > ss4 ) && ( ff4 != 0 ) )
+                    if ( ( t2 > ss4 ) && ( ff4 != 0 ) )
                     {
-                        set_ldavg_double_spike_val_each_file ( file_number, ( t - ff4 ), "ldavg_15", "spike" );
+                        set_ldavg_double_spike_val_each_file ( file_number, t2, "ldavg_15", "spike" );
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_15", "spike" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_15", "spike" );
                     }
@@ -3189,18 +3360,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_block_device_spike_val ( ( t - f0 ), utility, "areqsz" );
+                        set_block_device_spike_val ( t3, utility, "areqsz" );
                         set_block_device_spike_date ( this_date_all, utility, "areqsz" );
                         set_block_device_spike_time ( time_value, utility, "areqsz" );
                     }
                     set_block_device_former_val ( t, utility, "areqsz" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_block_device_spike_val_each_file ( file_number, ( t - ff0 ), utility, "areqsz", "spike" );
+                        set_block_device_spike_val_each_file ( file_number, t2, utility, "areqsz", "spike" );
                         set_block_device_spike_date_each_file ( file_number, this_date_all, utility, "areqsz", "spike" );
                         set_block_device_spike_time_each_file ( file_number, time_value, utility, "areqsz", "spike" );
                     }
@@ -3247,18 +3424,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_block_device_spike_val ( ( t - f1 ), utility, "util" );
+                        set_block_device_spike_val ( t3, utility, "util" );
                         set_block_device_spike_date ( this_date_all, utility, "util" );
                         set_block_device_spike_time ( time_value, utility, "util" );
                     }
                     set_block_device_former_val ( t, utility, "util" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_block_device_spike_val_each_file ( file_number, ( t - ff1 ), utility, "util", "spike" );
+                        set_block_device_spike_val_each_file ( file_number, t2, utility, "util", "spike" );
                         set_block_device_spike_date_each_file ( file_number, this_date_all, utility, "util", "spike" );
                         set_block_device_spike_time_each_file ( file_number, time_value, utility, "util", "spike" );
                     }
@@ -3338,18 +3521,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_network_spike_val ( (t - f0 ), utility, "rxpck" );
+                        set_network_spike_val ( t3, utility, "rxpck" );
                         set_network_spike_date ( this_date_all, utility, "rxpck" );
                         set_network_spike_time ( time_value, utility, "rxpck" );
                     }
                     set_network_former_val ( t, utility, "rxpck" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff0 ), utility, "rxpck", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "rxpck", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxpck", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxpck", "spike" );
                     }
@@ -3402,18 +3591,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f1 ), utility, "txpck" );
+                        set_network_spike_val ( t3, utility, "txpck" );
                         set_network_spike_date ( this_date_all, utility, "txpck" );
                         set_network_spike_time ( time_value, utility, "txpck" );
                     }
                     set_network_former_val ( t, utility, "txpck" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff1 ), utility, "txpck", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "txpck", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txpck", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txpck", "spike" );
                     }
@@ -3466,18 +3661,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f2 ), utility, "rxkb" );
+                        set_network_spike_val ( t3, utility, "rxkb" );
                         set_network_spike_date ( this_date_all, utility, "rxkb" );
                         set_network_spike_time ( time_value, utility, "rxkb" );
                     }
                     set_network_former_val ( t, utility, "rxkb" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff2 ), utility, "rxkb", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "rxkb", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxkb", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxkb", "spike" );
                     }
@@ -3530,18 +3731,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff3 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f3 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f3 ) > s3 ) && ( f3 != 0 ) )
+                    if ( ( t3 > s3 ) && ( f3 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f3 ), utility, "txkb" );
+                        set_network_spike_val ( t3, utility, "txkb" );
                         set_network_spike_date ( this_date_all, utility, "txkb" );
                         set_network_spike_time ( time_value, utility, "txkb" );
                     }
                     set_network_former_val ( t, utility, "txkb" );
-                    if ( ( ( t - ff3 ) > ss3 ) && ( ff3 != 0 ) )
+                    if ( ( t2 > ss3 ) && ( ff3 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff3 ) , utility, "txkb", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "txkb", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txkb", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txkb", "spike" );
                     }
@@ -3627,18 +3834,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff0 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f0 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f0 ) > s0 ) && ( f0 != 0 ) )
+                    if ( ( t3 > s0 ) && ( f0 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f0 ), utility, "rxerr" );
+                        set_network_spike_val ( t3, utility, "rxerr" );
                         set_network_spike_date ( this_date_all, utility, "rxerr" );
                         set_network_spike_time ( time_value, utility, "rxerr" );
                     }
                     set_network_former_val ( t, utility, "rxerr" );
-                    if ( ( ( t - ff0 ) > ss0 ) && ( ff0 != 0 ) )
+                    if ( ( t2 > ss0 ) && ( ff0 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff0 ), utility, "rxerr", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "rxerr", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxerr", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxerr", "spike" );
                     }
@@ -3685,18 +3898,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff1 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f1 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f1 ) > s1 ) && ( f1 != 0 ) )
+                    if ( ( t3 > s1 ) && ( f1 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f1 ), utility, "txerr" );
+                        set_network_spike_val ( t3, utility, "txerr" );
                         set_network_spike_date ( this_date_all, utility, "txerr" );
                         set_network_spike_time ( time_value, utility, "txerr" );
                     }
                     set_network_former_val ( t, utility, "txerr" );
-                    if ( ( ( t - ff1 ) > ss1 ) && ( ff1 != 0 ) )
+                    if ( ( t2 > ss1 ) && ( ff1 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff1 ), utility, "txerr", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "txerr", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txerr", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txerr", "spike" );
                     }
@@ -3743,18 +3962,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff2 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f2 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f2 ) > s2 ) && ( f2 != 0 ) )
+                    if ( ( t3 > s2 ) && ( f2 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f2 ), utility, "rxdrop" );
+                        set_network_spike_val ( t3, utility, "rxdrop" );
                         set_network_spike_date ( this_date_all, utility, "rxdrop" );
                         set_network_spike_time ( time_value, utility, "rxdrop" );
                     }
                     set_network_former_val ( t, utility, "rxdrop" );
-                    if ( ( ( t - ff2 ) > ss2 ) && ( ff2 != 0 ) )
+                    if ( ( t2 > ss2 ) && ( ff2 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff2 ), utility, "rxdrop", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "rxdrop", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxdrop", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxdrop", "spike" );
                     }
@@ -3801,18 +4026,24 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    set_tmp_val ( t );
+                    t = get_tmp_val ( );
+                    set_tmp2_val ( t - ff3 );
+                    t2 = get_tmp2_val ( );
+                    set_tmp3_val ( t - f3 );
+                    t3 = get_tmp3_val ( );
                     if ( t > INT_MAX || t < 0 )
                         return 0;
-                    if ( ( ( t - f3 ) > s3 ) && ( f3 != 0 ) )
+                    if ( ( t3 > s3 ) && ( f3 != 0 ) )
                     {
-                        set_network_spike_val ( ( t - f3 ), utility, "txdrop" );
+                        set_network_spike_val ( t3, utility, "txdrop" );
                         set_network_spike_date ( this_date_all, utility, "txdrop" );
                         set_network_spike_time ( time_value, utility, "txdrop" );
                     }
                     set_network_former_val ( t, utility, "txdrop" );
-                    if ( ( ( t - ff3 ) > ss3 ) && ( ff3 != 0 ) )
+                    if ( ( t2 > ss3 ) && ( ff3 != 0 ) )
                     {
-                        set_network_spike_val_each_file ( file_number, ( t - ff3 ), utility, "txdrop", "spike" );
+                        set_network_spike_val_each_file ( file_number, t2, utility, "txdrop", "spike" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txdrop", "spike" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txdrop", "spike" );
                     }

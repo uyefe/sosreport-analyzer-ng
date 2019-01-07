@@ -116,6 +116,11 @@ int set_network_lowest_val ( double var, int x, const char *element );
 /* cpu as paragraph */
 void set_cpu_as_paragraph ( int x );
 
+/* tmp_val */
+void set_tmp_val ( double var );
+void set_tmp2_val ( double var );
+void set_tmp3_val ( double var );
+
 /* getters */
 
 /* former val */
