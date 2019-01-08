@@ -4889,7 +4889,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 /* as counted cpu as paragraph, if it's up to it, stop echoeing lines */
                 if ( CHECK_CPU_EACH == get_cpu_as_paragraph ( ) )
                 {
-                    //CHK_Z &= ~ ( 1 << 0 );  /* this means, skip this clause on next loop */
+                    /* CHK_Z &= ~ ( 1 << 0 );*/  /* this means, skip this clause on next loop */
                     CHK_CORES_N = 0;
                 }
                 CHECK_CPU_EACH++;
@@ -4898,7 +4898,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
             {
                 CHK_Z &= ~ ( 1 << 0 );  /* this means, skip this clause on next loop */
                 CHK_CORES_N = 0;
-                // set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION );/* we want to let ps that this is the end of the sequence */
+                /* set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION );*//* we want to let ps that this is the end of the sequence */
             }
             else
             {

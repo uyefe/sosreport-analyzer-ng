@@ -1,3 +1,5 @@
+1.0.8
+Fix uninitialized objects to initialize with zero.
 1.0.7
 Fix possible wrong memory management.
 1.0.6

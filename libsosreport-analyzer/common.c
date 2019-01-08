@@ -166,12 +166,6 @@ void read_analyze_dir ( const char *member, const char *dname )
     /* close the directory */
     closedir ( dir );
 
-    /* Check the number of files in the directory and if 0, exit */
-    if ( str_arr_valid_size == 0 )
-    {
-        printf("There are no files in this directory (%s):%s\n",dname,strerror(errno));
-        exit ( EXIT_FAILURE );
-    }
     /* read every messages files */
     node *ptr_tmp = NULL;
     if ( strstr ( read_path, "messages") != 0 )
