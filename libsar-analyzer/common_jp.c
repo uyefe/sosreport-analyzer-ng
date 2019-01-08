@@ -996,8 +996,11 @@ int create_sar_analyzer_obj ( )
 
     /* allocate the memory */
     sar_analyzer_obj = ( struct sar_analyzer_data * ) malloc ( sizeof ( struct sar_analyzer_data ) );
+    memset ( sar_analyzer_obj, 0, sizeof ( struct sar_analyzer_data ) ); 
     sar_analyzer_all_obj = ( struct sar_analyzer_data_all * ) malloc ( sizeof ( struct sar_analyzer_data_all ) );
+    memset ( sar_analyzer_all_obj, 0, sizeof ( struct sar_analyzer_data_all ) ); 
     sar_analyzer_spike_obj = ( struct sar_analyzer_data_spike_each_file * ) malloc ( sizeof ( struct sar_analyzer_data_spike_each_file ) );
+    memset ( sar_analyzer_spike_obj, 0, sizeof ( struct sar_analyzer_data_spike_each_file ) ); 
 
     if ( ( sar_analyzer_obj == NULL ) || ( sar_analyzer_all_obj == NULL ) || ( sar_analyzer_spike_obj == NULL ) )
     {
@@ -1352,99 +1355,187 @@ int create_sar_analyzer_obj ( )
     }
 
     header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( header_obj, 0, sizeof ( struct line_data ) ); 
     report_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_obj, 0, sizeof ( struct line_data ) ); 
     report_cpu_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_cpu_obj, 0, sizeof ( struct line_data ) ); 
     for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    {
         report_cpu_spike_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( report_cpu_spike_obj [ v ], 0, sizeof ( struct line_data ) ); 
+    }
     report_cpu_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_cpu_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_tasks_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_tasks_obj, 0, sizeof ( struct line_data ) ); 
     report_tasks_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_tasks_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_tasks_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_tasks_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_pswap_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_pswap_obj, 0, sizeof ( struct line_data ) ); 
     report_pswap_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_pswap_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_pswap_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_pswap_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_paging_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_paging_obj, 0, sizeof ( struct line_data ) ); 
     report_paging_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_paging_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_paging_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_paging_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_io_transfer_rate_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_io_transfer_rate_obj, 0, sizeof ( struct line_data ) ); 
     report_io_transfer_rate_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_io_transfer_rate_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_io_transfer_rate_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_io_transfer_rate_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_memory_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    report_memory_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_memory_obj, 0, sizeof ( struct line_data ) ); 
     report_memory_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_memory_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_memory_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_memory_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_swpused_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_swpused_obj, 0, sizeof ( struct line_data ) ); 
     report_swpused_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_swpused_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_swpused_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_swpused_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_kernel_table_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_kernel_table_obj, 0, sizeof ( struct line_data ) ); 
     report_kernel_table_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_kernel_table_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_kernel_table_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_kernel_table_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_ldavg_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_ldavg_obj, 0, sizeof ( struct line_data ) ); 
     report_ldavg_spike_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_ldavg_spike_obj, 0, sizeof ( struct line_data ) ); 
     report_ldavg_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_ldavg_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_block_device_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_block_device_obj, 0, sizeof ( struct line_data ) ); 
     for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
+    {
         report_block_device_spike_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( report_block_device_spike_obj [ v ], 0, sizeof ( struct line_data ) ); 
+    }
     report_block_device_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_block_device_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_network_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_network_obj, 0, sizeof ( struct line_data ) ); 
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         report_network_spike_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( report_network_spike_obj [ v ], 0, sizeof ( struct line_data ) ); 
+    }
     report_network_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_network_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_network_error_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_network_error_obj, 0, sizeof ( struct line_data ) ); 
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         report_network_error_spike_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( report_network_error_spike_obj [ v ], 0, sizeof ( struct line_data ) ); 
+    }
     report_network_error_explanation_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_network_error_explanation_obj, 0, sizeof ( struct line_data ) ); 
     report_thrashing_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( report_thrashing_obj, 0, sizeof ( struct line_data ) ); 
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         report_network_down_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( report_network_down_obj [ v ], 0, sizeof ( struct line_data ) ); 
+    }
     /* ps obj should go here */
     for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for each file */
         ps_common_cpu_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_common_cpu_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_common_memory_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_common_memory_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_common_ldavg_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_common_ldavg_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_common_io_transfer_rate_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_common_io_transfer_rate_obj [ v ], 0, sizeof ( struct line_data ) ); 
         /* for file cpu */
         ps_cpu_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_cpu_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_cpu_usr_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_cpu_usr_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_cpu_sys_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_cpu_sys_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_cpu_iowait_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_cpu_iowait_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_cpu_idle_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_cpu_idle_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_paging_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_paging_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_paging_pgpgin_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_paging_pgpgin_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_paging_pgpgout_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_paging_pgpgout_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_paging_fault_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_paging_fault_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_paging_mjflt_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_paging_mjflt_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_paging_vmeff_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_paging_vmeff_obj [ v ], 0, sizeof ( struct line_data ) ); 
         /* for file mem */
         ps_memory_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_memory_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_memory_memused_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_memory_memused_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_memory_kbcommit_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_memory_kbcommit_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_memory_commit_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_memory_commit_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_swapping_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_swapping_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_swapping_pswpin_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_swapping_pswpin_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_swapping_pswpout_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_swapping_pswpout_obj [ v ], 0, sizeof ( struct line_data ) ); 
         /* for file ldv */
         ps_ldavg_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_ldavg_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_ldavg_runq_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_ldavg_runq_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_ldavg_plist_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_ldavg_plist_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_ldavg_ldavg_one_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_ldavg_ldavg_one_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_ldavg_ldavg_five_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_ldavg_ldavg_five_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_ldavg_ldavg_15_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_ldavg_ldavg_15_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_tasks_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_tasks_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_tasks_proc_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_tasks_proc_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_tasks_cswch_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_tasks_cswch_obj [ v ], 0, sizeof ( struct line_data ) ); 
         /* for file ior */
         ps_io_transfer_rate_label_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_io_transfer_rate_label_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_io_transfer_rate_tps_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_io_transfer_rate_tps_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_io_transfer_rate_bread_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_io_transfer_rate_bread_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_io_transfer_rate_bwrtn_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_io_transfer_rate_bwrtn_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_kernel_table_dentunusd_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_kernel_table_dentunusd_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_kernel_table_file_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_kernel_table_file_obj [ v ], 0, sizeof ( struct line_data ) ); 
         ps_kernel_table_inode_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_kernel_table_inode_obj [ v ], 0, sizeof ( struct line_data ) ); 
         /* for linux restart string */
         ps_restart_obj [ v ] = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+        memset ( ps_restart_obj [ v ], 0, sizeof ( struct line_data ) ); 
     }
 
     if ( ( header_obj == NULL ) || ( report_obj == NULL ) || 

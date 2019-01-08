@@ -30,7 +30,7 @@
 #include "libsosreport-analyzer/common.h"
 #include "libsosreport-analyzer/line_data.h"
 #include "libsar-analyzer/common.h"
-#include "libsar-analyzer/line_data.h"
+//#include "libsar-analyzer/line_data.h"
 
 /* configuration file of this program/library */
 static const char *fname = "/etc/sosreport-analyzerd.conf";
@@ -74,11 +74,17 @@ int main ( int argc, char *argv [ ] )
     const char *dir_name = NULL;
 
     sos_header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( sos_header_obj, 0, sizeof ( struct line_data ) ); 
     sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( sos_line_obj, 0, sizeof ( struct line_data ) ); 
     sos_tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( sos_tail_obj, 0, sizeof ( struct line_data ) ); 
     var_log_messages_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( var_log_messages_obj, 0, sizeof ( struct line_data ) ); 
     sos_commands_logs_journalctl___no_pager_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( sos_commands_logs_journalctl___no_pager_obj, 0, sizeof ( struct line_data ) ); 
     sos_commands_networking_ethtool__S_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( sos_commands_networking_ethtool__S_obj, 0, sizeof ( struct line_data ) ); 
 
     if ( ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
     {
