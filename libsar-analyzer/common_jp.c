@@ -176,11 +176,11 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
         str_arr_to_function [ i ] = str_arr [ i ]; 
     }
 
-    /* copy finished, so safely close the directory */
-    closedir ( dir );
-
     /* now pass an array to the function, this will be done by passing first pointer of an array */
     read_write_file ( dname, str_arr_to_function, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY );
+
+    /* safely close the directory */
+    closedir ( dir );
 }
 
 void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
@@ -215,8 +215,9 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
         for ( ii = 0; ii < MAX_FULL_PATH_LENGTH; ii++ )
             full_path [ ii ] = '\0';
         strncpy ( full_path, dname, MAX_DIR_NAME_LENGTH - 1 );
-        strncat ( full_path, "/", 2 );
-        strncat ( full_path, sar_arr [ i ], 5 );
+        strncat ( full_path, "/", MAX_DIR_NAME_LENGTH - 1  );
+        strncat ( full_path, sar_arr [ i ], MAX_DIR_NAME_LENGTH - 1 );
+printf("sar_arr[i]:%s\n",sar_arr[i]);
         strncpy ( sar_full_path_arr [ i ], full_path, MAX_FULL_PATH_LENGTH );
     }
 
