@@ -40,16 +40,9 @@ int init_list ( node **obj )
     return ( 0 );
 }
 
-int init2_list ( file_data **obj )
-{
-    *obj = NULL;
-
-    return ( 0 );
-}
-
 node *allocate_mem_to_one_node ( )
 {
-    return ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    return ( struct line_data * ) calloc ( 1, sizeof ( struct line_data ) );
 }
 
 void set_list ( node *obj, char *line, node *obj_next )
@@ -62,6 +55,7 @@ void set_list ( node *obj, char *line, node *obj_next )
     else
         strncpy ( ( char* ) obj->_line, line, MAX_LINE_LENGTH + 1 );
     obj->next = obj_next;
+    free( obj_next );
 }
 
 int insert_node_top_of_the_list ( node **obj, char *line )
@@ -77,13 +71,6 @@ int insert_node_top_of_the_list ( node **obj, char *line )
 
 int append_list ( node **obj, char *line )
 {
-/*
-    if ( *obj == line_all_obj )
-    {
-        printf("this obj is line_all_obj\n");
-        line_all_obj_num = 1;
-    }
-*/
     /* if no node found in the object, insert node in the very top of it */
     if ( *obj == NULL )
     {
@@ -96,7 +83,6 @@ int append_list ( node **obj, char *line )
         while ( obj_new->next != NULL )
             obj_new = obj_new->next;
         obj_new->next = allocate_mem_to_one_node ( );
-        /* next pointer should be NULL because nothing beyond it */
         set_list ( obj_new->next, line, NULL );
     }
 
@@ -183,29 +169,27 @@ void file_write_list ( node **obj, FILE *fp_w )
         fprintf ( fp_w, "%s\n", ptr_tmp->_line );
         ptr_tmp = ptr_tmp->next;
     }
+    ptr_tmp = NULL;
+    free ( ptr_tmp );
 }
 
 int delete_obj ( node **obj )
 {
-    if ( *obj != NULL )
-    {
-        /* printf("deleting %p\n",obj); */
-        /* moving next, do something, moving next ... */
-        node *obj_new = ( *obj ) -> next;
-        free ( *obj );
-        *obj = obj_new;
-    } 
+    /* moving next, do something, moving next ... */
+    node *obj_new = ( *obj ) -> next;
+    free ( *obj );
+    *obj = obj_new;
 
     return ( 0 );
 }
 
 int clear_list ( node **obj )
 {
-    if ( *obj == NULL )
-        return ( 0 );
     while ( *obj != NULL )
     {
-        delete_obj ( obj );
+        node *obj_new = ( *obj ) -> next;
+        free ( *obj );
+        *obj = obj_new;
     }
     return ( 0 );
 }

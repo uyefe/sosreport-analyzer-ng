@@ -198,16 +198,6 @@ void file_write_list ( node **obj, FILE *fp_w );
 int init_list ( node **obj );
 
 /*
- * Function Name: ini2t_list ()
- *
- * This function initializes the line list object ( dir_file_name ) 
- *
- *  Caller : main ()
- *
- */
-int init2_list ( file_data **obj );
-
-/*
  * Function Name: delete_obj ()
  *
  * This function clears the list object (node) 

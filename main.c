@@ -116,14 +116,14 @@ int main ( int argc, char *argv [ ] )
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
-    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
+    memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     append_list ( &sos_header_obj, "########" );
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
     append_list ( &sos_header_obj, str_tmp2 );
     append_list ( &sos_header_obj, "########" );
     append_list ( &sos_tail_obj, "########" );
-    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s ends.", app_name ); 
     append_list ( &sos_tail_obj, str_tmp2 );
     /* Try to process all command line arguments */
@@ -204,12 +204,6 @@ int main ( int argc, char *argv [ ] )
     append_list ( &sos_header_obj, "--------" );
     append_list ( &var_log_messages_obj, "--------" );
     append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
-    print_list ( &sos_header_obj );
-    print_list ( &var_log_messages_obj );
-    print_list ( &sos_commands_logs_journalctl___no_pager_obj );
-    print_list ( &sos_commands_networking_ethtool__S_obj );
-    print_list ( &sos_line_obj );
-    print_list ( &sos_tail_obj );
 
     sos_file_to_write ( );
 
@@ -219,7 +213,7 @@ int main ( int argc, char *argv [ ] )
     sos_file_write = get_sos_file_name_to_be_written ( );
     /* open result directory */
     char str_dir_result [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( str_dir_result, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( str_dir_result, '\0', sizeof ( str_dir_result ) ); 
     strncpy ( str_dir_result, "./sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
     if ( check_result_dir ( str_dir_result ) != 0 )
         printf("can't open dir %s (%s)\n",str_dir_result,strerror(errno));
@@ -250,7 +244,7 @@ int main ( int argc, char *argv [ ] )
      *  also, starts analyzing
      */
     const char *file_name = NULL;
-    memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
+    memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
     snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( ) ); 
     sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
     char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
@@ -261,59 +255,6 @@ int main ( int argc, char *argv [ ] )
     append_list ( &report_obj, str_num );
     append_list ( &report_obj, "--------" );
 
-    print_list ( &line_all_obj );
-    /* print 'files names' which had been analyzed*/
-    print_and_file_write_analyzed_files ( &line_all_obj, "filename", "print" ,NULL );
-    /* printing report objects */
-    print_list ( &line_all_obj );
-    print_list ( &header_obj );
-    print_list ( &report_cpu_obj );
-    for ( int v = 0; v <= get_core_numbers ( ); v++ )
-        print_list ( &report_cpu_spike_obj [ v ] );
-    print_list ( &report_cpu_explanation_obj );
-    print_list ( &report_tasks_obj );
-    print_list ( &report_tasks_spike_obj );
-    print_list ( &report_tasks_explanation_obj );
-    print_list ( &report_pswap_obj );
-    print_list ( &report_pswap_spike_obj );
-    print_list ( &report_pswap_explanation_obj );
-    print_list ( &report_paging_obj );
-    print_list ( &report_paging_spike_obj );
-    print_list ( &report_paging_explanation_obj );
-    print_list ( &report_io_transfer_rate_obj );
-    print_list ( &report_io_transfer_rate_spike_obj );
-    print_list ( &report_io_transfer_rate_explanation_obj );
-    print_list ( &report_memory_obj );
-    print_list ( &report_memory_spike_obj );
-    print_list ( &report_memory_explanation_obj );
-    print_list ( &report_swpused_obj );
-    print_list ( &report_swpused_spike_obj );
-    print_list ( &report_swpused_explanation_obj );
-    print_list ( &report_kernel_table_obj );
-    print_list ( &report_kernel_table_spike_obj );
-    print_list ( &report_kernel_table_explanation_obj );
-    print_list ( &report_ldavg_obj );
-    print_list ( &report_ldavg_spike_obj );
-    print_list ( &report_ldavg_explanation_obj );
-    print_list ( &report_block_device_obj );
-    for ( int v = 0; v <= get_block_device_numbers ( ); v++ )
-        print_list ( &report_block_device_spike_obj [ v ] );
-    print_list ( &report_block_device_explanation_obj );
-    print_list ( &report_network_obj );
-    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
-        print_list ( &report_network_spike_obj [ v ] );
-    print_list ( &report_network_explanation_obj );
-    print_list ( &report_network_error_obj );
-    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
-        print_list ( &report_network_error_spike_obj [ v ] );
-    print_list ( &report_network_error_explanation_obj );
-    print_list ( &report_thrashing_obj );
-    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
-        print_list ( &report_network_down_obj [ v ] );
-    print_list ( &report_obj );
-    /* print "Linux" lines (top of sar file)*/
-    print_and_file_write_analyzed_files ( &line_all_obj, "Linux", "print" ,NULL );
-    /* --------  for file write --------*/
     /* creating file name to be written from SAR_OPTION */
     file_to_write ( SAR_OPTION );
 
@@ -398,7 +339,7 @@ int main ( int argc, char *argv [ ] )
     for ( int v = 0, x = 1; v < MAX_ANALYZE_FILES; v++, x++ )
     {
         char str_tmp [ MAX_LINE_LENGTH ] = { '\0' };
-        memset ( str_tmp, '\0', MAX_LINE_LENGTH );
+        memset ( str_tmp, '\0', sizeof ( str_tmp ) );
         snprintf ( str_tmp, MAX_LINE_LENGTH, "%s%s%d%s", file_ps_write, "-cpu-", x, ".ps" );
         if ( ( fp_ps_w [ v ] = fopen ( str_tmp,"a" ) ) == NULL )
         {
@@ -551,7 +492,7 @@ int main ( int argc, char *argv [ ] )
         file_write_list ( &ps_restart_obj [ v ], fp_ps4_w [ v ] );
     }
     char str_tmp_echo [ MAX_LINE_LENGTH ] = { '\0' };
-    memset ( str_tmp_echo, '\0', MAX_LINE_LENGTH );
+    memset ( str_tmp_echo, '\0', sizeof ( str_tmp_echo) );
     snprintf ( str_tmp_echo, MAX_LINE_LENGTH, "%s%s", file_ps_write, "-<item>-<no>.ps" );
     printf("Please check graphs in the ps file: %s\n\n",str_tmp_echo);
     /* close the file pointers */
