@@ -31,6 +31,14 @@ else
     echo "intltoolize is installed. I proceed."    
 fi
 
+LIBTOOLIZE=`which libtoolize`
+if test -z $LIBTOOLIZE; then
+        echo "*** No libtoolize found, please install the libtool package ***"
+        exit 1
+else
+    echo "libtoolize is installed. I proceed."    
+fi
+
 AUTOPOINT='intltoolize --automake --copy' autoreconf --force --install --verbose
 
 cd $olddir
