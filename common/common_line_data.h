@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-//#include "common.h" 
 
 #ifndef SOSREPORT_ANALYZER_COMMON_LINE_DATA_H
 #define SOSREPORT_ANALYZER_COMMON_LINE_DATA_H
@@ -44,6 +43,30 @@ typedef struct line_data
     struct line_data *next;
 
 } node;
+
+/*
+ * Declare type of file_data which should contain dir or file name 
+ */
+typedef struct
+{
+    /* file name to be written */
+    char dirname [ MAX_LINE_LENGTH ];
+    /* sos file name to be written */
+    char sos_file_name_to_be_written [ MAX_LINE_LENGTH ];
+    /* sar file name to be written */
+    char sar_file_name_to_be_written [ MAX_LINE_LENGTH ];
+    /* sar file name to be written */
+    char ps_file_name_to_be_written [ MAX_LINE_LENGTH ];
+} file_data;
+
+/*
+ * This should becom living object
+ *
+ */
+struct dir_file_name
+{
+    file_data dir_file_names;
+};
 
 /**** line_data things ****/
 
@@ -167,12 +190,22 @@ void file_write_list ( node **obj, FILE *fp_w );
 /*
  * Function Name: init_list ()
  *
- * This function initializes the line list object (node) 
+ * This function initializes the line list object ( node ) 
  *
  *  Caller : create_sar_analyzer_obj ()
  *
  */
 int init_list ( node **obj );
+
+/*
+ * Function Name: ini2t_list ()
+ *
+ * This function initializes the line list object ( dir_file_name ) 
+ *
+ *  Caller : main ()
+ *
+ */
+int init2_list ( file_data **obj );
 
 /*
  * Function Name: delete_obj ()

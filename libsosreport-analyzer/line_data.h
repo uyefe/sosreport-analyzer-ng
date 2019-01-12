@@ -29,7 +29,6 @@
 #ifndef SOSREPORT_ANALYZER_LINE_DATA_H
 #define SOSREPORT_ANALYZER_LINE_DATA_H
 
-
 /*
  * Function Name: search_list ()
  *

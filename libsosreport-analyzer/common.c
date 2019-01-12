@@ -33,6 +33,10 @@
 #include "common.h"
 #include "cfg.h"
 
+/* sos_dir_file_obj */
+struct dir_file_name sos_dir_file_obj_raw = 
+    {{ "test.txt", "test.txt", "test.txt", "test.txt" }};
+
 /* sos_header_obj */
 struct line_data sos_header_obj_raw =
     {
@@ -76,6 +80,7 @@ struct line_data sos_commands_networking_ethtool__S_obj_raw =
     };
 
 /* initialise */
+struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
@@ -891,19 +896,24 @@ void read_file_pre ( const char *member, const char *dir_name )
     }
 }
 
+const char *get_dirname ( void )
+{
+    return sos_dir_file_obj->dir_file_names.dirname;
+}
+
 const char *get_sos_file_name_to_be_written ( void )
 {
-    return file_data_obj->sos_file_name_to_be_written;
+    return sos_dir_file_obj->dir_file_names.sos_file_name_to_be_written;
 }
 
 const char *get_sar_file_name_to_be_written ( void )
 {
-    return file_data_obj->sar_file_name_to_be_written;
+    return sos_dir_file_obj->dir_file_names.sar_file_name_to_be_written;
 }
 
 const char *get_ps_file_name_to_be_written ( void )
 {
-    return file_data_obj->ps_file_name_to_be_written;
+    return sos_dir_file_obj->dir_file_names.ps_file_name_to_be_written;
 }
 
 int check_result_dir ( const char *dname )
@@ -989,18 +999,18 @@ void sos_file_to_write ( void )
     strncat ( buff_sos, f_t, MAX_FILE_NAME_LENGTH - 1 );
     strncat ( buff_sos, ".txt", MAX_FILE_NAME_LENGTH - 1);
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
-    strcpy ( file_data_obj->sos_file_name_to_be_written, buff_sos );
+    strcpy ( sos_dir_file_obj->dir_file_names.sos_file_name_to_be_written, buff_sos );
     /* for sar file */
     strftime ( f_t2, sizeof ( f_t2 ), "_sar_%Y%m%d%H%M%S", timenow );
     strncat ( buff_sar, f_t2, MAX_FILE_NAME_LENGTH - 1 );
     strncat ( buff_sar, ".txt", MAX_FILE_NAME_LENGTH - 1 );
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
-    strcpy ( file_data_obj->sar_file_name_to_be_written, buff_sar );
+    strcpy ( sos_dir_file_obj->dir_file_names.sar_file_name_to_be_written, buff_sar );
     /* for ps file */
     strftime ( f_t3, sizeof ( f_t3 ), "_ps_%Y%m%d%H%M%S", timenow );
     strncat ( buff_ps, f_t3, MAX_FILE_NAME_LENGTH - 1 );
     /* Here we use strcpy. No worry, buff is surely under MAX_FILE_NAME_LENGTH */;
-    strcpy ( file_data_obj->ps_file_name_to_be_written, buff_ps );
+    strcpy ( sos_dir_file_obj->dir_file_names.ps_file_name_to_be_written, buff_ps );
 }
 
 int append_item_to_sos_line_obj ( char *line, const char *member, const char *item )

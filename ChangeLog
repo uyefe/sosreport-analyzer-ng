@@ -1,3 +1,5 @@
+1.0.10
+Fix wrong object handling.
 1.0.9
 Fix timing of closing dir pointer.
 1.0.8

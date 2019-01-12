@@ -25,7 +25,7 @@
 
 #define PROGRAM_VERSION 1
 #define PROGRAM_RELEASE 0
-#define PROGRAM_SUB_RELEASE 9
+#define PROGRAM_SUB_RELEASE 10 
 
 /* the maximum line length of file name */
 #define MAX_FULL_PATH_LENGTH  512
@@ -38,19 +38,6 @@
 
 /* the maximum analyze files */
 #define MAX_ANALYZE_FILES 31 
-
-/* This is the file data object*/
-struct file_data
-{
-    /* file name to be written */
-    char dirname [ MAX_FILE_NAME_LENGTH ];
-    /* sos file name to be written */
-    char sos_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
-    /* sar file name to be written */
-    char sar_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
-    /* sar file name to be written */
-    char ps_file_name_to_be_written [ MAX_FILE_NAME_LENGTH ];
-};
 
 /*
  * reverse_the_string()
@@ -75,18 +62,6 @@ char *cut_str_from_the_last_slash ( char *str_p, int str_len, char *str_ret );
  *
  */
 char *cut_str_by_the_last_slash ( char *str_p, int str_len );
-
-/*
- * Function Name: get_dirname ()
- *
- * This function returns dirname for analyzed result
- * 
- * Caller : main ()
- *
- * Calls : none
- *
- */
-const char *get_dirname ( void );
 
 int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
 

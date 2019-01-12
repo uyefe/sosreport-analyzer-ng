@@ -29,6 +29,13 @@ int init_list ( node **obj )
     return ( 0 );
 }
 
+int init2_list ( file_data **obj )
+{
+    *obj = NULL;
+
+    return ( 0 );
+}
+
 node *allocate_mem_to_one_node ( )
 {
     return ( struct line_data * ) malloc ( sizeof ( struct line_data ) );

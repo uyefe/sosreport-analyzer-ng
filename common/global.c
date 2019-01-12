@@ -37,15 +37,6 @@ char str [ MAX_LINE_LENGTH ];
 char str2 [ MAX_LINE_LENGTH ];  
 char str3 [ MAX_LINE_LENGTH ];  
 
-/* file_data_obj */
-struct file_data file_data_obj_raw =
-    {
-        "",
-    };
-
-/* initialise */
-struct file_data *file_data_obj = &file_data_obj_raw;
-
 char *reverse_the_string ( char *str_tmp, int str_len )
 {
     int i = 0, j = 0;
@@ -98,12 +89,6 @@ char *cut_str_from_the_last_slash ( char *str_tmp, int str_len, char str_ret [ M
 
     return str_ret;
 }
-
-const char *get_dirname ( void )
-{
-    return file_data_obj->dirname;
-}
-
 int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item )
 {
     if ( strcmp ( "spike", analyze_item ) == 0 )

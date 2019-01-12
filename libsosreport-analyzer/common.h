@@ -30,6 +30,7 @@
  * These are pointers to the global data, it should be available
  * once sosreport_analyzer_init() was called.
  */
+extern struct dir_file_name *sos_dir_file_obj;
 extern struct line_data *sos_header_obj;
 extern struct line_data *sos_line_obj;
 extern struct line_data *sos_tail_obj;
@@ -74,6 +75,18 @@ void read_file_pre ( const char *member, const char *dir_name );
  *
  */
 int check_result_dir ( const char *dname );
+
+/*
+ * Function Name: get_dirname ()
+ *
+ * This function returns dirname for analyzed result
+ * 
+ * Caller : main ()
+ *
+ * Calls : none
+ *
+ */
+const char *get_dirname ( void );
 
 /*
  * Function Name: get_sos_file_name_to_be_written ()

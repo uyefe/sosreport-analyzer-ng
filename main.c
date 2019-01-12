@@ -30,7 +30,6 @@
 #include "libsosreport-analyzer/common.h"
 #include "libsosreport-analyzer/line_data.h"
 #include "libsar-analyzer/common.h"
-//#include "libsar-analyzer/line_data.h"
 
 /* configuration file of this program/library */
 static const char *fname = "/etc/sosreport-analyzerd.conf";
@@ -73,6 +72,8 @@ int main ( int argc, char *argv [ ] )
     int dir_len_check = 256;
     const char *dir_name = NULL;
 
+    sos_dir_file_obj = ( struct dir_file_name * ) malloc ( sizeof ( struct dir_file_name ) );
+    memset ( sos_dir_file_obj, 0, sizeof ( struct dir_file_name ) ); 
     sos_header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     memset ( sos_header_obj, 0, sizeof ( struct line_data ) ); 
     sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
@@ -86,15 +87,17 @@ int main ( int argc, char *argv [ ] )
     sos_commands_networking_ethtool__S_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     memset ( sos_commands_networking_ethtool__S_obj, 0, sizeof ( struct line_data ) ); 
 
-    if ( ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
+    if ( ( sos_dir_file_obj == NULL ) || ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
     {
         printf ("Failed to allocate memory for report obj.");
+        free ( sos_dir_file_obj );
         free ( sos_header_obj );
         free ( sos_line_obj );
         free ( sos_tail_obj );
         free ( var_log_messages_obj );
         free ( sos_commands_logs_journalctl___no_pager_obj );
         free ( sos_commands_networking_ethtool__S_obj );
+        sos_dir_file_obj = NULL;
         sos_header_obj = NULL;
         sos_line_obj = NULL;
         sos_tail_obj = NULL;
@@ -134,7 +137,7 @@ int main ( int argc, char *argv [ ] )
                     print_help ( );
                     return EXIT_FAILURE;
                 }else{
-                    strcpy ( file_data_obj->dirname, dir_name );
+                    strcpy ( sos_dir_file_obj->dir_file_names.dirname, dir_name );
                     strcpy ( str_tmp2, reverse_the_string ( ( char * ) dir_name, strlen ( dir_name ) ) );
                     for ( int i = 0; i < strlen ( dir_name ); i++ )
                     {
@@ -145,7 +148,7 @@ int main ( int argc, char *argv [ ] )
                     {
                         strcpy ( str_tmp2, ( char * ) dir_name );
                         str_tmp2 [ strlen ( dir_name ) -1 ] = '\0';
-                        strcpy ( file_data_obj->dirname, str_tmp2 );
+                        strcpy ( sos_dir_file_obj->dir_file_names.dirname, str_tmp2 );
                     }
                     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "dirname:%s",dir_name );
                     append_list ( &sos_header_obj, str_tmp2 );
@@ -557,6 +560,7 @@ int main ( int argc, char *argv [ ] )
     }
 
     cfg_clear (); 
+    //clear_list ( &sos_dir_file_obj ); 
     clear_list ( &sos_header_obj ); 
     clear_list ( &sos_line_obj ); 
     clear_list ( &var_log_messages_obj ); 

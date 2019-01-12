@@ -217,7 +217,6 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
         strncpy ( full_path, dname, MAX_DIR_NAME_LENGTH - 1 );
         strncat ( full_path, "/", MAX_DIR_NAME_LENGTH - 1  );
         strncat ( full_path, sar_arr [ i ], MAX_DIR_NAME_LENGTH - 1 );
-printf("sar_arr[i]:%s\n",sar_arr[i]);
         strncpy ( sar_full_path_arr [ i ], full_path, MAX_FULL_PATH_LENGTH );
     }
 
