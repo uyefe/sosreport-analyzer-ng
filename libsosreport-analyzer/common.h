@@ -30,6 +30,7 @@
  * These are pointers to the global data, it should be available
  * once sosreport_analyzer_init() was called.
  */
+extern struct line_data *tmp_obj;
 extern struct dir_file_name *sos_dir_file_obj;
 extern struct line_data *sos_header_obj;
 extern struct line_data *sos_line_obj;

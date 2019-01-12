@@ -102,6 +102,7 @@ void read_analyze_dir ( const char *member, const char *dname )
     char fname_part_path [ MAX_LINE_LENGTH ];  
 
     memset ( full_path, '\0', sizeof ( full_path ) ); 
+    memset ( read_path, '\0', sizeof ( read_path ) ); 
     memset ( str_orig, '\0', sizeof ( str_orig ) ); 
     memset ( fname_part_path, '\0', sizeof ( fname_part_path ) ); 
     snprintf (full_path, MAX_LINE_LENGTH, "%s/%s", dname, member );

@@ -20,7 +20,18 @@
  * 02110-1301 USA
  */
 
+#include "common.h"
 #include "line_data.h"
+
+/* tmp_obj */
+struct line_data tmp_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
+struct line_data *tmp_obj = &tmp_obj_raw;
+
 
 int init_list ( node **obj )
 {
@@ -66,6 +77,13 @@ int insert_node_top_of_the_list ( node **obj, char *line )
 
 int append_list ( node **obj, char *line )
 {
+/*
+    if ( *obj == line_all_obj )
+    {
+        printf("this obj is line_all_obj\n");
+        line_all_obj_num = 1;
+    }
+*/
     /* if no node found in the object, insert node in the very top of it */
     if ( *obj == NULL )
     {
@@ -171,6 +189,7 @@ int delete_obj ( node **obj )
 {
     if ( *obj != NULL )
     {
+        /* printf("deleting %p\n",obj); */
         /* moving next, do something, moving next ... */
         node *obj_new = ( *obj ) -> next;
         free ( *obj );

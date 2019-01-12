@@ -27,7 +27,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "common.h"
-#include "line_data.h"
+#include "../libsosreport-analyzer/line_data.h"
 #include "setter_getter.h"
 #include "../common/global.c"
 #include "check.c"

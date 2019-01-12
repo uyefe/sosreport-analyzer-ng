@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "../libsar-analyzer/common.h" 
 #include "../common/common_line_data.h" 
 
 #ifndef SOSREPORT_ANALYZER_LINE_DATA_H

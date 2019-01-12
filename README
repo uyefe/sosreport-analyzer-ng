@@ -78,6 +78,33 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Or you may reading file including japanese although machine locale is not JP.
   In that case, edit libsar-analyzer/Makefile.am to use common_jp.c and sar_analyzer_jp.c.
 
+## Getting "sar file"
+  Note that "sar file" should be basically, written in English.
+
+  It may be good to convert binary 'sa' file to text 'sar' file.
+
+  Because, sometimes, text 'sar' file is not made yet but binary 'sa' file exists.
+
+  Here is a way converting 'sa' file to 'sar' file.
+
+  example:
+
+  $ LC_ALL=C sar -f /var/log/sa/sa01 -A -t > ./sar01
+
+  how to remove ^@
+
+  Sometimes, ^@ will appear in 'sar' file. In those cases, remove with this command.
+
+  example:
+
+  $ sed -i 's/\x00//g' ./sar01
+
+  Check 'sar' file is written in Ascii text and clear.
+
+  example:
+
+  $less sar01 | less
+
 ## Before using
 
   Check /etc/sosreport-analyzerd.conf

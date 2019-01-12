@@ -21,7 +21,8 @@
  */
 
 #include "common.h"
-#include "line_data.h"
+//#include "line_data.h"
+#include "../libsosreport-analyzer/line_data.h"
 
 #ifndef SAR__ANALYZER_H
 #define SAR__ANALYZER_H

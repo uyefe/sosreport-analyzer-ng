@@ -90,6 +90,7 @@ int main ( int argc, char *argv [ ] )
     if ( ( sos_dir_file_obj == NULL ) || ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
     {
         printf ("Failed to allocate memory for report obj.");
+        free ( tmp_obj );
         free ( sos_dir_file_obj );
         free ( sos_header_obj );
         free ( sos_line_obj );
@@ -217,8 +218,11 @@ int main ( int argc, char *argv [ ] )
     /* --------  for file write --------*/
     sos_file_write = get_sos_file_name_to_be_written ( );
     /* open result directory */
-    if ( check_result_dir ( "./sosreport-analyzer-results" ) != 0 )
-        printf("can't open dir ./sosreport-analyzer-results (%s)\n",strerror(errno));
+    char str_dir_result [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( str_dir_result, '\0', MAX_FILE_NAME_LENGTH ); 
+    strncpy ( str_dir_result, "./sosreport-analyzer-results", MAX_FILE_NAME_LENGTH );
+    if ( check_result_dir ( str_dir_result ) != 0 )
+        printf("can't open dir %s (%s)\n",str_dir_result,strerror(errno));
 
     /* open result file */
     if ( ( fp_w = fopen ( sos_file_write, "a" ) ) == NULL )
@@ -560,13 +564,34 @@ int main ( int argc, char *argv [ ] )
     }
 
     cfg_clear (); 
-    //clear_list ( &sos_dir_file_obj ); 
+
+    free ( sos_dir_file_obj );
+    sos_dir_file_obj = NULL;
+    free ( sos_header_obj );
+    sos_header_obj = NULL;
+    free ( sos_line_obj );
+    sos_line_obj = NULL;
+    free ( var_log_messages_obj );
+    var_log_messages_obj = NULL;
+    free ( sos_commands_logs_journalctl___no_pager_obj );
+    sos_commands_logs_journalctl___no_pager_obj = NULL;
+    free ( sos_commands_networking_ethtool__S_obj );
+    sos_commands_networking_ethtool__S_obj = NULL;
+    free ( sos_tail_obj );
+    sos_tail_obj = NULL;
+
     clear_list ( &sos_header_obj ); 
+    sos_header_obj = NULL;
     clear_list ( &sos_line_obj ); 
+    sos_line_obj = NULL;
     clear_list ( &var_log_messages_obj ); 
+    var_log_messages_obj = NULL;
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
+    sos_commands_logs_journalctl___no_pager_obj = NULL;
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
+    sos_commands_networking_ethtool__S_obj = NULL;
     clear_list ( &sos_tail_obj ); 
+    sos_tail_obj = NULL;
 
     /* freeing sar-analyzer objects */
     free_sar_analyzer_obj ( );

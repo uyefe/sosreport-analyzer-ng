@@ -23,7 +23,8 @@
 #include <dirent.h>
 #include <string.h>
 #include "../common/global.h"
-#include "line_data.h"
+//#include "line_data.h"
+#include "../libsosreport-analyzer/line_data.h"
 #include "make_report.h"
 #include "setter_getter.h"
 
@@ -2032,6 +2033,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
 
 int append_header_to_ps_objs ( node **obj, FILE *fp_w )
 {
+    //if ( *obj == ps_common_cpu_obj [ 0 ])
+    //printf("node is ps_common_cpu_obj [ 0 ]\n");
+    //exit ( EXIT_FAILURE );
+
     append_list ( obj, "%!PS-Adobe-3.0 EPSF-3.0" );
     append_list ( obj, " initgraphics erasepage a4  0.39 0.39 scale 66 63 translate" );
     append_list ( obj, " 2 setlinewidth 0 setlinecap 2 setlinejoin /#copies 1 def /f { fill} def" );
