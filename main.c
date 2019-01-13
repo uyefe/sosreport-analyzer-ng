@@ -52,12 +52,14 @@ static void print_help ( void )
 /* Main function */
 int main ( int argc, char *argv [ ] )
 {
+/*
     if ( ! isatty ( fileno ( stdout ) ) )
     {
         fprintf(stderr,"You are not a terminal!\n");
         fprintf(stderr,"You are not allowed to redirect to a file.\n");
         return EXIT_FAILURE;
     }
+*/
     if ( argc <=2 )
     {
         print_help ( );
@@ -116,8 +118,10 @@ int main ( int argc, char *argv [ ] )
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
+    char str_tmp3 [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
     memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
+    memset ( str_tmp3, '\0', sizeof ( str_tmp3 ) ); 
     append_list ( &sos_header_obj, "########" );
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
     append_list ( &sos_header_obj, str_tmp2 );
@@ -245,7 +249,7 @@ int main ( int argc, char *argv [ ] )
      */
     const char *file_name = NULL;
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
-    snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( ) ); 
+    snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( str_tmp3 ) ); 
     sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
     char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
     char str_tmp_sar [ 10 ] = "dir_name:";
