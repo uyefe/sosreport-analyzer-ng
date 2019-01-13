@@ -833,16 +833,17 @@ void set_token_to_item_arr ( const char *file_name )
 
 void read_file_pre ( const char *member, const char *dir_name )
 {
-    char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
-    char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
-    memset ( str_tmp2, '\0', MAX_FILE_NAME_LENGTH ); 
+    char str_tmp [ MAX_LINE_LENGTH - 6 ]; 
+    memset ( str_tmp, '\0', MAX_LINE_LENGTH - 6 ); 
+    char str_tmp2 [ MAX_LINE_LENGTH ]; 
+    memset ( str_tmp2, '\0', MAX_LINE_LENGTH ); 
     char result_tmp_pre [ MAX_LINE_LENGTH - 21 ]; 
     memset ( result_tmp_pre, '\0', MAX_LINE_LENGTH - 21 ); 
     char result_tmp [ MAX_LINE_LENGTH ]; 
     memset ( result_tmp, '\0', MAX_LINE_LENGTH ); 
 
-    snprintf (str_tmp, strlen ( get_dirname ( ) ) + strlen ( member ) + 2, "%s/%s", get_dirname ( ), member );
+    char str_tmp3 [ MAX_LINE_LENGTH ]; 
+    memset ( str_tmp3, '\0', MAX_LINE_LENGTH ); 
 
     if (
         ( ( strcmp ( member, "date") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) ) ||
@@ -879,6 +880,7 @@ void read_file_pre ( const char *member, const char *dir_name )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
         snprintf ( result_tmp, MAX_LINE_LENGTH, "(config setting is %s)", result_tmp_pre );
+        snprintf (str_tmp, MAX_LINE_LENGTH, "%s/%s", get_dirname ( str_tmp3 ), member );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
         append_list ( &sos_line_obj, "" );
         append_list ( &sos_line_obj, str_tmp2 );
@@ -891,15 +893,16 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
            )
-            read_analyze_dir ( member, get_dirname ( ) );
+            read_analyze_dir ( member, get_dirname ( str_tmp3 ) );
         else
             read_file ( str_tmp );
     }
 }
 
-const char *get_dirname ( void )
+const char *get_dirname ( char str_tmp [ MAX_LINE_LENGTH ] )
 {
-    return sos_dir_file_obj->dir_file_names.dirname;
+    strncpy ( str_tmp, sos_dir_file_obj->dir_file_names.dirname, MAX_LINE_LENGTH );
+    return str_tmp;
 }
 
 const char *get_sos_file_name_to_be_written ( void )
@@ -919,12 +922,20 @@ const char *get_ps_file_name_to_be_written ( void )
 
 int check_result_dir ( const char *dname )
 {
+    if ( strlen ( dname ) > NAME_MAX )
+    {
+        printf("Directory (%s) name is too long.: %s\n",dname,strerror(errno));
+        return ( 0 );
+    }
     if ( dname != NULL )
     {
+        DIR *dir = NULL;
         /* if open directory fails, create it, if it fails, exit with error message */
-        if ( !opendir ( dname ) ) 
+        char str_tmp [ NAME_MAX ];
+        strncpy ( str_tmp, dname, NAME_MAX - 1 );
+        if ( ( dir = opendir ( str_tmp ) ) == NULL ) 
         {
-            printf("can't open directory %s\n",dname);
+            printf("can't open directory (%s): %s\n",dname,strerror(errno));
             printf("creating directory %s\n",dname);
             if ( mkdir ( dname, 0755 ) == 0 )
             {
@@ -938,6 +949,7 @@ int check_result_dir ( const char *dname )
         }
         else
             printf("directory %s exists\n",dname);
+        closedir ( dir );
     }
     return ( 0 );
 }
@@ -965,8 +977,10 @@ void sos_file_to_write ( void )
     memset ( f_t2, '\0', 40 ); 
     char f_t3 [ 40 ];
     memset ( f_t3, '\0', 40 ); 
+    char str_tmp [ MAX_LINE_LENGTH ]; 
+    memset ( str_tmp, '\0', MAX_LINE_LENGTH ); 
 
-    strcpy ( buff2, get_dirname ( ) );
+    strcpy ( buff2, get_dirname ( str_tmp ) );
     /* firstly, we create results directory */
     check_result_dir ( buff_dir );
     char str_ret [ MAX_FILE_NAME_LENGTH ]; 

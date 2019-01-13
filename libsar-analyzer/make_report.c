@@ -23,7 +23,6 @@
 #include <dirent.h>
 #include <string.h>
 #include "../common/global.h"
-//#include "line_data.h"
 #include "../libsosreport-analyzer/line_data.h"
 #include "make_report.h"
 #include "setter_getter.h"
@@ -45,11 +44,11 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
     if ( SAR_OPTION == 'Z' )
     {
         char str_tmp [ MAX_LINE_LENGTH - 1000 ];
-        char s [ MAX_LINE_LENGTH - 1000 ];
+        char s [ 4 ];
 
         /* filling up with '\0' */
-        memset ( str_tmp, '\0', MAX_LINE_LENGTH - 1001 );
-        memset ( s, '\0', MAX_LINE_LENGTH - 1001 );
+        memset ( str_tmp, '\0', MAX_LINE_LENGTH - 1000 );
+        memset ( s, '\0', 4 );
 
         snprintf ( str_tmp, MAX_LINE_LENGTH, "\n#### Report by sar-analyzer enforced by sosreport-analyzer %d.%d.%d ####", PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE );
         append_list ( &header_obj, str_tmp );
@@ -64,9 +63,9 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
             if ( i > get_core_numbers ( ) )
                 break;
             if ( ii == -1 )
-                snprintf( s, 12, "%s", "all" ); 
+                snprintf( s, 4, "%s", "all" ); 
             else
-                snprintf( s, 12, "%d", ii ); 
+                snprintf( s, 4, "%d", ii ); 
             append_list ( &report_cpu_obj, "" );
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%usr(%%user)'   for CPU %s is %8.2f (%s %s)",
                 s, get_cpu_highest_val ( i, "usr" ), get_cpu_highest_date ( i, "usr" ), get_cpu_highest_time ( i, "usr" ) );
@@ -132,6 +131,8 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
             append_list ( &report_cpu_obj, str_tmp );
             /* end averages */
         }
+        memset ( str_tmp, '\0', MAX_LINE_LENGTH - 1000 );
+        memset ( s, '\0', 4 );
         /* spikes for each file */
         append_list ( &report_cpu_obj, "\n-- Report spikes for each file of CPU utilization --" );
         for ( i = 0, ii = -1; i <= MAX_CORE_NUMBERS; i++, ii++ )
@@ -139,27 +140,28 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
             if ( i > get_core_numbers ( ) )
                 break;
             if ( ii == -1 )
-                snprintf( s, 12, "%s", "all" ); 
+                snprintf( s, 4, "%s", "all" ); 
             else
-                snprintf( s, 12, "%d", ii ); 
+                snprintf( s, 4, "%d", ii ); 
 
             for ( j = 0; j < files_n; j++ )
             {
-
                 append_list ( &report_cpu_spike_obj [ i ], "" );
                 /* set for declaring file no in case -O option is set*/
-                char str_cpu [ 7 ] = "--CPU ";
-                char str_cpu_tmp [ 13 ] = " -- file no.";
-                char str_num [ 50 ] = { '\0' };
-                char s [ 5 ];
-                if ( ii == -1 )
-                    snprintf( s, 4, "%s", "all" ); 
-                else
-                    snprintf( s, 4, "%d", ii ); 
-                snprintf ( str_num, MAX_INPUT, "%s%s%s%d", str_cpu, s, str_cpu_tmp, j + 1 );
+                char str_cpu [ 7 ];
+                memset ( str_cpu, '\0', 7 );
+                char str_cpu_tmp [ 12 ];
+                memset ( str_cpu_tmp, '\0', 12 );
+                char str_num [ 34 ];
+                memset ( str_num, '\0', 34 );
+                char str_fileno [ 11 ];
+                memset ( str_fileno, '\0', 11 );
+                strncpy ( str_cpu, "--CPU ", 7 );
+                strncpy ( str_cpu_tmp, "-- file no.", 12 );
+                snprintf( str_fileno, 11, "%d", j + 1 ); 
+                snprintf ( str_num, 34, "%s%s%s%s", str_cpu, s, str_cpu_tmp, str_fileno );
                 append_list ( &report_cpu_spike_obj [ i ], str_num );
                 /* end -- set for declaring file no in case -O option is set */
-
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Spike   value of '%%usr(%%user)'   for CPU %s is %8.2f (%s %s)",
                     s, get_cpu_spike_val_each_file ( j, i, "usr", "spike" ), get_cpu_spike_date_each_file ( j, i, "usr", "spike" ), get_cpu_spike_time_each_file ( j, i, "usr", "spike" ) );
                 append_list ( &report_cpu_spike_obj [ i ], str_tmp );

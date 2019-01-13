@@ -26,7 +26,7 @@
 /* tmp_obj */
 struct line_data tmp_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
@@ -47,13 +47,13 @@ node *allocate_mem_to_one_node ( )
 
 void set_list ( node *obj, char *line, node *obj_next )
 {
-    const char* test_line = "No good!";
+    const char* test_line = "\0";
     int len = 0;
     len = strlen ( line );
-    if ( len > MAX_LINE_LENGTH + 1 )
-        strncpy ( ( char* ) obj->_line, test_line, 10 );
+    if ( len > MAX_LINE_LENGTH )
+        strncpy ( ( char* ) obj->_line, test_line, 1 );
     else
-        strncpy ( ( char* ) obj->_line, line, MAX_LINE_LENGTH + 1 );
+        strncpy ( ( char* ) obj->_line, line, MAX_LINE_LENGTH - 1 );
     obj->next = obj_next;
     free( obj_next );
 }

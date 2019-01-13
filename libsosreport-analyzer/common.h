@@ -87,7 +87,7 @@ int check_result_dir ( const char *dname );
  * Calls : none
  *
  */
-const char *get_dirname ( void );
+const char *get_dirname ( char [ MAX_LINE_LENGTH ] );
 
 /*
  * Function Name: get_sos_file_name_to_be_written ()
