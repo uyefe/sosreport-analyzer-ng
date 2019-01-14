@@ -55,6 +55,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze proc/meminfo file.
   Echo proc/net/dev file.
   Echo proc/net/sockstat file.
+  Echo etc/logrotate.conf file.
   Echo files in etc/cron.d/.
   Analyze var/log/messages files.
   Analyze sos_commands/kernel/sysctl_-a file.

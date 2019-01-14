@@ -149,6 +149,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->proc_net_dev, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
             strncpy ( cfg->proc_net_sockstat, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/logrotate.conf" ) == 0 )
+            strncpy ( cfg->etc_logrotate_conf, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
             strncpy ( cfg->etc_cron_d_, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
@@ -288,6 +290,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     append_sos_header_obj ( "proc/interrupts", cfg );
     append_sos_header_obj ( "proc/net/dev", cfg );
     append_sos_header_obj ( "proc/net/sockstat", cfg );
+    append_sos_header_obj ( "etc/logrotate.conf", cfg );
     append_sos_header_obj ( "etc/cron.d/", cfg );
     append_sos_header_obj ( "var/log/messages", cfg );
     append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg );
@@ -353,6 +356,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->proc_net_dev );
     else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )
         strcat ( str_tmp, cfg->proc_net_sockstat );
+    else if ( strcmp ( member, "etc/logrotate.conf" ) == 0 )
+        strcat ( str_tmp, cfg->etc_logrotate_conf );
     else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
         strcat ( str_tmp, cfg->etc_cron_d_ );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )

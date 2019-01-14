@@ -88,6 +88,8 @@ struct sosreport_analyzer_config
     /* should be all */
     char proc_interrupts [ MAX_LINE_LENGTH ];
     /* should be all */
+    char etc_logrotate_conf [ MAX_LINE_LENGTH ];
+    /* should be all */
     char etc_cron_d_ [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
     char var_log_messages [ MAX_LINE_LENGTH ];

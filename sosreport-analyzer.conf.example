@@ -81,7 +81,7 @@ installed-rpms=kernel
 ##
 ## You can set arbitrary item-name including 'all' up to 2
 
-df= /dev 
+df=/dev 
 
 ## vgdisplay
 ##
@@ -173,6 +173,12 @@ proc/net/sockstat=all
 ## All you can set is 'all'
 
 proc/interrupts=all
+
+## etc/logrotate.conf
+##
+## All you can set is 'all'
+
+etc/logrotate.conf=all
 
 ## etc/cron.d/
 ##
