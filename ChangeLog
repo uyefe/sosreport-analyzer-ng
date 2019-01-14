@@ -1,4 +1,10 @@
+1.0.15
+Add etc/logrotate.conf to be echoed.
 1.0.14
+Fix configuration file name and related directory name.
+Add etc/cron.d/ directory files to be echoed.
+1.0.13
+Code cleaning.
 Fix configuration file name and related directory name.
 Add etc/cron.d/ directory files to be echoed.
 1.0.13

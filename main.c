@@ -204,6 +204,7 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "proc/interrupts", dir_name );
     read_file_pre ( "proc/net/dev", dir_name );
     read_file_pre ( "proc/net/sockstat", dir_name );
+    read_file_pre ( "etc/logrotate.conf", dir_name );
     read_file_pre ( "etc/cron.d/", dir_name );
     read_file_pre ( "var/log/messages", dir_name );
     read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );

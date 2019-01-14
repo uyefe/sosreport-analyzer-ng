@@ -241,6 +241,7 @@ const char *items_proc_meminfo [ 11 ];
 const char *items_proc_interrupts;
 const char *items_proc_net_dev;
 const char *items_proc_net_sockstat;
+const char *items_etc_logrotate_conf;
 const char *items_etc_cron_d_;
 const char *items_var_log_messages [ 11 ];
 const char *items_sos_commands_kernel_sysctl__a [ 11 ];
@@ -388,6 +389,8 @@ if ( strstr ( file_name, "cron" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
         else if ( strstr ( file_name, "proc/net/sockstat" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
+        else if ( strstr ( file_name, "etc/logrotate.conf" ) != NULL )
+            append_item_to_sos_line_obj ( line, "etc/logrotate.conf", items_etc_logrotate_conf );
         else if ( strstr ( file_name, "etc/cron.d/" ) != NULL )
         {
             snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -788,6 +791,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat, s );
         items_proc_net_sockstat = token;
     }
+    /* member etc/logrotate.conf */
+    else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_logrotate_conf, s );
+        items_etc_logrotate_conf = token;
+    }
     /* member etc/cron.d/ */
     else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) )
     {
@@ -922,6 +932,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
