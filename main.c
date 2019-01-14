@@ -32,7 +32,8 @@
 #include "libsar-analyzer/common.h"
 
 /* configuration file of this program/library */
-static const char *fname = "/etc/sosreport-analyzerd.conf";
+static const char *fname = "/etc/sosreport-analyzer.conf";
+static const char *fname_example = "/usr/share/sosreport-analyzer/sosreport-analyzer.conf.example";
 
 const char *app_name = "sosreport-analyzer-ng";
 
@@ -41,7 +42,7 @@ static void print_help ( void )
 {
     printf("\n VERSION %d.%d.%d\n",PROGRAM_VERSION,PROGRAM_RELEASE,PROGRAM_SUB_RELEASE);
     printf("\n Before use: Edit %s.\n", fname);
-    printf("\n If you are unsure, copy from /usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example to %s.\n", fname);
+    printf("\n If you are unsure, copy from %s to %s.\n", fname_example, fname);
     printf("\n Usage: %s -D <path_to_sosreport_directory>  \n\n", app_name);
     printf("  Options:\n");
     printf("   -D|--directory <path_to_sosreport_directory>   analyze files in the directory\n\n");
