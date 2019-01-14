@@ -1,8 +1,8 @@
 sosreport-analyzer-ng
 
-This is the next version of sosreport-analyzer or sar-analyzer.
+This is the next version of 'sosreport-analyzer' or 'sar-analyzer'.
 
-This program includes both sosreport analyzer and sar-analyzer.
+This program includes both 'sosreport-analyzer' and 'sar-analyzer'.
 
 Enjoy!
 
@@ -27,8 +27,8 @@ Program Name: sosreport-analyzer
 
 Binary path: /usr/local/bin/sosreport-analyzer
 
-  New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzerd.conf.example.
-  Copy it as /etc/sosreport-analyzerd.conf.
+  New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example.
+  Copy it as /etc/sosreport-analyzer.conf.
 
   Echo date file.
   Echo lsg-release file.
@@ -55,6 +55,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze proc/meminfo file.
   Echo proc/net/dev file.
   Echo proc/net/sockstat file.
+  Echo files in etc/cron.d/.
   Analyze var/log/messages files.
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.
@@ -82,13 +83,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Note that "sar file" should be basically, written in English.
 
   It may be good to convert binary 'sa' file to text 'sar' file.
-
   Because, sometimes, text 'sar' file is not made yet but binary 'sa' file exists.
-
   Here is a way converting 'sa' file to 'sar' file.
 
   example:
-
   $ LC_ALL=C sar -f /var/log/sa/sa01 -A -t > ./sar01
 
   how to remove ^@
@@ -96,23 +94,18 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Sometimes, ^@ will appear in 'sar' file. In those cases, remove with this command.
 
   example:
-
   $ sed -i 's/\x00//g' ./sar01
 
   Check 'sar' file is written in Ascii text and clear.
 
   example:
-
   $less sar01 | less
 
 ## Before using
 
-  Check /etc/sosreport-analyzerd.conf
-
+  Check /etc/sosreport-analyzer.conf
   You can set analyzing word for each analyzing member.
-
-  If you are not sure, consult /usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example.
-
+  If you are not sure, consult /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example.
   New version will not override the conf file. When you build new version, be sure to copy file
   or at least, copy lines needed.
 
@@ -121,7 +114,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   $ sosreport-analyzer -D <sosreport-dir>
 
   It writes a file to './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_<time>.txt',
-  and './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_sar_<time>.txt'.
+  './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_sar_<time>.txt'.
+  and, './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>-<item>-<no>.ps'.
 
   You can't redirect to a file.
 
