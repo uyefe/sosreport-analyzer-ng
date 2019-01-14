@@ -40,42 +40,49 @@ struct dir_file_name sos_dir_file_obj_raw =
 /* sos_header_obj */
 struct line_data sos_header_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
 /* line_obj */
 struct line_data sos_line_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
 /* tail_obj */
 struct line_data sos_tail_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* etc_cron_d__obj */
+struct line_data etc_cron_d__obj_raw =
+    {
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
 /* var_log_messages_obj */
 struct line_data var_log_messages_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
 /* sos_commands_logs_journalctl___no_pager_obj */
 struct line_data sos_commands_logs_journalctl___no_pager_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
 /* sos_commands_networking_ethtool__S_obj */
 struct line_data sos_commands_networking_ethtool__S_obj_raw =
     {
-        "", /* each line */
+        "\0", /* each line */
         NULL /* next pointer */
     };
 
@@ -84,6 +91,7 @@ struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
+struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
@@ -131,7 +139,9 @@ void read_analyze_dir ( const char *member, const char *dname )
     int str_arr_valid_size = 0;
 
     /* let's set NULL to objects */
-    if ( strstr ( full_path, "messages") != 0 )
+    if ( strstr ( full_path, "cron") != 0 )
+        etc_cron_d__obj = NULL;
+    else if ( strstr ( full_path, "messages") != 0 )
         var_log_messages_obj = NULL;
     else if ( strstr ( full_path, "journalctl") != 0 )
         sos_commands_logs_journalctl___no_pager_obj = NULL;
@@ -151,7 +161,11 @@ void read_analyze_dir ( const char *member, const char *dname )
         {
             /* so, only fname_part files will remain */
             snprintf (read_path, MAX_LINE_LENGTH, "%s%s", dname_full, str );
-            if ( strstr ( read_path, "messages") != 0 )
+            if ( strstr ( read_path, "cron") != 0 )
+            {
+                append_list ( &etc_cron_d__obj, read_path );
+            }
+            else if ( strstr ( read_path, "messages") != 0 )
             {
                 append_list ( &var_log_messages_obj, read_path );
             }
@@ -174,7 +188,9 @@ void read_analyze_dir ( const char *member, const char *dname )
 
     /* read every messages files */
     node *ptr_tmp = NULL;
-    if ( strstr ( read_path, "messages") != 0 )
+    if ( strstr ( read_path, "cron") != 0 )
+        ptr_tmp = *(&etc_cron_d__obj);
+    else if ( strstr ( read_path, "messages") != 0 )
         ptr_tmp = *(&var_log_messages_obj);
     else if ( strstr ( read_path, "journalctl") != 0 )
         ptr_tmp = *(&sos_commands_logs_journalctl___no_pager_obj);
@@ -225,6 +241,7 @@ const char *items_proc_meminfo [ 11 ];
 const char *items_proc_interrupts;
 const char *items_proc_net_dev;
 const char *items_proc_net_sockstat;
+const char *items_etc_cron_d_;
 const char *items_var_log_messages [ 11 ];
 const char *items_sos_commands_kernel_sysctl__a [ 11 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 11 ];
@@ -232,13 +249,23 @@ const char *items_sos_commands_networking_ethtool__S [ 11 ];
 /* members which could have items */
 int dmidecode = 0, lsmod = 0, lspci = 0, sos_commands_scsi_lsscsi = 0;
 int installed_rpms = 0, df = 0, last = 0;
-int ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, var_log_messages = 0;
+int ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0;
+int var_log_messages = 0;
 int sos_commands_kernel_sysctl__a = 0;
 int sos_commands_logs_journalctl___no_pager = 0;
 int sos_commands_networking_ethtool__S = 0, root_anaconda_ks_cfg = 0;
 
 void read_file ( const char *file_name )
 {
+/* debug */
+if ( strstr ( file_name, "cron" ) != NULL )
+    printf("cron files:%s\n",file_name);
+/* end debug */
+
+    char filename_etc_cron_d_ [ MAX_LINE_LENGTH ];
+    char filename_etc_cron_d__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_cron_d_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_cron_d__curr, '\0', MAX_LINE_LENGTH ); 
     char filename_var_log_messages [ MAX_LINE_LENGTH ];
     char filename_var_log_messages_curr [ MAX_LINE_LENGTH ];
     memset ( filename_var_log_messages, '\0', MAX_LINE_LENGTH ); 
@@ -361,6 +388,22 @@ void read_file ( const char *file_name )
             append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
         else if ( strstr ( file_name, "proc/net/sockstat" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
+        else if ( strstr ( file_name, "etc/cron.d/" ) != NULL )
+        {
+            snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_cron_d_, filename_etc_cron_d__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_etc_cron_d_, MAX_LINE_LENGTH, "%s", file_name );
+                /* unlike others like 'messages' which have same name should be applied in the
+                 * directory, here, we don't need 'for loop' when echoing every file in member
+                 * directory, so...
+                 */
+                append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
+        }
         else if ( strstr ( file_name, "var/log/messages" ) != NULL )
         {
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -417,7 +460,7 @@ void set_token_to_item_arr ( const char *file_name )
 {
     /* on members which have more than 2 tokens, should be initialised here */
     dmidecode = 0, lsmod = 0, lspci = 0, installed_rpms = 0, df = 0, last = 0;
-    ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, var_log_messages = 0;
+    ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0, var_log_messages = 0;
     sos_commands_kernel_sysctl__a = 0, sos_commands_logs_journalctl___no_pager = 0;
     sos_commands_networking_ethtool__S = 0;
     /* ### FIX ME - make this function for better summary */
@@ -745,6 +788,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat, s );
         items_proc_net_sockstat = token;
     }
+    /* member etc/cron.d/ */
+    else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_cron_d_, s );
+        items_etc_cron_d_ = token;
+    }
     /* member var/log/messages */
     else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) )
     {
@@ -872,6 +922,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) ) ||
@@ -889,6 +940,7 @@ void read_file_pre ( const char *member, const char *dir_name )
 
         /* for ones of which should be read directory */
         if (
+            ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
@@ -1085,6 +1137,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "lsof" ) == 0 ) ||
         ( strcmp ( member, "netstat" ) == 0 ) ||
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||

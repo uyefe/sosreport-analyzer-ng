@@ -52,14 +52,12 @@ static void print_help ( void )
 /* Main function */
 int main ( int argc, char *argv [ ] )
 {
-/*
     if ( ! isatty ( fileno ( stdout ) ) )
     {
         fprintf(stderr,"You are not a terminal!\n");
         fprintf(stderr,"You are not allowed to redirect to a file.\n");
         return EXIT_FAILURE;
     }
-*/
     if ( argc <=2 )
     {
         print_help ( );
@@ -82,6 +80,8 @@ int main ( int argc, char *argv [ ] )
     memset ( sos_line_obj, 0, sizeof ( struct line_data ) ); 
     sos_tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     memset ( sos_tail_obj, 0, sizeof ( struct line_data ) ); 
+    etc_cron_d__obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( etc_cron_d__obj, 0, sizeof ( struct line_data ) ); 
     var_log_messages_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     memset ( var_log_messages_obj, 0, sizeof ( struct line_data ) ); 
     sos_commands_logs_journalctl___no_pager_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
@@ -97,6 +97,7 @@ int main ( int argc, char *argv [ ] )
         free ( sos_header_obj );
         free ( sos_line_obj );
         free ( sos_tail_obj );
+        free ( etc_cron_d__obj );
         free ( var_log_messages_obj );
         free ( sos_commands_logs_journalctl___no_pager_obj );
         free ( sos_commands_networking_ethtool__S_obj );
@@ -104,6 +105,7 @@ int main ( int argc, char *argv [ ] )
         sos_header_obj = NULL;
         sos_line_obj = NULL;
         sos_tail_obj = NULL;
+        etc_cron_d__obj = NULL;
         var_log_messages_obj = NULL;
         sos_commands_logs_journalctl___no_pager_obj = NULL;
         sos_commands_networking_ethtool__S_obj = NULL;
@@ -112,6 +114,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_header_obj );
     init_list ( &sos_line_obj );
     init_list ( &sos_tail_obj );
+    init_list ( &etc_cron_d__obj );
     init_list ( &var_log_messages_obj );
     init_list ( &sos_commands_logs_journalctl___no_pager_obj );
     init_list ( &sos_commands_networking_ethtool__S_obj );
@@ -200,12 +203,14 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "proc/interrupts", dir_name );
     read_file_pre ( "proc/net/dev", dir_name );
     read_file_pre ( "proc/net/sockstat", dir_name );
+    read_file_pre ( "etc/cron.d/", dir_name );
     read_file_pre ( "var/log/messages", dir_name );
     read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
     read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
     read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
     append_list ( &sos_header_obj, "Also, read these files." );
     append_list ( &sos_header_obj, "--------" );
+    append_list ( &etc_cron_d__obj, "--------" );
     append_list ( &var_log_messages_obj, "--------" );
     append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
 
@@ -229,6 +234,7 @@ int main ( int argc, char *argv [ ] )
         exit ( EXIT_FAILURE );
     }
     file_write_list ( &sos_header_obj, fp_w );
+    file_write_list ( &etc_cron_d__obj, fp_w );
     file_write_list ( &var_log_messages_obj, fp_w );
     file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
     file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
@@ -516,6 +522,8 @@ int main ( int argc, char *argv [ ] )
     sos_header_obj = NULL;
     free ( sos_line_obj );
     sos_line_obj = NULL;
+    free ( etc_cron_d__obj );
+    etc_cron_d__obj = NULL;
     free ( var_log_messages_obj );
     var_log_messages_obj = NULL;
     free ( sos_commands_logs_journalctl___no_pager_obj );
@@ -529,6 +537,8 @@ int main ( int argc, char *argv [ ] )
     sos_header_obj = NULL;
     clear_list ( &sos_line_obj ); 
     sos_line_obj = NULL;
+    clear_list ( &etc_cron_d__obj ); 
+    etc_cron_d__obj = NULL;
     clear_list ( &var_log_messages_obj ); 
     var_log_messages_obj = NULL;
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
