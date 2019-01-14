@@ -1,7 +1,7 @@
 # This is the configuration file for the sosreport-analyzer.
 # If you installed this program before, new version will not override.
-# Please check /usr/share/sosreport-analyzer/sosreport-nalayzerd.conf.example, and
-# copy it to /etc/sosreport-analyzerd.conf.
+# Please check /usr/share/sosreport-analyzer/sosreport-nalayzer.conf.example, and
+# copy it to /etc/sosreport-analyzer.conf.
 #
 #
 # 'all' echos every line in the file.

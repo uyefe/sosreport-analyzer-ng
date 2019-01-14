@@ -28,7 +28,7 @@ version 2.1 of the License, or (at your option) any later version. See the
 configure.ac file for more details.])
 
 # initialize and set version and bugreport address
-AC_INIT([sosreport-analyzer], [1.0.12], [shintaro.fujiwara@gmail.com])
+AC_INIT([sosreport-analyzer], [1.0.14], [shintaro.fujiwara@gmail.com])
 RELEASE_MONTH="Jan 2019"
 AC_SUBST(RELEASE_MONTH)
 AC_CONFIG_MACRO_DIR([m4])
@@ -117,49 +117,49 @@ AC_CHECK_FUNCS([setusershell getusershell endusershell getgrouplist])
 AC_CHECK_DECLS([setusershell, getusershell, endusershell])
 
 # check the name of the configuration file
-AC_ARG_WITH(sosreport-analyzerd-conf-file,
-            AS_HELP_STRING([--with-sosreport-analyzerd-conf-file=PATH],
-                           [path to sosreport-analyzerd configuration file @<:@/etc/sosreport-analyzerd.conf@:>@]),
-            [ SOSREPORT_ANALYZERD_CONF_PATH="$with_sosreport_analyzerd_conf_file" ],
-            [ SOSREPORT_ANALYZERD_CONF_PATH="/etc/sosreport-analyzerd.conf" ])
-AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_CONF_PATH, "$SOSREPORT_ANALYZERD_CONF_PATH", [Path to sosreport-analyzerd configuration file.])
-AC_SUBST(SOSREPORT_ANALYZERD_CONF_PATH)
+AC_ARG_WITH(sosreport-analyzer-conf-file,
+            AS_HELP_STRING([--with-sosreport-analyzer-conf-file=PATH],
+                           [path to sosreport-analyzer configuration file @<:@/etc/sosreport-analyzer.conf@:>@]),
+            [ SOSREPORT_ANALYZER_CONF_PATH="$with_sosreport_analyzer_conf_file" ],
+            [ SOSREPORT_ANALYZER_CONF_PATH="/etc/sosreport-analyzer.conf" ])
+AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZER_CONF_PATH, "$SOSREPORT_ANALYZER_CONF_PATH", [Path to sosreport-analyzer configuration file.])
+AC_SUBST(SOSREPORT_ANALYZER_CONF_PATH)
 
 # check the name of the data file
-AC_ARG_WITH(sosreport-analyzerd-data-file,
-            AS_HELP_STRING([--with-sosreport-analyzerd-data-file=PATH],
-                           [path to sosreport-analyzerd data file @<:@/usr/share/sosreport-analyzerd/sosreport-analyzerd.conf.example@:>@]),
-            [ SOSREPORT_ANALYZERD_DATA_PATH="$with_sosreport_analyzerd_data_file" ],
-            [ SOSREPORT_ANALYZERD_DATA_PATH="/usr/share/sosreport-analyzerd" ])
-AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_DATA_PATH, "$SOSREPORT_ANALYZERD_DATA_PATH", [Path to sosreport-analyzerd data file.])
-AC_SUBST(SOSREPORT_ANALYZERD_DATA_PATH)
+AC_ARG_WITH(sosreport-analyzer-data-file,
+            AS_HELP_STRING([--with-sosreport-analyzer-data-file=PATH],
+                           [path to sosreport-analyzer data file @<:@/usr/share/sosreport-analyzer/sosreport-analyzer.conf.example@:>@]),
+            [ SOSREPORT_ANALYZER_DATA_PATH="$with_sosreport_analyzer_data_file" ],
+            [ SOSREPORT_ANALYZER_DATA_PATH="/usr/share/sosreport-analyzer" ])
+AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZER_DATA_PATH, "$SOSREPORT_ANALYZER_DATA_PATH", [Path to sosreport-analyzer data file.])
+AC_SUBST(SOSREPORT_ANALYZER_DATA_PATH)
 
 # check the name of the include/sosreport-analyzer file
 AC_ARG_WITH(sosreport-analyzerd-include-file,
-            AS_HELP_STRING([--with-sosreport-analyzerd-include-file=PATH],
-                           [path to sosreport-analyzerd include file @<:@/usr/local/include/sosreport-analyzerd/cfg.h@:>@]),
-            [ SOSREPORT_ANALYZERD_INCLUDE_PATH="$with_sosreport_analyzerd_include_file" ],
-            [ SOSREPORT_ANALYZERD_INCLUDE_PATH="/usr/local/include/sosreport-analyzerd" ])
-AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_INCLUDE_PATH, "$SOSREPORT_ANALYZERD_INCLUDE_PATH", [Path to sosreport-analyzerd include file.])
-AC_SUBST(SOSREPORT_ANALYZERD_INCLUDE_PATH)
+            AS_HELP_STRING([--with-sosreport-analyzer-include-file=PATH],
+                           [path to sosreport-analyzer include file @<:@/usr/local/include/sosreport-analyzer/cfg.h@:>@]),
+            [ SOSREPORT_ANALYZER_INCLUDE_PATH="$with_sosreport_analyzer_include_file" ],
+            [ SOSREPORT_ANALYZER_INCLUDE_PATH="/usr/local/include/sosreport-analyzer" ])
+AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZER_INCLUDE_PATH, "$SOSREPORT_ANALYZER_INCLUDE_PATH", [Path to sosreport-analyzer include file.])
+AC_SUBST(SOSREPORT_ANALYZER_INCLUDE_PATH)
 
 # check the name of the libsosreport-analyzer file
-AC_ARG_WITH(sosreport-analyzerd-lib-file,
-            AS_HELP_STRING([--with-sosreport-analyzerd-lib-file=PATH],
-                           [path to sosreport-analyzerd lib file @<:@/usr/local/lib/libsosreport-analyzer.so@:>@]),
-            [ SOSREPORT_ANALYZERD_LIB_PATH="$with_sosreport_analyzerd_lib_file" ],
-            [ SOSREPORT_ANALYZERD_LIB_PATH="/usr/local/lib" ])
-AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZERD_LIB_PATH, "$SOSREPORT_ANALYZERD_LIB_PATH", [Path to sosreport-analyzerd lib file.])
-AC_SUBST(SOSREPORT_ANALYZERD_LIB_PATH)
+AC_ARG_WITH(sosreport-analyzer-lib-file,
+            AS_HELP_STRING([--with-sosreport-analyzer-lib-file=PATH],
+                           [path to sosreport-analyzer lib file @<:@/usr/local/lib/libsosreport-analyzer.so@:>@]),
+            [ SOSREPORT_ANALYZER_LIB_PATH="$with_sosreport_analyzer_lib_file" ],
+            [ SOSREPORT_ANALYZER_LIB_PATH="/usr/local/lib" ])
+AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZER_LIB_PATH, "$SOSREPORT_ANALYZER_LIB_PATH", [Path to sosreport-analyzer lib file.])
+AC_SUBST(SOSREPORT_ANALYZER_LIB_PATH)
 
 # check the name of the libsar-analyzer file
 AC_ARG_WITH(sar-analyzerd-lib-file,
-            AS_HELP_STRING([--with-sar-analyzerd-lib-file=PATH],
-                           [path to sar-analyzerd lib file @<:@/usr/local/lib/libsar-analyzer.so@:>@]),
-            [ SAR_ANALYZERD_LIB_PATH="$with_sar_analyzerd_lib_file" ],
-            [ SAR_ANALYZERD_LIB_PATH="/usr/local/lib" ])
-AC_DEFINE_UNQUOTED(SAR_ANALYZERD_LIB_PATH, "$SAR_ANALYZERD_LIB_PATH", [Path to sar-analyzerd lib file.])
-AC_SUBST(SAR_ANALYZERD_LIB_PATH)
+            AS_HELP_STRING([--with-sar-analyzer-lib-file=PATH],
+                           [path to sar-analyzer lib file @<:@/usr/local/lib/libsar-analyzer.so@:>@]),
+            [ SAR_ANALYZER_LIB_PATH="$with_sar_analyzer_lib_file" ],
+            [ SAR_ANALYZER_LIB_PATH="/usr/local/lib" ])
+AC_DEFINE_UNQUOTED(SAR_ANALYZER_LIB_PATH, "$SAR_ANALYZER_LIB_PATH", [Path to sar-analyzer lib file.])
+AC_SUBST(SAR_ANALYZER_LIB_PATH)
 
 AC_PROG_CC
 AC_CONFIG_FILES([

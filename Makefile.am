@@ -11,75 +11,75 @@ bin_PROGRAMS = sosreport-analyzer
 sosreport_analyzer_SOURCES = main.c
 sosreport_analyzer_LDADD = -lsosreport-analyzer -lsar-analyzer
 
-SOSREPORT_ANALYZERD_CONF_PATH = @SOSREPORT_ANALYZERD_CONF_PATH@
-SOSREPORT_ANALYZERD_DATA_PATH = @SOSREPORT_ANALYZERD_DATA_PATH@
-SOSREPORT_ANALYZERD_INCLUDE_PATH = @SOSREPORT_ANALYZERD_INCLUDE_PATH@
-SOSREPORT_ANALYZERD_LIB_PATH = @SOSREPORT_ANALYZERD_LIB_PATH@
-SAR_ANALYZERD_LIB_PATH = @SAR_ANALYZERD_LIB_PATH@
+SOSREPORT_ANALYZER_CONF_PATH = @SOSREPORT_ANALYZER_CONF_PATH@
+SOSREPORT_ANALYZER_DATA_PATH = @SOSREPORT_ANALYZER_DATA_PATH@
+SOSREPORT_ANALYZER_INCLUDE_PATH = @SOSREPORT_ANALYZER_INCLUDE_PATH@
+SOSREPORT_ANALYZER_LIB_PATH = @SOSREPORT_ANALYZER_LIB_PATH@
+SAR_ANALYZER_LIB_PATH = @SAR_ANALYZER_LIB_PATH@
 
-install-data-local: install-sosreport_analyzerd_conf install-sosreport_analyzerd_data install-sosreport_analyzerd_include install-sosreport_analyzerd_lib install-sar_analyzerd_lib
-uninstall-local: uninstall-sosreport_analyzerd_conf uninstall-sosreport_analyzerd_data uninstall-sosreport_analyzerd_include uninstall-sosreport_analyzerd_lib uninstall-sar_analyzerd_lib
+install-data-local: install-sosreport_analyzer_conf install-sosreport_analyzer_data install-sosreport_analyzer_include install-sosreport_analyzer_lib install-sar_analyzer_lib
+uninstall-local: uninstall-sosreport_analyzer_conf uninstall-sosreport_analyzer_data uninstall-sosreport_analyzer_include uninstall-sosreport_analyzer_lib uninstall-sar_analyzer_lib
 
 # install a default configuration file if it is not already there
-install-sosreport_analyzerd_conf:
-	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZERD_CONF_PATH) ]; then \
-            echo "$(DESTDIR)$(SOSREPORT_ANALYZERD_CONF_PATH) already exists, install will not overwrite"; \
+install-sosreport_analyzer_conf:
+	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH) ]; then \
+            echo "$(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH) already exists, install will not overwrite"; \
 	else \
-            $(mkinstalldirs) `dirname $(DESTDIR)$(SOSREPORT_ANALYZERD_CONF_PATH)`; \
-            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzerd.conf.example $(DESTDIR)$(SOSREPORT_ANALYZERD_CONF_PATH); \
+            $(mkinstalldirs) `dirname $(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH)`; \
+            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH); \
 	fi
 
-uninstall-sosreport_analyzerd_conf:
-	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZERD_CONF_PATH)
+uninstall-sosreport_analyzer_conf:
+	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH)
 
-# install sosreport-analyzerd.conf.example 
-install-sosreport_analyzerd_data:
-	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZERD_DATA_PATH) ]; then \
-            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzerd.conf.example $(DESTDIR)$(SOSREPORT_ANALYZERD_DATA_PATH)/sosreport-analyzerd.conf.example; \
+# install sosreport-analyzer.conf.example 
+install-sosreport_analyzer_data:
+	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH) ]; then \
+            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.example; \
 	else \
-            $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZERD_DATA_PATH); \
-            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzerd.conf.example $(DESTDIR)$(SOSREPORT_ANALYZERD_DATA_PATH)/sosreport-analyzerd.conf.example; \
+            $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH); \
+            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.example; \
 	fi
 
-uninstall-sosreport_analyzerd_data:
-	-rm -rf $(DESTDIR)$(SOSREPORT_ANALYZERD_DATA_PATH)
+uninstall-sosreport_analyzer_data:
+	-rm -rf $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)
 
 # install cfg.h 
-install-sosreport_analyzerd_include:
-	@if [ -d $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH) ]; then \
-            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/cfg.h $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)/cfg.h; \
-            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/common.h $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)/common.h; \
-            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/line_data.h $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)/line_data.h; \
+install-sosreport_analyzer_include:
+	@if [ -d $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH) ]; then \
+            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/cfg.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/cfg.h; \
+            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/common.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/common.h; \
+            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/line_data.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/line_data.h; \
 	else \
-            $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH); \
-            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/cfg.h $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)/cfg.h; \
-            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/common.h $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)/common.h; \
-            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/line_data.h $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)/line_data.h; \
+            $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH); \
+            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/cfg.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/cfg.h; \
+            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/common.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/common.h; \
+            $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/line_data.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/line_data.h; \
 	fi
 
-uninstall-sosreport_analyzerd_include:
-	-rm -rf $(DESTDIR)$(SOSREPORT_ANALYZERD_INCLUDE_PATH)
+uninstall-sosreport_analyzer_include:
+	-rm -rf $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)
 
-# install libsosreport-analyzerd.so
-install-sosreport_analyzerd_lib:
-	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH) ]; then \
-            $(INSTALL) -m 775 $(srcdir)/libsosreport-analyzer/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzerd.so; \
+# install libsosreport-analyzer.so
+install-sosreport_analyzer_lib:
+	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_LIB_PATH) ]; then \
+            $(INSTALL) -m 775 $(srcdir)/libsosreport-analyzer/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZER_LIB_PATH)/libsosreport-analyzer.so; \
 	else \
-            $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH); \
-            $(INSTALL) -m 775 $(srcdir)/libsosreport-analyzer/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzer.so; \
+            $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZER_LIB_PATH); \
+            $(INSTALL) -m 775 $(srcdir)/libsosreport-analyzer/.libs/libsosreport-analyzer.so $(DESTDIR)$(SOSREPORT_ANALYZER_LIB_PATH)/libsosreport-analyzer.so; \
 	fi
 
-uninstall-sosreport_analyzerd_lib:
-	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZERD_LIB_PATH)/libsosreport-analyzer.so
+uninstall-sosreport_analyzer_lib:
+	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZER_LIB_PATH)/libsosreport-analyzer.so
 
-# install libsar-analyzerd.so
-install-sar_analyzerd_lib:
-	@if [ -f $(DESTDIR)$(SAR_ANALYZERD_LIB_PATH) ]; then \
-            $(INSTALL) -m 775 $(srcdir)/libsar-analyzer/.libs/libsar-analyzer.so $(DESTDIR)$(SAR_ANALYZERD_LIB_PATH)/libsar-analyzerd.so; \
+# install libsar-analyzer.so
+install-sar_analyzer_lib:
+	@if [ -f $(DESTDIR)$(SAR_ANALYZER_LIB_PATH) ]; then \
+            $(INSTALL) -m 775 $(srcdir)/libsar-analyzer/.libs/libsar-analyzer.so $(DESTDIR)$(SAR_ANALYZER_LIB_PATH)/libsar-analyzer.so; \
 	else \
-            $(MKDIR_P) $(DESTDIR)$(SAR_ANALYZERD_LIB_PATH); \
-            $(INSTALL) -m 775 $(srcdir)/libsar-analyzer/.libs/libsar-analyzer.so $(DESTDIR)$(SAR_ANALYZERD_LIB_PATH)/libsar-analyzer.so; \
+            $(MKDIR_P) $(DESTDIR)$(SAR_ANALYZER_LIB_PATH); \
+            $(INSTALL) -m 775 $(srcdir)/libsar-analyzer/.libs/libsar-analyzer.so $(DESTDIR)$(SAR_ANALYZER_LIB_PATH)/libsar-analyzer.so; \
 	fi
 
-uninstall-sar_analyzerd_lib:
-	-rm -f $(DESTDIR)$(SAR_ANALYZERD_LIB_PATH)/libsar-analyzer.so
+uninstall-sar_analyzer_lib:
+	-rm -f $(DESTDIR)$(SAR_ANALYZER_LIB_PATH)/libsar-analyzer.so
