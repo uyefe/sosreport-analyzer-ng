@@ -520,15 +520,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            dmidecode ++;
             if ( dmidecode > arr_max12 )
             {
                 printf("can't set items over %d for dmidecode\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            dmidecode ++;
             items_dmidecode  [ dmidecode ] = token;
         }
     }
@@ -541,15 +539,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            lsmod ++;
             if ( lsmod > arr_max12 )
             {
                 printf("can't set items over %d for lsmod\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            lsmod ++;
             items_lsmod  [ lsmod ] = token;
         }
     }
@@ -562,15 +558,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            lspci ++;
             if ( lspci > arr_max20 )
             {
                 printf("can't set items over %d for lspci\n",arr_max20);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            lspci ++;
             items_lspci  [ lspci ] = token;
         }
     }
@@ -590,15 +584,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            installed_rpms ++;
-            if ( lsmod > arr_max12 )
+            if ( installed_rpms > arr_max12 )
             {
                 printf("can't set items over %d for installed_rpms\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            installed_rpms ++;
             items_installed_rpms  [ installed_rpms ] = token;
         }
     }
@@ -611,15 +603,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            df ++;
             if ( df > arr_max2 )
             {
                 printf("can't set items over %d for df\n",arr_max2);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            df ++;
             items_df  [ df ] = token;
         }
     }
@@ -660,15 +650,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            last ++;
             if ( last > arr_max12 )
             {
                 printf("can't set items over %d for last\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            last ++;
             items_last  [ last ] = token;
         }
     }
@@ -681,15 +669,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            ps ++;
             if ( ps > arr_max12 )
             {
                 printf("can't set items over %d for ps\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            ps ++;
             items_ps  [ ps ] = token;
         }
     }
@@ -702,15 +688,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            lsof ++;
             if ( lsof > arr_max12 )
             {
                 printf("can't set items over %d for lsof\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            lsof ++;
             items_lsof  [ lsof ] = token;
         }
     }
@@ -723,15 +707,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            netstat ++;
             if ( netstat > arr_max12 )
             {
                 printf("can't set items over %d for netstat\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            netstat ++;
             items_netstat  [ netstat ] = token;
         }
     }
@@ -758,15 +740,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            proc_meminfo ++;
             if ( proc_meminfo > arr_max2 )
             {
                 printf("can't set items over %d for proc/meminfo\n",arr_max2);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            proc_meminfo ++;
             items_proc_meminfo  [ proc_meminfo ] = token;
         }
     }
@@ -814,15 +794,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            var_log_messages ++;
             if ( var_log_messages > arr_max12 )
             {
                 printf("can't set items over %d for var/log/messages\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            var_log_messages ++;
             items_var_log_messages  [ var_log_messages ] = token;
         }
     }
@@ -835,15 +813,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            sos_commands_kernel_sysctl__a ++;
             if ( sos_commands_kernel_sysctl__a > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/kernel/sysctl_-a\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            sos_commands_kernel_sysctl__a ++;
             items_sos_commands_kernel_sysctl__a  [ sos_commands_kernel_sysctl__a ] = token;
         }
     }
@@ -856,15 +832,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            sos_commands_logs_journalctl___no_pager ++;
             if ( sos_commands_logs_journalctl___no_pager > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/logs/journalctl_--no-pager\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            sos_commands_logs_journalctl___no_pager ++;
             items_sos_commands_logs_journalctl___no_pager  [ sos_commands_logs_journalctl___no_pager ] = token;
         }
     }
@@ -877,15 +851,13 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            sos_commands_networking_ethtool__S ++;
             if ( sos_commands_networking_ethtool__S > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/networking/ethtool_-S\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            if ( token == NULL )
-                break;
+            sos_commands_networking_ethtool__S ++;
             items_sos_commands_networking_ethtool__S  [ sos_commands_networking_ethtool__S ] = token;
         }
     }
