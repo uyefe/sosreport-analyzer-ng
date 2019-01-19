@@ -12,15 +12,16 @@ sosreport_analyzer_SOURCES = main.c
 sosreport_analyzer_LDADD = -lsosreport-analyzer -lsar-analyzer
 
 SOSREPORT_ANALYZER_CONF_PATH = @SOSREPORT_ANALYZER_CONF_PATH@
+SOSREPORT_ANALYZER_MCINFO_CONF_PATH = @SOSREPORT_ANALYZER_MCINFO_CONF_PATH@
 SOSREPORT_ANALYZER_DATA_PATH = @SOSREPORT_ANALYZER_DATA_PATH@
 SOSREPORT_ANALYZER_INCLUDE_PATH = @SOSREPORT_ANALYZER_INCLUDE_PATH@
 SOSREPORT_ANALYZER_LIB_PATH = @SOSREPORT_ANALYZER_LIB_PATH@
 SAR_ANALYZER_LIB_PATH = @SAR_ANALYZER_LIB_PATH@
 
-install-data-local: install-sosreport_analyzer_conf install-sosreport_analyzer_data install-sosreport_analyzer_include install-sosreport_analyzer_lib install-sar_analyzer_lib
-uninstall-local: uninstall-sosreport_analyzer_conf uninstall-sosreport_analyzer_data uninstall-sosreport_analyzer_include uninstall-sosreport_analyzer_lib uninstall-sar_analyzer_lib
+install-data-local: install-sosreport_analyzer_conf install-sosreport_analyzer_mcinfo_conf install-sosreport_analyzer_data install-sosreport_analyzer_include install-sosreport_analyzer_lib install-sar_analyzer_lib
+uninstall-local: uninstall-sosreport_analyzer_conf uninstall-sosreport_analyzer_mcinfo_conf uninstall-sosreport_analyzer_data uninstall-sosreport_analyzer_include uninstall-sosreport_analyzer_lib uninstall-sar_analyzer_lib
 
-# install a default configuration file if it is not already there
+# install a default sosreport-analyzer configuration file if it is not already there
 install-sosreport_analyzer_conf:
 	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH) ]; then \
             echo "$(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH) already exists, install will not overwrite"; \
@@ -32,13 +33,27 @@ install-sosreport_analyzer_conf:
 uninstall-sosreport_analyzer_conf:
 	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZER_CONF_PATH)
 
-# install sosreport-analyzer.conf.example 
+# install a default sosreport-analyzer-mcinfo configuration file if it is not already there
+install-sosreport_analyzer_mcinfo_conf:
+	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_MCINFO_CONF_PATH) ]; then \
+            echo "$(DESTDIR)$(SOSREPORT_ANALYZER_MCINFO_CONF_PATH) already exists, install will not overwrite"; \
+	else \
+            $(mkinstalldirs) `dirname $(DESTDIR)$(SOSREPORT_ANALYZER_MCINFO_CONF_PATH)`; \
+            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer-mcinfo.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_MCINFO_CONF_PATH); \
+	fi
+
+uninstall-sosreport_analyzer_mcinfo_conf:
+	-rm -f $(DESTDIR)$(SOSREPORT_ANALYZER_MCINFO_CONF_PATH)
+
+# install sosreport-analyzer.conf.example and sosreport-analyzer-mcinfo.conf.example
 install-sosreport_analyzer_data:
 	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH) ]; then \
             $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.example; \
+            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer-mcinfo.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer-mcinfo.conf.example; \
 	else \
             $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH); \
             $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.example; \
+            $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer-mcinfo.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer-mcinfo.conf.example; \
 	fi
 
 uninstall-sosreport_analyzer_data:

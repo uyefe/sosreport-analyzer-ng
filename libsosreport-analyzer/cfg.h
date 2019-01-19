@@ -36,6 +36,8 @@
 struct sosreport_analyzer_config
 {
     /* should be all */
+    char mcinfo_cmdlog_ [ MAX_LINE_LENGTH ];
+    /* should be all */
     char date [ MAX_LINE_LENGTH ];
     /* should be all */
     char lsb_release [ MAX_LINE_LENGTH ];

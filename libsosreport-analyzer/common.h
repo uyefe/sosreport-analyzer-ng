@@ -39,6 +39,7 @@ extern struct line_data *etc_cron_d__obj;
 extern struct line_data *var_log_messages_obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
+extern struct line_data *mcinfo_cmdlog__obj;
 extern struct file_data *file_data_obj;
 
 /*
@@ -55,7 +56,7 @@ void read_analyze_dir ( const char *member, const char *dname );
  * This function read from file and do something
  *
  */
-void read_file ( const char *file_name );
+void read_file ( const char *file_name, const char *member );
 
 /*
  * read_file_pre()
@@ -150,5 +151,13 @@ void set_token_to_item_arr ( const char *file_name );
  *
  */
 int append_item_to_sos_line_obj ( char *line, const char *member, const char *item );
+
+/*
+ * free_sosreport_analyzer_obj ()
+ *
+ * This function frees sosreport-analyzer objects
+ *
+ */
+void free_sosreport_analyzer_obj ( void );
 
 #endif /* SOSREPORT_ANALYZER_COMMON_H */

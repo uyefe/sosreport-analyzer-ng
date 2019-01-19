@@ -1017,7 +1017,7 @@ struct sar_analyzer_data *sar_analyzer_obj = &sar_analyzer_obj_raw;
 struct sar_analyzer_data_all *sar_analyzer_all_obj = &sar_analyzer_all_obj_raw;
 struct sar_analyzer_data_spike_each_file *sar_analyzer_spike_obj = &sar_analyzer_spike_obj_raw;
 
-/* initialise */
+/* initialize */
 struct line_data *line_obj = &line_obj_raw;
 struct line_data *line_all_obj = &line_all_obj_raw;
 struct line_data *header_obj = &header_obj_raw;

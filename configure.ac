@@ -28,7 +28,7 @@ version 2.1 of the License, or (at your option) any later version. See the
 configure.ac file for more details.])
 
 # initialize and set version and bugreport address
-AC_INIT([sosreport-analyzer], [1.0.16], [shintaro.fujiwara@gmail.com])
+AC_INIT([sosreport-analyzer], [1.0.17], [shintaro.fujiwara@gmail.com])
 RELEASE_MONTH="Jan 2019"
 AC_SUBST(RELEASE_MONTH)
 AC_CONFIG_MACRO_DIR([m4])
@@ -116,7 +116,7 @@ AC_SEARCH_LIBS(clock_gettime, rt)
 AC_CHECK_FUNCS([setusershell getusershell endusershell getgrouplist])
 AC_CHECK_DECLS([setusershell, getusershell, endusershell])
 
-# check the name of the configuration file
+# check the name of the sosreport-analyzer configuration file
 AC_ARG_WITH(sosreport-analyzer-conf-file,
             AS_HELP_STRING([--with-sosreport-analyzer-conf-file=PATH],
                            [path to sosreport-analyzer configuration file @<:@/etc/sosreport-analyzer.conf@:>@]),
@@ -124,6 +124,15 @@ AC_ARG_WITH(sosreport-analyzer-conf-file,
             [ SOSREPORT_ANALYZER_CONF_PATH="/etc/sosreport-analyzer.conf" ])
 AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZER_CONF_PATH, "$SOSREPORT_ANALYZER_CONF_PATH", [Path to sosreport-analyzer configuration file.])
 AC_SUBST(SOSREPORT_ANALYZER_CONF_PATH)
+
+# check the name of the sosreport-analyzer-mcinfo configuration file
+AC_ARG_WITH(sosreport-analyzer-mcinfo-conf-file,
+            AS_HELP_STRING([--with-sosreport-analyzer-mcinfo-conf-file=PATH],
+                           [path to sosreport-analyzer-mcinfo configuration file @<:@/etc/sosreport-analyzer-mcinfo.conf@:>@]),
+            [ SOSREPORT_ANALYZER_MCINFO_CONF_PATH="$with_sosreport_analyzer_mcinfo_conf_file" ],
+            [ SOSREPORT_ANALYZER_MCINFO_CONF_PATH="/etc/sosreport-analyzer-mcinfo.conf" ])
+AC_DEFINE_UNQUOTED(SOSREPORT_ANALYZER_MCINFO_CONF_PATH, "$SOSREPORT_ANALYZER_MCINFO_CONF_PATH", [Path to sosreport-analyzer-mcinfo configuration file.])
+AC_SUBST(SOSREPORT_ANALYZER_MCINFO_CONF_PATH)
 
 # check the name of the data file
 AC_ARG_WITH(sosreport-analyzer-data-file,
