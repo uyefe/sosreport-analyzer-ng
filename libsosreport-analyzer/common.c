@@ -86,7 +86,14 @@ struct line_data sos_commands_networking_ethtool__S_obj_raw =
         NULL /* next pointer */
     };
 
-/* initialise */
+/* mcinfo_cmdlog__obj */
+struct line_data mcinfo_cmdlog__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* initialize */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
@@ -95,6 +102,7 @@ struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
+struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 
 void read_analyze_dir ( const char *member, const char *dname )
 {
@@ -138,8 +146,10 @@ void read_analyze_dir ( const char *member, const char *dname )
     /* limit of fname_part files to be analyzed */
     int str_arr_valid_size = 0;
 
-    /* let's set NULL to objects */
-    if ( strstr ( full_path, "cron") != 0 )
+    /* setting NULL to objects */
+    if ( strstr ( full_path, "cmdlog") != 0 )
+        mcinfo_cmdlog__obj = NULL;
+    else if ( strstr ( full_path, "cron") != 0 )
         etc_cron_d__obj = NULL;
     else if ( strstr ( full_path, "messages") != 0 )
         var_log_messages_obj = NULL;
@@ -161,7 +171,11 @@ void read_analyze_dir ( const char *member, const char *dname )
         {
             /* so, only fname_part files will remain */
             snprintf (read_path, MAX_LINE_LENGTH, "%s%s", dname_full, str );
-            if ( strstr ( read_path, "cron") != 0 )
+            if ( strstr ( read_path, "cmdlog") != 0 )
+            {
+                append_list ( &mcinfo_cmdlog__obj, read_path );
+            }
+            else if ( strstr ( read_path, "cron") != 0 )
             {
                 append_list ( &etc_cron_d__obj, read_path );
             }
@@ -188,7 +202,9 @@ void read_analyze_dir ( const char *member, const char *dname )
 
     /* read every messages files */
     node *ptr_tmp = NULL;
-    if ( strstr ( read_path, "cron") != 0 )
+    if ( strstr ( read_path, "cmdlog") != 0 )
+        ptr_tmp = *(&mcinfo_cmdlog__obj);
+    else if ( strstr ( read_path, "cron") != 0 )
         ptr_tmp = *(&etc_cron_d__obj);
     else if ( strstr ( read_path, "messages") != 0 )
         ptr_tmp = *(&var_log_messages_obj);
@@ -198,7 +214,7 @@ void read_analyze_dir ( const char *member, const char *dname )
         ptr_tmp = *(&sos_commands_networking_ethtool__S_obj);
     while ( ptr_tmp != NULL )
     {
-        read_file ( ptr_tmp->_line );
+        read_file ( ptr_tmp->_line, member );
         ptr_tmp = ptr_tmp->next;
     }
 }
@@ -215,6 +231,7 @@ int arr_max0 = 0;
 int arr_max2 = 2;
 int arr_max12 = 12;
 int arr_max20 = 20;
+const char *items_mcinfo_cmdlog_;
 const char *items_date;
 const char *items_lsb_release;
 const char *items_uname;
@@ -248,6 +265,7 @@ const char *items_sos_commands_kernel_sysctl__a [ 11 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 11 ];
 const char *items_sos_commands_networking_ethtool__S [ 11 ];
 /* members which could have items */
+int mcinfo_cmdlog_ = 0;
 int dmidecode = 0, lsmod = 0, lspci = 0, sos_commands_scsi_lsscsi = 0;
 int installed_rpms = 0, df = 0, last = 0;
 int ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0;
@@ -256,13 +274,12 @@ int sos_commands_kernel_sysctl__a = 0;
 int sos_commands_logs_journalctl___no_pager = 0;
 int sos_commands_networking_ethtool__S = 0, root_anaconda_ks_cfg = 0;
 
-void read_file ( const char *file_name )
+void read_file ( const char *file_name, const char *member )
 {
-/* debug */
-if ( strstr ( file_name, "cron" ) != NULL )
-    printf("cron files:%s\n",file_name);
-/* end debug */
-
+    char filename_mcinfo_cmdlog_ [ MAX_LINE_LENGTH ];
+    char filename_mcinfo_cmdlog__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_mcinfo_cmdlog_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_mcinfo_cmdlog__curr, '\0', MAX_LINE_LENGTH ); 
     char filename_etc_cron_d_ [ MAX_LINE_LENGTH ];
     char filename_etc_cron_d__curr [ MAX_LINE_LENGTH ];
     memset ( filename_etc_cron_d_, '\0', MAX_LINE_LENGTH ); 
@@ -327,71 +344,87 @@ if ( strstr ( file_name, "cron" ) != NULL )
         /* get item if any and append to object
          * this part should survive through while loop 
          */
-        if ( strstr ( file_name, "date" ) != NULL )
+        if ( strstr ( file_name, "cmdlog/" ) != NULL )
+        {
+            snprintf ( filename_mcinfo_cmdlog__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_mcinfo_cmdlog_, filename_mcinfo_cmdlog__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_mcinfo_cmdlog_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' when echoing every file in member
+             * directory, so...
+             */
+            append_item_to_sos_line_obj ( line, "cmdlog/", items_mcinfo_cmdlog_ );
+        }
+        else if ( ( strstr ( file_name, "date" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "date", items_date );
-        else if ( strstr ( file_name, "lsb-release" ) != NULL )
+        else if ( ( strstr ( file_name, "lsb-release" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "lsb-release", items_lsb_release );
-        else if ( strstr ( file_name, "uname" ) != NULL )
+        else if ( ( strstr ( file_name, "uname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "uname", items_uname );
-        else if ( strstr ( file_name, "hostname" ) != NULL )
+        else if ( ( strstr ( file_name, "hostname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "hostname", items_hostname );
-        else if ( strstr ( file_name, "uptime" ) != NULL )
+        else if ( ( strstr ( file_name, "uptime" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "uptime", items_uptime );
-        else if ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL )
+        else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
-        else if ( strstr ( file_name, "dmidecode" ) != NULL )
+        else if ( ( strstr ( file_name, "dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < dmidecode ; x++ )
                 append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
-        else if ( strstr ( file_name, "lsmod" ) != NULL )
+        else if ( ( strstr ( file_name, "lsmod" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < lsmod ; x++ )
                 append_item_to_sos_line_obj ( line, "lsmod", items_lsmod [ x ] );
-        else if ( strstr ( file_name, "lspci" ) != NULL )
+        else if ( ( strstr ( file_name, "lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < lspci ; x++ )
                 append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
-        else if ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL )
+        else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
-        else if ( strstr ( file_name, "installed-rpms" ) != NULL )
+        else if ( ( strstr ( file_name, "installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < installed_rpms ; x++ )
                 append_item_to_sos_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
-        else if ( strstr ( file_name, "df" ) != NULL )
+        else if ( ( strstr ( file_name, "df" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < df ; x++ )
                 append_item_to_sos_line_obj ( line, "df", items_df [ x ] );
-        else if ( strstr ( file_name, "vgdisplay" ) != NULL )
+        else if ( ( strstr ( file_name, "vgdisplay" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "vgdisplay", items_vgdisplay );
-        else if ( strstr ( file_name, "free" ) != NULL )
+        else if ( ( strstr ( file_name, "free" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "free", items_free );
-        else if ( strstr ( file_name, "ip_addr" ) != NULL )
+        else if ( ( strstr ( file_name, "ip_addr" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "ip_addr", items_ip_addr );
-        else if ( strstr ( file_name, "route" ) != NULL )
+        else if ( ( strstr ( file_name, "route" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "route", items_route );
-        else if ( strstr ( file_name, "last" ) != NULL )
+        else if ( ( strstr ( file_name, "last" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < last ; x++ )
                 append_item_to_sos_line_obj ( line, "last", items_last [ x ] );
-        else if ( strstr ( file_name, "ps" ) != NULL )
+        else if ( ( strstr ( file_name, "ps" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < ps ; x++ )
                 append_item_to_sos_line_obj ( line, "ps", items_ps [ x ] );
-        else if ( strstr ( file_name, "lsof" ) != NULL )
+        else if ( ( strstr ( file_name, "lsof" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < lsof ; x++ )
                 append_item_to_sos_line_obj ( line, "lsof", items_lsof [ x ] );
-        else if ( strstr ( file_name, "netstat" ) != NULL )
+        else if ( ( strstr ( file_name, "netstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < netstat ; x++ )
                 append_item_to_sos_line_obj ( line, "netstat", items_netstat [ x ] );
-        else if ( strstr ( file_name, "etc/kdump.conf" ) != NULL )
+        else if ( ( strstr ( file_name, "etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
-        else if ( strstr ( file_name, "etc/sysctl.conf" ) != NULL )
+        else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
         else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
             for ( x = 0; x < proc_meminfo ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
         else if ( strstr ( file_name, "proc/interrupts" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/interrupts", items_proc_interrupts );
-        else if ( strstr ( file_name, "proc/net/dev" ) != NULL )
+        else if ( ( strstr ( file_name, "proc/net/dev" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
-        else if ( strstr ( file_name, "proc/net/sockstat" ) != NULL )
+        else if ( ( strstr ( file_name, "proc/net/sockstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
-        else if ( strstr ( file_name, "etc/logrotate.conf" ) != NULL )
+        else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/logrotate.conf", items_etc_logrotate_conf );
-        else if ( strstr ( file_name, "etc/cron.d/" ) != NULL )
+        else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_cron_d_, filename_etc_cron_d__curr) != 0 )
@@ -420,10 +453,10 @@ if ( strstr ( file_name, "cron" ) != NULL )
             for ( x = 0; x < var_log_messages; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
         }
-        else if ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL )
+        else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sos_commands_kernel_sysctl__a ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
-        else if ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL )
+        else if ( ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf (filename_sos_commands_logs_journalctl___no_pager_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_logs_journalctl___no_pager, filename_sos_commands_logs_journalctl___no_pager_curr) != 0 )
@@ -436,7 +469,7 @@ if ( strstr ( file_name, "cron" ) != NULL )
             for ( x = 0; x < sos_commands_logs_journalctl___no_pager; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
         }
-        else if ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL )
+        else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf (filename_sos_commands_networking_ethtool__S_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_networking_ethtool__S, filename_sos_commands_networking_ethtool__S_curr) != 0 )
@@ -461,16 +494,23 @@ if ( strstr ( file_name, "cron" ) != NULL )
 
 void set_token_to_item_arr ( const char *file_name )
 {
-    /* on members which have more than 2 tokens, should be initialised here */
+    /* on members which have more than 2 tokens, should be initialized here */
     dmidecode = 0, lsmod = 0, lspci = 0, installed_rpms = 0, df = 0, last = 0;
     ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0, var_log_messages = 0;
     sos_commands_kernel_sysctl__a = 0, sos_commands_logs_journalctl___no_pager = 0;
-    sos_commands_networking_ethtool__S = 0;
+    sos_commands_networking_ethtool__S = 0, mcinfo_cmdlog_ = 0;
     /* ### FIX ME - make this function for better summary */
     const char s [ 8 ] = " \t\n\r"; /* this is the delimiter */
     char *token = NULL;
+    /* member cmdlog */
+    if ( ( strstr ( file_name, "cmdlog/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->mcinfo_cmdlog_, s );
+        items_mcinfo_cmdlog_ = token;
+    }
     /* member date */
-    if ( ( strstr ( file_name, "date" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "date" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->date, s );
@@ -878,6 +918,7 @@ void read_file_pre ( const char *member, const char *dir_name )
     memset ( str_tmp3, '\0', MAX_LINE_LENGTH ); 
 
     if (
+        ( ( strcmp ( member, "cmdlog/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "date") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "lsb-release") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "uname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uname, "" ) != 0 ) ) ||
@@ -923,6 +964,7 @@ void read_file_pre ( const char *member, const char *dir_name )
 
         /* for ones of which should be read directory */
         if (
+            ( strcmp ( member, "cmdlog/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
@@ -930,7 +972,7 @@ void read_file_pre ( const char *member, const char *dir_name )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ) );
         else
-            read_file ( str_tmp );
+            read_file ( str_tmp, member );
     }
 }
 
@@ -1108,6 +1150,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
     }
     /* These should echo matched lines which had been set by config file, note item number is 
      * limited by set_token_to_item_arr. members which could have only one item is excluded here.
+     * Another way of saying is, these should have no item 'all'.
      */
     else if ( 
         ( strcmp ( member, "dmidecode" ) == 0 ) ||
@@ -1131,5 +1174,42 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         if ( strstr ( line , item ) != NULL )
             append_list ( &sos_line_obj, line );
     }
+
     return EXIT_SUCCESS;
 }
+
+void free_sosreport_analyzer_obj ( void )
+{
+    free ( sos_dir_file_obj );
+    sos_dir_file_obj = NULL;
+    free ( sos_header_obj );
+    sos_header_obj = NULL;
+    free ( sos_line_obj );
+    sos_line_obj = NULL;
+    free ( etc_cron_d__obj );
+    etc_cron_d__obj = NULL;
+    free ( var_log_messages_obj );
+    var_log_messages_obj = NULL;
+    free ( sos_commands_logs_journalctl___no_pager_obj );
+    sos_commands_logs_journalctl___no_pager_obj = NULL;
+    free ( sos_commands_networking_ethtool__S_obj );
+    sos_commands_networking_ethtool__S_obj = NULL;
+    free ( sos_tail_obj );
+    sos_tail_obj = NULL;
+
+    clear_list ( &sos_header_obj ); 
+    sos_header_obj = NULL;
+    clear_list ( &sos_line_obj ); 
+    sos_line_obj = NULL;
+    clear_list ( &etc_cron_d__obj ); 
+    etc_cron_d__obj = NULL;
+    clear_list ( &var_log_messages_obj ); 
+    var_log_messages_obj = NULL;
+    clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
+    sos_commands_logs_journalctl___no_pager_obj = NULL;
+    clear_list ( &sos_commands_networking_ethtool__S_obj ); 
+    sos_commands_networking_ethtool__S_obj = NULL;
+    clear_list ( &sos_tail_obj ); 
+    sos_tail_obj = NULL;
+}
+

@@ -27,6 +27,8 @@ Program Name: sosreport-analyzer
 
 Binary path: /usr/local/bin/sosreport-analyzer
 
+  For sosreport
+
   New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example.
   Copy it as /etc/sosreport-analyzer.conf.
 
@@ -53,6 +55,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze etc/kdump.conf
   Analyze etc/sysctl.conf
   Analyze proc/meminfo file.
+  Echo proc/interrupts file.
   Echo proc/net/dev file.
   Echo proc/net/sockstat file.
   Echo etc/logrotate.conf file.
@@ -61,6 +64,16 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.
   Analyze sos_commands/networking/ethtool_-S files.
+
+  For mcinfo 
+
+  New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example.
+  Copy it as /etc/sosreport-analyzer-mcinfo.conf.
+
+  Echo files in cmdlog/.
+  Analyze proc/meminfo file.
+  Echo proc/interrupts file.
+  Analyze var/log/messages files.
 
 2. sar-analyzer
 

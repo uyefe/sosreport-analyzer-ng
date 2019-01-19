@@ -97,7 +97,9 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             printf("skip file '%s'.\n",keyword);
     else
     {
-        if ( strcmp ( keyword, "date" ) == 0 )
+        if ( strcmp ( keyword, "cmdlog/" ) == 0 )
+            strncpy ( cfg->mcinfo_cmdlog_, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "date" ) == 0 )
             strncpy ( cfg->date, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "lsb-release" ) == 0 )
             strncpy ( cfg->lsb_release, line, MAX_LINE_LENGTH - 1 );
@@ -264,6 +266,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg )
     fclose ( fp );
 
     /* appending member strigs with their items which had been set by config file */
+    append_sos_header_obj ( "cmdlog/", cfg );
     append_sos_header_obj ( "date", cfg );
     append_sos_header_obj ( "lsb-release", cfg );
     append_sos_header_obj ( "uname", cfg );
@@ -304,7 +307,9 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
     snprintf (str_tmp, strlen ( member ) + 2, "%s=", member );
-    if ( strcmp ( member, "date" ) == 0 )
+    if ( strcmp ( member, "cmdlog/" ) == 0 )
+        strcat ( str_tmp, cfg->mcinfo_cmdlog_ );
+    else if ( strcmp ( member, "date" ) == 0 )
         strcat ( str_tmp, cfg->date );
     else if ( strcmp ( member, "lsb-release" ) == 0 )
         strcat ( str_tmp, cfg->lsb_release );

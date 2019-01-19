@@ -1,0 +1,40 @@
+# This is the configuration file for the sosreport-analyzer.
+# If you installed this program before, new version will not override.
+# Please check /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example, and
+# copy it to /etc/sosreport-analyzer-mcinfo.conf.
+#
+#
+# 'all' echos every line in the file.
+# In some items, you can set any item-name. 
+# Sometimes, certain files are not made by sosreport.
+# sosreport-analyzer will stop to analyze when file does not exist.
+# In such cases, you can skip the file, setting item-name to 'skip'.
+# ex. var/log/messages=skip
+
+## mcinfo_cmdlog/
+##
+## All you can set is 'all'
+
+cmdlog/=all
+
+## proc/meminfo
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. proc/meminfo=HugePage Hugepages
+
+proc/meminfo=all
+
+## proc/interrupts
+##
+## All you can set is 'all'
+
+proc/interrupts=all
+
+## var/log/messages 
+##
+## You can set arbitrary item-name including 'all' upto 12
+## ex. var/log/messages=error 
+
+var/log/messages=error
+
+

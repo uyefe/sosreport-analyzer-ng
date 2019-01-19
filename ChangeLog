@@ -1,3 +1,5 @@
+1.0.17
+Add mcinfo analyzing.
 1.0.16
 Fix bug not echoing lines when member can have multiple items in libsosreport-analyzer.
 1.0.15

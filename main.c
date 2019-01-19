@@ -35,7 +35,7 @@
 static const char *fname = "/etc/sosreport-analyzer.conf";
 static const char *fname_example = "/usr/share/sosreport-analyzer/sosreport-analyzer.conf.example";
 
-const char *app_name = "sosreport-analyzer-ng";
+const char *app_name = "sosreport-analyzer";
 
 /* brief Print help for this application */
 static void print_help ( void )
@@ -45,8 +45,9 @@ static void print_help ( void )
     printf("\n If you are unsure, copy from %s to %s.\n", fname_example, fname);
     printf("\n Usage: %s -D <path_to_sosreport_directory>  \n\n", app_name);
     printf("  Options:\n");
-    printf("   -D|--directory <path_to_sosreport_directory>   analyze files in the directory\n\n");
-    printf("   -h|--help      Print this help\n\n");
+    printf("   -M|--mcinfo    analyze mcinfo files\n\n");
+    printf("   -D|--directory <path_to_sosreport_directory>    analyze files in the directory\n\n");
+    printf("   -h|--help    Print this help\n\n");
     printf("\n");
 }
 
@@ -64,61 +65,56 @@ int main ( int argc, char *argv [ ] )
         print_help ( );
         return EXIT_FAILURE;
     }
-    static struct option long_options [ ] = {
-        { "directory", required_argument, 0, 'D' },
-        { "help", no_argument, 0, 'h' },
-        { NULL, 0, 0, 0 }
-    };
-    int value = 0, option_index = 0, dir_len = 0;
-    int dir_len_check = 256;
-    const char *dir_name = NULL;
+
+    /* sosreport-analyzer */
 
     sos_dir_file_obj = ( struct dir_file_name * ) malloc ( sizeof ( struct dir_file_name ) );
-    memset ( sos_dir_file_obj, 0, sizeof ( struct dir_file_name ) ); 
     sos_header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( sos_header_obj, 0, sizeof ( struct line_data ) ); 
-    sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( sos_line_obj, 0, sizeof ( struct line_data ) ); 
     sos_tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( sos_tail_obj, 0, sizeof ( struct line_data ) ); 
+    sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
     etc_cron_d__obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( etc_cron_d__obj, 0, sizeof ( struct line_data ) ); 
     var_log_messages_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( var_log_messages_obj, 0, sizeof ( struct line_data ) ); 
     sos_commands_logs_journalctl___no_pager_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( sos_commands_logs_journalctl___no_pager_obj, 0, sizeof ( struct line_data ) ); 
     sos_commands_networking_ethtool__S_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    mcinfo_cmdlog__obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
+    memset ( sos_dir_file_obj, 0, sizeof ( struct dir_file_name ) ); 
+    memset ( sos_header_obj, 0, sizeof ( struct line_data ) ); 
+    memset ( sos_tail_obj, 0, sizeof ( struct line_data ) ); 
+    memset ( sos_line_obj, 0, sizeof ( struct line_data ) ); 
+    memset ( etc_cron_d__obj, 0, sizeof ( struct line_data ) ); 
+    memset ( var_log_messages_obj, 0, sizeof ( struct line_data ) ); 
+    memset ( sos_commands_logs_journalctl___no_pager_obj, 0, sizeof ( struct line_data ) ); 
     memset ( sos_commands_networking_ethtool__S_obj, 0, sizeof ( struct line_data ) ); 
+    memset ( mcinfo_cmdlog__obj, 0, sizeof ( struct line_data ) ); 
 
-    if ( ( sos_dir_file_obj == NULL ) || ( sos_header_obj == NULL ) || ( sos_line_obj == NULL ) || ( sos_tail_obj == NULL ) )
+    if ( ( sos_dir_file_obj == NULL ) || ( sos_header_obj == NULL ) || ( sos_tail_obj == NULL ) || 
+         ( sos_line_obj == NULL ) || ( etc_cron_d__obj == NULL ) || ( var_log_messages_obj == NULL ) ||
+         ( sos_commands_logs_journalctl___no_pager_obj == NULL ) || ( sos_commands_networking_ethtool__S_obj == NULL ) ||
+         ( mcinfo_cmdlog__obj == NULL )
+    )
     {
-        printf ("Failed to allocate memory for report obj.");
-        free ( tmp_obj );
+        puts ("Failed to allocate memory for some object.");
         free ( sos_dir_file_obj );
         free ( sos_header_obj );
-        free ( sos_line_obj );
         free ( sos_tail_obj );
+        free ( sos_line_obj );
         free ( etc_cron_d__obj );
         free ( var_log_messages_obj );
         free ( sos_commands_logs_journalctl___no_pager_obj );
         free ( sos_commands_networking_ethtool__S_obj );
-        sos_dir_file_obj = NULL;
-        sos_header_obj = NULL;
-        sos_line_obj = NULL;
-        sos_tail_obj = NULL;
-        etc_cron_d__obj = NULL;
-        var_log_messages_obj = NULL;
-        sos_commands_logs_journalctl___no_pager_obj = NULL;
-        sos_commands_networking_ethtool__S_obj = NULL;
+        free ( mcinfo_cmdlog__obj );
+        return EXIT_FAILURE;
     }
     /* initialize the line list object (node) */
+    /* sos_dir_file_obj doesn't need to be initialized */
     init_list ( &sos_header_obj );
-    init_list ( &sos_line_obj );
     init_list ( &sos_tail_obj );
+    init_list ( &sos_line_obj );
     init_list ( &etc_cron_d__obj );
     init_list ( &var_log_messages_obj );
     init_list ( &sos_commands_logs_journalctl___no_pager_obj );
     init_list ( &sos_commands_networking_ethtool__S_obj );
+    init_list ( &mcinfo_cmdlog__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -134,11 +130,41 @@ int main ( int argc, char *argv [ ] )
     memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s ends.", app_name ); 
     append_list ( &sos_tail_obj, str_tmp2 );
-    /* Try to process all command line arguments */
-    while ( ( value = getopt_long ( argc, argv, "hD:", long_options, &option_index ) ) != -1 ) {
+
+    int dir_len_check = 255;
+    int dir_len = 0;
+    int value = 0;
+    const char *dir_name = NULL;
+
+    while(1)
+    {
+        int option_index = 0;
+        static struct option long_options [ ] = {
+            { "directory", required_argument, 0, 'D' },
+            { "mcinfo", no_argument, 0, 'M' },
+            { "help", no_argument, 0, 'h' },
+            { NULL, 0, 0, 0 }
+        };
+
+        /* Try to process all command line arguments */
+        value = getopt_long ( argc, argv, "hMD:", long_options, &option_index );
+        if ( value == -1 )
+            break;
         switch ( value ) {
+            case 'h':
+                print_help ( );
+                return EXIT_SUCCESS;
+            case '?':
+                print_help ( );
+                return EXIT_FAILURE;
             case 'D':
                 dir_name = optarg;
+                if ( dir_name == NULL )
+                {
+                    printf("Please set directory name.\n");
+                    print_help ( );
+                    return EXIT_FAILURE;
+                }
                 dir_len = strlen ( dir_name );
                 if ( strstr ( dir_name,"\n" ) != NULL || ( dir_len > dir_len_check ) )
                 {
@@ -150,9 +176,9 @@ int main ( int argc, char *argv [ ] )
                     strcpy ( str_tmp2, reverse_the_string ( ( char * ) dir_name, strlen ( dir_name ) ) );
                     for ( int i = 0; i < strlen ( dir_name ); i++ )
                     {
-                        if ( i > 0 )
-                            str_tmp2[i] = '\0';
-                    }    
+                    if ( i > 0 )
+                        str_tmp2[i] = '\0';
+                    }
                     if ( strcmp ( str_tmp2, "/" ) == 0 )
                     {
                         strcpy ( str_tmp2, ( char * ) dir_name );
@@ -162,22 +188,21 @@ int main ( int argc, char *argv [ ] )
                     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "dirname:%s",dir_name );
                     append_list ( &sos_header_obj, str_tmp2 );
                     append_list ( &sos_header_obj, "" );
-                    break;
                 }
-            case 'h':
-                print_help ( );
-                return EXIT_SUCCESS;
-                case '?':
-                print_help ( );
-                return EXIT_FAILURE;
+                break;
+            case 'M':
+                fname = "/etc/sosreport-analyzer-mcinfo.conf";
+                break;
             default:
                 print_help ( );
                 return EXIT_FAILURE;
                 break;
         }
     }
+
     /* read sosreport files */
     cfg_init ( fname );
+    read_file_pre ( "cmdlog/", dir_name );
     read_file_pre ( "date", dir_name );
     read_file_pre ( "lsb-release", dir_name );
     read_file_pre ( "uname", dir_name );
@@ -218,6 +243,8 @@ int main ( int argc, char *argv [ ] )
 
     sos_file_to_write ( );
 
+    /* sar-analyzer */
+
     const char *sos_file_write = ""; 
     FILE *fp_w;
     /* --------  for file write --------*/
@@ -236,6 +263,7 @@ int main ( int argc, char *argv [ ] )
         exit ( EXIT_FAILURE );
     }
     file_write_list ( &sos_header_obj, fp_w );
+    file_write_list ( &mcinfo_cmdlog__obj, fp_w );
     file_write_list ( &etc_cron_d__obj, fp_w );
     file_write_list ( &var_log_messages_obj, fp_w );
     file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
@@ -518,38 +546,8 @@ int main ( int argc, char *argv [ ] )
 
     cfg_clear (); 
 
-    free ( sos_dir_file_obj );
-    sos_dir_file_obj = NULL;
-    free ( sos_header_obj );
-    sos_header_obj = NULL;
-    free ( sos_line_obj );
-    sos_line_obj = NULL;
-    free ( etc_cron_d__obj );
-    etc_cron_d__obj = NULL;
-    free ( var_log_messages_obj );
-    var_log_messages_obj = NULL;
-    free ( sos_commands_logs_journalctl___no_pager_obj );
-    sos_commands_logs_journalctl___no_pager_obj = NULL;
-    free ( sos_commands_networking_ethtool__S_obj );
-    sos_commands_networking_ethtool__S_obj = NULL;
-    free ( sos_tail_obj );
-    sos_tail_obj = NULL;
-
-    clear_list ( &sos_header_obj ); 
-    sos_header_obj = NULL;
-    clear_list ( &sos_line_obj ); 
-    sos_line_obj = NULL;
-    clear_list ( &etc_cron_d__obj ); 
-    etc_cron_d__obj = NULL;
-    clear_list ( &var_log_messages_obj ); 
-    var_log_messages_obj = NULL;
-    clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
-    sos_commands_logs_journalctl___no_pager_obj = NULL;
-    clear_list ( &sos_commands_networking_ethtool__S_obj ); 
-    sos_commands_networking_ethtool__S_obj = NULL;
-    clear_list ( &sos_tail_obj ); 
-    sos_tail_obj = NULL;
-
+    /* freeing sosreport-analyzer objects */
+    free_sosreport_analyzer_obj ( );
     /* freeing sar-analyzer objects */
     free_sar_analyzer_obj ( );
 
