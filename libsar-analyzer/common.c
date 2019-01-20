@@ -101,7 +101,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     /* limit of sar files to be analyzed */
     char *str_arr [ MAX_ANALYZE_FILES ];
     for ( i = 0; i < MAX_ANALYZE_FILES; i++ )
-        str_arr [ i ] = malloc ( 5 );
+        str_arr [ i ] = calloc ( 1, sizeof ( char * ) );
 
     int str_arr_valid_size = 0;
 
@@ -165,20 +165,15 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     files_n = str_arr_valid_size;
     set_files_n ( files_n );
 
-    /* new array */
-    char *str_arr_to_function [ MAX_ANALYZE_FILES ];
-    for ( i = 0; i < MAX_ANALYZE_FILES; i++ )
-        str_arr_to_function [ i ] = malloc ( 5 );
-
-    /* copying char pointer array */
-    for ( i = 0; i < str_arr_valid_size; i++ )
-    {
-        str_arr_to_function [ i ] = str_arr [ i ]; 
-    }
-
     /* now pass an array to the function, this will be done by passing first pointer of an array */
-    read_write_file ( dname, str_arr_to_function, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY );
+    read_write_file ( dname, str_arr, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY );
 
+    /* freeing memory */
+    for ( i = 0; i < MAX_ANALYZE_FILES; i++ )
+    {
+        str_arr[i]=NULL;
+        free (str_arr[i]);
+    }
     /* safely close the directory */
     closedir ( dir );
 }
@@ -209,6 +204,7 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
     
     int ii = 0;
     char full_path [ MAX_FULL_PATH_LENGTH ];
+    memset ( full_path, '\0', sizeof ( full_path ) ); 
     for ( i = 0; i < files_n; i++ )
     {
         /* this is needed for initializing */
@@ -218,8 +214,10 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
         strncat ( full_path, "/", MAX_DIR_NAME_LENGTH - 1  );
         strncat ( full_path, sar_arr [ i ], MAX_DIR_NAME_LENGTH - 1 );
         strncpy ( sar_full_path_arr [ i ], full_path, MAX_FULL_PATH_LENGTH );
+        /* freeing memory */
+        sar_arr[i]=NULL;
+        free (sar_arr[i]);
     }
-
     /* read sar files for sanity check */
     for ( i = 0; i < files_n; i++ )
     {
@@ -256,7 +254,6 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
     /* open postscript dummy file here just to set data to the each object */
     for ( i = 0; i < MAX_ANALYZE_FILES; i++ )
     {
-
         /* -------- ps file -------- */
         if ( ( fp_ps_w [ i ] = fopen ( "dummy.ps", "a" ) ) == NULL )
         {
@@ -327,7 +324,7 @@ void read_write_file ( const char *dname, char *sar_arr [ ], int files_n, int SA
     }
     /**** end here we create postscript file for the future use ****/
 
-    /* read sar files in the hope that 'read_sar()' works fine */
+    /* read sar files */
     for ( i = 0; i < files_n; i++ )
     {
         char str_tmp [ 17 ] = "--------file no.";
@@ -1581,194 +1578,9 @@ int create_sar_analyzer_obj ( )
        )
     {
         printf ("Failed to allocate memory for report obj.");
-        free ( header_obj );
-        free ( report_obj );
-        free ( report_cpu_obj );
-        for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
-            free ( report_cpu_spike_obj [ v ] );
-        free ( report_cpu_explanation_obj );
-        free ( report_tasks_obj );
-        free ( report_tasks_spike_obj );
-        free ( report_tasks_explanation_obj );
-        free ( report_pswap_obj );
-        free ( report_pswap_spike_obj );
-        free ( report_pswap_explanation_obj );
-        free ( report_paging_obj );
-        free ( report_paging_spike_obj );
-        free ( report_paging_explanation_obj );
-        free ( report_io_transfer_rate_obj );
-        free ( report_io_transfer_rate_spike_obj );
-        free ( report_io_transfer_rate_explanation_obj );
-        free ( report_memory_obj );
-        free ( report_memory_spike_obj );
-        free ( report_memory_explanation_obj );
-        free ( report_swpused_obj );
-        free ( report_swpused_spike_obj );
-        free ( report_swpused_explanation_obj );
-        free ( report_kernel_table_obj );
-        free ( report_kernel_table_spike_obj );
-        free ( report_kernel_table_explanation_obj );
-        free ( report_ldavg_obj );
-        free ( report_ldavg_spike_obj );
-        free ( report_ldavg_explanation_obj );
-        free ( report_block_device_obj );
-        for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
-            free ( report_block_device_spike_obj [ v ] );
-        free ( report_block_device_explanation_obj );
-        free ( report_network_obj );
-        for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-            free ( report_network_spike_obj [ v ] );
-        free ( report_network_explanation_obj );
-        free ( report_network_error_obj );
-        for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-            free ( report_network_error_spike_obj [ v ] );
-        free ( report_network_error_explanation_obj );
-        free ( report_thrashing_obj );
-        for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-            free ( report_network_down_obj [ v ] );
-        for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
-        {
-            /* for each file */
-            free ( ps_common_cpu_obj [ v ] );
-            free ( ps_common_memory_obj [ v ] );
-            free ( ps_common_ldavg_obj [ v ] );
-            free ( ps_common_io_transfer_rate_obj [ v ] );
-            /* for file cpu */
-            free ( ps_cpu_label_obj [ v ] );
-            free ( ps_cpu_usr_obj [ v ] );
-            free ( ps_cpu_sys_obj [ v ] );
-            free ( ps_cpu_iowait_obj [ v ] );
-            free ( ps_cpu_idle_obj [ v ] );
-            free ( ps_paging_label_obj [ v ] );
-            free ( ps_paging_pgpgin_obj [ v ] );
-            free ( ps_paging_pgpgout_obj [ v ] );
-            free ( ps_paging_fault_obj [ v ] );
-            free ( ps_paging_mjflt_obj [ v ] );
-            free ( ps_paging_vmeff_obj [ v ] );
-            /* for file mem */
-            free ( ps_memory_label_obj [ v ] );
-            free ( ps_memory_memused_obj [ v ] );
-            free ( ps_memory_kbcommit_obj [ v ] );
-            free ( ps_memory_commit_obj [ v ] );
-            free ( ps_swapping_label_obj [ v ] );
-            free ( ps_swapping_pswpin_obj [ v ] );
-            free ( ps_swapping_pswpout_obj [ v ] );
-            /* for file ldv */
-            free ( ps_ldavg_label_obj [ v ] );
-            free ( ps_ldavg_runq_obj [ v ] );
-            free ( ps_ldavg_plist_obj [ v ] );
-            free ( ps_ldavg_ldavg_one_obj [ v ] );
-            free ( ps_ldavg_ldavg_five_obj [ v ] );
-            free ( ps_ldavg_ldavg_15_obj [ v ] );
-            free ( ps_tasks_label_obj [ v ] );
-            free ( ps_tasks_proc_obj [ v ] );
-            free ( ps_tasks_cswch_obj [ v ] );
-            /* for file ior */
-            free ( ps_io_transfer_rate_label_obj [ v ] );
-            free ( ps_io_transfer_rate_tps_obj [ v ] );
-            free ( ps_io_transfer_rate_bread_obj [ v ] );
-            free ( ps_io_transfer_rate_bwrtn_obj [ v ] );
-            free ( ps_kernel_table_label_obj [ v ] );
-            free ( ps_kernel_table_dentunusd_obj [ v ] );
-            free ( ps_kernel_table_file_obj [ v ] );
-            free ( ps_kernel_table_inode_obj [ v ] );
-            /* for linux restart string */
-            free ( ps_restart_obj [ v ] );
-        }
 
-        header_obj = NULL;
-        report_obj = NULL;
-        report_cpu_obj = NULL;
-        for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
-            report_cpu_spike_obj [ v ] =  NULL;
-        report_cpu_explanation_obj = NULL;
-        report_tasks_obj = NULL;
-        report_tasks_spike_obj = NULL;
-        report_tasks_explanation_obj = NULL;
-        report_pswap_obj = NULL;
-        report_pswap_spike_obj = NULL;
-        report_pswap_explanation_obj = NULL;
-        report_paging_obj = NULL;
-        report_paging_spike_obj = NULL;
-        report_paging_explanation_obj = NULL;
-        report_io_transfer_rate_obj = NULL;
-        report_io_transfer_rate_spike_obj = NULL;
-        report_io_transfer_rate_explanation_obj = NULL;
-        report_memory_obj = NULL;
-        report_memory_spike_obj = NULL;
-        report_memory_explanation_obj = NULL;
-        report_swpused_obj = NULL;
-        report_swpused_spike_obj = NULL;
-        report_swpused_explanation_obj = NULL;
-        report_kernel_table_obj = NULL;
-        report_kernel_table_spike_obj = NULL;
-        report_kernel_table_explanation_obj = NULL;
-        report_ldavg_obj = NULL;
-        report_ldavg_spike_obj = NULL;
-        report_ldavg_explanation_obj = NULL;
-        report_block_device_obj = NULL;
-        for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
-            report_block_device_spike_obj [ v ] =  NULL;
-        report_block_device_explanation_obj = NULL;
-        report_network_obj = NULL;
-        for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-            report_network_spike_obj [ v ] =  NULL;
-        report_network_explanation_obj = NULL;
-        report_network_error_obj = NULL;
-        for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-            report_network_error_spike_obj [ v ] =  NULL;
-        report_network_error_explanation_obj = NULL;
-        report_thrashing_obj = NULL;
-        for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-            report_network_down_obj [ v ] = NULL;
-        for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
-        {
-            /* for each file */
-            ps_common_cpu_obj [ v ] = NULL;
-            ps_common_memory_obj [ v ] = NULL;
-            ps_common_ldavg_obj [ v ] = NULL;
-            ps_common_io_transfer_rate_obj [ v ] = NULL;
-            /* for file cpu */
-            ps_cpu_label_obj [ v ] = NULL;
-            ps_cpu_usr_obj [ v ] = NULL;
-            ps_cpu_sys_obj [ v ] = NULL;
-            ps_cpu_iowait_obj [ v ] = NULL;
-            ps_cpu_idle_obj [ v ] = NULL;
-            ps_paging_label_obj [ v ] = NULL;
-            ps_paging_pgpgin_obj [ v ] = NULL;
-            ps_paging_pgpgout_obj [ v ] = NULL;
-            ps_paging_fault_obj [ v ] = NULL;
-            ps_paging_mjflt_obj [ v ] = NULL;
-            ps_paging_vmeff_obj [ v ] = NULL;
-            /* for file mem */
-            ps_memory_label_obj [ v ] = NULL;
-            ps_memory_memused_obj [ v ] = NULL;
-            ps_memory_kbcommit_obj [ v ] = NULL;
-            ps_memory_commit_obj [ v ] = NULL;
-            ps_swapping_label_obj [ v ] = NULL;
-            ps_swapping_pswpin_obj [ v ] = NULL;
-            ps_swapping_pswpout_obj [ v ] = NULL;
-            /* for file ldv */
-            ps_ldavg_label_obj [ v ] = NULL;
-            ps_ldavg_runq_obj [ v ] = NULL;
-            ps_ldavg_plist_obj [ v ] = NULL;
-            ps_ldavg_ldavg_one_obj [ v ] = NULL;
-            ps_ldavg_ldavg_five_obj [ v ] = NULL;
-            ps_ldavg_ldavg_15_obj [ v ] = NULL;
-            ps_tasks_proc_obj [ v ] = NULL;
-            ps_tasks_cswch_obj [ v ] = NULL;
-            /* for file ior */
-            ps_io_transfer_rate_label_obj [ v ] = NULL;
-            ps_io_transfer_rate_tps_obj [ v ] = NULL;
-            ps_io_transfer_rate_bread_obj [ v ] = NULL;
-            ps_io_transfer_rate_bwrtn_obj [ v ] = NULL;
-            ps_kernel_table_label_obj [ v ] = NULL;
-            ps_kernel_table_dentunusd_obj [ v ] = NULL;
-            ps_kernel_table_file_obj [ v ] = NULL;
-            ps_kernel_table_inode_obj [ v ] = NULL;
-            /* for linux restart string */
-            ps_restart_obj [ v ] = NULL;
-        }
+        free_sar_analyzer_obj ( );
+
         exit ( EXIT_FAILURE );
     }
 
@@ -1875,472 +1687,102 @@ int create_sar_analyzer_obj ( )
 
 int free_sar_analyzer_obj ( )
 {
-    /* free obj */
-    free ( sar_analyzer_obj );
-    sar_analyzer_obj = NULL;
-
-    free ( sar_analyzer_all_obj );
-    sar_analyzer_all_obj = NULL;
-
-    free ( sar_analyzer_spike_obj );
-    sar_analyzer_spike_obj = NULL;
-
-    free ( header_obj );
-    header_obj = NULL;
-
-    free ( report_obj );
-    report_obj = NULL;
-
-    free ( report_cpu_obj );
-    report_cpu_obj = NULL;
-
-    for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
-    {
-        free ( report_cpu_spike_obj [ v ] );
-        report_cpu_spike_obj [ v ] = NULL;
-    }
-
-    free ( report_cpu_explanation_obj );
-    report_cpu_explanation_obj = NULL;
-
-    free ( report_tasks_obj );
-    report_tasks_obj = NULL;
-
-    free ( report_tasks_spike_obj );
-    report_tasks_spike_obj = NULL;
-
-    free ( report_tasks_explanation_obj );
-    report_tasks_explanation_obj = NULL;
-
-    free ( report_pswap_obj );
-    report_pswap_obj = NULL;
-
-    free ( report_pswap_spike_obj );
-    report_pswap_spike_obj = NULL;
-
-    free ( report_pswap_explanation_obj );
-    report_pswap_explanation_obj = NULL;
-
-    free ( report_paging_obj );
-    report_paging_obj = NULL;
-
-    free ( report_paging_spike_obj );
-    report_paging_spike_obj = NULL;
-
-    free ( report_paging_explanation_obj );
-    report_paging_explanation_obj = NULL;
-
-    free ( report_io_transfer_rate_obj );
-    report_io_transfer_rate_obj = NULL;
-
-    free ( report_io_transfer_rate_spike_obj );
-    report_io_transfer_rate_spike_obj = NULL;
-
-    free ( report_io_transfer_rate_explanation_obj );
-    report_io_transfer_rate_explanation_obj = NULL;
-
-    free ( report_memory_obj );
-    report_memory_obj = NULL;
-
-    free ( report_memory_spike_obj );
-    report_memory_spike_obj = NULL;
-
-    free ( report_memory_explanation_obj );
-    report_memory_explanation_obj = NULL;
-
-    free ( report_swpused_obj );
-    report_swpused_obj = NULL;
-
-    free ( report_swpused_spike_obj );
-    report_swpused_spike_obj = NULL;
-
-    free ( report_swpused_explanation_obj );
-    report_swpused_explanation_obj = NULL;
-
-    free ( report_kernel_table_obj );
-    report_kernel_table_obj = NULL;
-
-    free ( report_kernel_table_spike_obj );
-    report_kernel_table_spike_obj = NULL;
-
-    free ( report_kernel_table_explanation_obj );
-    report_kernel_table_explanation_obj = NULL;
-
-    free ( report_ldavg_obj );
-    report_ldavg_obj = NULL;
-
-    free ( report_ldavg_spike_obj );
-    report_ldavg_spike_obj = NULL;
-
-    free ( report_ldavg_explanation_obj );
-    report_ldavg_explanation_obj = NULL;
-
-    free ( report_block_device_obj );
-    report_block_device_obj = NULL;
-
-    for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
-    {
-        free ( report_block_device_spike_obj [ v ] );
-        report_block_device_spike_obj [ v ] = NULL;
-    }
-
-    free ( report_block_device_explanation_obj );
-    report_block_device_explanation_obj = NULL;
-
-    free ( report_network_obj );
-    report_network_obj = NULL;
-
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-    {
-        free ( report_network_spike_obj [ v ] );
-        report_network_spike_obj [ v ] = NULL;
-    }
-
-    free ( report_network_explanation_obj );
-    report_network_explanation_obj = NULL;
-
-    free ( report_network_error_obj );
-    report_network_error_obj = NULL;
-
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-    {
-        free ( report_network_error_spike_obj [ v ] );
-        report_network_error_spike_obj [ v ] = NULL;
-    }
-
-    free ( report_network_error_explanation_obj );
-    report_network_error_explanation_obj = NULL;
-
-    free ( report_thrashing_obj );
-    report_thrashing_obj = NULL;
-
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-    {
-        free ( report_network_down_obj [ v ] );
-        report_network_down_obj [ v ] = NULL;
-    }
-
-
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
-    {
-        /* for each file */
-        free ( ps_common_cpu_obj [ v ] );
-        ps_common_cpu_obj [ v ] = NULL;
-        free ( ps_common_memory_obj [ v ] );
-        ps_common_memory_obj [ v ] = NULL;
-        free ( ps_common_ldavg_obj [ v ] );
-        ps_common_ldavg_obj [ v ] = NULL;
-        free ( ps_common_io_transfer_rate_obj [ v ] );
-        ps_common_io_transfer_rate_obj [ v ] = NULL;
-        /* for file cpu */
-        free ( ps_cpu_label_obj [ v ] );
-        ps_cpu_label_obj [ v ] = NULL;
-        free ( ps_cpu_usr_obj [ v ] );
-        ps_cpu_usr_obj [ v ] = NULL;
-        free ( ps_cpu_sys_obj [ v ] );
-        ps_cpu_sys_obj [ v ] = NULL;
-        free ( ps_cpu_iowait_obj [ v ] );
-        ps_cpu_iowait_obj [ v ] = NULL;
-        free ( ps_cpu_idle_obj [ v ] );
-        ps_cpu_idle_obj [ v ] = NULL;
-        free ( ps_paging_label_obj [ v ] );
-        ps_paging_label_obj [ v ] = NULL;
-        free ( ps_paging_pgpgin_obj [ v ] );
-        ps_paging_pgpgin_obj [ v ] = NULL;
-        free ( ps_paging_pgpgout_obj [ v ] );
-        ps_paging_pgpgout_obj [ v ] = NULL;
-        free ( ps_paging_fault_obj [ v ] );
-        ps_paging_fault_obj [ v ] = NULL;
-        free ( ps_paging_mjflt_obj [ v ] );
-        ps_paging_mjflt_obj [ v ] = NULL;
-        free ( ps_paging_vmeff_obj [ v ] );
-        ps_paging_vmeff_obj [ v ] = NULL;
-        free ( ps_memory_label_obj [ v ] );
-        ps_memory_label_obj [ v ] = NULL;
-        /* for file mem */
-        free ( ps_memory_memused_obj [ v ] );
-        ps_memory_memused_obj [ v ] = NULL;
-        free ( ps_memory_kbcommit_obj [ v ] );
-        ps_memory_kbcommit_obj [ v ] = NULL;
-        free ( ps_memory_commit_obj [ v ] );
-        ps_memory_commit_obj [ v ] = NULL;
-        free ( ps_swapping_label_obj [ v ] );
-        ps_swapping_label_obj [ v ] = NULL;
-        free ( ps_swapping_pswpin_obj [ v ] );
-        ps_swapping_pswpin_obj [ v ] = NULL;
-        free ( ps_swapping_pswpout_obj [ v ] );
-        ps_swapping_pswpout_obj [ v ] = NULL;
-        /* for file ldv */
-        free ( ps_ldavg_label_obj [ v ] );
-        ps_ldavg_label_obj [ v ] = NULL;
-        free ( ps_ldavg_runq_obj [ v ] );
-        ps_ldavg_runq_obj [ v ] = NULL;
-        free ( ps_ldavg_plist_obj [ v ] );
-        ps_ldavg_plist_obj [ v ] = NULL;
-        free ( ps_ldavg_ldavg_one_obj [ v ] );
-        ps_ldavg_ldavg_one_obj [ v ] = NULL;
-        free ( ps_ldavg_ldavg_five_obj [ v ] );
-        ps_ldavg_ldavg_five_obj [ v ] = NULL;
-        free ( ps_ldavg_ldavg_15_obj [ v ] );
-        ps_ldavg_ldavg_15_obj [ v ] = NULL;
-        free ( ps_tasks_label_obj [ v ] );
-        ps_tasks_label_obj [ v ] = NULL;
-        free ( ps_tasks_proc_obj [ v ] );
-        ps_tasks_proc_obj [ v ] = NULL;
-        free ( ps_tasks_cswch_obj [ v ] );
-        ps_tasks_cswch_obj [ v ] = NULL;
-        /* for file ior */
-        free ( ps_io_transfer_rate_label_obj [ v ] );
-        ps_io_transfer_rate_label_obj [ v ] = NULL;
-        free ( ps_io_transfer_rate_tps_obj [ v ] );
-        ps_io_transfer_rate_tps_obj [ v ] = NULL;
-        free ( ps_io_transfer_rate_bread_obj [ v ] );
-        ps_io_transfer_rate_bread_obj [ v ] = NULL;
-        free ( ps_io_transfer_rate_bwrtn_obj [ v ] );
-        ps_io_transfer_rate_bwrtn_obj [ v ] = NULL;
-        free ( ps_kernel_table_label_obj [ v ] );
-        ps_kernel_table_label_obj [ v ] = NULL;
-        free ( ps_kernel_table_dentunusd_obj [ v ] );
-        ps_kernel_table_dentunusd_obj [ v ] = NULL;
-        free ( ps_kernel_table_file_obj [ v ] );
-        ps_kernel_table_file_obj [ v ] = NULL;
-        free ( ps_kernel_table_inode_obj [ v ] );
-        ps_kernel_table_inode_obj [ v ] = NULL;
-        /* for linux restart string */
-        free ( ps_restart_obj [ v ] );
-        ps_restart_obj [ v ] = NULL;
-    }
-
     /* clear list */
     clear_list ( &line_obj );
-    line_obj = NULL;
-
     clear_list ( &line_all_obj );
-    line_all_obj = NULL;
-
     clear_list ( &header_obj );
-    header_obj = NULL;
-
     clear_list ( &report_obj );
-    report_obj = NULL;
-
     clear_list ( &report_cpu_obj );
-    report_cpu_obj = NULL;
-
     for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
-    {
         clear_list ( &report_cpu_spike_obj [ v ] );
-        report_cpu_spike_obj [ v ] = NULL;
-    }
-
     clear_list ( &report_cpu_explanation_obj );
-    report_cpu_explanation_obj = NULL;
-
     clear_list ( &report_tasks_obj );
-    report_tasks_obj = NULL;
-
     clear_list ( &report_tasks_spike_obj );
-    report_tasks_spike_obj = NULL;
-
     clear_list ( &report_tasks_explanation_obj );
-    report_tasks_explanation_obj = NULL;
-
     clear_list ( &report_pswap_obj );
-    report_pswap_obj = NULL;
-
     clear_list ( &report_pswap_spike_obj );
-    report_pswap_spike_obj = NULL;
-
     clear_list ( &report_pswap_explanation_obj );
-    report_pswap_explanation_obj = NULL;
-
     clear_list ( &report_paging_obj );
-    report_paging_obj = NULL;
-
     clear_list ( &report_paging_spike_obj );
-    report_paging_spike_obj = NULL;
-
     clear_list ( &report_paging_explanation_obj );
-    report_paging_explanation_obj = NULL;
-
     clear_list ( &report_io_transfer_rate_obj );
-    report_io_transfer_rate_obj = NULL;
-
     clear_list ( &report_io_transfer_rate_spike_obj );
-    report_io_transfer_rate_spike_obj = NULL;
-
     clear_list ( &report_io_transfer_rate_explanation_obj );
-    report_io_transfer_rate_explanation_obj = NULL;
-
     clear_list ( &report_memory_obj );
-    report_memory_obj = NULL;
-
     clear_list ( &report_memory_spike_obj );
-    report_memory_spike_obj = NULL;
-
     clear_list ( &report_memory_explanation_obj );
-    report_memory_explanation_obj = NULL;
-
     clear_list ( &report_swpused_obj );
-    report_swpused_obj = NULL;
-
     clear_list ( &report_swpused_spike_obj );
-    report_swpused_spike_obj = NULL;
-
     clear_list ( &report_swpused_explanation_obj );
-    report_swpused_explanation_obj = NULL;
-
     clear_list ( &report_kernel_table_obj );
-    report_kernel_table_obj = NULL;
-
     clear_list ( &report_kernel_table_spike_obj );
-    report_kernel_table_spike_obj = NULL;
-
     clear_list ( &report_kernel_table_explanation_obj );
-    report_kernel_table_explanation_obj = NULL;
-
     clear_list ( &report_ldavg_obj );
-    report_ldavg_obj = NULL;
-
     clear_list ( &report_ldavg_spike_obj );
-    report_ldavg_spike_obj = NULL;
-
     clear_list ( &report_ldavg_explanation_obj );
-    report_ldavg_explanation_obj = NULL;
-
     clear_list ( &report_block_device_obj );
-    report_block_device_obj = NULL;
-
     for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
-    {
         clear_list ( &report_block_device_spike_obj [ v ] );
-        report_block_device_spike_obj [ v ] = NULL;
-    }
-
     clear_list ( &report_block_device_explanation_obj );
-    report_block_device_explanation_obj = NULL;
-
     clear_list ( &report_network_obj );
-    report_network_obj = NULL;
-
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-    {
         clear_list ( &report_network_spike_obj [ v ] );
-        report_network_spike_obj [ v ] = NULL;
-    }
-
     clear_list ( &report_network_explanation_obj );
-    report_network_explanation_obj = NULL;
-
     clear_list ( &report_network_error_obj );
-    report_network_error_obj = NULL;
-
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-    {
         clear_list ( &report_network_error_spike_obj [ v ] );
-        report_network_error_spike_obj [ v ] = NULL;
-    }
-
     clear_list ( &report_network_error_explanation_obj );
-    report_network_error_explanation_obj = NULL;
-
     clear_list ( &report_thrashing_obj );
-    report_thrashing_obj = NULL;
-
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
-    {
         clear_list ( &report_network_down_obj [ v ] );
-        report_network_down_obj [ v ] = NULL;
-    }
-
     for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for each file */
         clear_list ( &ps_common_cpu_obj [ v ] );
-        ps_common_cpu_obj [ v ] = NULL;
         clear_list ( &ps_common_memory_obj [ v ] );
-        ps_common_memory_obj [ v ] = NULL;
         clear_list ( &ps_common_ldavg_obj [ v ] );
-        ps_common_ldavg_obj [ v ] = NULL;
         clear_list ( &ps_common_io_transfer_rate_obj [ v ] );
-        ps_common_io_transfer_rate_obj [ v ] = NULL;
         /* for file cpu */
         clear_list ( &ps_cpu_label_obj [ v ] );
-        ps_cpu_label_obj [ v ] = NULL;
         clear_list ( &ps_cpu_usr_obj [ v ] );
-        ps_cpu_usr_obj [ v ] = NULL;
         clear_list ( &ps_cpu_sys_obj [ v ] );
-        ps_cpu_sys_obj [ v ] = NULL;
         clear_list ( &ps_cpu_iowait_obj [ v ] );
-        ps_cpu_iowait_obj [ v ] = NULL;
         clear_list ( &ps_cpu_idle_obj [ v ] );
-        ps_cpu_idle_obj [ v ] = NULL;
         clear_list ( &ps_paging_label_obj [ v ] );
-        ps_paging_label_obj [ v ] = NULL;
         clear_list ( &ps_paging_pgpgin_obj [ v ] );
-        ps_paging_pgpgin_obj [ v ] = NULL;
         clear_list ( &ps_paging_pgpgout_obj [ v ] );
-        ps_paging_pgpgout_obj [ v ] = NULL;
         clear_list ( &ps_paging_fault_obj [ v ] );
-        ps_paging_fault_obj [ v ] = NULL;
         clear_list ( &ps_paging_mjflt_obj [ v ] );
-        ps_paging_mjflt_obj [ v ] = NULL;
         clear_list ( &ps_paging_vmeff_obj [ v ] );
-        ps_paging_vmeff_obj [ v ] = NULL;
         /* for file mem */
         clear_list ( &ps_memory_label_obj [ v ] );
-        ps_memory_label_obj [ v ] = NULL;
         clear_list ( &ps_memory_memused_obj [ v ] );
-        ps_memory_memused_obj [ v ] = NULL;
         clear_list ( &ps_memory_kbcommit_obj [ v ] );
-        ps_memory_kbcommit_obj [ v ] = NULL;
         clear_list ( &ps_memory_commit_obj [ v ] );
-        ps_memory_commit_obj [ v ] = NULL;
         clear_list ( &ps_swapping_label_obj [ v ] );
-        ps_swapping_label_obj [ v ] = NULL;
         clear_list ( &ps_swapping_pswpin_obj [ v ] );
-        ps_swapping_pswpin_obj [ v ] = NULL;
         clear_list ( &ps_swapping_pswpout_obj [ v ] );
-        ps_swapping_pswpout_obj [ v ] = NULL;
         /* for file ldv */
         clear_list ( &ps_ldavg_label_obj [ v ] );
-        ps_ldavg_label_obj [ v ] = NULL;
         clear_list ( &ps_ldavg_runq_obj [ v ] );
-        ps_ldavg_runq_obj [ v ] = NULL;
         clear_list ( &ps_ldavg_plist_obj [ v ] );
-        ps_ldavg_plist_obj [ v ] = NULL;
         clear_list ( &ps_ldavg_ldavg_one_obj [ v ] );
-        ps_ldavg_ldavg_one_obj [ v ] = NULL;
         clear_list ( &ps_ldavg_ldavg_five_obj [ v ] );
-        ps_ldavg_ldavg_five_obj [ v ] = NULL;
         clear_list ( &ps_ldavg_ldavg_15_obj [ v ] );
-        ps_ldavg_ldavg_15_obj [ v ] = NULL;
         clear_list ( &ps_tasks_label_obj [ v ] );
-        ps_tasks_label_obj [ v ] = NULL;
         clear_list ( &ps_tasks_proc_obj [ v ] );
-        ps_tasks_proc_obj [ v ] = NULL;
         clear_list ( &ps_tasks_cswch_obj [ v ] );
-        ps_tasks_cswch_obj [ v ] = NULL;
         /* for file ior */
         clear_list ( &ps_io_transfer_rate_label_obj [ v ] );
-        ps_io_transfer_rate_label_obj [ v ] = NULL;
         clear_list ( &ps_io_transfer_rate_tps_obj [ v ] );
-        ps_io_transfer_rate_tps_obj [ v ] = NULL;
         clear_list ( &ps_io_transfer_rate_bread_obj [ v ] );
-        ps_io_transfer_rate_bread_obj [ v ] = NULL;
         clear_list ( &ps_io_transfer_rate_bwrtn_obj [ v ] );
-        ps_io_transfer_rate_bwrtn_obj [ v ] = NULL;
         clear_list ( &ps_kernel_table_label_obj [ v ] );
-        ps_kernel_table_label_obj [ v ] = NULL;
         clear_list ( &ps_kernel_table_dentunusd_obj [ v ] );
-        ps_kernel_table_dentunusd_obj [ v ] = NULL;
         clear_list ( &ps_kernel_table_file_obj [ v ] );
-        ps_kernel_table_file_obj [ v ] = NULL;
         clear_list ( &ps_kernel_table_inode_obj [ v ] );
-        ps_kernel_table_inode_obj [ v ] = NULL;
         /* for linux restart string */
         clear_list ( &ps_restart_obj [ v ] );
-        ps_restart_obj [ v ] = NULL;
     }
 
     return ( 0 );

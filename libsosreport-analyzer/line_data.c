@@ -175,7 +175,6 @@ void file_write_list ( node **obj, FILE *fp_w )
 
 int delete_obj ( node **obj )
 {
-    /* moving next, do something, moving next ... */
     node *obj_new = ( *obj ) -> next;
     free ( *obj );
     *obj = obj_new;

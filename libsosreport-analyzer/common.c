@@ -1180,36 +1180,12 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
 
 void free_sosreport_analyzer_obj ( void )
 {
-    free ( sos_dir_file_obj );
-    sos_dir_file_obj = NULL;
-    free ( sos_header_obj );
-    sos_header_obj = NULL;
-    free ( sos_line_obj );
-    sos_line_obj = NULL;
-    free ( etc_cron_d__obj );
-    etc_cron_d__obj = NULL;
-    free ( var_log_messages_obj );
-    var_log_messages_obj = NULL;
-    free ( sos_commands_logs_journalctl___no_pager_obj );
-    sos_commands_logs_journalctl___no_pager_obj = NULL;
-    free ( sos_commands_networking_ethtool__S_obj );
-    sos_commands_networking_ethtool__S_obj = NULL;
-    free ( sos_tail_obj );
-    sos_tail_obj = NULL;
-
     clear_list ( &sos_header_obj ); 
-    sos_header_obj = NULL;
     clear_list ( &sos_line_obj ); 
-    sos_line_obj = NULL;
     clear_list ( &etc_cron_d__obj ); 
-    etc_cron_d__obj = NULL;
     clear_list ( &var_log_messages_obj ); 
-    var_log_messages_obj = NULL;
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
-    sos_commands_logs_journalctl___no_pager_obj = NULL;
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
-    sos_commands_networking_ethtool__S_obj = NULL;
     clear_list ( &sos_tail_obj ); 
-    sos_tail_obj = NULL;
 }
 
