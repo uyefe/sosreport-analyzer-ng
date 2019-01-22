@@ -136,6 +136,7 @@ void read_analyze_dir ( const char *member, const char *dname )
         /* if open directory fails, exit with error message */
         if ( ( dir = opendir ( dname_full ) ) == NULL ) 
         {
+            free_sosreport_analyzer_obj ( );
             printf("can't open directory (%s): %s\n",dname_full,strerror(errno));
             exit ( EXIT_FAILURE );
         }
@@ -301,11 +302,13 @@ void read_file ( const char *file_name, const char *member )
     if ( file_name_len <= 0 )
     {
         printf("no file name supplied (%s): %d %s\n",file_name,file_name_len,strerror(errno));
+        free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
     if ( file_name_len > MAX_FULL_PATH_LENGTH )
     {
         printf("file name too long (%s): %d %s\n",file_name,file_name_len,strerror(errno));
+        free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
     FILE *fp;
@@ -320,6 +323,7 @@ void read_file ( const char *file_name, const char *member )
     {
         printf("can't open file (%s): %s\n",file_name,strerror(errno));
         printf("Try set 'skip' to this member in /etc/sosreport-analyzer.conf.\n");
+        free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
     /* read file and parse lines */
@@ -601,6 +605,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( lspci > arr_max20 )
             {
                 printf("can't set items over %d for lspci\n",arr_max20);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -627,6 +632,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( installed_rpms > arr_max12 )
             {
                 printf("can't set items over %d for installed_rpms\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -646,6 +652,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( df > arr_max2 )
             {
                 printf("can't set items over %d for df\n",arr_max2);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -693,6 +700,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( last > arr_max12 )
             {
                 printf("can't set items over %d for last\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -712,6 +720,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( ps > arr_max12 )
             {
                 printf("can't set items over %d for ps\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -731,6 +740,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( lsof > arr_max12 )
             {
                 printf("can't set items over %d for lsof\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -750,6 +760,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( netstat > arr_max12 )
             {
                 printf("can't set items over %d for netstat\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -783,6 +794,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( proc_meminfo > arr_max2 )
             {
                 printf("can't set items over %d for proc/meminfo\n",arr_max2);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -837,6 +849,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( var_log_messages > arr_max12 )
             {
                 printf("can't set items over %d for var/log/messages\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -856,6 +869,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( sos_commands_kernel_sysctl__a > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/kernel/sysctl_-a\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -875,6 +889,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( sos_commands_logs_journalctl___no_pager > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/logs/journalctl_--no-pager\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -894,6 +909,7 @@ void set_token_to_item_arr ( const char *file_name )
             if ( sos_commands_networking_ethtool__S > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/networking/ethtool_-S\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
@@ -1021,6 +1037,7 @@ int check_result_dir ( const char *dname )
             else
             {
                 printf("can't open directory %s\n",dname);
+                free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
         }
@@ -1188,4 +1205,3 @@ void free_sosreport_analyzer_obj ( void )
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
     clear_list ( &sos_tail_obj ); 
 }
-

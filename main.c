@@ -68,43 +68,6 @@ int main ( int argc, char *argv [ ] )
 
     /* sosreport-analyzer */
 
-    sos_dir_file_obj = ( struct dir_file_name * ) malloc ( sizeof ( struct dir_file_name ) );
-    sos_header_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    sos_tail_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    sos_line_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    etc_cron_d__obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    var_log_messages_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    sos_commands_logs_journalctl___no_pager_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    sos_commands_networking_ethtool__S_obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    mcinfo_cmdlog__obj = ( struct line_data * ) malloc ( sizeof ( struct line_data ) );
-    memset ( sos_dir_file_obj, 0, sizeof ( struct dir_file_name ) ); 
-    memset ( sos_header_obj, 0, sizeof ( struct line_data ) ); 
-    memset ( sos_tail_obj, 0, sizeof ( struct line_data ) ); 
-    memset ( sos_line_obj, 0, sizeof ( struct line_data ) ); 
-    memset ( etc_cron_d__obj, 0, sizeof ( struct line_data ) ); 
-    memset ( var_log_messages_obj, 0, sizeof ( struct line_data ) ); 
-    memset ( sos_commands_logs_journalctl___no_pager_obj, 0, sizeof ( struct line_data ) ); 
-    memset ( sos_commands_networking_ethtool__S_obj, 0, sizeof ( struct line_data ) ); 
-    memset ( mcinfo_cmdlog__obj, 0, sizeof ( struct line_data ) ); 
-
-    if ( ( sos_dir_file_obj == NULL ) || ( sos_header_obj == NULL ) || ( sos_tail_obj == NULL ) || 
-         ( sos_line_obj == NULL ) || ( etc_cron_d__obj == NULL ) || ( var_log_messages_obj == NULL ) ||
-         ( sos_commands_logs_journalctl___no_pager_obj == NULL ) || ( sos_commands_networking_ethtool__S_obj == NULL ) ||
-         ( mcinfo_cmdlog__obj == NULL )
-    )
-    {
-        puts ("Failed to allocate memory for some object.");
-        free ( sos_dir_file_obj );
-        free ( sos_header_obj );
-        free ( sos_tail_obj );
-        free ( sos_line_obj );
-        free ( etc_cron_d__obj );
-        free ( var_log_messages_obj );
-        free ( sos_commands_logs_journalctl___no_pager_obj );
-        free ( sos_commands_networking_ethtool__S_obj );
-        free ( mcinfo_cmdlog__obj );
-        return EXIT_FAILURE;
-    }
     /* initialize the line list object (node) */
     /* sos_dir_file_obj doesn't need to be initialized */
     init_list ( &sos_header_obj );
@@ -374,7 +337,10 @@ int main ( int argc, char *argv [ ] )
     printf("Please check result file ./%s\n",sos_file_write);
     printf("Also check sar result file ./%s\n",sar_file_write);
 
-    /* close the file pointers */
+    /* freeing sosreport-analyzer objects */
+    free_sosreport_analyzer_obj ( );
+
+    /* close the file pointer */
     fclose ( fp_sar_w );
 
     for ( int v = 0, x = 1; v < MAX_ANALYZE_FILES; v++, x++ )
@@ -547,8 +513,6 @@ int main ( int argc, char *argv [ ] )
 
     cfg_clear (); 
 
-    /* freeing sosreport-analyzer objects */
-    free_sosreport_analyzer_obj ( );
     /* freeing sar-analyzer objects */
     free_sar_analyzer_obj ( );
 

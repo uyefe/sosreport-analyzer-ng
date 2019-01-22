@@ -20,6 +20,7 @@
  *  02110-1301 USA
  */
 
+#include <dirent.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -1849,7 +1850,7 @@ void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, 
  *  Calls: make_report ()
  *
  */
-void read_write_file ( const char *dname, char *sar_files[], int n, int SAR_OPOTION, int REPORT, int MESSAGE_ONLY );
+void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, int SAR_OPOTION, int REPORT, int MESSAGE_ONLY );
 
 /*
  *  Function Name: make_report ()
@@ -1981,30 +1982,6 @@ void set_this_date ( const char *date_string );
  *  Calls : none 
  */
 void set_this_date_all ( const char *date_string );
-
-/* 
- * Function Name: get_this_date ()
- *
- * This function returns this_date from sar_analyzer_obj
- *
- *  Caller : set_token_items ()
- *
- *  Calls : none 
- */
-//const char *get_this_date ( void );
-//const char *get_this_date ( char this_date_tmp [ MAX_DATE_STRINGS ] );
-
-/* 
- * Function Name: get_this_date_all ()
- *
- * This function returns this_date from sar_analyzer_all_obj
- *
- *  Caller : set_token_items ()
- *
- *  Calls : none 
- */
-//const char *get_this_date_all ( void );
-//const char *get_this_date_all ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 
 /*
  * Function Name: tar_pdf_files ()

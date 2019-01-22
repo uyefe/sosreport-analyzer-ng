@@ -39,7 +39,6 @@
 
 typedef struct line_data
 {
-    //const char _line [ MAX_LINE_LENGTH + 1 ];
     const char _line [ MAX_LINE_LENGTH - 1 ];
     struct line_data *next;
 
