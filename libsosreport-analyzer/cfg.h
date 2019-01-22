@@ -96,6 +96,8 @@ struct sosreport_analyzer_config
     /* allows word delimited by space */
     char var_log_messages [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
+    char var_log_secure [ MAX_LINE_LENGTH ];
+    /* allows word delimited by space */
     char sos_commands_kernel_sysctl__a [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
     char sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];
@@ -112,13 +114,7 @@ extern struct sosreport_analyzer_config *sosreport_analyzer_cfg;
  *  will read the default configuration file and call exit()
  *  if an error occurs.
  */
-void cfg_init ( const char *file_name );
-
-/* Check that the condition is true and otherwise log an error
-   and bail out.
- */
-void check_argumentcount ( const char *file_name, int lnr,
-                               const char *keyword, int condition );
+void cfg_init ( const char *file_name, int mcinfo );
 
 /* This function works like strtok() except that the original string is
  *  not modified and a pointer within str to where the next token begins
@@ -132,10 +128,10 @@ char *get_token ( char **line, char *buf, size_t buflen );
 void cfg_defaults ( struct sosreport_analyzer_config *cfg );
 
 /* This function reads config file. */
-void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg );
+void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, int mcinfo );
 
 /* This function sets member to appropriate struct. */
-int set_member_to_struct ( const char *keyword, char *line, struct sosreport_analyzer_config *cfg );
+int set_member_to_struct ( const char *keyword, char *line, struct sosreport_analyzer_config *cfg, int mcinfo );
 
 /*  This function frees the memory which had been allocated
  *  for config file.
@@ -143,6 +139,6 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
 void cfg_clear ( void );
 
 /*  This function appends member strigs to sos_header_obj with their items. */
-void append_sos_header_obj ( const char *member, struct sosreport_analyzer_config *cfg );
+void append_sos_header_obj ( const char *member, struct sosreport_analyzer_config *cfg, int mcinfo );
 
 #endif /* SOSREPORT_ANALYZER__CFG_H */

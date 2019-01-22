@@ -61,6 +61,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo etc/logrotate.conf file.
   Echo files in etc/cron.d/.
   Analyze var/log/messages files.
+  Analyze var/log/secure files.
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.
   Analyze sos_commands/networking/ethtool_-S files.
@@ -113,23 +114,45 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Check 'sar' file is written in Ascii text and clear.
 
   example:
-  $less sar01 | less
+  $less sar01
 
 ## Before using
 
-  Check /etc/sosreport-analyzer.conf
-  You can set analyzing word for each analyzing member.
-  If you are not sure, consult /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example.
-  New version will not override the conf file. When you build new version, be sure to copy file
-  or at least, copy lines needed.
+  - sosreport
+
+    Check /etc/sosreport-analyzer.conf
+
+      You can set analyzing word for each analyzing member.
+      If you are not sure, consult /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example.
+      New version will not override the conf file. When you build new version, be sure to copy file
+      or at least, copy lines needed.
+
+  - mcinfo 
+
+    Check /etc/sosreport-analyzer-mcinfo.conf
+
+      You can set analyzing word for each analyzing member.
+      If you are not sure, consult /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example.
+      New version will not override the conf file. When you build new version, be sure to copy file
+      or at least, copy lines needed.
 
 ## Usage
 
-  $ sosreport-analyzer -D <sosreport-dir>
+  - sosreport
 
-  It writes a file to './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_<time>.txt',
-  './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_sar_<time>.txt'.
-  and, './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>-<item>-<no>.ps'.
+    $ sosreport-analyzer -D <sosreport-dir>
+
+      It writes a file to './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_<time>.txt',
+      './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_sar_<time>.txt'.
+      and, './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>-<item>-<no>.ps'.
+
+  - mcinfo
+
+    $ sosreport-analyzer -M -D <mcinfo-dir>
+
+      It writes a file to './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>_<time>.txt',
+      './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>_sar_<time>.txt'.
+      and, './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>-<item>-<no>.ps'.
 
   You can't redirect to a file.
 

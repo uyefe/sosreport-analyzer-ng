@@ -75,6 +75,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_line_obj );
     init_list ( &etc_cron_d__obj );
     init_list ( &var_log_messages_obj );
+    init_list ( &var_log_secure_obj );
     init_list ( &sos_commands_logs_journalctl___no_pager_obj );
     init_list ( &sos_commands_networking_ethtool__S_obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -97,6 +98,7 @@ int main ( int argc, char *argv [ ] )
     int dir_len_check = 255;
     int dir_len = 0;
     int value = 0;
+    int mcinfo = 0;
     const char *dir_name = NULL;
 
     while(1)
@@ -155,6 +157,7 @@ int main ( int argc, char *argv [ ] )
                 break;
             case 'M':
                 fname = "/etc/sosreport-analyzer-mcinfo.conf";
+                mcinfo = 1;
                 break;
             default:
                 print_help ( );
@@ -164,8 +167,9 @@ int main ( int argc, char *argv [ ] )
     }
 
     /* read sosreport files */
-    cfg_init ( fname );
-    read_file_pre ( "cmdlog/", dir_name );
+    cfg_init ( fname, mcinfo );
+    if ( mcinfo == 1 )
+        read_file_pre ( "cmdlog/", dir_name );
     read_file_pre ( "date", dir_name );
     read_file_pre ( "lsb-release", dir_name );
     read_file_pre ( "uname", dir_name );
@@ -195,6 +199,7 @@ int main ( int argc, char *argv [ ] )
     read_file_pre ( "etc/logrotate.conf", dir_name );
     read_file_pre ( "etc/cron.d/", dir_name );
     read_file_pre ( "var/log/messages", dir_name );
+    read_file_pre ( "var/log/secure", dir_name );
     read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
     read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
     read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
@@ -230,11 +235,11 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &mcinfo_cmdlog__obj, fp_w );
     file_write_list ( &etc_cron_d__obj, fp_w );
     file_write_list ( &var_log_messages_obj, fp_w );
+    file_write_list ( &var_log_secure_obj, fp_w );
     file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
     file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
     file_write_list ( &sos_line_obj, fp_w );
     file_write_list ( &sos_tail_obj, fp_w );
-    /* printf("Wrote file to ./%s\n",sos_file_write); */
     
     /* close the file pointer */
     fclose ( fp_w );

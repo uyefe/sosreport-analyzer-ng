@@ -1,3 +1,5 @@
+1.0.20
+Add var/log/secure files to be analyzed.
 1.0.19
 Delete unneeded memory allocation descriptions.
 1.0.18
@@ -20,7 +22,7 @@ Code cleaning.
 1.0.12
 Code cleaning.
 1.0.11
-Delet unneeded files with other minor fixes.
+Delete unneeded files with other minor fixes.
 1.0.10
 Fix wrong object handling.
 1.0.9

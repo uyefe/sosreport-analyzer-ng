@@ -1,7 +1,7 @@
 # This is the configuration file for the sosreport-analyzer.
-# If you installed this program before, new version will not override.
+# If you have installed this program before, new version will not override.
 # Please check /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example, and
-# copy it to /etc/sosreport-analyzer-mcinfo.conf.
+# copy it as /etc/sosreport-analyzer-mcinfo.conf.
 #
 #
 # 'all' echos every line in the file.
@@ -19,7 +19,7 @@ cmdlog/=all
 
 ## proc/meminfo
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. proc/meminfo=HugePage Hugepages
 
 proc/meminfo=all
@@ -32,7 +32,7 @@ proc/interrupts=all
 
 ## var/log/messages 
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. var/log/messages=error 
 
 var/log/messages=error
