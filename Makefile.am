@@ -59,14 +59,18 @@ install-sosreport_analyzer_data:
 uninstall-sosreport_analyzer_data:
 	-rm -rf $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)
 
-# install cfg.h 
+# install header files (not all, yet) 
 install-sosreport_analyzer_include:
 	@if [ -d $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH) ]; then \
+            $(INSTALL) -m 644 $(srcdir)/common/global.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/global.h; \
+            $(INSTALL) -m 644 $(srcdir)/common/common_line_data.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/common_line_data.h; \
             $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/cfg.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/cfg.h; \
             $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/common.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/common.h; \
             $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/line_data.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/line_data.h; \
 	else \
             $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH); \
+            $(INSTALL) -m 644 $(srcdir)/common/global.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/global.h; \
+            $(INSTALL) -m 644 $(srcdir)/common/common_line_data.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/common_line_data.h; \
             $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/cfg.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/cfg.h; \
             $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/common.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/common.h; \
             $(INSTALL) -m 644 $(srcdir)/libsosreport-analyzer/line_data.h $(DESTDIR)$(SOSREPORT_ANALYZER_INCLUDE_PATH)/line_data.h; \

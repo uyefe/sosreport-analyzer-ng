@@ -72,6 +72,13 @@ struct line_data var_log_messages_obj_raw =
         NULL /* next pointer */
     };
 
+/* var_log_secure_obj */
+struct line_data var_log_secure_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* sos_commands_logs_journalctl___no_pager_obj */
 struct line_data sos_commands_logs_journalctl___no_pager_obj_raw =
     {
@@ -100,6 +107,7 @@ struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
 struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
+struct line_data *var_log_secure_obj = &var_log_secure_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -154,6 +162,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         etc_cron_d__obj = NULL;
     else if ( strstr ( full_path, "messages") != 0 )
         var_log_messages_obj = NULL;
+    else if ( strstr ( full_path, "secure") != 0 )
+        var_log_secure_obj = NULL;
     else if ( strstr ( full_path, "journalctl") != 0 )
         sos_commands_logs_journalctl___no_pager_obj = NULL;
     else if ( strstr ( full_path, "ethtool_-S") != 0 )
@@ -173,25 +183,17 @@ void read_analyze_dir ( const char *member, const char *dname )
             /* so, only fname_part files will remain */
             snprintf (read_path, MAX_LINE_LENGTH, "%s%s", dname_full, str );
             if ( strstr ( read_path, "cmdlog") != 0 )
-            {
                 append_list ( &mcinfo_cmdlog__obj, read_path );
-            }
             else if ( strstr ( read_path, "cron") != 0 )
-            {
                 append_list ( &etc_cron_d__obj, read_path );
-            }
             else if ( strstr ( read_path, "messages") != 0 )
-            {
                 append_list ( &var_log_messages_obj, read_path );
-            }
+            else if ( strstr ( read_path, "secure") != 0 )
+                append_list ( &var_log_secure_obj, read_path );
             else if ( strstr ( read_path, "journalctl") != 0 )
-            {
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, read_path );
-            }
             else if ( strstr ( read_path, "ethtool_-S") != 0 )
-            {
                 append_list ( &sos_commands_networking_ethtool__S_obj, read_path );
-            }
 	    i++; /* needed here */
             str_arr_valid_size++;
             if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -209,6 +211,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         ptr_tmp = *(&etc_cron_d__obj);
     else if ( strstr ( read_path, "messages") != 0 )
         ptr_tmp = *(&var_log_messages_obj);
+    else if ( strstr ( read_path, "secure") != 0 )
+        ptr_tmp = *(&var_log_secure_obj);
     else if ( strstr ( read_path, "journalctl") != 0 )
         ptr_tmp = *(&sos_commands_logs_journalctl___no_pager_obj);
     else if ( strstr ( read_path, "ethtool_-S") != 0 )
@@ -262,6 +266,7 @@ const char *items_proc_net_sockstat;
 const char *items_etc_logrotate_conf;
 const char *items_etc_cron_d_;
 const char *items_var_log_messages [ 11 ];
+const char *items_var_log_secure [ 11 ];
 const char *items_sos_commands_kernel_sysctl__a [ 11 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 11 ];
 const char *items_sos_commands_networking_ethtool__S [ 11 ];
@@ -270,7 +275,7 @@ int mcinfo_cmdlog_ = 0;
 int dmidecode = 0, lsmod = 0, lspci = 0, sos_commands_scsi_lsscsi = 0;
 int installed_rpms = 0, df = 0, last = 0;
 int ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0;
-int var_log_messages = 0;
+int var_log_messages = 0, var_log_secure = 0;
 int sos_commands_kernel_sysctl__a = 0;
 int sos_commands_logs_journalctl___no_pager = 0;
 int sos_commands_networking_ethtool__S = 0, root_anaconda_ks_cfg = 0;
@@ -289,6 +294,10 @@ void read_file ( const char *file_name, const char *member )
     char filename_var_log_messages_curr [ MAX_LINE_LENGTH ];
     memset ( filename_var_log_messages, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_var_log_messages_curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_var_log_secure [ MAX_LINE_LENGTH ];
+    char filename_var_log_secure_curr [ MAX_LINE_LENGTH ];
+    memset ( filename_var_log_secure, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_var_log_secure_curr, '\0', MAX_LINE_LENGTH ); 
     char filename_sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];
     char filename_sos_commands_logs_journalctl___no_pager_curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_logs_journalctl___no_pager, '\0', MAX_LINE_LENGTH ); 
@@ -457,6 +466,19 @@ void read_file ( const char *file_name, const char *member )
             for ( x = 0; x < var_log_messages; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
         }
+        else if ( strstr ( file_name, "var/log/secure" ) != NULL )
+        {
+            snprintf ( filename_var_log_secure_curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_var_log_secure, filename_var_log_secure_curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_var_log_secure, MAX_LINE_LENGTH, "%s", file_name );
+            for ( x = 0; x < var_log_secure; x++ )
+                append_item_to_sos_line_obj ( line, "var/log/secure", items_var_log_secure [ x ] );
+        }
         else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sos_commands_kernel_sysctl__a ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
@@ -501,7 +523,7 @@ void set_token_to_item_arr ( const char *file_name )
     /* on members which have more than 2 tokens, should be initialized here */
     dmidecode = 0, lsmod = 0, lspci = 0, installed_rpms = 0, df = 0, last = 0;
     ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0, var_log_messages = 0;
-    sos_commands_kernel_sysctl__a = 0, sos_commands_logs_journalctl___no_pager = 0;
+    var_log_secure = 0, sos_commands_kernel_sysctl__a = 0, sos_commands_logs_journalctl___no_pager = 0;
     sos_commands_networking_ethtool__S = 0, mcinfo_cmdlog_ = 0;
     /* ### FIX ME - make this function for better summary */
     const char s [ 8 ] = " \t\n\r"; /* this is the delimiter */
@@ -857,6 +879,26 @@ void set_token_to_item_arr ( const char *file_name )
             items_var_log_messages  [ var_log_messages ] = token;
         }
     }
+    /* member var/log/secure */
+    else if ( ( strstr ( file_name, "var/log/secure" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->var_log_secure, s );
+        items_var_log_secure [ 0 ] = token;
+        /* get the next token ... */
+        while ( token != NULL )
+        {
+            if ( var_log_secure > arr_max12 )
+            {
+                printf("can't set items over %d for var/log/secure\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
+                exit ( EXIT_FAILURE );
+            }
+            token = strtok ( NULL, s );
+            var_log_secure ++;
+            items_var_log_secure  [ var_log_secure ] = token;
+        }
+    }
     /* member sos_commands/kernel/sysctl_-a */
     else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) )
     {
@@ -964,6 +1006,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/secure") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, "" ) != 0 ) )
@@ -983,6 +1026,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
+            ( strcmp ( member, "var/log/secure" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
            )
@@ -1182,6 +1226,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
+        ( strcmp ( member, "var/log/secure" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
@@ -1201,6 +1246,7 @@ void free_sosreport_analyzer_obj ( void )
     clear_list ( &sos_line_obj ); 
     clear_list ( &etc_cron_d__obj ); 
     clear_list ( &var_log_messages_obj ); 
+    clear_list ( &var_log_secure_obj ); 
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
     clear_list ( &sos_tail_obj ); 

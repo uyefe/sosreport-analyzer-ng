@@ -1,7 +1,7 @@
 # This is the configuration file for the sosreport-analyzer.
-# If you installed this program before, new version will not override.
+# If you have installed this program before, new version will not override.
 # Please check /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example, and
-# copy it to /etc/sosreport-analyzer.conf.
+# copy it as /etc/sosreport-analyzer.conf.
 #
 #
 # 'all' echos every line in the file.
@@ -118,22 +118,22 @@ last=all
 
 ## ps 
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. ps=java 
 
 ps=all 
 
 ## lsof 
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. lsof=bash 
 
 lsof=bash 
 
 ## netstat 
 ##
-## You can set arbitrary item-name including 'all' upto 12
-## ex. netstat= TIME_WAIT 
+## You can set arbitrary item-name including 'all' up to 12
+## ex. netstat=TIME_WAIT 
 
 netstat=TIME_WAIT 
 
@@ -151,7 +151,7 @@ etc/sysctl.conf=all
 
 ## proc/meminfo
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. proc/meminfo=HugePage Hugepages
 
 proc/meminfo=all
@@ -186,30 +186,37 @@ etc/logrotate.conf=all
 
 etc/cron.d/=all
 
+## var/log/secure
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. var/log/secure=su:session failure 
+
+var/log/secure=su:session failure
+
 ## var/log/messages 
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. var/log/messages=error 
 
 var/log/messages=error
 
 ## sos_commands/sysctl_-a 
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. sos_commands/kernel/sysctl_-a=panic 
 
 sos_commands/kernel/sysctl_-a=panic
 
 ## sos_commands/logs/journalctl_--no-pager
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. sos_commands/logs/journalctl_--no-pager=kdump 
 
 sos_commands/logs/journalctl_--no-pager=kdump 
 
 ## sos_commands/networking/ethtool_-S
 ##
-## You can set arbitrary item-name including 'all' upto 12
+## You can set arbitrary item-name including 'all' up to 12
 ## ex. sos_commands/networking/ethtool_-S=error 
 
 sos_commands/networking/ethtool_-S=all

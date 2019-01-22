@@ -37,6 +37,7 @@ extern struct line_data *sos_line_obj;
 extern struct line_data *sos_tail_obj;
 extern struct line_data *etc_cron_d__obj;
 extern struct line_data *var_log_messages_obj;
+extern struct line_data *var_log_secure_obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
 extern struct line_data *mcinfo_cmdlog__obj;
