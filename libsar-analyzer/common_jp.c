@@ -547,7 +547,7 @@ void read_sar_check ( int file_number, const char *filename, int SAR_OPTION )
         printf("'Average' line lacks in file (%s)'\n",filename);
         puts("Please check below items in file.");
         puts("Or, your locale is en_US and still try to read ja_JP file?");
-        puts("If that is the case, you can tweak src/Makefile.am to use jp files.");
+        puts("If that is the case, you can tweak libsar-analyzer/Makefile.am to use jp files.");
         puts("Sanity check faild!");
         puts("--------");
         free_sar_analyzer_obj ( );
@@ -962,13 +962,15 @@ void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, i
     if ( dname != NULL )
     {
         /* if open directory fails, exit with error message */
-        if ( !opendir ( dname ) ) 
+        DIR *dir;
+        if ( ( dir = opendir ( dname ) ) == NULL ) 
         {
             printf("cannot open directory (%s): %s\n",dname,strerror(errno));
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
-
+        /* this is needed to suppress memory leak */
+        closedir ( dir );
         /* now, creating object */
         create_sar_analyzer_obj ( );
         /* setting directory name */

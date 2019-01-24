@@ -82,9 +82,9 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   There are six features.
 
-  Show highest and lowest average lines on the console and to a file with a report.
-  Show highest and lowest all lines on the console and to a file with a report.
-  Show highest spike on the console and to a file with a report.
+  Show highest and lowest average lines to a file with a report.
+  Show highest and lowest all lines to a file with a report.
+  Show highest spike to a file with a report.
   Show possible thrashing.
   Show network down.
   Generate graphs as postscript files.
@@ -155,6 +155,18 @@ Binary path: /usr/local/bin/sosreport-analyzer
       and, './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>-<item>-<no>.ps'.
 
   You can't redirect to a file.
+
+## Is this program safe to execute?
+
+  You can execute this program as an ordinary user not root ( you need to be root when editting conf file, though ).
+
+  Presently, it creats 4 dummy files in the current directory, with no harm.
+
+  Creating directory unconditionally in the current directory for the analyzed files, with no harm.
+
+  No memory leakage.
+
+    Checked with 'valgrind --leak-check=full -v sosreport-analyzer -D <sosreport-dir>'. 
 
 ## Uninstall
 

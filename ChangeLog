@@ -1,3 +1,5 @@
+1.0.21
+Fix memory leak when reading directory by libsar-analyzer.
 1.0.20
 Add var/log/secure files to be analyzed.
 1.0.19

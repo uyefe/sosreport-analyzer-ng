@@ -1,5 +1,5 @@
 /*
- *  common.c - common functions 
+ *  global.c - common functions 
  *  This file contains the contents of sosreport-analyzer.
  *
  *  Copyright (C) 2018-2019 Shintaro Fujiwara
