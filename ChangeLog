@@ -1,3 +1,5 @@
+1.0.22
+Fix forgotten initializations on some objects 
 1.0.21
 Fix memory leak when reading directory by libsar-analyzer.
 1.0.20

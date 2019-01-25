@@ -626,7 +626,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
         }        
 
         /* At this point, argument 'utility' is definitely a wrong value because devices are easily attached or released,
-         * imagine some devices were attached and left several days and pulled off. sar will record those devices and
+         * Imagine some devices were attached and left several days and pulled off. sar will record those devices and
          * the record will become inconsistent to be analyzed.
          * So, we discard argument 'utility' here and search if device name already exists in the object.
          * If not, adding device name in the hope to set sane values for each device below.
