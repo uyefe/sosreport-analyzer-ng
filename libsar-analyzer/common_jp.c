@@ -1149,6 +1149,86 @@ int create_sar_analyzer_obj ( )
         set_cpu_former_val ( -0.01, i, "idle" );
     }
 
+    set_tasks_spike_val ( -0.01, "proc" );
+    set_tasks_former_val ( -0.01, "proc" );
+    set_tasks_spike_val ( -0.01, "cswch" );
+    set_tasks_former_val ( -0.01, "cswch" );
+    set_pswap_spike_val ( 0.00, "pswpin" );
+    set_pswap_former_val ( 0.00, "pswpin" );
+    set_pswap_spike_val ( 0.00, "pswpout" );
+    set_pswap_former_val ( 0.00, "pswpout" );
+    set_paging_spike_val ( 0.00, "pgpgin" );
+    set_paging_former_val ( 0.00, "pgpgin" );
+    set_paging_spike_val ( 0.00, "pgpgout" );
+    set_paging_former_val ( 0.00, "pgpgout" );
+    set_paging_spike_val ( -0.01, "fault" );
+    set_paging_former_val ( -0.01, "fault" );
+    set_paging_spike_val ( -0.01, "majflt" );
+    set_paging_former_val ( -0.01, "majflt" );
+    set_paging_spike_val ( -0.01, "vmeff" );
+    set_paging_former_val ( -0.01, "vmeff" );
+    set_io_transfer_rate_spike_val ( -0.01, "tps" );
+    set_io_transfer_rate_former_val ( -0.01, "tps" );
+    set_io_transfer_rate_spike_val ( -0.01, "bread" );
+    set_io_transfer_rate_former_val ( -0.01, "bread" );
+    set_io_transfer_rate_spike_val ( -0.01, "bwrtn" );
+    set_io_transfer_rate_former_val ( -0.01, "bwrtn" );
+    set_memory_double_spike_val ( -0.01, "memused" );
+    set_memory_double_former_val ( -0.01, "memused" );
+    set_memory_double_spike_val ( -0.01, "commit" );
+    set_memory_double_former_val ( -0.01, "commit" );
+    set_memory_int_spike_val ( -1, "kbcommit" );
+    set_memory_int_former_val ( -1, "kbcommit" );
+    set_swpused_spike_val ( -0.01 );
+    set_swpused_former_val ( -0.01 );
+    set_kernel_table_spike_val ( -1, "dentunusd" );
+    set_kernel_table_former_val ( -1, "dentunusd" );
+    set_kernel_table_spike_val ( -1, "file" );
+    set_kernel_table_former_val ( -1, "file" );
+    set_kernel_table_spike_val ( -1, "inode" );
+    set_kernel_table_former_val ( -1, "inode" );
+
+    set_ldavg_int_spike_val ( -1, "runq_sz" );
+    set_ldavg_int_former_val ( -1, "runq_sz" );
+    set_ldavg_int_spike_val ( -1, "plist_sz" );
+    set_ldavg_int_former_val ( -1, "plist_sz" );
+    set_ldavg_double_spike_val ( -0.01, "ldavg_one" );
+    set_ldavg_double_former_val ( -0.01, "ldavg_one" );
+    set_ldavg_double_spike_val ( -0.01, "ldavg_five" );
+    set_ldavg_double_former_val ( -0.01, "ldavg_five" );
+    set_ldavg_double_spike_val ( -0.01, "ldavg_15" );
+    set_ldavg_double_former_val ( -0.01, "ldavg_15" );
+
+    /* up to MAX_DEVICE_NUMBERS */
+    for ( i = 0; i < MAX_BLOCK_DEVICE_NUMBERS; i++ )
+    {
+        set_block_device_spike_val ( -0.01, i, "areqsz" );
+        set_block_device_former_val ( -0.01, i, "areqsz" );
+        set_block_device_spike_val ( -0.01, i, "util" );
+        set_block_device_former_val ( -0.01, i, "util" );
+    }
+
+    /* up to MAX_NETWORK_DEVICE_NUMBERS */
+    for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
+    {
+        set_network_spike_val ( -0.01, i, "rxpck" );
+        set_network_former_val ( -0.01, i, "rxpck" );
+        set_network_spike_val ( -0.01, i, "txpck" );
+        set_network_former_val ( -0.01, i, "txpck" );
+        set_network_spike_val( -0.01, i, "rxkb" );
+        set_network_former_val( -0.01, i, "rxkb" );
+        set_network_spike_val ( -0.01, i, "txkb" );
+        set_network_former_val ( -0.01, i, "txkb" );
+        set_network_spike_val ( -0.01, i, "rxerr" );
+        set_network_former_val ( -0.01, i, "rxerr" );
+        set_network_spike_val ( -0.01, i, "txerr" );
+        set_network_former_val ( -0.01, i, "txerr" );
+        set_network_spike_val ( -0.01, i, "rxdrop" );
+        set_network_former_val ( -0.01, i, "rxdrop" );
+        set_network_spike_val ( -0.01, i, "txdrop" );
+        set_network_former_val ( -0.01, i, "txdrop" );
+    }
+
     /* ---- All highest ---- */
 
     /* CPU all, 0 to MAX_CORE_NUMBERS */
