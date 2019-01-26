@@ -100,6 +100,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
         {
           if ( strcmp ( keyword, "cmdlog/" ) == 0 )
             strncpy ( cfg->mcinfo_cmdlog_, line, MAX_LINE_LENGTH - 1 );
+          else if ( strcmp ( keyword, "boot/grub/" ) == 0 )
+            strncpy ( cfg->mcinfo_boot_grub_, line, MAX_LINE_LENGTH - 1 );
         }
         else if ( mcinfo == 0 )
         {
@@ -163,6 +165,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_logs_journalctl___no_pager, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-S" ) == 0 )
                 strncpy ( cfg->sos_commands_networking_ethtool__S, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
+                strncpy ( cfg->sos_commands_boot_, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -269,7 +273,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
     /* appending member strigs with their items which had been set by config file */
     /* the order of these are appended to object, so, don't mingle them */
     if ( mcinfo == 1 ) 
+    {
+        append_sos_header_obj ( "boot/grub/", cfg, mcinfo );
         append_sos_header_obj ( "cmdlog/", cfg, mcinfo );
+    }
     if ( mcinfo == 0 ) 
     {
         append_sos_header_obj ( "date", cfg, mcinfo );
@@ -294,6 +301,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "netstat", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/boot/", cfg, mcinfo );
     }
     append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
     append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
@@ -334,6 +342,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     {
         if ( strcmp ( member, "cmdlog/" ) == 0 )
             strcat ( str_tmp, cfg->mcinfo_cmdlog_ );
+        else if ( strcmp ( member, "boot/grub/" ) == 0 )
+            strcat ( str_tmp, cfg->mcinfo_boot_grub_ );
     }
     else if ( mcinfo == 0 )
     {
@@ -397,6 +407,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S );
+        else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_boot_ );
     }
 
     append_list ( &sos_header_obj, str_tmp );

@@ -11,6 +11,12 @@
 # In such cases, you can skip the file, setting item-name to 'skip'.
 # ex. var/log/messages=skip
 
+## mcinfo_boot/grub/
+##
+## All you can set is 'all'
+
+boot/grub/=all
+
 ## mcinfo_cmdlog/
 ##
 ## All you can set is 'all'
@@ -36,5 +42,3 @@ proc/interrupts=all
 ## ex. var/log/messages=error 
 
 var/log/messages=error
-
-
