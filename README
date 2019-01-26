@@ -146,7 +146,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
       It writes a file to './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_<time>.txt',
       './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>_sar_<time>.txt'.
-      and, './sosreport-analyzer-results/<sosreport-dir>/<sosreport-dir>-<item>-<no>.ps'.
+      and, './sosreport-analyzer-results/<sosreport-dir>/graphs/<sosreport-dir>-<item>-<no>.ps'.
 
   - mcinfo
 
@@ -154,7 +154,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
       It writes a file to './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>_<time>.txt',
       './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>_sar_<time>.txt'.
-      and, './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>-<item>-<no>.ps'.
+      and, './sosreport-analyzer-results/<mcinfo-dir>/graphs/<mcinfo-dir>-<item>-<no>.ps'.
 
   You can't redirect to a file.
 
