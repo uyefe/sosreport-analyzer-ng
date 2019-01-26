@@ -1,3 +1,5 @@
+1.0.25
+Add echo etc/sysconfig/network-scripts/ifcfg-* files. 
 1.0.24
 Create graphs directory for ps files. 
 1.0.23

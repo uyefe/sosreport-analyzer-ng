@@ -52,17 +52,18 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze ps file.
   Analyze lsof file.
   Analyze netstat file.
-  Analyze etc/kdump.conf
-  Analyze etc/sysctl.conf
-  Analyze sos_commands/boot/ files.
+  Analyze etc/kdump.conf.
+  Analyze etc/sysctl.conf.
+  Echo files etc/sysconfig/network-scripts/ifcfg-*.
+  Analyze files in sos_commands/boot/.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Echo proc/net/dev file.
   Echo proc/net/sockstat file.
   Echo etc/logrotate.conf file.
   Echo files in etc/cron.d/.
-  Analyze var/log/messages files.
-  Analyze var/log/secure files.
+  Analyze var/log/messages* files.
+  Analyze var/log/secure* files.
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.
   Analyze sos_commands/networking/ethtool_-S files.
@@ -73,10 +74,11 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Copy it as /etc/sosreport-analyzer-mcinfo.conf.
 
   Analyze boot/grub/ files.
+  Echo files etc/sysconfig/network-scripts/ifcfg-*.
   Echo files in cmdlog/.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
-  Analyze var/log/messages files.
+  Analyze var/log/messages* files.
 
 2. sar-analyzer
 
