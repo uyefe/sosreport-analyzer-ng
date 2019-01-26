@@ -54,6 +54,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze netstat file.
   Analyze etc/kdump.conf
   Analyze etc/sysctl.conf
+  Analyze sos_commands/boot/ files.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Echo proc/net/dev file.
@@ -71,6 +72,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example.
   Copy it as /etc/sosreport-analyzer-mcinfo.conf.
 
+  Analyze boot/grub/ files.
   Echo files in cmdlog/.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
