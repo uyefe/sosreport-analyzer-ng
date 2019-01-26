@@ -149,6 +149,12 @@ etc/kdump.conf=all
 
 etc/sysctl.conf=all 
 
+## etc/sysconfig/network-scripts/ifcfg-
+##
+## All you can set is 'all'
+
+etc/sysconfig/network-scripts/ifcfg-=all
+
 ## sos_commands/boot/ 
 ##
 ## You can set arbitrary item-name including 'all' up to 12

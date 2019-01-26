@@ -83,6 +83,8 @@ struct sosreport_analyzer_config
     char etc_kdump_conf [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
     char etc_sysctl_conf [ MAX_LINE_LENGTH ];
+    /* should be all */
+    char etc_sysconfig_network_scripts_ifcfg_ [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
     char proc_meminfo [ MAX_LINE_LENGTH ];
     /* should be all */

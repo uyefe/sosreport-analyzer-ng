@@ -37,6 +37,20 @@
 struct dir_file_name sos_dir_file_obj_raw = 
     {{ "test.txt", "test.txt", "test.txt", "test.txt" }};
 
+/* mcinfo_boot_grub__obj */
+struct line_data mcinfo_boot_grub__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* mcinfo_cmdlog__obj */
+struct line_data mcinfo_cmdlog__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* sos_header_obj */
 struct line_data sos_header_obj_raw =
     {
@@ -60,6 +74,13 @@ struct line_data sos_tail_obj_raw =
 
 /* etc_cron_d__obj */
 struct line_data etc_cron_d__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* etc_sysconfig_network_scripts_ifcfg__obj */
+struct line_data etc_sysconfig_network_scripts_ifcfg__obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
@@ -100,33 +121,20 @@ struct line_data sos_commands_boot__obj_raw =
         NULL /* next pointer */
     };
 
-/* mcinfo_boot_grub__obj */
-struct line_data mcinfo_boot_grub__obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
-/* mcinfo_cmdlog__obj */
-struct line_data mcinfo_cmdlog__obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
-/* initialize */
+/* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
+struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
+struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
 struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
+struct line_data *etc_sysconfig_network_scripts_ifcfg__obj = &etc_sysconfig_network_scripts_ifcfg__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *var_log_secure_obj = &var_log_secure_obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
 struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
-struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
-struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 
 void read_analyze_dir ( const char *member, const char *dname )
 {
@@ -160,8 +168,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         /* if open directory fails, exit with error message */
         if ( ( dir = opendir ( dname_full ) ) == NULL ) 
         {
-            free_sosreport_analyzer_obj ( );
             printf("can't open directory (%s): %s\n",dname_full,strerror(errno));
+            free_sosreport_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
     }
@@ -171,9 +179,11 @@ void read_analyze_dir ( const char *member, const char *dname )
     /* limit of fname_part files to be analyzed */
     int str_arr_valid_size = 0;
 
-    /* setting NULL to objects */
-    if ( strstr ( full_path, "boot/gurb") != 0 )
+    /* setting NULL to objects for directory related stuff including those matched files */
+    if ( strstr ( full_path, "boot/gurb/") != 0 )
         mcinfo_boot_grub__obj = NULL;
+    else if ( strstr ( full_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
+        etc_sysconfig_network_scripts_ifcfg__obj = NULL;
     else if ( strstr ( full_path, "cmdlog") != 0 )
         mcinfo_cmdlog__obj = NULL;
     else if ( strstr ( full_path, "cron") != 0 )
@@ -208,6 +218,8 @@ void read_analyze_dir ( const char *member, const char *dname )
                 append_list ( &mcinfo_cmdlog__obj, read_path );
             else if ( strstr ( read_path, "cron") != 0 )
                 append_list ( &etc_cron_d__obj, read_path );
+            else if ( strstr ( read_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
+                append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, read_path );
             else if ( strstr ( read_path, "messages") != 0 )
                 append_list ( &var_log_messages_obj, read_path );
             else if ( strstr ( read_path, "secure") != 0 )
@@ -227,7 +239,7 @@ void read_analyze_dir ( const char *member, const char *dname )
     /* close the directory */
     closedir ( dir );
 
-    /* read every messages files */
+    /* read every files related */
     node *ptr_tmp = NULL;
     if ( strstr ( read_path, "boot/grub") != 0 )
         ptr_tmp = *(&mcinfo_boot_grub__obj);
@@ -235,6 +247,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         ptr_tmp = *(&mcinfo_cmdlog__obj);
     else if ( strstr ( read_path, "cron") != 0 )
         ptr_tmp = *(&etc_cron_d__obj);
+    else if ( strstr ( read_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
+        ptr_tmp = *(&etc_sysconfig_network_scripts_ifcfg__obj);
     else if ( strstr ( read_path, "messages") != 0 )
         ptr_tmp = *(&var_log_messages_obj);
     else if ( strstr ( read_path, "secure") != 0 )
@@ -288,6 +302,7 @@ const char *items_lsof [ 12 ];
 const char *items_netstat [ 12 ];
 const char *items_etc_kdump_conf;
 const char *items_etc_sysctl_conf;
+const char *items_etc_sysconfig_network_scripts_ifcfg_;
 const char *items_proc_meminfo [ 12 ];
 const char *items_proc_interrupts;
 const char *items_proc_net_dev;
@@ -325,6 +340,10 @@ void read_file ( const char *file_name, const char *member )
     char filename_etc_cron_d__curr [ MAX_LINE_LENGTH ];
     memset ( filename_etc_cron_d_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_etc_cron_d__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_sysconfig_network_scripts_ifcfg_ [ MAX_LINE_LENGTH ];
+    char filename_etc_sysconfig_network_scripts_ifcfg__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_sysconfig_network_scripts_ifcfg_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_sysconfig_network_scripts_ifcfg__curr, '\0', MAX_LINE_LENGTH ); 
     char filename_var_log_messages [ MAX_LINE_LENGTH ];
     char filename_var_log_messages_curr [ MAX_LINE_LENGTH ];
     memset ( filename_var_log_messages, '\0', MAX_LINE_LENGTH ); 
@@ -370,7 +389,7 @@ void read_file ( const char *file_name, const char *member )
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
     {
         printf("can't open file (%s): %s\n",file_name,strerror(errno));
-        printf("Try set 'skip' to this member in /etc/sosreport-analyzer.conf.\n");
+        printf("Try set 'skip' to this member in /etc/sosreport-analyzer-mcinfo.conf.\n");
         free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
@@ -481,6 +500,18 @@ void read_file ( const char *file_name, const char *member )
             append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
         else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
+        else if ( strstr ( file_name, "etc/sysconfig/network-scripts/ifcfg-" ) != NULL )
+        {
+            snprintf ( filename_etc_sysconfig_network_scripts_ifcfg__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_sysconfig_network_scripts_ifcfg_, filename_etc_sysconfig_network_scripts_ifcfg__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_etc_sysconfig_network_scripts_ifcfg_, MAX_LINE_LENGTH, "%s", file_name );
+            append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
+        }
         else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
             for ( x = 0; x < proc_meminfo ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
@@ -604,7 +635,7 @@ void set_token_to_item_arr ( const char *file_name )
         items_mcinfo_boot_grub_ = token;
     }
     /* member cmdlog */
-    if ( ( strstr ( file_name, "cmdlog/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "cmdlog/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->mcinfo_cmdlog_, s );
@@ -879,6 +910,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_sysctl_conf, s );
         items_etc_sysctl_conf = token;
     }
+    /* member etc/sysconfig/network-scripts/ifcfg- */
+    else if ( ( strstr ( file_name, "etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_, s );
+        items_etc_sysconfig_network_scripts_ifcfg_ = token;
+    }
     /* member proc/meminfo */
     else if ( ( strstr ( file_name, "proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) )
     {
@@ -1095,6 +1133,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "netstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->netstat, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/kdump.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/sysctl.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) ) ||
@@ -1118,11 +1157,12 @@ void read_file_pre ( const char *member, const char *dir_name )
         append_list ( &sos_line_obj, result_tmp );
         append_list ( &sos_line_obj, "" );
 
-        /* for ones of which should read directories */
+        /* for ones of which should read directory, or matched files in the directory */
         if (
             ( strcmp ( member, "boot/grub/" ) == 0 ) ||
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+            ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
             ( strcmp ( member, "var/log/secure" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
@@ -1328,6 +1368,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "netstat" ) == 0 ) ||
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
         ( strcmp ( member, "var/log/secure" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
@@ -1349,6 +1390,7 @@ void free_sosreport_analyzer_obj ( void )
     clear_list ( &sos_header_obj ); 
     clear_list ( &sos_line_obj ); 
     clear_list ( &etc_cron_d__obj ); 
+    clear_list ( &etc_sysconfig_network_scripts_ifcfg__obj ); 
     clear_list ( &var_log_messages_obj ); 
     clear_list ( &var_log_secure_obj ); 
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 

@@ -11,11 +11,17 @@
 # In such cases, you can skip the file, setting item-name to 'skip'.
 # ex. var/log/messages=skip
 
-## mcinfo_boot/grub/
+## boot/grub/
 ##
 ## All you can set is 'all'
 
 boot/grub/=all
+
+## etc/sysconfig/network-scripts/ifcfg-
+##
+## All you can set is 'all'
+
+etc/sysconfig/network-scripts/ifcfg-=all
 
 ## mcinfo_cmdlog/
 ##
