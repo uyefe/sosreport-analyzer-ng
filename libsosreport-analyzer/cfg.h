@@ -36,6 +36,8 @@
 struct sosreport_analyzer_config
 {
     /* should be all */
+    char mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];
+    /* should be all */
     char mcinfo_cmdlog_ [ MAX_LINE_LENGTH ];
     /* should be all */
     char date [ MAX_LINE_LENGTH ];
@@ -103,6 +105,8 @@ struct sosreport_analyzer_config
     char sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
     char sos_commands_networking_ethtool__S [ MAX_LINE_LENGTH ];
+    /* allows word delimited by space */
+    char sos_commands_boot_ [ MAX_LINE_LENGTH ];
 };
 
 /*  This is a pointer to the global configuration, it should be available

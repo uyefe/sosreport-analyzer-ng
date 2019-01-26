@@ -149,6 +149,13 @@ etc/kdump.conf=all
 
 etc/sysctl.conf=all 
 
+## sos_commands/boot/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands/boot/=all
+
+sos_commands/boot/=all
+
 ## proc/meminfo
 ##
 ## You can set arbitrary item-name including 'all' up to 12

@@ -78,6 +78,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &var_log_secure_obj );
     init_list ( &sos_commands_logs_journalctl___no_pager_obj );
     init_list ( &sos_commands_networking_ethtool__S_obj );
+    init_list ( &sos_commands_boot__obj );
+    init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
@@ -166,53 +168,80 @@ int main ( int argc, char *argv [ ] )
         }
     }
 
+    /* sosreport-analyzer */
+
     /* read sosreport files */
     cfg_init ( fname, mcinfo );
+    /* this is the actual order which each member will be written to a file */
+    /* it should be the same order as one which had been set in cfg.c */
     if ( mcinfo == 1 )
+    {
+        read_file_pre ( "boot/grub/", dir_name );
         read_file_pre ( "cmdlog/", dir_name );
-    read_file_pre ( "date", dir_name );
-    read_file_pre ( "lsb-release", dir_name );
-    read_file_pre ( "uname", dir_name );
-    read_file_pre ( "hostname", dir_name );
-    read_file_pre ( "uptime", dir_name );
-    read_file_pre ( "root/anaconda-ks.cfg", dir_name );
-    read_file_pre ( "dmidecode", dir_name );
-    read_file_pre ( "lsmod", dir_name );
-    read_file_pre ( "lspci", dir_name );
-    read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
-    read_file_pre ( "installed-rpms", dir_name );
-    read_file_pre ( "df", dir_name );
-    read_file_pre ( "vgdisplay", dir_name );
-    read_file_pre ( "free", dir_name );
-    read_file_pre ( "ip_addr", dir_name );
-    read_file_pre ( "route", dir_name );
-    read_file_pre ( "last", dir_name );
-    read_file_pre ( "ps", dir_name );
-    read_file_pre ( "lsof", dir_name );
-    read_file_pre ( "netstat", dir_name );
-    read_file_pre ( "etc/kdump.conf", dir_name );
-    read_file_pre ( "etc/sysctl.conf", dir_name );
+    }
+    if ( mcinfo == 0 )
+    {
+        read_file_pre ( "date", dir_name );
+        read_file_pre ( "lsb-release", dir_name );
+        read_file_pre ( "uname", dir_name );
+        read_file_pre ( "hostname", dir_name );
+        read_file_pre ( "uptime", dir_name );
+        read_file_pre ( "root/anaconda-ks.cfg", dir_name );
+        read_file_pre ( "dmidecode", dir_name );
+        read_file_pre ( "lsmod", dir_name );
+        read_file_pre ( "lspci", dir_name );
+        read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
+        read_file_pre ( "installed-rpms", dir_name );
+        read_file_pre ( "df", dir_name );
+        read_file_pre ( "vgdisplay", dir_name );
+        read_file_pre ( "free", dir_name );
+        read_file_pre ( "ip_addr", dir_name );
+        read_file_pre ( "route", dir_name );
+        read_file_pre ( "last", dir_name );
+        read_file_pre ( "ps", dir_name );
+        read_file_pre ( "lsof", dir_name );
+        read_file_pre ( "netstat", dir_name );
+        read_file_pre ( "etc/kdump.conf", dir_name );
+        read_file_pre ( "etc/sysctl.conf", dir_name );
+        read_file_pre ( "sos_commands/boot/", dir_name );
+    }
     read_file_pre ( "proc/meminfo", dir_name );
     read_file_pre ( "proc/interrupts", dir_name );
-    read_file_pre ( "proc/net/dev", dir_name );
-    read_file_pre ( "proc/net/sockstat", dir_name );
-    read_file_pre ( "etc/logrotate.conf", dir_name );
-    read_file_pre ( "etc/cron.d/", dir_name );
+    if ( mcinfo == 0 )
+    {
+        read_file_pre ( "proc/net/dev", dir_name );
+        read_file_pre ( "proc/net/sockstat", dir_name );
+        read_file_pre ( "etc/logrotate.conf", dir_name );
+        read_file_pre ( "etc/cron.d/", dir_name );
+    }
     read_file_pre ( "var/log/messages", dir_name );
-    read_file_pre ( "var/log/secure", dir_name );
-    read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
-    read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
-    read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
-    append_list ( &sos_header_obj, "Also, read these files." );
-    append_list ( &sos_header_obj, "--------" );
-    append_list ( &etc_cron_d__obj, "--------" );
-    append_list ( &var_log_messages_obj, "--------" );
-    append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
+    if ( mcinfo == 0 )
+    {
+        read_file_pre ( "var/log/secure", dir_name );
+        read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
+        read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
+        read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
+    }
+    if ( mcinfo == 1 )
+    {
+        append_list ( &sos_header_obj, "Also, read these files." );
+        append_list ( &sos_header_obj, "--------" );
+        append_list ( &mcinfo_boot_grub__obj, "--------" );
+        append_list ( &mcinfo_cmdlog__obj, "--------" );
+    }
+    if ( mcinfo == 0 )
+    {
+        append_list ( &sos_header_obj, "Also, read these files." );
+        append_list ( &sos_header_obj, "--------" );
+        append_list ( &etc_cron_d__obj, "--------" );
+        append_list ( &var_log_secure_obj, "--------" );
+        append_list ( &var_log_messages_obj, "--------" );
+        append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
+        append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
+        append_list ( &sos_commands_boot__obj, "--------" );
+    }
 
     sos_file_to_write ( );
-
-
-    /* sar-analyzer */
 
     const char *sos_file_write = ""; 
     FILE *fp_w;
@@ -232,8 +261,13 @@ int main ( int argc, char *argv [ ] )
         exit ( EXIT_FAILURE );
     }
     file_write_list ( &sos_header_obj, fp_w );
-    file_write_list ( &mcinfo_cmdlog__obj, fp_w );
+    if ( mcinfo == 1 )
+    {
+        file_write_list ( &mcinfo_boot_grub__obj, fp_w );
+        file_write_list ( &mcinfo_cmdlog__obj, fp_w );
+    }
     file_write_list ( &etc_cron_d__obj, fp_w );
+    file_write_list ( &sos_commands_boot__obj, fp_w );
     file_write_list ( &var_log_messages_obj, fp_w );
     file_write_list ( &var_log_secure_obj, fp_w );
     file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
