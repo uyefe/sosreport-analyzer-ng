@@ -1200,6 +1200,8 @@ void sos_file_to_write ( void )
     strcpy ( buff_dir, result_dir );
     char buff_dir_analyzed [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff_dir_analyzed, '\0', MAX_FILE_NAME_LENGTH ); 
+    char buff_dir_analyzed_graph [ MAX_FILE_NAME_LENGTH ]; 
+    memset ( buff_dir_analyzed_graph, '\0', MAX_FILE_NAME_LENGTH ); 
     char buff_sos [ MAX_FILE_NAME_LENGTH ]; 
     memset ( buff_sos, '\0', MAX_FILE_NAME_LENGTH ); 
     char buff_sar [ MAX_FILE_NAME_LENGTH ]; 
@@ -1229,13 +1231,15 @@ void sos_file_to_write ( void )
     strcat ( buff_dir, "/" );
     strcat ( buff_dir, buff_dir_analyzed );
     check_result_dir ( buff_dir );
+    strcpy ( buff_dir_analyzed_graph, buff_dir );
+    strcat ( buff_dir_analyzed_graph, "/graphs" );
+    check_result_dir ( buff_dir_analyzed_graph );
     /* thirdly, we set file name */
     strcat ( buff_sos, result_dir_with_slash );
     strcat ( buff_sar, result_dir_with_slash );
-    strcat ( buff_ps, result_dir_with_slash );
     strcat ( buff_sos, buff_dir_analyzed );
     strcat ( buff_sar, buff_dir_analyzed );
-    strcat ( buff_ps, buff_dir_analyzed );
+    strcat ( buff_ps, buff_dir_analyzed_graph );
     strcat ( buff_sos, "/" );
     strcat ( buff_sar, "/" );
     strcat ( buff_ps, "/" );

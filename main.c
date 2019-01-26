@@ -47,6 +47,7 @@ static void print_help ( void )
     printf("  Options:\n");
     printf("   -M|--mcinfo    analyze mcinfo files\n\n");
     printf("   -D|--directory <path_to_sosreport_directory>    analyze files in the directory\n\n");
+    printf("   -G|--graph    write out graph files in the directory 'graph'\n\n");
     printf("   -h|--help    Print this help\n\n");
     printf("\n");
 }
@@ -121,9 +122,11 @@ int main ( int argc, char *argv [ ] )
             case 'h':
                 print_help ( );
                 return EXIT_SUCCESS;
+                break;
             case '?':
                 print_help ( );
                 return EXIT_FAILURE;
+                break;
             case 'D':
                 dir_name = optarg;
                 if ( dir_name == NULL )
@@ -307,6 +310,7 @@ int main ( int argc, char *argv [ ] )
     sar_file_write = get_sar_file_name_to_be_written ( );
     file_ps_write = ( char * ) get_ps_file_name_to_be_written ( );
     FILE *fp_sar_w;
+
     FILE *fp_ps_w [ MAX_ANALYZE_FILES ];
     FILE *fp_ps2_w [ MAX_ANALYZE_FILES ];
     FILE *fp_ps3_w [ MAX_ANALYZE_FILES ];
