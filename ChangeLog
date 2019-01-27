@@ -1,3 +1,5 @@
+1.0.26
+Add feature for direct analyzing for sa directory with option -S. 
 1.0.25
 Add echo etc/sysconfig/network-scripts/ifcfg-* files. 
 1.0.24

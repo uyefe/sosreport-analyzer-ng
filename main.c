@@ -33,7 +33,9 @@
 
 /* configuration file of this program/library */
 static const char *fname = "/etc/sosreport-analyzer.conf";
+static const char *fname_mcinfo = "/etc/sosreport-analyzer-mcinfo.conf";
 static const char *fname_example = "/usr/share/sosreport-analyzer/sosreport-analyzer.conf.example";
+static const char *fname_mcinfo_example = "/usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example";
 
 const char *app_name = "sosreport-analyzer";
 
@@ -41,12 +43,17 @@ const char *app_name = "sosreport-analyzer";
 static void print_help ( void )
 {
     printf("\n VERSION %d.%d.%d\n",PROGRAM_VERSION,PROGRAM_RELEASE,PROGRAM_SUB_RELEASE);
-    printf("\n Before use: Edit %s.\n", fname);
-    printf("\n If you are unsure, copy from %s to %s.\n", fname_example, fname);
+    printf("\n -- For sosreport --\n");
+    printf("\n Before use: Edit '%s' for sosreport. \n", fname);
+    printf(" If you are unsure, copy from '%s' to %s.\n", fname_example, fname);
+    printf("\n --For mcinfo --\n");
+    printf("\n Before use: Edit '%s' for mcinfo.\n", fname_mcinfo);
+    printf(" If you are unsure, copy from '%s' to %s.\n", fname_mcinfo_example, fname);
     printf("\n Usage: %s -D <path_to_sosreport_directory>  \n\n", app_name);
-    printf("  Options:\n");
-    printf("   -M|--mcinfo    analyze mcinfo files\n\n");
-    printf("   -D|--directory <path_to_sosreport_directory>    analyze files in the directory\n\n");
+    printf("  Options:\n\n");
+    printf("   -M|--mcinfo    Analyze mcinfo files\n");
+    printf("   -D|--directory <path_to_sosreport_directory>    Analyze files in the directory\n");
+    printf("   -S|--sar-only     analyze sar files only. Use with -D like '%s -S -D /var/log/sa'\n",app_name);
     printf("   -h|--help    Print this help\n\n");
     printf("\n");
 }
@@ -102,6 +109,7 @@ int main ( int argc, char *argv [ ] )
     int dir_len = 0;
     int value = 0;
     int mcinfo = 0;
+    int sar_only = 0;
     const char *dir_name = NULL;
 
     while(1)
@@ -110,12 +118,13 @@ int main ( int argc, char *argv [ ] )
         static struct option long_options [ ] = {
             { "directory", required_argument, 0, 'D' },
             { "mcinfo", no_argument, 0, 'M' },
+            { "sar-only", no_argument, 0, 'S' },
             { "help", no_argument, 0, 'h' },
             { NULL, 0, 0, 0 }
         };
 
         /* Try to process all command line arguments */
-        value = getopt_long ( argc, argv, "hMD:", long_options, &option_index );
+        value = getopt_long ( argc, argv, "hMSD:", long_options, &option_index );
         if ( value == -1 )
             break;
         switch ( value ) {
@@ -164,6 +173,9 @@ int main ( int argc, char *argv [ ] )
                 fname = "/etc/sosreport-analyzer-mcinfo.conf";
                 mcinfo = 1;
                 break;
+            case 'S':
+                sar_only = 1;
+                break;
             default:
                 print_help ( );
                 return EXIT_FAILURE;
@@ -176,77 +188,80 @@ int main ( int argc, char *argv [ ] )
     /* read sosreport files */
     cfg_init ( fname, mcinfo );
 
-    /* this is the actual order which each member will be written to a file */
-    /* it should be the same order as one which had been set in cfg.c */
-    if ( mcinfo == 1 )
+    if ( sar_only != 1 )
     {
-        read_file_pre ( "boot/grub/", dir_name );
-        read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
-        read_file_pre ( "cmdlog/", dir_name );
-        read_file_pre ( "proc/meminfo", dir_name );
-        read_file_pre ( "proc/interrupts", dir_name );
-        read_file_pre ( "var/log/messages", dir_name );
-        append_list ( &sos_header_obj, "Also, read these files." );
-        append_list ( &sos_header_obj, "--------" );
-        append_list ( &mcinfo_boot_grub__obj, "--------" );
-        append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
-        append_list ( &mcinfo_cmdlog__obj, "--------" );
-        append_list ( &var_log_messages_obj, "--------" );
+        /* this is the actual order which each member will be written to a file */
+        /* it should be the same order as one which had been set in cfg.c */
+        if ( mcinfo == 1 )
+        {
+            read_file_pre ( "boot/grub/", dir_name );
+            read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
+            read_file_pre ( "cmdlog/", dir_name );
+            read_file_pre ( "proc/meminfo", dir_name );
+            read_file_pre ( "proc/interrupts", dir_name );
+            read_file_pre ( "var/log/messages", dir_name );
+            append_list ( &sos_header_obj, "Also, read these files." );
+            append_list ( &sos_header_obj, "--------" );
+            append_list ( &mcinfo_boot_grub__obj, "--------" );
+            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
+            append_list ( &mcinfo_cmdlog__obj, "--------" );
+            append_list ( &var_log_messages_obj, "--------" );
+        }
+        if ( mcinfo == 0 )
+        {
+            read_file_pre ( "date", dir_name );
+            read_file_pre ( "lsb-release", dir_name );
+            read_file_pre ( "uname", dir_name );
+            read_file_pre ( "hostname", dir_name );
+            read_file_pre ( "uptime", dir_name );
+            read_file_pre ( "root/anaconda-ks.cfg", dir_name );
+            read_file_pre ( "dmidecode", dir_name );
+            read_file_pre ( "lsmod", dir_name );
+            read_file_pre ( "lspci", dir_name );
+            read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
+            read_file_pre ( "installed-rpms", dir_name );
+            read_file_pre ( "df", dir_name );
+            read_file_pre ( "vgdisplay", dir_name );
+            read_file_pre ( "free", dir_name );
+            read_file_pre ( "ip_addr", dir_name );
+            read_file_pre ( "route", dir_name );
+            read_file_pre ( "last", dir_name );
+            read_file_pre ( "ps", dir_name );
+            read_file_pre ( "lsof", dir_name );
+            read_file_pre ( "netstat", dir_name );
+            read_file_pre ( "etc/kdump.conf", dir_name );
+            read_file_pre ( "etc/sysctl.conf", dir_name );
+            read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
+            read_file_pre ( "proc/meminfo", dir_name );
+            read_file_pre ( "proc/interrupts", dir_name );
+            read_file_pre ( "sos_commands/boot/", dir_name );
+            read_file_pre ( "proc/net/dev", dir_name );
+            read_file_pre ( "proc/net/sockstat", dir_name );
+            read_file_pre ( "etc/logrotate.conf", dir_name );
+            read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "var/log/messages", dir_name );
+            read_file_pre ( "var/log/secure", dir_name );
+            read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
+            read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
+            read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
+            append_list ( &sos_header_obj, "Also, read these files." );
+            append_list ( &sos_header_obj, "--------" );
+            append_list ( &sos_commands_boot__obj, "--------" );
+            append_list ( &etc_cron_d__obj, "--------" );
+            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
+            append_list ( &var_log_secure_obj, "--------" );
+            append_list ( &var_log_messages_obj, "--------" );
+            append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
+            append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
+        }
     }
-    if ( mcinfo == 0 )
-    {
-        read_file_pre ( "date", dir_name );
-        read_file_pre ( "lsb-release", dir_name );
-        read_file_pre ( "uname", dir_name );
-        read_file_pre ( "hostname", dir_name );
-        read_file_pre ( "uptime", dir_name );
-        read_file_pre ( "root/anaconda-ks.cfg", dir_name );
-        read_file_pre ( "dmidecode", dir_name );
-        read_file_pre ( "lsmod", dir_name );
-        read_file_pre ( "lspci", dir_name );
-        read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
-        read_file_pre ( "installed-rpms", dir_name );
-        read_file_pre ( "df", dir_name );
-        read_file_pre ( "vgdisplay", dir_name );
-        read_file_pre ( "free", dir_name );
-        read_file_pre ( "ip_addr", dir_name );
-        read_file_pre ( "route", dir_name );
-        read_file_pre ( "last", dir_name );
-        read_file_pre ( "ps", dir_name );
-        read_file_pre ( "lsof", dir_name );
-        read_file_pre ( "netstat", dir_name );
-        read_file_pre ( "etc/kdump.conf", dir_name );
-        read_file_pre ( "etc/sysctl.conf", dir_name );
-        read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
-        read_file_pre ( "proc/meminfo", dir_name );
-        read_file_pre ( "proc/interrupts", dir_name );
-        read_file_pre ( "sos_commands/boot/", dir_name );
-        read_file_pre ( "proc/net/dev", dir_name );
-        read_file_pre ( "proc/net/sockstat", dir_name );
-        read_file_pre ( "etc/logrotate.conf", dir_name );
-        read_file_pre ( "etc/cron.d/", dir_name );
-        read_file_pre ( "var/log/messages", dir_name );
-        read_file_pre ( "var/log/secure", dir_name );
-        read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
-        read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
-        read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
-        append_list ( &sos_header_obj, "Also, read these files." );
-        append_list ( &sos_header_obj, "--------" );
-        append_list ( &sos_commands_boot__obj, "--------" );
-        append_list ( &etc_cron_d__obj, "--------" );
-        append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
-        append_list ( &var_log_secure_obj, "--------" );
-        append_list ( &var_log_messages_obj, "--------" );
-        append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
-        append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
-    }
-
     sos_file_to_write ( );
 
     const char *sos_file_write = ""; 
     FILE *fp_w;
     /* --------  for file write --------*/
     sos_file_write = get_sos_file_name_to_be_written ( );
+
     /* open result directory */
     char str_dir_result [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_dir_result, '\0', sizeof ( str_dir_result ) ); 
@@ -254,40 +269,43 @@ int main ( int argc, char *argv [ ] )
     if ( check_result_dir ( str_dir_result ) != 0 )
         printf("can't open dir %s (%s)\n",str_dir_result,strerror(errno));
 
-    /* open result file */
-    if ( ( fp_w = fopen ( sos_file_write, "a" ) ) == NULL )
+    if ( sar_only == 0 )
     {
-        printf("can't open file (%s): %s\n",sos_file_write,strerror(errno));
-        exit ( EXIT_FAILURE );
-    }
+        /* open result file */
+        if ( ( fp_w = fopen ( sos_file_write, "a" ) ) == NULL )
+        {
+            printf("can't open file (%s): %s\n",sos_file_write,strerror(errno));
+            exit ( EXIT_FAILURE );
+        }
 
-    /* header and config related lines and 'also read these files' stuff */
-    file_write_list ( &sos_header_obj, fp_w );
-    if ( mcinfo == 1 )
-    {
-        file_write_list ( &mcinfo_boot_grub__obj, fp_w );
-        file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
-        file_write_list ( &mcinfo_cmdlog__obj, fp_w );
-        file_write_list ( &var_log_messages_obj, fp_w );
-        file_write_list ( &var_log_secure_obj, fp_w );
-    }
-    if ( mcinfo == 0 )
-    {
-        file_write_list ( &etc_cron_d__obj, fp_w );
-        file_write_list ( &sos_commands_boot__obj, fp_w );
-        file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
-        file_write_list ( &var_log_messages_obj, fp_w );
-        file_write_list ( &var_log_secure_obj, fp_w );
-        file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
-        file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
-    }
-    /* real lines ( this comes all lines analyzed for both ) */
-    file_write_list ( &sos_line_obj, fp_w );
-    /* tail lines */
-    file_write_list ( &sos_tail_obj, fp_w );
+        /* header and config related lines and 'also read these files' stuff */
+        file_write_list ( &sos_header_obj, fp_w );
+        if ( mcinfo == 1 )
+        {
+            file_write_list ( &mcinfo_boot_grub__obj, fp_w );
+            file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
+            file_write_list ( &mcinfo_cmdlog__obj, fp_w );
+            file_write_list ( &var_log_messages_obj, fp_w );
+            file_write_list ( &var_log_secure_obj, fp_w );
+        }
+        if ( mcinfo == 0 )
+        {
+            file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &sos_commands_boot__obj, fp_w );
+            file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
+            file_write_list ( &var_log_messages_obj, fp_w );
+            file_write_list ( &var_log_secure_obj, fp_w );
+            file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
+            file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
+        }
+        /* real lines ( this comes all lines analyzed for both ) */
+        file_write_list ( &sos_line_obj, fp_w );
+        /* tail lines */
+        file_write_list ( &sos_tail_obj, fp_w );
     
-    /* close the file pointer */
-    fclose ( fp_w );
+        /* close the file pointer */
+        fclose ( fp_w );
+    }
 
     /* for sar-analyzer stuff */
     int SAR_OPTION = 'Z';
@@ -299,8 +317,18 @@ int main ( int argc, char *argv [ ] )
      */
     const char *file_name = NULL;
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
-    snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( str_tmp3 ) ); 
+
+    if ( sar_only == 1 )
+    {
+        snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s", ( char * ) dir_name ); 
+    }
+    else if ( sar_only == 0 )
+    {
+        snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( str_tmp3 ) ); 
+    }
+
     sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
+
     char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
     char str_tmp_sar [ 10 ] = "dir_name:";
     strncpy ( str_num, str_tmp_sar, 10 );
@@ -385,11 +413,23 @@ int main ( int argc, char *argv [ ] )
     print_and_file_write_analyzed_files ( &line_all_obj, "Linux", NULL, fp_sar_w );
 
     puts("------------------------");
-    printf("Please check result file ./%s\n",sos_file_write);
-    printf("Also check sar result file ./%s\n",sar_file_write);
 
-    /* freeing sosreport-analyzer objects */
-    free_sosreport_analyzer_obj ( );
+    if ( sar_only == 1 )
+    {
+        printf("Please check sar result file ./%s\n",sar_file_write);
+    }
+    if ( sar_only == 0 )
+    {
+        printf("Please check result file ./%s\n",sos_file_write);
+        printf("Also check sar result file ./%s\n",sar_file_write);
+    }
+    
+
+    if ( sar_only == 0 )
+    {
+        /* freeing sosreport-analyzer objects */
+        free_sosreport_analyzer_obj ( );
+    }
 
     /* close the file pointer */
     fclose ( fp_sar_w );

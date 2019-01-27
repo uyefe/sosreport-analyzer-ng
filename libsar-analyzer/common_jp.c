@@ -131,7 +131,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     /* Check the number of files in the directory and if 0, exit */
     if ( str_arr_valid_size == 0 )
     {
-        printf("-There are no files in this directory (%s):%s\n",dname,strerror(errno));
+        printf("-There are no sar files in this directory (%s):%s\n",dname,strerror(errno));
         /* freeing object and setting it to NULL */
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );
