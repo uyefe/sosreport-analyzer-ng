@@ -158,6 +158,13 @@ Binary path: /usr/local/bin/sosreport-analyzer
       './sosreport-analyzer-results/<mcinfo-dir>/<mcinfo-dir>_sar_<time>.txt'.
       and, './sosreport-analyzer-results/<mcinfo-dir>/graphs/<mcinfo-dir>-<item>-<no>.ps'.
 
+  - sar-only 
+
+    $ sosreport-analyzer -S -D <sa-dir-path>
+
+      It writes a file to './sosreport-analyzer-results/<dir>/<dir>_sar_<time>.txt'.
+      and, './sosreport-analyzer-results/<dir>/graphs/<dir>-<item>-<no>.ps'.
+
   You can't redirect to a file.
 
 ## Is this program safe to execute?
