@@ -145,6 +145,11 @@ int main ( int argc, char *argv [ ] )
                     return EXIT_FAILURE;
                 }
                 dir_len = strlen ( dir_name );
+                if ( dir_len <= 0 )
+                {
+                    print_help ( );
+                    return EXIT_FAILURE;
+                }
                 if ( strstr ( dir_name,"\n" ) != NULL || ( dir_len > dir_len_check ) )
                 {
                     printf("Can't analyze this directory.\n");
@@ -152,8 +157,8 @@ int main ( int argc, char *argv [ ] )
                     return EXIT_FAILURE;
                 }else{
                     strcpy ( sos_dir_file_obj->dir_file_names.dirname, dir_name );
-                    strcpy ( str_tmp2, reverse_the_string ( ( char * ) dir_name, strlen ( dir_name ) ) );
-                    for ( int i = 0; i < strlen ( dir_name ); i++ )
+                    strcpy ( str_tmp2, reverse_the_string ( ( char * ) dir_name, dir_len ) );
+                    for ( int i = 0; i < dir_len; i++ )
                     {
                     if ( i > 0 )
                         str_tmp2[i] = '\0';
@@ -161,7 +166,7 @@ int main ( int argc, char *argv [ ] )
                     if ( strcmp ( str_tmp2, "/" ) == 0 )
                     {
                         strcpy ( str_tmp2, ( char * ) dir_name );
-                        str_tmp2 [ strlen ( dir_name ) -1 ] = '\0';
+                        str_tmp2 [ dir_len -1 ] = '\0';
                         strcpy ( sos_dir_file_obj->dir_file_names.dirname, str_tmp2 );
                     }
                     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "dirname:%s",dir_name );

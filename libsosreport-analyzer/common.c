@@ -155,12 +155,24 @@ void read_analyze_dir ( const char *member, const char *dname )
     memset ( fname_part_path, '\0', sizeof ( fname_part_path ) ); 
     snprintf (full_path, MAX_LINE_LENGTH, "%s/%s", dname, member );
     str_len = strlen ( full_path );
+    if ( str_len <= 0 )
+    {
+        printf("Path 1 is too short (%s): %d %s\n",full_path, str_len, strerror(errno));
+        free_sosreport_analyzer_obj ( );
+        exit ( EXIT_FAILURE );
+    }
     full_path [ str_len ] = '\0';
     strcpy ( str_orig, full_path );
     fname_part = cut_str_from_the_last_slash ( reverse_the_string ( full_path, str_len ), str_len, str_ret );
     snprintf (fname_part_path, MAX_LINE_LENGTH, "%s", fname_part );
     str_len_fname_part = strlen ( fname_part );
     str_len_dname_full = str_len - str_len_fname_part;
+    if ( str_len_dname_full <= 0 ) 
+    {
+        printf("Path 2 is too short %d %s\n",str_len_dname_full, strerror(errno));
+        free_sosreport_analyzer_obj ( );
+        exit ( EXIT_FAILURE );
+    }
     dname_full = cut_str_by_the_last_slash ( full_path, str_len_dname_full );
     
     if ( dname_full != NULL )
@@ -1198,7 +1210,14 @@ const char *get_ps_file_name_to_be_written ( void )
 
 int check_result_dir ( const char *dname )
 {
-    if ( strlen ( dname ) > NAME_MAX )
+    int strlen_dname = strlen ( dname );
+
+    if ( strlen_dname <= 0 )
+    {
+        printf("Directory (%s) name is too short.: %s\n",dname,strerror(errno));
+        return ( 0 );
+    }
+    if ( strlen_dname > NAME_MAX )
     {
         printf("Directory (%s) name is too long.: %s\n",dname,strerror(errno));
         return ( 0 );
@@ -1265,7 +1284,16 @@ void sos_file_to_write ( void )
     char str_ret [ MAX_FILE_NAME_LENGTH ]; 
     /* secondly, we create sosreport directory which has been analyed in the results directory we've just created */
     if ( strstr ( buff2, "/" ) != NULL )
-        strcpy ( buff_dir_analyzed, cut_str_from_the_last_slash ( reverse_the_string ( buff2, strlen ( buff2 ) ), strlen ( buff2 ), str_ret ) );
+    {
+        int strlen_buff2 = strlen ( buff2 );
+        if ( strlen_buff2 <= 0 )
+        {
+            printf("buff2 is too short (%s): %d %s\n",buff2, strlen_buff2, strerror(errno));
+            free_sosreport_analyzer_obj ( );
+            exit ( EXIT_FAILURE );
+        }
+        strcpy ( buff_dir_analyzed, cut_str_from_the_last_slash ( reverse_the_string ( buff2, strlen_buff2 ), strlen_buff2, str_ret ) );
+    }
     else
         strcpy ( buff_dir_analyzed, buff2 );
     strcat ( buff_dir, "/" );
