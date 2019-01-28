@@ -942,9 +942,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         {
             if ( i >= get_block_device_numbers ( ) )
                 break;
-            char ss [ 20 ] = {'\0'};
+            char ss [ 20 ];
+            memset (ss, 0, sizeof ( ss ) );
             int dev_nam_l = 0;
-            dev_nam_l = strlen ( get_block_device_names ( i ) );
+            dev_nam_l = ( int ) strlen ( get_block_device_names ( i ) );
             if ( dev_nam_l == 2 )
                 strncpy ( ss, "          ", 11 );
             if ( dev_nam_l == 3 )
@@ -1009,9 +1010,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         {
             if ( i >= get_block_device_numbers ( ) )
                 break;
-            char ss [ 20 ] = {'\0'};
+            char ss [ 20 ];
+            memset (ss, 0, sizeof ( ss ) );
             int dev_nam_l = 0;
-            dev_nam_l = strlen ( get_block_device_names ( i ) );
+            dev_nam_l = ( int ) strlen ( get_block_device_names ( i ) );
             if ( dev_nam_l == 2 )
                 strncpy ( ss, "          ", 11 );
             if ( dev_nam_l == 3 )
@@ -1077,9 +1079,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         {
             if ( i >= get_network_device_numbers ( ) )
                 break;
-            char ss [ 20 ] = {'\0'};
+            char ss [ 20 ];
+            memset (ss, 0, sizeof ( ss ) );
             int dev_nam_l = 0;
-            dev_nam_l = strlen ( get_network_device_names ( i ) );
+            dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
             if ( dev_nam_l == 2 )
                 strncpy ( ss, "          ", 11 );
             if ( dev_nam_l == 3 )
@@ -1179,9 +1182,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         {
             if ( i >= get_network_device_numbers ( ) )
                 break;
-            char ss [ 20 ] = {'\0'};
+            char ss [ 20 ];
+            memset (ss, 0, sizeof ( ss ) );
             int dev_nam_l = 0;
-            dev_nam_l = strlen ( get_network_device_names ( i ) );
+            dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
             if ( dev_nam_l == 2 )
                 strncpy ( ss, "          ", 11 );
             if ( dev_nam_l == 3 )
@@ -1252,9 +1256,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         {
             if ( i >= get_network_device_numbers ( ) )
                 break;
-            char ss [ 20 ] = { '\0' };
+            char ss [ 20 ];
+            memset (ss, 0, sizeof ( ss ) );
             int dev_nam_l = 0;
-            dev_nam_l = strlen ( get_network_device_names ( i ) );
+            dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
             if ( dev_nam_l == 2 )
                 strncpy ( ss, "          ", 11 );
             if ( dev_nam_l == 3 )
@@ -1352,9 +1357,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
         {
             if ( i >= get_network_device_numbers ( ) )
                 break;
-            char ss [ 20 ] = { '\0' };
+            char ss [ 20 ];
+            memset (ss, 0, sizeof ( ss ) );
             int dev_nam_l = 0;
-            dev_nam_l = strlen ( get_network_device_names ( i ) );
+            dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
             if ( dev_nam_l == 2 )
                 strncpy ( ss, "          ", 11 );
             if ( dev_nam_l == 3 )
@@ -1720,9 +1726,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
                 {
                     if ( i >= get_block_device_numbers ( ) )
                         break;
-                    char ss [ 20 ] = {'\0'};
+                    char ss [ 20 ];
+                    memset (ss, 0, sizeof ( ss ) );
                     int dev_nam_l = 0;
-                    dev_nam_l = strlen ( get_block_device_names ( i ) );
+                    dev_nam_l = ( int ) strlen ( get_block_device_names ( i ) );
                     if ( dev_nam_l == 2 )
                         strncpy ( ss, "          ", 11 );
                     if ( dev_nam_l == 3 )
@@ -1773,9 +1780,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
                 {
                     if ( i >= get_network_device_numbers ( ) )
                         break;
-                    char ss [ 20 ] = {'\0'};
+                    char ss [ 20 ];
+                    memset (ss, 0, sizeof ( ss ) );
                     int dev_nam_l = 0;
-                    dev_nam_l = strlen ( get_network_device_names ( i ) );
+                    dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
                     if ( dev_nam_l == 2 )
                         strncpy ( ss, "          ", 11 );
                     if ( dev_nam_l == 3 )
@@ -1835,9 +1843,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
                 {
                     if ( i >= get_network_device_numbers ( ) )
                         break;
-                    char ss [ 20 ] = { '\0' };
+                    char ss [ 20 ];
+                    memset (ss, 0, sizeof ( ss ) );
                     int dev_nam_l = 0;
-                    dev_nam_l = strlen ( get_network_device_names ( i ) );
+                    dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
                     if ( dev_nam_l == 2 )
                         strncpy ( ss, "          ", 11 );
                     if ( dev_nam_l == 3 )
@@ -1978,9 +1987,10 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n )
             append_list ( &report_network_down_obj [ i ], "" );
         }
 
-        char ss [ 20 ] = { '\0' };
+        char ss [ 20 ];
+        memset (ss, 0, sizeof ( ss ) );
         int dev_nam_l = 0;
-        dev_nam_l = strlen ( get_network_device_names ( i ) );
+        dev_nam_l = ( int ) strlen ( get_network_device_names ( i ) );
         if ( dev_nam_l == 2 )
             strncpy ( ss, "          ", 11 );
         if ( dev_nam_l == 3 )

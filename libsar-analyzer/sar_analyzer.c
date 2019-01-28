@@ -764,13 +764,13 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                                 write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, vertical_first_time_point_cpu_all, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
                                 /* drawing graph */
                                 draw_graph_to_ps ( "CPU all", "usr", file_number, horizontal_start_point, vertical_value, "yes" );
-                                //draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( horizontal_start_point, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value ), vertical_value, "yes" );
+                                /* draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( horizontal_start_point, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value ), vertical_value, "yes" ); */
                             }
                             else
                             {
                                 /* drawing graph */
                                 draw_graph_to_ps ( "CPU all", "usr", file_number, horizontal_value, vertical_value, "no" );
-                                //draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( horizontal_start_point, horizontal_notch, horizontal_value_cpu_usr [ file_number ],time_value ), vertical_value, "no" );
+                                /* draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( horizontal_start_point, horizontal_notch, horizontal_value_cpu_usr [ file_number ],time_value ), vertical_value, "no" ); */
                                 /* drawing time label */
                                 if ( ( horizontal_value_cpu_usr [ file_number ] % 12 ) == 0 )
                                     write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, vertical_first_time_point_cpu_all, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );

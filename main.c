@@ -43,18 +43,26 @@ const char *app_name = "sosreport-analyzer";
 static void print_help ( void )
 {
     printf("\n VERSION %d.%d.%d\n",PROGRAM_VERSION,PROGRAM_RELEASE,PROGRAM_SUB_RELEASE);
-    printf("\n -- For sosreport --\n");
-    printf("\n Before use: Edit '%s' for sosreport. \n", fname);
-    printf(" If you are unsure, copy from '%s' to %s.\n", fname_example, fname);
-    printf("\n --For mcinfo --\n");
-    printf("\n Before use: Edit '%s' for mcinfo.\n", fname_mcinfo);
-    printf(" If you are unsure, copy from '%s' to %s.\n", fname_mcinfo_example, fname);
-    printf("\n Usage: %s -D <path_to_sosreport_directory>  \n\n", app_name);
-    printf("  Options:\n\n");
-    printf("   -M|--mcinfo    Analyze mcinfo files\n");
+    printf("\n Configuration:\n");
+    printf("\n   For sosreport\n");
+    printf("\n     Edit '%s'. \n",fname);
+    printf("     If you are unsure, copy from '%s' to %s.\n",fname_example,fname);
+    printf("\n   For mcinfo\n");
+    printf("\n     Edit '%s'.\n",fname_mcinfo);
+    printf("     If you are unsure, copy from '%s' to %s.\n",fname_mcinfo_example,fname_mcinfo);
+    printf("\n Options:\n\n");
     printf("   -D|--directory <path_to_sosreport_directory>    Analyze files in the directory\n");
-    printf("   -S|--sar-only     analyze sar files only. Use with -D like '%s -S -D /var/log/sa'\n",app_name);
-    printf("   -h|--help    Print this help\n\n");
+    printf("   -M|--mcinfo    Analyze mcinfo files\n");
+    printf("   -S|--sar-only    Analyze sar files only.\n");
+    printf("   -h|--help    Print this help\n");
+    printf("\n Usage:\n\n");
+    printf("   To analyze sosreport (including sar analyzing)\n\n");
+    printf("     $ %s -D <path_to_sosreport_directory>\n\n",app_name);
+    printf("   To analyze  mcinfo (including sar analyzing)\n\n");
+    printf("     $ %s -M -D <path_to_mcinfo_directory>\n\n",app_name);
+    printf("   For only sar analyzing\n\n");
+    printf("     $ %s -S -D <path_to_sa_directory>\n\n",app_name);
+    printf("   Directory 'sar-analyzer-results' will be made in the current directory with files.\n");
     printf("\n");
 }
 
@@ -144,7 +152,7 @@ int main ( int argc, char *argv [ ] )
                     print_help ( );
                     return EXIT_FAILURE;
                 }
-                dir_len = strlen ( dir_name );
+                dir_len = ( int ) strlen ( dir_name );
                 if ( dir_len <= 0 )
                 {
                     print_help ( );

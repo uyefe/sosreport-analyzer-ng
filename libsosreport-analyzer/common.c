@@ -154,7 +154,7 @@ void read_analyze_dir ( const char *member, const char *dname )
     memset ( str_orig, '\0', sizeof ( str_orig ) ); 
     memset ( fname_part_path, '\0', sizeof ( fname_part_path ) ); 
     snprintf (full_path, MAX_LINE_LENGTH, "%s/%s", dname, member );
-    str_len = strlen ( full_path );
+    str_len = ( int ) strlen ( full_path );
     if ( str_len <= 0 )
     {
         printf("Path 1 is too short (%s): %d %s\n",full_path, str_len, strerror(errno));
@@ -165,7 +165,7 @@ void read_analyze_dir ( const char *member, const char *dname )
     strcpy ( str_orig, full_path );
     fname_part = cut_str_from_the_last_slash ( reverse_the_string ( full_path, str_len ), str_len, str_ret );
     snprintf (fname_part_path, MAX_LINE_LENGTH, "%s", fname_part );
-    str_len_fname_part = strlen ( fname_part );
+    str_len_fname_part = ( int ) strlen ( fname_part );
     str_len_dname_full = str_len - str_len_fname_part;
     if ( str_len_dname_full <= 0 ) 
     {
@@ -377,7 +377,7 @@ void read_file ( const char *file_name, const char *member )
     memset ( filename_sos_commands_boot_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_sos_commands_boot__curr, '\0', MAX_LINE_LENGTH ); 
 
-    int file_name_len = strlen ( file_name );
+    int file_name_len = ( int ) strlen ( file_name );
     if ( file_name_len <= 0 )
     {
         printf("no file name supplied (%s): %d %s\n",file_name,file_name_len,strerror(errno));
@@ -1210,7 +1210,7 @@ const char *get_ps_file_name_to_be_written ( void )
 
 int check_result_dir ( const char *dname )
 {
-    int strlen_dname = strlen ( dname );
+    int strlen_dname = ( int )strlen ( dname );
 
     if ( strlen_dname <= 0 )
     {
@@ -1285,7 +1285,7 @@ void sos_file_to_write ( void )
     /* secondly, we create sosreport directory which has been analyed in the results directory we've just created */
     if ( strstr ( buff2, "/" ) != NULL )
     {
-        int strlen_buff2 = strlen ( buff2 );
+        int strlen_buff2 = ( int ) strlen ( buff2 );
         if ( strlen_buff2 <= 0 )
         {
             printf("buff2 is too short (%s): %d %s\n",buff2, strlen_buff2, strerror(errno));
