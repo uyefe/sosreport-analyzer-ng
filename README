@@ -99,6 +99,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   In that case, edit libsar-analyzer/Makefile.am to use common_jp.c and sar_analyzer_jp.c.
 
 ## Getting "sar file"
+
   Note that "sar file" should be basically, written in English.
 
   It may be good to convert binary 'sa' file to text 'sar' file.
