@@ -170,7 +170,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
 
 void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
 {
-    int dname_len = strlen ( dname );
+    int dname_len = ( int ) strlen ( dname );
     if ( dname_len <= 0 )
     {
         printf("no dir name supplied (%s): %d %s\n",dname,dname_len,strerror(errno));
@@ -403,7 +403,7 @@ void read_sar_cpu_as_paragraph ( const char *filename )
 
 void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
 {
-    int filename_len = strlen ( filename );
+    int filename_len = ( int ) strlen ( filename );
     if ( filename_len <= 0 )
     {
         printf("no file name supplied (%s): %d %s\n",filename,filename_len,strerror(errno));
@@ -478,8 +478,8 @@ void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPOR
 
 void read_sar_check ( int file_number, const char *filename, int SAR_OPTION )
 {
-    int filename_len = strlen ( filename );
-    if ( filename_len == 0 )
+    int filename_len = ( int ) strlen ( filename );
+    if ( filename_len <= 0 )
     {
         printf("no file name supplied (%s): %d %s\n",filename,filename_len,strerror(errno));
         /* freeing object and setting it to NULL */

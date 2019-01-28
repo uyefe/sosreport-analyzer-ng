@@ -39,10 +39,11 @@ char str3 [ MAX_LINE_LENGTH ];
 
 char *reverse_the_string ( char *str_tmp, int str_len )
 {
-    int i = 0, j = 0;
+    int i = 0, j = 0, strlen_str_tmp = 0;
     char tmp;
     memset ( str, '\0', sizeof ( str ) ); 
-    j = strlen ( str_tmp ) - 1;
+    strlen_str_tmp = ( int ) strlen ( str_tmp );
+    j = strlen_str_tmp - 1;
     strncpy ( str, str_tmp, str_len );
     while ( i < j )
     {
@@ -69,7 +70,7 @@ char *cut_str_by_the_last_slash ( char *str_tmp, int str_len )
 
 char *cut_str_from_the_last_slash ( char *str_tmp, int str_len, char str_ret [ MAX_FILE_NAME_LENGTH ] )
 {
-    int i = 0, l = 0;
+    int i = 0, l = 0, strlen_str2 = 0;
     memset ( str2, '\0', sizeof ( str2 ) ); 
     strncpy ( str2, str_tmp, str_len );
     memset ( str_ret, '\0', MAX_FILE_NAME_LENGTH ); 
@@ -85,7 +86,8 @@ char *cut_str_from_the_last_slash ( char *str_tmp, int str_len, char str_ret [ M
     memset ( str2, '\0', sizeof ( str2 ) ); 
     for ( i = 0; i < l; i ++ )
         str2 [ i ] = str_tmp [ i ];
-    strcpy ( str_ret, reverse_the_string ( str2, strlen ( str2 ) ) );
+    strlen_str2 = ( int ) strlen ( str2 );
+    strcpy ( str_ret, reverse_the_string ( str2, strlen_str2 ) );
 
     return str_ret;
 }
