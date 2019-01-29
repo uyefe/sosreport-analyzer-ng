@@ -49,7 +49,12 @@ void set_list ( node *obj, char *line, node *obj_next )
 {
     const char* test_line = "\0";
     int len = 0;
-    len = strlen ( line );
+    len = ( int ) strlen ( line );
+    if ( len < 0 )
+    {
+        printf("can't set %s\n",line);
+        exit ( EXIT_FAILURE );
+    }
     if ( len > MAX_LINE_LENGTH )
         strncpy ( ( char* ) obj->_line, test_line, 1 );
     else
@@ -129,9 +134,13 @@ int print_and_file_write_analyzed_files ( node **obj, const char *expression , c
         /* moving next, do something, moving next ... */
         char str_tmp [ MAX_LINE_LENGTH ] = "#";
         int str_len = 0;
-
-        str_len = strlen ( ptr_tmp->_line );
-        if ( str_len != 0 )
+        str_len = ( int ) strlen ( ptr_tmp->_line );
+        if ( str_len < 0 )
+        {
+            printf("can't set %s\n",ptr_tmp->_line);
+            exit ( EXIT_FAILURE );
+        }
+        if ( str_len >= 0 )
         {
             strncpy ( str_tmp, ptr_tmp->_line, MAX_LINE_LENGTH - 1 ); 
         }
