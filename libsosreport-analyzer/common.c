@@ -1187,6 +1187,34 @@ void read_file_pre ( const char *member, const char *dir_name )
     }
 }
 
+int check_time_span_str ( const char *time_span_str )
+{
+    char str_tmp [ 12 ];
+    memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
+    strncpy ( str_tmp, time_span_str, 11 );
+    for ( int i = 0; i < 11; i++ )
+    {
+        if ( ( i == 0 ) || ( i == 6 ) )
+            if ( ( str_tmp [ i ] != '0' ) && ( str_tmp [ i ] != '1' ) && ( str_tmp [ i ] != '2' ) )
+                return 0;
+        if ( ( i == 2 ) || ( i == 8 ) )
+            if ( str_tmp [ i ] != ':' )
+                return 0;
+        if ( i == 5 )
+            if ( str_tmp [ i ] != '-' )
+                return 0;
+        if ( ( i == 1 ) || ( i == 3 ) || ( i == 4 ) || ( i == 7 ) || ( i == 9 ) || ( i == 10 ) )
+            if (
+                ( str_tmp [ i ] != '0' ) && ( str_tmp [ i ] != '1' ) && ( str_tmp [ i ] != '2' ) && 
+                ( str_tmp [ i ] != '3' ) && ( str_tmp [ i ] != '4' ) && ( str_tmp [ i ] != '5' ) && 
+                ( str_tmp [ i ] != '6' ) && ( str_tmp [ i ] != '7' ) && ( str_tmp [ i ] != '8' ) && 
+                ( str_tmp [ i ] != '9' )
+               )
+                   return 0;
+    }
+    return 1;
+}
+
 const char *get_dirname ( char str_tmp [ MAX_LINE_LENGTH ] )
 {
     strncpy ( str_tmp, sos_dir_file_obj->dir_file_names.dirname, MAX_LINE_LENGTH );

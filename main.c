@@ -54,6 +54,7 @@ static void print_help ( void )
     printf("   -D|--directory <path_to_sosreport_directory>    Analyze files in the directory\n");
     printf("   -M|--mcinfo    Analyze mcinfo files\n");
     printf("   -S|--sar-only    Analyze sar files only.\n");
+    printf("   -T|--time-span    Analyze time-span on sar files.\n");
     printf("   -h|--help    Print this help\n");
     printf("\n Usage:\n\n");
     printf("   To analyze sosreport (including sar analyzing)\n\n");
@@ -62,6 +63,8 @@ static void print_help ( void )
     printf("     $ %s -M -D <path_to_mcinfo_directory>\n\n",app_name);
     printf("   For only sar analyzing\n\n");
     printf("     $ %s -S -D <path_to_sa_directory>\n\n",app_name);
+    printf("   For time-span sar analyzing\n\n");
+    printf("     ex. $ %s -T 09:00-10:00 -D <path_to_sa_directory>\n\n",app_name);
     printf("   Directory 'sar-analyzer-results' will be made in the current directory with files.\n");
     printf("\n");
 }
@@ -118,7 +121,9 @@ int main ( int argc, char *argv [ ] )
     int value = 0;
     int mcinfo = 0;
     int sar_only = 0;
+    int time_span_str_len = 0;
     const char *dir_name = NULL;
+    const char *time_span = NULL;
 
     while(1)
     {
@@ -127,12 +132,13 @@ int main ( int argc, char *argv [ ] )
             { "directory", required_argument, 0, 'D' },
             { "mcinfo", no_argument, 0, 'M' },
             { "sar-only", no_argument, 0, 'S' },
+            { "time-span", required_argument, 0, 'T' },
             { "help", no_argument, 0, 'h' },
             { NULL, 0, 0, 0 }
         };
 
         /* Try to process all command line arguments */
-        value = getopt_long ( argc, argv, "hMSD:", long_options, &option_index );
+        value = getopt_long ( argc, argv, "hMST:D:", long_options, &option_index );
         if ( value == -1 )
             break;
         switch ( value ) {
@@ -189,6 +195,20 @@ int main ( int argc, char *argv [ ] )
             case 'S':
                 sar_only = 1;
                 break;
+            case 'T':
+                time_span = optarg;
+                time_span_str_len = ( int ) strlen ( time_span );
+                if ( ( time_span_str_len <= 0 ) || ( time_span_str_len > 11 ) )
+                {
+                    print_help ( );
+                    return EXIT_FAILURE;
+                }
+                if ( ! ( check_time_span_str ( time_span ) ) )
+                {
+                    print_help ( );
+                    return EXIT_FAILURE;
+                }
+                break;
             default:
                 print_help ( );
                 return EXIT_FAILURE;
@@ -196,6 +216,12 @@ int main ( int argc, char *argv [ ] )
         }
     }
 
+    if ( dir_name == NULL )
+    {
+        printf("\nOoops! You forgot setting directory...\n");
+        print_help ( );
+        return EXIT_FAILURE;
+    }
     /* sosreport-analyzer */
 
     /* read sosreport files */
@@ -436,7 +462,6 @@ int main ( int argc, char *argv [ ] )
         printf("Please check result file ./%s\n",sos_file_write);
         printf("Also check sar result file ./%s\n",sar_file_write);
     }
-    
 
     if ( sar_only == 0 )
     {
