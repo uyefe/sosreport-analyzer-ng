@@ -242,7 +242,7 @@ void read_analyze_dir ( const char *member, const char *dname )
                 append_list ( &sos_commands_networking_ethtool__S_obj, read_path );
             else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
                 append_list ( &sos_commands_boot__obj, read_path );
-	    i++; /* needed here */
+            i++; /* needed here */
             str_arr_valid_size++;
             if ( str_arr_valid_size == MAX_ANALYZE_FILES )
                 break;
@@ -271,9 +271,12 @@ void read_analyze_dir ( const char *member, const char *dname )
         ptr_tmp = *(&sos_commands_networking_ethtool__S_obj);
     else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
         ptr_tmp = *(&sos_commands_boot__obj);
+    /* now we read each file in the directory */
+    int files = 0;
     while ( ptr_tmp != NULL )
     {
-        read_file ( ptr_tmp->_line, member );
+        read_file ( ptr_tmp->_line, member, files );
+        files ++;
         ptr_tmp = ptr_tmp->next;
     }
 }
@@ -327,18 +330,28 @@ const char *items_sos_commands_kernel_sysctl__a [ 12 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 12 ];
 const char *items_sos_commands_networking_ethtool__S [ 12 ];
 const char *items_sos_commands_boot_ [ 12 ];
-/* members which could have items */
-int mcinfo_boot_grub_ = 0, mcinfo_cmdlog_ = 0;
-int dmidecode = 0, lsmod = 0, lspci = 0, sos_commands_scsi_lsscsi = 0;
-int installed_rpms = 0, df = 0, last = 0;
-int ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0;
-int var_log_messages = 0, var_log_secure = 0;
-int sos_commands_kernel_sysctl__a = 0;
-int sos_commands_logs_journalctl___no_pager = 0;
-int sos_commands_networking_ethtool__S = 0, root_anaconda_ks_cfg = 0;
-int sos_commands_boot_ = 0;
 
-void read_file ( const char *file_name, const char *member )
+/* members which could have items */
+static int mcinfo_cmdlog_ = 0;
+static int dmidecode = 0;
+static int lsmod = 0;
+static int lspci = 0;
+static int installed_rpms = 0;
+static int df = 0;
+static int last = 0;
+static int ps = 0;
+static int lsof = 0;
+static int netstat = 0;
+static int proc_meminfo = 0;
+static int etc_cron_d_ = 0;
+static int var_log_messages = 0;
+static int var_log_secure = 0;
+static int sos_commands_kernel_sysctl__a = 0;
+static int sos_commands_logs_journalctl___no_pager = 0;
+static int sos_commands_networking_ethtool__S = 0;
+static int sos_commands_boot_ = 0;
+
+void read_file ( const char *file_name, const char *member, int files )
 {
     char filename_mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];
     char filename_mcinfo_boot_grub__curr [ MAX_LINE_LENGTH ];
@@ -395,13 +408,15 @@ void read_file ( const char *file_name, const char *member )
     char linebuf [ MAX_LINE_LENGTH ];
     char *line;
 
-    set_token_to_item_arr ( file_name );
+    /* when this function had been called from 'read_analyze_dir()', items should be set only once */
+    if ( files == 0)
+        set_token_to_item_arr ( file_name );
 
     /* open sosreport config file */
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
     {
         printf("can't open file (%s): %s\n",file_name,strerror(errno));
-        printf("Try set 'skip' to this member in /etc/sosreport-analyzer-mcinfo.conf.\n");
+        printf("Try set 'skip' to this member in config file.\n");
         free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
@@ -1183,8 +1198,36 @@ void read_file_pre ( const char *member, const char *dir_name )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ) );
         else
-            read_file ( str_tmp, member );
+            read_file ( str_tmp, member, 0 );
     }
+}
+
+int check_time_span_str ( const char *time_span_str )
+{
+    char str_tmp [ 12 ];
+    memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
+    strncpy ( str_tmp, time_span_str, 11 );
+    for ( int i = 0; i < 11; i++ )
+    {
+        if ( ( i == 0 ) || ( i == 6 ) )
+            if ( ( str_tmp [ i ] != '0' ) && ( str_tmp [ i ] != '1' ) && ( str_tmp [ i ] != '2' ) )
+                return 0;
+        if ( ( i == 2 ) || ( i == 8 ) )
+            if ( str_tmp [ i ] != ':' )
+                return 0;
+        if ( i == 5 )
+            if ( str_tmp [ i ] != '-' )
+                return 0;
+        if ( ( i == 1 ) || ( i == 3 ) || ( i == 4 ) || ( i == 7 ) || ( i == 9 ) || ( i == 10 ) )
+            if (
+                ( str_tmp [ i ] != '0' ) && ( str_tmp [ i ] != '1' ) && ( str_tmp [ i ] != '2' ) && 
+                ( str_tmp [ i ] != '3' ) && ( str_tmp [ i ] != '4' ) && ( str_tmp [ i ] != '5' ) && 
+                ( str_tmp [ i ] != '6' ) && ( str_tmp [ i ] != '7' ) && ( str_tmp [ i ] != '8' ) && 
+                ( str_tmp [ i ] != '9' )
+               )
+                   return 0;
+    }
+    return 1;
 }
 
 const char *get_dirname ( char str_tmp [ MAX_LINE_LENGTH ] )

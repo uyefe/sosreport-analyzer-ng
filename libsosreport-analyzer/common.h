@@ -60,7 +60,7 @@ void read_analyze_dir ( const char *member, const char *dname );
  * This function read from file and do something
  *
  */
-void read_file ( const char *file_name, const char *member );
+void read_file ( const char *file_name, const char *member, int files );
 
 /*
  * read_file_pre()
@@ -82,6 +82,19 @@ void read_file_pre ( const char *member, const char *dir_name );
  *
  */
 int check_result_dir ( const char *dname );
+
+/* 
+ *  Function Name: check_time_span_str ()
+ *
+ *  This function checks time-span string.
+ *  If it's fine, returns 1, and if not returns 0
+ *  should be in style '00:00-00:00' and no other
+ *  Caller : main ()
+ *
+ *  Calls : none
+ *
+ */
+int check_time_span_str ( const char *time_span_str );
 
 /*
  * Function Name: get_dirname ()
