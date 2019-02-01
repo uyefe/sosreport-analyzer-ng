@@ -60,7 +60,7 @@ void read_analyze_dir ( const char *member, const char *dname );
  * This function read from file and do something
  *
  */
-void read_file ( const char *file_name, const char *member );
+void read_file ( const char *file_name, const char *member, int files );
 
 /*
  * read_file_pre()
