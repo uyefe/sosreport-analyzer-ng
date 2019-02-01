@@ -102,6 +102,8 @@ struct sosreport_analyzer_config
     /* allows word delimited by space */
     char var_log_secure [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
+    char var_log_audit_ [ MAX_LINE_LENGTH ];
+    /* allows word delimited by space */
     char sos_commands_kernel_sysctl__a [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
     char sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];

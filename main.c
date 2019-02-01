@@ -95,6 +95,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_sysconfig_network_scripts_ifcfg__obj );
     init_list ( &var_log_messages_obj );
     init_list ( &var_log_secure_obj );
+    init_list ( &var_log_audit__obj );
     init_list ( &sos_commands_logs_journalctl___no_pager_obj );
     init_list ( &sos_commands_networking_ethtool__S_obj );
     init_list ( &sos_commands_boot__obj );
@@ -280,6 +281,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/cron.d/", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
             read_file_pre ( "var/log/secure", dir_name );
+            read_file_pre ( "var/log/audit/", dir_name );
             read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
             read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
@@ -288,8 +290,9 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_boot__obj, "--------" );
             append_list ( &etc_cron_d__obj, "--------" );
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
-            append_list ( &var_log_secure_obj, "--------" );
             append_list ( &var_log_messages_obj, "--------" );
+            append_list ( &var_log_secure_obj, "--------" );
+            append_list ( &var_log_audit__obj, "--------" );
             append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
             append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
         }
@@ -334,6 +337,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
+            file_write_list ( &var_log_audit__obj, fp_w );
             file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
         }

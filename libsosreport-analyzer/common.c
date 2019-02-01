@@ -100,6 +100,13 @@ struct line_data var_log_secure_obj_raw =
         NULL /* next pointer */
     };
 
+/* var_log_audit__obj */
+struct line_data var_log_audit__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* sos_commands_logs_journalctl___no_pager_obj */
 struct line_data sos_commands_logs_journalctl___no_pager_obj_raw =
     {
@@ -132,6 +139,7 @@ struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
 struct line_data *etc_sysconfig_network_scripts_ifcfg__obj = &etc_sysconfig_network_scripts_ifcfg__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *var_log_secure_obj = &var_log_secure_obj_raw;
+struct line_data *var_log_audit__obj = &var_log_audit__obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
 struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
@@ -204,6 +212,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         var_log_messages_obj = NULL;
     else if ( strstr ( full_path, "secure") != 0 )
         var_log_secure_obj = NULL;
+    else if ( strstr ( full_path, "audit") != 0 )
+        var_log_audit__obj = NULL;
     else if ( strstr ( full_path, "journalctl") != 0 )
         sos_commands_logs_journalctl___no_pager_obj = NULL;
     else if ( strstr ( full_path, "ethtool_-S") != 0 )
@@ -236,6 +246,8 @@ void read_analyze_dir ( const char *member, const char *dname )
                 append_list ( &var_log_messages_obj, read_path );
             else if ( strstr ( read_path, "secure") != 0 )
                 append_list ( &var_log_secure_obj, read_path );
+            else if ( strstr ( read_path, "audit") != 0 )
+                append_list ( &var_log_audit__obj, read_path );
             else if ( strstr ( read_path, "journalctl") != 0 )
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, read_path );
             else if ( strstr ( read_path, "ethtool_-S") != 0 )
@@ -265,6 +277,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         ptr_tmp = *(&var_log_messages_obj);
     else if ( strstr ( read_path, "secure") != 0 )
         ptr_tmp = *(&var_log_secure_obj);
+    else if ( strstr ( read_path, "audit") != 0 )
+        ptr_tmp = *(&var_log_audit__obj);
     else if ( strstr ( read_path, "journalctl") != 0 )
         ptr_tmp = *(&sos_commands_logs_journalctl___no_pager_obj);
     else if ( strstr ( read_path, "ethtool_-S") != 0 )
@@ -326,6 +340,7 @@ const char *items_etc_logrotate_conf;
 const char *items_etc_cron_d_;
 const char *items_var_log_messages [ 12 ];
 const char *items_var_log_secure [ 12 ];
+const char *items_var_log_audit_ [ 12 ];
 const char *items_sos_commands_kernel_sysctl__a [ 12 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 12 ];
 const char *items_sos_commands_networking_ethtool__S [ 12 ];
@@ -346,6 +361,7 @@ static int proc_meminfo = 0;
 static int etc_cron_d_ = 0;
 static int var_log_messages = 0;
 static int var_log_secure = 0;
+static int var_log_audit_ = 0;
 static int sos_commands_kernel_sysctl__a = 0;
 static int sos_commands_logs_journalctl___no_pager = 0;
 static int sos_commands_networking_ethtool__S = 0;
@@ -377,6 +393,10 @@ void read_file ( const char *file_name, const char *member, int files )
     char filename_var_log_secure_curr [ MAX_LINE_LENGTH ];
     memset ( filename_var_log_secure, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_var_log_secure_curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_var_log_audit_ [ MAX_LINE_LENGTH ];
+    char filename_var_log_audit__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_var_log_audit_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_var_log_audit__curr, '\0', MAX_LINE_LENGTH ); 
     char filename_sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];
     char filename_sos_commands_logs_journalctl___no_pager_curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_logs_journalctl___no_pager, '\0', MAX_LINE_LENGTH ); 
@@ -591,6 +611,19 @@ void read_file ( const char *file_name, const char *member, int files )
             snprintf (filename_var_log_secure, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < var_log_secure; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/secure", items_var_log_secure [ x ] );
+        }
+        else if ( strstr ( file_name, "var/log/audit/" ) != NULL )
+        {
+            snprintf ( filename_var_log_audit__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_var_log_audit_, filename_var_log_audit__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_var_log_audit_, MAX_LINE_LENGTH, "%s", file_name );
+            for ( x = 0; x < var_log_audit_; x++ )
+                append_item_to_sos_line_obj ( line, "var/log/audit/", items_var_log_audit_ [ x ] );
         }
         else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sos_commands_kernel_sysctl__a ; x++ )
@@ -1039,6 +1072,26 @@ void set_token_to_item_arr ( const char *file_name )
             items_var_log_secure  [ var_log_secure ] = token;
         }
     }
+    /* member var/log/audit/ */
+    else if ( ( strstr ( file_name, "var/log/audit/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->var_log_audit_, s );
+        items_var_log_audit_ [ 0 ] = token;
+        /* get the next token ... */
+        while ( token != NULL )
+        {
+            if ( var_log_audit_ > arr_max12 )
+            {
+                printf("can't set items over %d for var/log/audit/\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
+                exit ( EXIT_FAILURE );
+            }
+            token = strtok ( NULL, s );
+            var_log_audit_ ++;
+            items_var_log_audit_  [ var_log_audit_ ] = token;
+        }
+    }
     /* member sos_commands/kernel/sysctl_-a */
     else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) )
     {
@@ -1169,6 +1222,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/secure") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, "" ) != 0 ) ) ||
@@ -1192,6 +1246,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
             ( strcmp ( member, "var/log/secure" ) == 0 ) ||
+            ( strcmp ( member, "var/log/audit/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/boot/" ) == 0 )
@@ -1442,6 +1497,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
         ( strcmp ( member, "var/log/secure" ) == 0 ) ||
+        ( strcmp ( member, "var/log/audit/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
@@ -1464,6 +1520,7 @@ void free_sosreport_analyzer_obj ( void )
     clear_list ( &etc_sysconfig_network_scripts_ifcfg__obj ); 
     clear_list ( &var_log_messages_obj ); 
     clear_list ( &var_log_secure_obj ); 
+    clear_list ( &var_log_audit__obj ); 
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
     clear_list ( &sos_commands_boot__obj ); 

@@ -206,6 +206,13 @@ etc/cron.d/=all
 
 var/log/secure=su:session failure
 
+## var/log/audit/
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. var/log/audit/=denied 
+
+var/log/audit/=denied
+
 ## var/log/messages 
 ##
 ## You can set arbitrary item-name including 'all' up to 12

@@ -64,6 +64,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in etc/cron.d/.
   Analyze var/log/messages* files.
   Analyze var/log/secure* files.
+  Analyze files in var/log/audit/.
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.
   Analyze sos_commands/networking/ethtool_-S files.
@@ -79,6 +80,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Analyze var/log/messages* files.
+  Analyze files in var/log/audit/.
 
 2. sar-analyzer
 

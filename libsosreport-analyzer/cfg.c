@@ -162,6 +162,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_cron_d_, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/secure" ) == 0 )
                 strncpy ( cfg->var_log_secure, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "var/log/audit/" ) == 0 )
+                strncpy ( cfg->var_log_audit_, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
                 strncpy ( cfg->sos_commands_kernel_sysctl__a, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -320,6 +322,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
     if ( mcinfo == 0 ) 
     {
         append_sos_header_obj ( "var/log/secure", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/audit/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
@@ -407,6 +410,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_cron_d_ );
         else if ( strcmp ( member, "var/log/secure" ) == 0 )
             strcat ( str_tmp, cfg->var_log_secure );
+        else if ( strcmp ( member, "var/log/audit/" ) == 0 )
+            strcat ( str_tmp, cfg->var_log_audit_ );
         else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
