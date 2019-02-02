@@ -370,7 +370,7 @@ int main ( int argc, char *argv [ ] )
         snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( str_tmp3 ) ); 
     }
 
-    sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
+    sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
 
     char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
     char str_tmp_sar [ 10 ] = "dir_name:";

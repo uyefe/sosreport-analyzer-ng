@@ -1754,7 +1754,7 @@ int check_result_dir ( const char *dname );
  *  Calls : prepareing... (when -i is set)
  *
  */
-void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY );
+void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /* 
  * Function Name: create_sar_analyzer_obj ()
@@ -1822,7 +1822,7 @@ void set_files_n ( int var );
  *  Calls : read_write_file ()
  *
  */
-void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY );
+void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /* 
  *  Function Name: read_sar ()
@@ -1835,7 +1835,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
  *  Calls : get_word_line ()
  *
  */
-void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY );
+void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /*
  *  Function Name: read_write_file ()
@@ -1850,7 +1850,7 @@ void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, 
  *  Calls: make_report ()
  *
  */
-void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, int SAR_OPOTION, int REPORT, int MESSAGE_ONLY );
+void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, int SAR_OPOTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /*
  *  Function Name: make_report ()
@@ -1881,7 +1881,7 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n );
  *  Calls : set_token_items ()
  *
  */
-int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY );
+int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY, const char *time_span );
 
 /* 
  * Function Name: read_sar_check ()

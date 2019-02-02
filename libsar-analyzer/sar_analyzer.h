@@ -21,7 +21,6 @@
  */
 
 #include "common.h"
-//#include "line_data.h"
 #include "../libsosreport-analyzer/line_data.h"
 
 #ifndef SAR__ANALYZER_H
@@ -1137,7 +1136,7 @@ int set_token_column ( int file_number, char *line, const char *item_name_for_co
  *  Calls : setters and getters
  *
  */
-int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION );
+int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION, const char *time_span );
 
 /* 
  *  This function checks if item string is inclued in a single line.
@@ -1153,7 +1152,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
  *  Calls : set_token_items()
  *
  */
-int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY );
+int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY, const char *time_span );
 
 /**** setter ****/
 void set_hostname ( char *hostname );

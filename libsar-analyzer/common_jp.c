@@ -89,7 +89,7 @@ void set_files_n ( int var )
     sar_analyzer_obj->files_n = var;
 }
 
-void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     DIR *dir;
     struct dirent *dp;
@@ -161,14 +161,14 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     set_files_n ( files_n );
 
     /* now pass an array to the function, this will be done by passing first pointer of an array */
-    read_write_file ( dir, dname, str_arr, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY );
+    read_write_file ( dir, dname, str_arr, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
 
     /* freeing memory */
     for ( i = 0; i < MAX_ANALYZE_FILES; i++ )
         str_arr[i]=NULL;
 }
 
-void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     int dname_len = ( int ) strlen ( dname );
     if ( dname_len <= 0 )
@@ -340,10 +340,10 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
         else
             append_list ( &line_obj, str_num );
         /* let 'read_sar()' do the job */
-        read_sar ( i, sar_full_path_arr [ i ], SAR_OPTION, REPORT, MESSAGE_ONLY );
+        read_sar ( i, sar_full_path_arr [ i ], SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
         /* doing average anlyzing also even in Z option, results should be treated in make_report function later on */
         if ( SAR_OPTION == 'Z' )
-            read_sar ( i, sar_full_path_arr [ i ], 'A', REPORT, MESSAGE_ONLY );
+            read_sar ( i, sar_full_path_arr [ i ], 'A', REPORT, MESSAGE_ONLY, time_span );
     }
     /* closing dir pointer here */
     closedir ( dir );
@@ -401,7 +401,7 @@ void read_sar_cpu_as_paragraph ( const char *filename )
     fclose ( fp );
 }
 
-void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     int filename_len = ( int ) strlen ( filename );
     if ( filename_len <= 0 )
@@ -469,7 +469,7 @@ void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPOR
         /* file sanity check */
         sanity_check_file ( line, filename );
         /* get keyword from line and ignore empty lines */
-        if ( get_word_line ( file_number, &line, SAR_OPTION, MESSAGE_ONLY ) != 0 )
+        if ( get_word_line ( file_number, &line, SAR_OPTION, MESSAGE_ONLY, time_span ) != 0 )
             continue;
     }
     /* after reading all lines, close the file pointer */
@@ -957,7 +957,7 @@ void postscript_to_pdf ( const char *filename )
         printf ("did %s\n", buff);
 }
 
-void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     if ( dname != NULL )
     {
@@ -977,7 +977,7 @@ void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, i
         set_dir_name_analyze ( dname );
 
         /* read sa directory */
-        read_sa_dir ( dname, SAR_OPTION, REPORT, MESSAGE_ONLY );
+        read_sa_dir ( dname, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
     }
     else if ( fname != NULL )
     {
