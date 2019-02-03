@@ -344,4 +344,43 @@ const char *get_ldavg_spike_time_each_file ( int x, const char *element, const c
 const char *get_block_device_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item );
 const char *get_network_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item );
 
+/* time-span spike val each file */
+double get_cpu_time_span_spike_val_each_file ( int x, int y, const char *element, const char *analyze_item );
+double get_tasks_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_pswap_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_paging_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_io_transfer_rate_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_memory_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_swpused_time_span_spike_val_each_file ( int x, const char *analyze_item );
+int get_kernel_table_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_ldavg_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item );
+double get_block_device_time_span_spike_val_each_file ( int x, int y, const char *element, const char *analyze_item );
+double get_network_time_span_spike_val_each_file ( int x, int y, const char *element, const char *analyze_item );
+
+/* time-span spike date each file */
+const char *get_cpu_time_span_spike_date_each_file ( int x, int y, const char *element, const char *analyze_item );
+const char *get_tasks_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_pswap_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_paging_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_io_transfer_rate_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_memory_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_swpused_time_span_spike_date_each_file ( int x, const char *analyze_item );
+const char *get_kernel_table_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_ldavg_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_block_device_time_span_spike_date_each_file ( int x, int y, const char *element, const char *analyze_item );
+const char *get_network_time_span_spike_date_each_file ( int x, int y, const char *element, const char *analyze_item );
+
+/* time-span spike time each file */
+const char *get_cpu_time_span_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item );
+const char *get_tasks_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_pswap_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_paging_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_io_transfer_rate_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_memory_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_swpused_time_span_spike_time_each_file ( int x, const char *analyze_item );
+const char *get_kernel_table_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_ldavg_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item );
+const char *get_block_device_time_span_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item );
+const char *get_network_time_span_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item );
+
 #endif /* SAR_ANALYZER_SETTER_GETTER_H */

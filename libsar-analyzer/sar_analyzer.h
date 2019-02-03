@@ -297,8 +297,7 @@ struct sar_analyzer_data_all sar_analyzer_all_obj_raw =
     };
 
 /* 
- * 
- *  sar_analyzer_all_obj ( this object is for data all -Z option )
+ *  sar_analyzer_spike_obj ( this object is for data all -Z option )
  *  When making object, these should be initialized with functions 
  *
  */
@@ -434,10 +433,151 @@ struct sar_analyzer_data_spike_each_file sar_analyzer_spike_obj_raw =
         {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike time */
         {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* highest date */
         {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest time */
-        //{"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* down date */
-        //{"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* down time */
+        /*{"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"},*/ /* down date */
+        /*{"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"},*/ /* down time */
         }},
     };
+
+/* 
+ *  sar_analyzer_time_span_spike_obj ( this object is for data all -Z option )
+ *  When making object, these should be initialized with functions 
+ *
+ */
+struct sar_analyzer_data_time_span_spike_each_file sar_analyzer_time_span_spike_obj_raw =
+    {
+        /* cpu_data_time_span_spike_each_file */
+        {{
+        {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        }},
+        /* task_data_time_span_spike_each_file */
+        {
+        {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, /* highest */
+        },
+        /* pswap_data_time_span_spike_each_file */
+        {
+        {0}, {0}, /* spike */
+        {0}, {0}, /* former */
+        {0}, {0}, /* highest */
+        },
+        /* paging_data_time_span_spike_each_file */
+        {
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        },
+        /* io_transfer_rate_data_time_span_spike_each_file */
+        {
+        {0.00}, {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, {0.00}, /* highest */
+        },
+        /* memory_data_time_span_spike_each_file */
+        {
+        {0.00}, {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, {0.00}, /* highest */
+        },
+        /* swap_data_time_span_spike_each_file */
+        {
+        {0.00}, /* spike */
+        {0.00}, /* former */
+        {0.00}, /* highest */
+        },
+        /* kernel_table_data_time_span_spike_each_file */
+        {
+        {0}, {0}, {0}, /* spike */
+        {0}, {0}, {0}, /* former */
+        {0}, {0}, {0}, /* highest */
+        },
+        /* ldavg_data_time_span_spike_each_file */
+        {
+        {0},{0},{0.00},{0.00},{0.00}, /* spike */
+        {0},{0},{0.00},{0.00},{0.00}, /* former */
+        {0},{0},{0.00},{0.00},{0.00}, /* highest */
+        },
+        /* block_device_data_time_span_spike_each_file */
+        {{
+        {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, /* highest */
+        }},
+        /* network_data_time_span_spike_each_file */
+        {{
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* former */
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* down */
+        }},
+
+        /* cpu_date_time_span_spike_each_file */
+        {{
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* spike date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* highest date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest time */
+        }},
+        /* task_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, /* spike date and time */
+        {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, /* highest date and time */
+        },
+        /* pswap_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, /* pswap date and time */
+        {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, /* highest date and time */
+        },
+        /* paging_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* spike date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* highest date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest time */
+        },
+        /* io_transfer_rate_date_time_span_spike_each_file  */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike date and time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest date and time */
+        },
+        /* memory_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike date and time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest date and time */
+        },
+        /* swap_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"00:00:00"}, /* spike date and time */
+        {"1970-01-01"}, {"00:00:00"}, /* highest date and time */
+        },
+        /* kernel_table_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike date and time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest date and time */
+        },
+        /* ldavg_date_time_span_spike_each_file */
+        {
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* spike date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* highest date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest time */
+        },
+        /* block_device_date_time_span_spike_each_file */
+        {{
+        {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, /* spike date and time */
+        {"1970-01-01"}, {"1970-01-01"}, {"00:00:00"}, {"00:00:00"}, /* highest date and time */
+        }},
+        /* network_date_time_span_spike_each_file */
+        {{
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* spike date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* spike time */
+        {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, /* highest date */
+        {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, /* highest time */
+        }},
+    };
+
 
 /* line_obj */
 struct line_data line_obj_raw =
@@ -1012,11 +1152,13 @@ struct line_data ps_kernel_table_inode_obj_raw =
         NULL /* next pointer */
     };
 
+/* declaring pointers */
 struct sar_analyzer_data *sar_analyzer_obj = &sar_analyzer_obj_raw;
 struct sar_analyzer_data_all *sar_analyzer_all_obj = &sar_analyzer_all_obj_raw;
 struct sar_analyzer_data_spike_each_file *sar_analyzer_spike_obj = &sar_analyzer_spike_obj_raw;
+struct sar_analyzer_data_time_span_spike_each_file *sar_analyzer_time_span_spike_obj = &sar_analyzer_time_span_spike_obj_raw;
 
-/* initialize */
+/* declaring pointers */
 struct line_data *line_obj = &line_obj_raw;
 struct line_data *line_all_obj = &line_all_obj_raw;
 struct line_data *header_obj = &header_obj_raw;
@@ -1194,6 +1336,21 @@ int set_ldavg_double_spike_val_each_file ( int x,  double var, const char *eleme
 int set_block_device_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
 int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
 
+/* time-span spike val each file */
+int set_cpu_time_span_spike_val_each_file ( int x, double var, int y, const char *element, const char *analyze_item );
+int set_tasks_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_pswap_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_paging_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_io_transfer_rate_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_memory_double_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_memory_int_time_span_spike_val_each_file ( int x, int var, const char *element, const char *analyze_item );
+int set_swpused_time_span_spike_val_each_file ( int x,  double var, const char *analyze_item );
+int set_kernel_table_time_span_spike_val_each_file ( int x,  double var, const char *element, const char *analyze_item );
+int set_ldavg_int_time_span_spike_val_each_file ( int x,  int var, const char *element, const char *analyze_item );
+int set_ldavg_double_time_span_spike_val_each_file ( int x,  double var, const char *element, const char *analyze_item );
+int set_block_device_time_span_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
+int set_network_time_span_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
+
 /* spike date */
 int set_cpu_spike_date ( const char *date_string, int x, const char *element );
 int set_tasks_spike_date ( const char *date_string, const char *element );
@@ -1246,6 +1403,32 @@ int set_ldavg_spike_time_each_file ( int x, const char *date_string, const char 
 int set_block_device_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
 int set_network_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
 
+/* time-span spike date each file */
+int set_cpu_time_span_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_tasks_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_pswap_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_paging_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_io_transfer_rate_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_memory_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_swpused_time_span_spike_date_each_file ( int x, const char *date_string, const char *analyze_item );
+int set_kernel_table_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_ldavg_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_block_device_time_span_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_network_time_span_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+
+/* time-span spike time each file */
+int set_cpu_time_span_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_tasks_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_pswap_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_paging_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_io_transfer_rate_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_memory_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_swpused_time_span_spike_time_each_file ( int x, const char *date_string, const char *analyze_item );
+int set_kernel_table_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_ldavg_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_block_device_time_span_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_network_time_span_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+
 /* former val each file */
 int set_cpu_former_val_each_file ( int x, double var, int y, const char *element );
 int set_tasks_former_val_each_file ( int x, double var, const char *element );
@@ -1260,6 +1443,21 @@ int set_ldavg_int_former_val_each_file ( int x,  int var, const char *element );
 int set_ldavg_double_former_val_each_file ( int x,  double var, const char *element );
 int set_block_device_former_val_each_file ( int x,  double var, int y, const char *element );
 int set_network_former_val_each_file ( int x,  double var, int y, const char *element );
+
+/* time-span former val each file */
+int set_cpu_time_span_former_val_each_file ( int x, double var, int y, const char *element );
+int set_tasks_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_pswap_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_paging_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_io_transfer_rate_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_memory_double_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_memory_int_time_span_former_val_each_file ( int x, int var, const char *element );
+int set_swpused_time_span_former_val_each_file ( int x,  double var );
+int set_kernel_table_time_span_former_val_each_file ( int x,  double var, const char *element );
+int set_ldavg_int_time_span_former_val_each_file ( int x,  int var, const char *element );
+int set_ldavg_double_time_span_former_val_each_file ( int x,  double var, const char *element );
+int set_block_device_time_span_former_val_each_file ( int x,  double var, int y, const char *element );
+int set_network_time_span_former_val_each_file ( int x,  double var, int y, const char *element );
 
 /* average highest date */
 int set_cpu_avg_highest_date ( const char *date_string, int x, const char *element );
@@ -1341,9 +1539,7 @@ int set_network_lowest_time ( const char *date_string, int x, const char *elemen
 
 /**** getters ****/
 const char *get_this_date ( void );
-//const char *get_this_date ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 const char *get_this_date_all ( void );
-//const char *get_this_date_all ( char this_date_tmp [ MAX_DATE_STRINGS ] );
 
 /* columns */
 int get_column_cpu ( const char *element);
@@ -1370,6 +1566,19 @@ int get_kernel_table_former_val_each_file ( int x, const char *element );
 double get_ldavg_former_val_each_file ( int x, const char *element );
 double get_block_device_former_val_each_file ( int x, int y, const char *element );
 double get_network_former_val_each_file ( int x, int y, const char *element );
+
+/* time-span former val each file */
+double get_cpu_time_span_former_val_each_file ( int x, int y, const char *element );
+double get_tasks_time_span_former_val_each_file ( int x, const char *element );
+double get_pswap_time_span_former_val_each_file ( int x, const char *element );
+double get_paging_time_span_former_val_each_file ( int x, const char *element );
+double get_io_transfer_rate_time_span_former_val_each_file ( int x, const char *element );
+double get_memory_time_span_former_val_each_file ( int x, const char *element );
+double get_swpused_time_span_former_val_each_file ( int x );
+int get_kernel_table_time_span_former_val_each_file ( int x, const char *element );
+double get_ldavg_time_span_former_val_each_file ( int x, const char *element );
+double get_block_device_time_span_former_val_each_file ( int x, int y, const char *element );
+double get_network_time_span_former_val_each_file ( int x, int y, const char *element );
 
 /* cpu as paragraph */
 int get_cpu_as_paragraph ( void );
