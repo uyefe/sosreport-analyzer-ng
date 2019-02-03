@@ -296,11 +296,11 @@ void read_analyze_dir ( const char *member, const char *dname )
 }
 
 /* These are the items to be analyzed not statically nor checked by multi-lines */
-int date_information = 0;
-int bios_information = 0;
-int memory_array_information = 0;
-int memory_information = 0;
-int df_information = 0;
+//static int date_information = 0;
+static int bios_information = 0;
+static int memory_array_information = 0;
+static int memory_information = 0;
+//static int df_information = 0;
 
 /* These are array numbers limits. */
 int arr_max0 = 0;
@@ -1282,6 +1282,17 @@ int check_time_span_str ( const char *time_span_str )
                )
                    return 0;
     }
+    if ( str_tmp [ 0 ] == '2')
+        if ( ( str_tmp [ 1 ] != '0' ) && ( str_tmp [ 1 ] != '1' ) && ( str_tmp [ 1 ] != '2' ) && ( str_tmp [ 1 ] != '3' ) )
+            return 0;
+    if ( str_tmp [ 6 ] == '2' )
+        if ( ( str_tmp [ 7 ] != '0' ) && ( str_tmp [ 7 ] != '1' ) && ( str_tmp [ 7 ] != '2' ) && ( str_tmp [ 7 ] != '3' ) ) 
+            return 0;
+    if ( ( ( str_tmp [ 0 ] == '1' ) || ( str_tmp [ 0 ] == '2' ) ) && ( str_tmp [ 6 ] == '0' ) ) 
+        return 0;
+    if ( ( ( str_tmp [ 0 ] == '2' ) ) && ( ( str_tmp [ 6 ] == '0' ) || ( str_tmp [ 6 ] == '1' ) ) )
+        return 0;
+
     return 1;
 }
 

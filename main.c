@@ -362,13 +362,9 @@ int main ( int argc, char *argv [ ] )
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
 
     if ( sar_only == 1 )
-    {
         snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s", ( char * ) dir_name ); 
-    }
     else if ( sar_only == 0 )
-    {
         snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( str_tmp3 ) ); 
-    }
 
     sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
 

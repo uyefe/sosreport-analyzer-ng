@@ -1412,7 +1412,10 @@ int create_sar_analyzer_obj ( )
     init_list ( &report_obj );
     init_list ( &report_cpu_obj );
     for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    {
         init_list ( &report_cpu_spike_obj [ v ] );
+        init_list ( &report_cpu_time_span_spike_obj [ v ] );
+    }
     init_list ( &report_cpu_explanation_obj );
     init_list ( &report_tasks_obj );
     init_list ( &report_tasks_spike_obj );
@@ -1514,7 +1517,10 @@ int free_sar_analyzer_obj ( )
     clear_list ( &report_obj );
     clear_list ( &report_cpu_obj );
     for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    {
         clear_list ( &report_cpu_spike_obj [ v ] );
+        clear_list ( &report_cpu_time_span_spike_obj [ v ] );
+    }
     clear_list ( &report_cpu_explanation_obj );
     clear_list ( &report_tasks_obj );
     clear_list ( &report_tasks_spike_obj );
