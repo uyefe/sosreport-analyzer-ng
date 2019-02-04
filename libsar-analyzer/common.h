@@ -2324,7 +2324,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, in
  *  Calls : many
  *
  */
-int make_report ( int SAR_OPTION, int REPORT, int files_n );
+int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span );
 
 /* 
  *  Function Name : get_word_line ()

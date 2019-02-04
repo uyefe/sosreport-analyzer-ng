@@ -348,7 +348,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
     /* closing dir pointer here */
     closedir ( dir );
 
-    make_report ( SAR_OPTION, REPORT, files_n );
+    make_report ( SAR_OPTION, REPORT, files_n, time_span );
 }
 
 void read_sar_cpu_as_paragraph ( const char *filename )

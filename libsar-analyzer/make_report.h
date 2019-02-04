@@ -24,12 +24,6 @@
 #define SAR_ANALYZER_MAKE_REPORT_H
 
 /*
- * This function makes report. 
- *
- */
-int make_report ( int SAR_OPTION, int REPORT, int files_n );
-
-/*
  * This function writes postscript header to postscript file.
  *
  */
