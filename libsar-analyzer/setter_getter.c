@@ -9049,6 +9049,40 @@ const char *get_network_spike_date_each_file ( int x, int y, const char *element
         return "error";
 }
 
+/* -- time-span spike date each file -- */
+
+const char *get_cpu_time_span_spike_date_each_file ( int x, int y, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_spike_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_spike_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_spike_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_spike_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_highest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_highest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_highest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_highest_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else
+        return "error";
+}
+
 /* -- spike time each file -- */
 
 const char *get_cpu_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item )
@@ -9383,6 +9417,40 @@ const char *get_network_spike_time_each_file ( int x, int y, const char *element
             return sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_down_time_each_file [ x ] [ y ];
         else if ( strcmp ( "txdrop", element ) == 0 )
             return sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_down_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else
+        return "error";
+}
+
+/* -- time-span spike time each file -- */
+
+const char *get_cpu_time_span_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_spike_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_spike_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_spike_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_spike_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_highest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_highest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_highest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_highest_time_each_file [ x ] [ y ];
         else
             return "error";
     }
