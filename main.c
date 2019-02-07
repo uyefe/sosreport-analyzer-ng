@@ -405,7 +405,10 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &header_obj, fp_sar_w );
     file_write_list ( &report_cpu_obj, fp_sar_w );
     for ( int v = 0; v <= get_core_numbers ( ); v++ )
+    {
         file_write_list ( &report_cpu_spike_obj [ v ], fp_sar_w );
+        file_write_list ( &report_cpu_time_span_spike_obj [ v ], fp_sar_w );
+    }
     file_write_list ( &report_cpu_explanation_obj, fp_sar_w );
     file_write_list ( &report_tasks_obj, fp_sar_w );
     file_write_list ( &report_tasks_spike_obj, fp_sar_w );
@@ -462,11 +465,6 @@ int main ( int argc, char *argv [ ] )
         printf("Please check result file ./%s\n",sos_file_write);
         printf("Also check sar result file ./%s\n",sar_file_write);
     }
-
-    /* testing for time-span option ... */
-    for ( int v = 0; v <= get_core_numbers ( ); v++ )
-        print_list ( &report_cpu_time_span_spike_obj [ v ] );
-    /* end testing time-span option ... */
 
     if ( sar_only == 0 )
     {

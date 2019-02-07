@@ -1612,3 +1612,194 @@ int free_sar_analyzer_obj ( )
     }
     return ( 0 );
 }
+
+int check_time_value_is_in_time_span ( const char *time_span_str, const char *time_value )
+{
+    char str_spn [ 12 ];
+    char str_now [ 9 ];
+    memset ( str_spn, '\0', sizeof ( str_spn ) ); 
+    memset ( str_now, '\0', sizeof ( str_now ) ); 
+    strncpy ( str_spn, time_span_str, 11 );
+    strncpy ( str_now, time_value, 8 );
+    int time_span_ok = 1;
+
+    /* for time_span_start */
+    if ( str_spn [ 0 ] != str_now [ 0 ] )
+    {
+        if (
+           ( str_spn [ 0 ] == '1' && str_now [ 0 ] == '0' )
+           ||
+           ( ( str_spn [ 0 ] == '2' ) && ( ( str_now [ 0 ] == '0' ) || ( str_now [ 0 ] == '1' ) ) )
+           )
+               time_span_ok = 0;
+    }
+    else if ( str_spn [ 0 ] == str_now [ 0 ] )
+    {
+        if (
+           (
+               ( str_spn [ 1 ] == '1' && str_now [ 1 ] == '0' )
+               ||
+               ( ( str_spn [ 1 ] == '2' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '3' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '4' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) || ( str_now [ 1 ] == '3' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '5' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) || ( str_now [ 1 ] == '3' ) || ( str_now [ 1 ] == '4' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '6' ) &&
+                   ( ( str_now [ 1 ] != '6' ) && ( str_now [ 1 ] != '7' ) && ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '7' ) &&
+                   ( ( str_now [ 1 ] != '7' ) && ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '8' ) && ( ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
+               ||
+               ( str_spn [ 1 ] == '9'  && str_now [ 1 ] != '9' )
+        ) )
+            time_span_ok = 0;
+
+        if ( str_spn [ 1 ] == str_now [ 1 ] )
+            if (
+               (
+                   ( str_spn [ 3 ] == '1' && str_now [ 3 ] == '0' )
+                   ||
+                   ( ( str_spn [ 3 ] == '2' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '3' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '4' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) || ( str_now [ 3 ] == '3' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '5' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) || ( str_now [ 3 ] == '3' ) || ( str_now [ 3 ] == '4' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '6' ) &&
+                       ( ( str_now [ 3 ] != '6' ) && ( str_now [ 3 ] != '7' ) && ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '7' ) &&
+                       ( ( str_now [ 3 ] != '7' ) && ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '8' ) && ( ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
+                   ||
+                   ( str_spn [ 3 ] == '9'  && str_now [ 3 ] != '9' )
+            ) )
+                time_span_ok = 0;
+    }
+
+    /* time_span_end */
+    if ( time_span_ok == 1 )
+    {
+        if ( str_spn [ 6 ] != str_now [ 0 ] )
+        {
+            if ( 
+               ( ( str_spn [ 6 ] == '0' ) && ( ( str_now [ 0 ] == '1' ) || ( str_now [ 0 ] == '2' ) ) )
+               ||
+               ( str_spn [ 6 ] == '1' && str_now [ 0 ] == '2' )
+               )
+                   time_span_ok = 0;
+        }
+        else if ( str_spn [ 6 ] == str_now [ 0 ] )
+        {
+            if (
+               (
+                   ( str_spn [ 7 ] == '0' && str_now [ 1 ] != '0' )
+                   ||
+                   ( ( str_spn [ 7 ] == '1' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '2' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '3' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) && ( str_now [ 1 ] != '3' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '4' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) && ( str_now [ 1 ] != '3' ) && ( str_now [ 1 ] != '4' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '5' ) &&
+                       ( ( str_now [ 1 ] == '6' ) || ( str_now [ 1 ] == '7' ) || ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '6' ) &&
+                       ( ( str_now [ 1 ] == '7' ) || ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '7' ) &&
+                       ( ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '8' ) && ( ( str_now [ 1 ] == '9' ) ) )
+            ) )
+                time_span_ok = 0;
+
+            if ( str_spn [ 7 ] == str_now [ 1 ] )
+                if (
+                   (
+                       ( str_spn [ 9 ] == '0' && str_now [ 3 ] != '0' )
+                       ||
+                       ( str_spn [ 9 ] == '1' && 
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '2' ) &&
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '3' ) &&
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) && ( str_now [ 3 ] != '3' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '4' ) &&
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) && ( str_now [ 3 ] != '3' ) && ( str_now [ 3 ] != '4' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '5' ) &&
+                           ( ( str_now [ 3 ] == '6' ) || ( str_now [ 3 ] == '7' ) || ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '6' ) &&
+                           ( ( str_now [ 3 ] == '7' ) || ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '7' ) &&
+                           ( ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '8' ) && ( ( str_now [ 3 ] == '9' ) ) )
+                ) )
+                    time_span_ok = 0;
+
+            if ( str_spn [ 9 ] == str_now [ 3 ] )
+                if (
+                   (
+                       ( str_spn [ 10 ] == '0' && str_now [ 4 ] != '0' )
+                       ||
+                       ( str_spn [ 10 ] == '1' && 
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '2' ) &&
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '3' ) &&
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) && ( str_now [ 4 ] != '3' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '4' ) &&
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) && ( str_now [ 4 ] != '3' ) && ( str_now [ 4 ] != '4' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '5' ) &&
+                           ( ( str_now [ 4 ] == '6' ) || ( str_now [ 4 ] == '7' ) || ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '6' ) &&
+                           ( ( str_now [ 4 ] == '7' ) || ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '7' ) &&
+                           ( ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '8' ) && ( ( str_now [ 4 ] == '9' ) ) )
+                ) )
+                    time_span_ok = 0;
+        }
+    }
+
+    if ( time_span_ok == 1 )
+        return 1;
+
+    return 0;
+}

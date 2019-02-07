@@ -190,6 +190,8 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_cpu_spike_obj [ i ], str_tmp );
 
                 /* for time-span option */
+                append_list ( &report_cpu_time_span_spike_obj [ i ], "" );
+                append_list ( &report_cpu_time_span_spike_obj [ i ], str_num );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Spike   value of '%%usr(%%user)'   for CPU %s is %8.2f (%s %s)", time_span,
                     s, get_cpu_time_span_spike_val_each_file ( j, i, "usr", "spike" ), get_cpu_time_span_spike_date_each_file ( j, i, "usr", "spike" ), get_cpu_time_span_spike_time_each_file ( j, i, "usr", "spike" ) );
                 append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
@@ -216,7 +218,6 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Highest value of '%%idle'         for CPU %s is %8.2f (%s %s)", time_span,
                     s, get_cpu_time_span_spike_val_each_file ( j, i, "idle", "highest" ), get_cpu_time_span_spike_date_each_file ( j, i, "idle", "highest" ), get_cpu_time_span_spike_time_each_file ( j, i, "idle", "highest" ) );
                 append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
-
             }
         }
 

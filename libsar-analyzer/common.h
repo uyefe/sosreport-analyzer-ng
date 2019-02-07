@@ -2531,6 +2531,17 @@ void draw_graph_to_ps ( const char *item, const char *element, int file_number, 
  */
 double check_time_value ( double initial_val, double horizontal_notch, int count, char *time_value ); 
 
+/*
+ * Function Name: check_time_value_is_in_time_span ()
+ *
+ * This function returns 1 if time_value is in between the time_span given and if not return 0.  
+ *
+ *  Caller : set_token_items ()
+ *
+ *  Calls : none 
+ */
+int check_time_value_is_in_time_span ( const char *time_span_str, const char *time_value );
+
 void write_restart_str_to_ps ( int file_number, char *line );
 
 #endif /* SAR_ANALYZER_COMMON_H */

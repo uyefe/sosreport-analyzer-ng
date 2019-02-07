@@ -589,14 +589,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     double h0 = 0, h1 = 0, h2 = 0, h3 = 0, h4 = 0, l0 = 0, l1 = 0, l2 = 0, l3 = 0, l4 = 0; /* highest value, lowest value for Z option */
     double s0 = 0, s1 = 0, s2 = 0, s3 = 0, s4 = 0, f0 = 0, f1 = 0, f2 = 0, f3 = 0, f4 = 0; /* spike value, former value for Z option */
     double ss0 = 0, ss1 = 0, ss2 = 0, ss3 = 0, ss4 = 0, ff0 = 0, ff1 = 0, ff2 = 0, ff3 = 0, ff4 = 0, hh0 = 0, hh1 = 0, hh2 = 0, hh3 = 0, hh4 = 0; /* spike each file value for Z option */
-    double t_ss0 = 0, t_ss1 = 0, t_ss2 = 0, t_ss3 = 0, t_ss4 = 0, t_ff0 = 0, t_ff1 = 0, t_ff2 = 0, t_ff3 = 0, t_ff4 = 0, t_hh0 = 0, t_hh1 = 0, t_hh2 = 0, t_hh3 = 0, t_hh4 = 0; /* time-span spike each file value for Z option */
+    double t_ss0 = 0, t_ss1 = 0, t_ss2 = 0, t_ss3 = 0, t_ff0 = 0, t_ff1 = 0, t_ff2 = 0, t_ff3 = 0, t_hh0 = 0, t_hh1 = 0, t_hh2 = 0, t_hh3 = 0; /* time-span spike each file value for Z option */
+    int time_span_checked = 0;
 
     /* get the first token */
     token = strtok ( *line, s );
     /* this should be the first token, which is time value, so, copying time value to variable for future use */
     strncpy ( time_value, token, 19 );
-    //printf("time_value:%s\n",time_value);
-    //printf("time_span:%s\n",time_span);
+    /*printf("time_value:%s\n",time_value);*/
+    /*printf("time_span:%s\n",time_span);*/
+    time_span_checked = check_time_value_is_in_time_span (time_span,time_value );
+    /*printf("time_span_checked:%d\n",time_span_checked);*/
     i++;
     /* walk throuth other tokens */
     while ( token != NULL )
@@ -739,11 +742,14 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
                     }
-                    if ( ( t2 > t_ss0 ) && ( t_ff0 != 0 ) )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "usr", "spike" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
+                        if ( ( t2 > t_ss0 ) && ( t_ff0 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "usr", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
+                        }
                     }
                     if ( t  > hh0 )
                     {
@@ -752,13 +758,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "usr" );
-                    if ( t  > t_hh0 )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
+                        if ( t  > t_hh0 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "usr" );
                     }
-                    set_cpu_time_span_former_val_each_file ( file_number, t, utility, "usr" );
                     if ( h0 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "usr" );
@@ -854,11 +863,14 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
                     }
-                    if ( ( t2 > t_ss1 ) && ( t_ff1 != 0 ) )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "sys", "spike" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
+                        if ( ( t2 > t_ss1 ) && ( t_ff1 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "sys", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
+                        }
                     }
                     if ( t  > hh1 )
                     {
@@ -867,13 +879,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "sys" );
-                    if ( t  > t_hh1 )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
+                        if ( t  > t_hh1 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "sys" );
                     }
-                    set_cpu_time_span_former_val_each_file ( file_number, t, utility, "sys" );
                     if ( h1 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "sys" );
@@ -954,11 +969,14 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
                     }
-                    if ( ( t2 > t_ss2 ) && ( t_ff2 != 0 ) )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "iowait", "spike" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
+                        if ( ( t2 > t_ss2 ) && ( t_ff2 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "iowait", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
+                        }
                     }
                     if ( t  > hh2 )
                     {
@@ -967,13 +985,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "iowait" );
-                    if ( t  > t_hh2 )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
+                        if ( t  > t_hh2 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "iowait" );
                     }
-                    set_cpu_time_span_former_val_each_file ( file_number, t, utility, "iowait" );
                     if ( h2 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "iowait" );
@@ -1054,11 +1075,14 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
                     }
-                    if ( ( t2 > t_ss3 ) && ( t_ff3 != 0 ) )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "idle", "spike" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
+                        if ( ( t2 > t_ss3 ) && ( t_ff3 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "idle", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
+                        }
                     }
                     if ( t  > hh3 )
                     {
@@ -1067,13 +1091,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "idle" );
-                    if ( t  > t_hh3 )
+                    if ( time_span_checked == 1 )
                     {
-                        set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
-                        set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
-                        set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
+                        if ( t  > t_hh3 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "idle" );
                     }
-                    set_cpu_time_span_former_val_each_file ( file_number, t, utility, "idle" );
                     if ( h3 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "idle" );
