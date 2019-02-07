@@ -89,7 +89,7 @@ void set_files_n ( int var )
     sar_analyzer_obj->files_n = var;
 }
 
-void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     DIR *dir;
     struct dirent *dp;
@@ -161,14 +161,14 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     set_files_n ( files_n );
 
     /* now pass an array to the function, this will be done by passing first pointer of an array */
-    read_write_file ( dir, dname, str_arr, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY );
+    read_write_file ( dir, dname, str_arr, files_n, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
 
     /* freeing memory */
     for ( i = 0; i < MAX_ANALYZE_FILES; i++ )
         str_arr[i]=NULL;
 }
 
-void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     int dname_len = ( int ) strlen ( dname );
     if ( dname_len <= 0 )
@@ -340,15 +340,15 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
         else
             append_list ( &line_obj, str_num );
         /* let 'read_sar()' do the job */
-        read_sar ( i, sar_full_path_arr [ i ], SAR_OPTION, REPORT, MESSAGE_ONLY );
+        read_sar ( i, sar_full_path_arr [ i ], SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
         /* doing average anlyzing also even in Z option, results should be treated in make_report function later on */
         if ( SAR_OPTION == 'Z' )
-            read_sar ( i, sar_full_path_arr [ i ], 'A', REPORT, MESSAGE_ONLY );
+            read_sar ( i, sar_full_path_arr [ i ], 'A', REPORT, MESSAGE_ONLY, time_span );
     }
     /* closing dir pointer here */
     closedir ( dir );
 
-    make_report ( SAR_OPTION, REPORT, files_n );
+    make_report ( SAR_OPTION, REPORT, files_n, time_span );
 }
 
 void read_sar_cpu_as_paragraph ( const char *filename )
@@ -401,7 +401,7 @@ void read_sar_cpu_as_paragraph ( const char *filename )
     fclose ( fp );
 }
 
-void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     int filename_len = ( int ) strlen ( filename );
     if ( filename_len <= 0 )
@@ -469,7 +469,7 @@ void read_sar ( int file_number, const char *filename, int SAR_OPTION, int REPOR
         /* file sanity check */
         sanity_check_file ( line, filename );
         /* get keyword from line and ignore empty lines */
-        if ( get_word_line ( file_number, &line, SAR_OPTION, MESSAGE_ONLY ) != 0 )
+        if ( get_word_line ( file_number, &line, SAR_OPTION, MESSAGE_ONLY, time_span ) != 0 )
             continue;
     }
     /* after reading all lines, close the file pointer */
@@ -957,7 +957,7 @@ void postscript_to_pdf ( const char *filename )
         printf ("did %s\n", buff);
 }
 
-void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY )
+void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     if ( dname != NULL )
     {
@@ -977,7 +977,7 @@ void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, i
         set_dir_name_analyze ( dname );
 
         /* read sa directory */
-        read_sa_dir ( dname, SAR_OPTION, REPORT, MESSAGE_ONLY );
+        read_sa_dir ( dname, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
     }
     else if ( fname != NULL )
     {
@@ -1412,7 +1412,10 @@ int create_sar_analyzer_obj ( )
     init_list ( &report_obj );
     init_list ( &report_cpu_obj );
     for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    {
         init_list ( &report_cpu_spike_obj [ v ] );
+        init_list ( &report_cpu_time_span_spike_obj [ v ] );
+    }
     init_list ( &report_cpu_explanation_obj );
     init_list ( &report_tasks_obj );
     init_list ( &report_tasks_spike_obj );
@@ -1514,7 +1517,10 @@ int free_sar_analyzer_obj ( )
     clear_list ( &report_obj );
     clear_list ( &report_cpu_obj );
     for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    {
         clear_list ( &report_cpu_spike_obj [ v ] );
+        clear_list ( &report_cpu_time_span_spike_obj [ v ] );
+    }
     clear_list ( &report_cpu_explanation_obj );
     clear_list ( &report_tasks_obj );
     clear_list ( &report_tasks_spike_obj );
@@ -1605,4 +1611,195 @@ int free_sar_analyzer_obj ( )
         clear_list ( &ps_restart_obj [ v ] );
     }
     return ( 0 );
+}
+
+int check_time_value_is_in_time_span ( const char *time_span_str, const char *time_value )
+{
+    char str_spn [ 12 ];
+    char str_now [ 9 ];
+    memset ( str_spn, '\0', sizeof ( str_spn ) ); 
+    memset ( str_now, '\0', sizeof ( str_now ) ); 
+    strncpy ( str_spn, time_span_str, 11 );
+    strncpy ( str_now, time_value, 8 );
+    int time_span_ok = 1;
+
+    /* for time_span_start */
+    if ( str_spn [ 0 ] != str_now [ 0 ] )
+    {
+        if (
+           ( str_spn [ 0 ] == '1' && str_now [ 0 ] == '0' )
+           ||
+           ( ( str_spn [ 0 ] == '2' ) && ( ( str_now [ 0 ] == '0' ) || ( str_now [ 0 ] == '1' ) ) )
+           )
+               time_span_ok = 0;
+    }
+    else if ( str_spn [ 0 ] == str_now [ 0 ] )
+    {
+        if (
+           (
+               ( str_spn [ 1 ] == '1' && str_now [ 1 ] == '0' )
+               ||
+               ( ( str_spn [ 1 ] == '2' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '3' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '4' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) || ( str_now [ 1 ] == '3' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '5' ) &&
+                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) || ( str_now [ 1 ] == '3' ) || ( str_now [ 1 ] == '4' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '6' ) &&
+                   ( ( str_now [ 1 ] != '6' ) && ( str_now [ 1 ] != '7' ) && ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '7' ) &&
+                   ( ( str_now [ 1 ] != '7' ) && ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
+               ||
+               ( ( str_spn [ 1 ] == '8' ) && ( ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
+               ||
+               ( str_spn [ 1 ] == '9'  && str_now [ 1 ] != '9' )
+        ) )
+            time_span_ok = 0;
+
+        if ( str_spn [ 1 ] == str_now [ 1 ] )
+            if (
+               (
+                   ( str_spn [ 3 ] == '1' && str_now [ 3 ] == '0' )
+                   ||
+                   ( ( str_spn [ 3 ] == '2' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '3' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '4' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) || ( str_now [ 3 ] == '3' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '5' ) &&
+                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) || ( str_now [ 3 ] == '3' ) || ( str_now [ 3 ] == '4' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '6' ) &&
+                       ( ( str_now [ 3 ] != '6' ) && ( str_now [ 3 ] != '7' ) && ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '7' ) &&
+                       ( ( str_now [ 3 ] != '7' ) && ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
+                   ||
+                   ( ( str_spn [ 3 ] == '8' ) && ( ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
+                   ||
+                   ( str_spn [ 3 ] == '9'  && str_now [ 3 ] != '9' )
+            ) )
+                time_span_ok = 0;
+    }
+
+    /* time_span_end */
+    if ( time_span_ok == 1 )
+    {
+        if ( str_spn [ 6 ] != str_now [ 0 ] )
+        {
+            if ( 
+               ( ( str_spn [ 6 ] == '0' ) && ( ( str_now [ 0 ] == '1' ) || ( str_now [ 0 ] == '2' ) ) )
+               ||
+               ( str_spn [ 6 ] == '1' && str_now [ 0 ] == '2' )
+               )
+                   time_span_ok = 0;
+        }
+        else if ( str_spn [ 6 ] == str_now [ 0 ] )
+        {
+            if (
+               (
+                   ( str_spn [ 7 ] == '0' && str_now [ 1 ] != '0' )
+                   ||
+                   ( ( str_spn [ 7 ] == '1' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '2' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '3' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) && ( str_now [ 1 ] != '3' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '4' ) &&
+                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) && ( str_now [ 1 ] != '3' ) && ( str_now [ 1 ] != '4' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '5' ) &&
+                       ( ( str_now [ 1 ] == '6' ) || ( str_now [ 1 ] == '7' ) || ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '6' ) &&
+                       ( ( str_now [ 1 ] == '7' ) || ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '7' ) &&
+                       ( ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
+                   ||
+                   ( ( str_spn [ 7 ] == '8' ) && ( ( str_now [ 1 ] == '9' ) ) )
+            ) )
+                time_span_ok = 0;
+
+            if ( str_spn [ 7 ] == str_now [ 1 ] )
+                if (
+                   (
+                       ( str_spn [ 9 ] == '0' && str_now [ 3 ] != '0' )
+                       ||
+                       ( str_spn [ 9 ] == '1' && 
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '2' ) &&
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '3' ) &&
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) && ( str_now [ 3 ] != '3' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '4' ) &&
+                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) && ( str_now [ 3 ] != '3' ) && ( str_now [ 3 ] != '4' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '5' ) &&
+                           ( ( str_now [ 3 ] == '6' ) || ( str_now [ 3 ] == '7' ) || ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '6' ) &&
+                           ( ( str_now [ 3 ] == '7' ) || ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '7' ) &&
+                           ( ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 9 ] == '8' ) && ( ( str_now [ 3 ] == '9' ) ) )
+                ) )
+                    time_span_ok = 0;
+
+            if ( str_spn [ 9 ] == str_now [ 3 ] )
+                if (
+                   (
+                       ( str_spn [ 10 ] == '0' && str_now [ 4 ] != '0' )
+                       ||
+                       ( str_spn [ 10 ] == '1' && 
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '2' ) &&
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '3' ) &&
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) && ( str_now [ 4 ] != '3' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '4' ) &&
+                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) && ( str_now [ 4 ] != '3' ) && ( str_now [ 4 ] != '4' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '5' ) &&
+                           ( ( str_now [ 4 ] == '6' ) || ( str_now [ 4 ] == '7' ) || ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '6' ) &&
+                           ( ( str_now [ 4 ] == '7' ) || ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '7' ) &&
+                           ( ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
+                       ||
+                       ( ( str_spn [ 10 ] == '8' ) && ( ( str_now [ 4 ] == '9' ) ) )
+                ) )
+                    time_span_ok = 0;
+        }
+    }
+
+    if ( time_span_ok == 1 )
+        return 1;
+
+    return 0;
 }

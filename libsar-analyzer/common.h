@@ -305,6 +305,28 @@ typedef struct
 
 } cpu_date_spike_each_file;
 
+typedef struct
+{
+    char cpu_usr_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_usr_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+    char cpu_usr_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_usr_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+} cpu_date_time_span_spike_each_file;
+
 /*
  *  This is the date type for task creation and system switching activity
  *  when analyzing with -w 
@@ -336,6 +358,20 @@ typedef struct
 
 } task_date_spike_each_file;
 
+typedef struct
+{
+    char proc_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char cswch_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char proc_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char cswch_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char proc_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char cswch_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char proc_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char cswch_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} task_date_time_span_spike_each_file;
+
 /*
  *  This is the date type for swapping statistics 
  *  when analyzing with -W 
@@ -366,6 +402,20 @@ typedef struct
     char pswpout_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } pswap_date_spike_each_file;
+
+typedef struct
+{
+    char pswpin_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpin_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char pswpin_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpin_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} pswap_date_time_span_spike_each_file;
 
 /*
  *  This is the date type for paging staistics
@@ -422,6 +472,32 @@ typedef struct
 
 } paging_date_spike_each_file;
 
+typedef struct
+{
+    char pgpgin_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgin_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char pgpgin_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgin_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} paging_date_time_span_spike_each_file;
+
 /*
  *  This is the date type for I/O and transfer rate staistics
  *  when analyzing with -b 
@@ -460,6 +536,24 @@ typedef struct
     char bwrtn_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } io_transfer_rate_date_spike_each_file;
+
+typedef struct
+{
+    char tps_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char tps_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char tps_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char tps_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} io_transfer_rate_date_time_span_spike_each_file;
 
 /*
  *  This is the date type for memory utilization staistics
@@ -500,6 +594,24 @@ typedef struct
 
 } memory_date_spike_each_file;
 
+typedef struct
+{
+    char memused_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char commit_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char memused_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char commit_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char memused_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char commit_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char memused_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char commit_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} memory_date_time_span_spike_each_file;
+
 /*
  *  This is the date type for activity for swap space utilization statistics
  *  when analyzing with -S 
@@ -521,6 +633,16 @@ typedef struct
     char swpused_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } swap_date_spike_each_file;
+
+typedef struct
+{
+    char swpused_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char swpused_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char swpused_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char swpused_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} swap_date_time_span_spike_each_file;
 
 /*
  *  This is the date type for status of inode, file and other kernel tables 
@@ -560,6 +682,24 @@ typedef struct
     char inode_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } kernel_table_date_spike_each_file;
+
+typedef struct
+{
+    char dentunusd_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char dentunusd_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char dentunusd_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_tims_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char dentunusd_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} kernel_table_date_time_span_spike_each_file;
 
 /*
  *  This is the date type for queue length and load averages 
@@ -616,6 +756,32 @@ typedef struct
 
 } ldavg_date_spike_each_file;
 
+typedef struct
+{
+    char runq_sz_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char runq_sz_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char runq_sz_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char runq_sz_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+} ldavg_date_time_span_spike_each_file;
+
 /*
  *  This is the date type for activity for each block device staistics
  *  when analyzing with -d 
@@ -646,6 +812,20 @@ typedef struct
     char util_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
 } block_device_date_spike_each_file;
+
+typedef struct
+{
+    char areqsz_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char areqsz_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+    char areqsz_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char areqsz_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+} block_device_date_time_span_spike_each_file;
 
 /*
  *  This is the date type for network statistics 
@@ -743,6 +923,44 @@ typedef struct
 
 } network_date_spike_each_file;
 
+typedef struct
+{
+    char rxpck_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_time_span_spike_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxpck_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_time_span_spike_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+    char rxpck_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxpck_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+} network_date_time_span_spike_each_file;
+
 /*  -------------------- end Date Structures Types-------------------- */
 
 /*  -------------------- Data Structures Types-------------------- */
@@ -783,6 +1001,25 @@ typedef struct
 
 } cpu_data_spike_each_file;
 
+typedef struct
+{
+    double cpu_usr_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_sys_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_iowait_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_idle_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+
+    double cpu_usr_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_sys_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_iowait_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_idle_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+
+    double cpu_usr_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_sys_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_iowait_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_idle_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+
+} cpu_data_time_span_spike_each_file;
+
 /*
  *  This is the data type for task creation and system switching activity
  *  when analyzing with -w 
@@ -809,6 +1046,19 @@ typedef struct
 
 } task_data_spike_each_file;
 
+typedef struct
+{
+    double proc_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double cswch_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double proc_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double cswch_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double proc_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double cswch_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} task_data_time_span_spike_each_file;
+
 /*
  *  This is the data type for activity for swapping statistics 
  *  when analyzing with -W 
@@ -834,6 +1084,19 @@ typedef struct
     double pswpout_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } pswap_data_spike_each_file;
+
+typedef struct
+{
+    double pswpin_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pswpout_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double pswpin_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pswpout_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double pswpin_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pswpout_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} pswap_data_time_span_spike_each_file;
 
 /*
  *  This is the data type for paging staistics
@@ -876,6 +1139,28 @@ typedef struct
 
 } paging_data_spike_each_file;
 
+typedef struct
+{
+    double pgpgin_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pgpgout_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double fault_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double majflt_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double vmeff_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double pgpgin_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pgpgout_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double fault_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double majflt_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double vmeff_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double pgpgin_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pgpgout_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double fault_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double majflt_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double vmeff_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} paging_data_time_span_spike_each_file;
+
 /*
  *  This is the data type for I/O and transfer rate staistics
  *  when analyzing with -b 
@@ -906,6 +1191,22 @@ typedef struct
     double bwrtn_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } io_transfer_rate_data_spike_each_file;
+
+typedef struct
+{
+    double tps_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bread_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bwrtn_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double tps_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bread_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bwrtn_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double tps_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bread_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bwrtn_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} io_transfer_rate_data_time_span_spike_each_file;
 
 /*
  *  This is the data type for memory staistics
@@ -938,6 +1239,22 @@ typedef struct
 
 } memory_data_spike_each_file;
 
+typedef struct
+{
+    double memused_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int kbcommit_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double commit_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double memused_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int kbcommit_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double commit_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double memused_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int kbcommit_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double commit_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} memory_data_time_span_spike_each_file;
+
 /*
  *  This is the data type for activity for swap space utilization statistics
  *  when analyzing with -S 
@@ -958,6 +1275,16 @@ typedef struct
     double swpused_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } swap_data_spike_each_file;
+
+typedef struct
+{
+    double swpused_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double swpused_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double swpused_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} swap_data_time_span_spike_each_file;
 
 /*
  *  This is the data type for status of inode, file and other kernel tables 
@@ -989,6 +1316,22 @@ typedef struct
     int inode_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } kernel_table_data_spike_each_file;
+
+typedef struct
+{
+    int dentunusd_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int file_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int inode_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    int dentunusd_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int file_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int inode_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    int dentunusd_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int file_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int inode_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} kernel_table_data_time_span_spike_each_file;
 
 /*
  *  This is the data type for queue length and load averages 
@@ -1031,6 +1374,28 @@ typedef struct
 
 } ldavg_data_spike_each_file;
 
+typedef struct
+{
+    double runq_sz_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double plist_sz_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_one_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_five_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_15_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double runq_sz_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double plist_sz_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_one_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_five_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_15_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double runq_sz_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double plist_sz_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_one_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_five_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_15_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+} ldavg_data_time_span_spike_each_file;
+
 /*
  *  This is the data type for activity for each block device staistics
  *  when analyzing with -d 
@@ -1056,6 +1421,19 @@ typedef struct
     double util_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
 
 } block_device_data_spike_each_file;
+
+typedef struct
+{
+    double areqsz_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+    double util_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+
+    double areqsz_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+    double util_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+
+    double areqsz_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+    double util_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+
+} block_device_data_time_span_spike_each_file;
 
 /*
  *  This is the date type for network statistics 
@@ -1121,6 +1499,37 @@ typedef struct
     double txdrop_down_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
 
 } network_data_spike_each_file;
+
+typedef struct
+{
+    double rxpck_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txpck_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxkb_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txkb_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxerr_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txerr_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxdrop_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txdrop_time_span_spike_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+
+    double rxpck_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txpck_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxkb_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txkb_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxerr_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txerr_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxdrop_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txdrop_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+
+    double rxpck_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txpck_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxkb_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txkb_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxerr_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txerr_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxdrop_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txdrop_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+
+} network_data_time_span_spike_each_file;
 
 /*  -------------------- end Data Structures Types-------------------- */
 
@@ -1417,7 +1826,7 @@ struct sar_analyzer_data_all
     double tmp3_val;
 };
 
-/* This is the sar_analyzer_peak_each_file object*/
+/* This is the sar_analyzer_spike_each_file object*/
 struct sar_analyzer_data_spike_each_file
 {
     /* struct of cpu_data */
@@ -1467,6 +1876,56 @@ struct sar_analyzer_data_spike_each_file
     network_date_spike_each_file date_networks_spike_each_file;
 };
 
+/* This is the sar_analyzer_time_span_spike_each_file object*/
+struct sar_analyzer_data_time_span_spike_each_file
+{
+    /* struct of cpu_data */
+    cpu_data_time_span_spike_each_file cpus_time_span_spike_each_file;
+    /* struct of task_data */
+    task_data_time_span_spike_each_file tasks_time_span_spike_each_file;
+    /* struct of pswap_data */
+    pswap_data_time_span_spike_each_file pswaps_time_span_spike_each_file;
+    /* struct of paging_data */
+    paging_data_time_span_spike_each_file pagings_time_span_spike_each_file;
+    /* struct of io_transfer_rate_data */
+    io_transfer_rate_data_time_span_spike_each_file io_transfer_rates_time_span_spike_each_file;
+    /* struct of memory_data */
+    memory_data_time_span_spike_each_file memories_time_span_spike_each_file;
+    /* struct of swap_data */
+    swap_data_time_span_spike_each_file swaps_time_span_spike_each_file;
+    /* struct of kernel_table_data */
+    kernel_table_data_time_span_spike_each_file kernel_tables_time_span_spike_each_file;
+    /* struct of ldavg_data */
+    ldavg_data_time_span_spike_each_file ldavgs_time_span_spike_each_file;
+    /* struct of block_device_data */
+    block_device_data_time_span_spike_each_file block_devices_time_span_spike_each_file;
+    /* struct of network_data */
+    network_data_time_span_spike_each_file networks_time_span_spike_each_file;
+
+    /* struct of cpu_date */
+    cpu_date_time_span_spike_each_file date_cpus_time_span_spike_each_file;
+    /* struct of task_date */
+    task_date_time_span_spike_each_file date_tasks_time_span_spike_each_file;
+    /* struct of pswap_date */
+    pswap_date_time_span_spike_each_file date_pswaps_time_span_spike_each_file;
+    /* struct of paging_date */
+    paging_date_time_span_spike_each_file date_pagings_time_span_spike_each_file;
+    /* struct of io_transfer_rate_date */
+    io_transfer_rate_date_time_span_spike_each_file date_io_transfer_rates_time_span_spike_each_file;
+    /* struct of memory_date */
+    memory_date_time_span_spike_each_file date_memories_time_span_spike_each_file;
+    /* struct of swap_date */
+    swap_date_time_span_spike_each_file date_swaps_time_span_spike_each_file;
+    /* struct of kernel_table_date */
+    kernel_table_date_time_span_spike_each_file date_kernel_tables_time_span_spike_each_file;
+    /* struct of ldavg_date */
+    ldavg_date_time_span_spike_each_file date_ldavgs_time_span_spike_each_file;
+    /* struct of block_device_date */
+    block_device_date_time_span_spike_each_file date_block_devices_time_span_spike_each_file;
+    /* struct of network_date */
+    network_date_time_span_spike_each_file date_networks_time_span_spike_each_file;
+};
+
 /*  -------------------- end Live Structures -------------------- */
 
 /* 
@@ -1476,12 +1935,14 @@ struct sar_analyzer_data_spike_each_file
 extern struct sar_analyzer_data *sar_analyzer_obj;
 extern struct sar_analyzer_data_all *sar_analyzer_all_obj;
 extern struct sar_analyzer_data_spike_each_file *sar_analyzer_spike_obj;
+extern struct sar_analyzer_data_time_span_spike_each_file *sar_analyzer_time_span_spike_obj;
 extern struct line_data *header_obj;
 extern struct line_data *line_obj;
 extern struct line_data *line_all_obj;
 extern struct line_data *report_obj;
 extern struct line_data *report_cpu_obj;
 extern struct line_data *report_cpu_spike_obj [ MAX_CORE_NUMBERS ];
+extern struct line_data *report_cpu_time_span_spike_obj [ MAX_CORE_NUMBERS ];
 extern struct line_data *report_cpu_explanation_obj;
 extern struct line_data *report_tasks_obj;
 extern struct line_data *report_tasks_spike_obj;
@@ -1754,7 +2215,7 @@ int check_result_dir ( const char *dname );
  *  Calls : prepareing... (when -i is set)
  *
  */
-void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY );
+void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /* 
  * Function Name: create_sar_analyzer_obj ()
@@ -1822,7 +2283,7 @@ void set_files_n ( int var );
  *  Calls : read_write_file ()
  *
  */
-void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY );
+void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /* 
  *  Function Name: read_sar ()
@@ -1835,7 +2296,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
  *  Calls : get_word_line ()
  *
  */
-void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY );
+void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /*
  *  Function Name: read_write_file ()
@@ -1850,7 +2311,7 @@ void read_sar ( int file_number, const char *fname, int SAR_OPTION, int REPORT, 
  *  Calls: make_report ()
  *
  */
-void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, int SAR_OPOTION, int REPORT, int MESSAGE_ONLY );
+void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, int SAR_OPOTION, int REPORT, int MESSAGE_ONLY, const char *time_span );
 
 /*
  *  Function Name: make_report ()
@@ -1863,7 +2324,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_files[], int n, in
  *  Calls : many
  *
  */
-int make_report ( int SAR_OPTION, int REPORT, int files_n );
+int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span );
 
 /* 
  *  Function Name : get_word_line ()
@@ -1881,7 +2342,7 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n );
  *  Calls : set_token_items ()
  *
  */
-int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY );
+int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY, const char *time_span );
 
 /* 
  * Function Name: read_sar_check ()
@@ -2069,6 +2530,17 @@ void draw_graph_to_ps ( const char *item, const char *element, int file_number, 
  *
  */
 double check_time_value ( double initial_val, double horizontal_notch, int count, char *time_value ); 
+
+/*
+ * Function Name: check_time_value_is_in_time_span ()
+ *
+ * This function returns 1 if time_value is in between the time_span given and if not return 0.  
+ *
+ *  Caller : set_token_items ()
+ *
+ *  Calls : none 
+ */
+int check_time_value_is_in_time_span ( const char *time_span_str, const char *time_value );
 
 void write_restart_str_to_ps ( int file_number, char *line );
 

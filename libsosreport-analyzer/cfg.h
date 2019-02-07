@@ -30,8 +30,7 @@
 #define TOKEN_DELIM "="
 
 /*
- *  These are the data which should be analyzed
- *  'all' means every thing on it.
+ *  The members which should be analyzed.
  */
 struct sosreport_analyzer_config
 {

@@ -1,6 +1,6 @@
 diff -ruNp a/common.c b/common.c
---- a/common.c	2019-01-29 04:36:36.201397338 +0900
-+++ b/common.c	2019-01-29 04:32:36.619837590 +0900
+--- a/common.c	2019-02-08 07:14:47.153233928 +0900
++++ b/common.c	2019-02-08 07:09:35.921003700 +0900
 @@ -391,7 +391,7 @@ void read_sar_cpu_as_paragraph ( const c
          for ( i--; ( i > 0 ) && isspace ( line [ i -1 ] ) ; i-- )
              line [ i -1 ] = '\0';
@@ -122,8 +122,8 @@ diff -ruNp a/common.c b/common.c
          squeezd_avg_checked_int = 1;
          squeezd_avg_checked = "Checked";
 diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
---- a/sar_analyzer.c	2019-01-29 04:52:01.293251174 +0900
-+++ b/sar_analyzer.c	2019-01-29 04:39:15.656442105 +0900
+--- a/sar_analyzer.c	2019-02-08 07:30:43.334476872 +0900
++++ b/sar_analyzer.c	2019-02-08 07:10:04.911466263 +0900
 @@ -266,7 +266,7 @@ int set_token_column ( int file_number,
          /* if AM or PM will appear, column number should be decremented, unless, segfault in set_column_item() */
          if ( SAR_OPTION != 'Z' )
@@ -133,7 +133,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  i--;
          }
          /* this item name is set by get_word_line() */
-@@ -746,12 +746,13 @@ int set_token_items ( int file_number, c
+@@ -783,12 +783,13 @@ int set_token_items ( int file_number, c
                      /* code for postscript file utility 0 means, CPU all */
                      if ( utility == 0 )
                      {
@@ -153,7 +153,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                          {
                              horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_usr [ file_number ] );
                              vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
-@@ -847,12 +848,13 @@ int set_token_items ( int file_number, c
+@@ -903,12 +904,13 @@ int set_token_items ( int file_number, c
                      /* code for postscript file utility 0 means, CPU all */
                      if ( utility == 0 )
                      {
@@ -173,7 +173,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                          {
                              horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_sys [ file_number ] );
                              vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
-@@ -933,12 +935,13 @@ int set_token_items ( int file_number, c
+@@ -1008,12 +1010,13 @@ int set_token_items ( int file_number, c
                      /* code for postscript file utility 0 means, CPU all */
                      if ( utility == 0 )
                      {
@@ -193,7 +193,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                          {
                              horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_iowait [ file_number ] );
                              vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
-@@ -1019,12 +1022,13 @@ int set_token_items ( int file_number, c
+@@ -1113,12 +1116,13 @@ int set_token_items ( int file_number, c
                      /* code for postscript file utility 0 means, CPU all */
                      if ( utility == 0 )
                      {
@@ -213,7 +213,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                          {
                              horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_idle [ file_number ] );
                              vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
-@@ -1121,12 +1125,13 @@ int set_token_items ( int file_number, c
+@@ -1215,12 +1219,13 @@ int set_token_items ( int file_number, c
                          set_tasks_lowest_date ( this_date_all, "proc" );
                          set_tasks_lowest_time ( time_value, "proc" );
                      }
@@ -233,7 +233,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_tasks_proc [ file_number ] );
-@@ -1217,12 +1222,13 @@ int set_token_items ( int file_number, c
+@@ -1311,12 +1316,13 @@ int set_token_items ( int file_number, c
                          set_tasks_lowest_date ( this_date_all, "cswch" );
                          set_tasks_lowest_time ( time_value, "cswch" );
                      }
@@ -253,7 +253,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_tasks_cswch [ file_number ] );
-@@ -1319,12 +1325,13 @@ int set_token_items ( int file_number, c
+@@ -1413,12 +1419,13 @@ int set_token_items ( int file_number, c
                          set_pswap_lowest_date ( this_date_all, "pswpin" );
                          set_pswap_lowest_time ( time_value, "pswpin" );
                      }
@@ -273,7 +273,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_swapping_pswpin [ file_number ] );
-@@ -1415,12 +1422,13 @@ int set_token_items ( int file_number, c
+@@ -1509,12 +1516,13 @@ int set_token_items ( int file_number, c
                          set_pswap_lowest_date ( this_date_all, "pswpout" );
                          set_pswap_lowest_time ( time_value, "pswpout" );
                      }
@@ -293,7 +293,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_swapping_pswpout [ file_number ] );
-@@ -1538,12 +1546,13 @@ int set_token_items ( int file_number, c
+@@ -1632,12 +1640,13 @@ int set_token_items ( int file_number, c
                          set_paging_lowest_date ( this_date_all, "pgpgin" );
                          set_paging_lowest_time ( time_value, "pgpgin" );
                      }
@@ -313,7 +313,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_pgpgin [ file_number ] );
-@@ -1634,12 +1643,13 @@ int set_token_items ( int file_number, c
+@@ -1728,12 +1737,13 @@ int set_token_items ( int file_number, c
                          set_paging_lowest_date ( this_date_all, "pgpgout" );
                          set_paging_lowest_time ( time_value, "pgpgout" );
                      }
@@ -333,7 +333,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_pgpgout [ file_number ] );
-@@ -1718,12 +1728,13 @@ int set_token_items ( int file_number, c
+@@ -1812,12 +1822,13 @@ int set_token_items ( int file_number, c
                          set_paging_lowest_date ( this_date_all, "fault" );
                          set_paging_lowest_time ( time_value, "fault" );
                      }
@@ -353,7 +353,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_fault [ file_number ] );
-@@ -1801,12 +1812,13 @@ int set_token_items ( int file_number, c
+@@ -1895,12 +1906,13 @@ int set_token_items ( int file_number, c
                          set_paging_lowest_date ( this_date_all, "majflt" );
                          set_paging_lowest_time ( time_value, "majflt" );
                      }
@@ -373,7 +373,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_mjflt [ file_number ] );
-@@ -1884,12 +1896,13 @@ int set_token_items ( int file_number, c
+@@ -1978,12 +1990,13 @@ int set_token_items ( int file_number, c
                          set_paging_lowest_date ( this_date_all, "vmeff" );
                          set_paging_lowest_time ( time_value, "vmeff" );
                      }
@@ -393,7 +393,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_vmeff [ file_number ] );
-@@ -1994,12 +2007,13 @@ int set_token_items ( int file_number, c
+@@ -2088,12 +2101,13 @@ int set_token_items ( int file_number, c
                          set_io_transfer_rate_lowest_date ( this_date_all, "tps" );
                          set_io_transfer_rate_lowest_time ( time_value, "tps" );
                      }
@@ -413,7 +413,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_io_transfer_rate_tps [ file_number ] );
-@@ -2090,12 +2104,13 @@ int set_token_items ( int file_number, c
+@@ -2184,12 +2198,13 @@ int set_token_items ( int file_number, c
                          set_io_transfer_rate_lowest_date ( this_date_all, "bread" );
                          set_io_transfer_rate_lowest_time ( time_value, "bread" );
                      }
@@ -433,7 +433,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_io_transfer_rate_bread [ file_number ] );
-@@ -2173,12 +2188,13 @@ int set_token_items ( int file_number, c
+@@ -2267,12 +2282,13 @@ int set_token_items ( int file_number, c
                          set_io_transfer_rate_lowest_date ( this_date_all, "bwrtn" );
                          set_io_transfer_rate_lowest_time ( time_value, "bwrtn" );
                      }
@@ -453,7 +453,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_io_transfer_rate_bwrtn [ file_number ] );
-@@ -2283,12 +2299,13 @@ int set_token_items ( int file_number, c
+@@ -2377,12 +2393,13 @@ int set_token_items ( int file_number, c
                          set_memory_lowest_date ( this_date_all, "memused" );
                          set_memory_lowest_time ( time_value, "memused" );
                      }
@@ -473,7 +473,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_memory_memused [ file_number ] );
-@@ -2379,12 +2396,13 @@ int set_token_items ( int file_number, c
+@@ -2473,12 +2490,13 @@ int set_token_items ( int file_number, c
                          set_memory_lowest_date ( this_date_all, "kbcommit" );
                          set_memory_lowest_time ( time_value, "kbcommit" );
                      }
@@ -493,7 +493,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_memory_kbcommit [ file_number ] );
-@@ -2462,12 +2480,13 @@ int set_token_items ( int file_number, c
+@@ -2556,12 +2574,13 @@ int set_token_items ( int file_number, c
                          set_memory_lowest_date ( this_date_all, "commit" );
                          set_memory_lowest_time ( time_value, "commit" );
                      }
@@ -513,7 +513,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_memory_commit [ file_number ] );
-@@ -2647,12 +2666,13 @@ int set_token_items ( int file_number, c
+@@ -2741,12 +2760,13 @@ int set_token_items ( int file_number, c
                          set_kernel_table_lowest_date ( this_date_all, "dentunusd" );
                          set_kernel_table_lowest_time ( time_value, "dentunusd" );
                      }
@@ -533,7 +533,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_kernel_table_dentunusd [ file_number ] );
-@@ -2743,12 +2763,13 @@ int set_token_items ( int file_number, c
+@@ -2837,12 +2857,13 @@ int set_token_items ( int file_number, c
                          set_kernel_table_lowest_date ( this_date_all, "file" );
                          set_kernel_table_lowest_time ( time_value, "file" );
                      }
@@ -553,7 +553,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_kernel_table_file [ file_number ] );
-@@ -2826,12 +2847,13 @@ int set_token_items ( int file_number, c
+@@ -2920,12 +2941,13 @@ int set_token_items ( int file_number, c
                          set_kernel_table_lowest_date ( this_date_all, "inode" );
                          set_kernel_table_lowest_time ( time_value, "inode" );
                      }
@@ -573,7 +573,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_kernel_table_inode [ file_number ] );
-@@ -2951,12 +2973,13 @@ int set_token_items ( int file_number, c
+@@ -3045,12 +3067,13 @@ int set_token_items ( int file_number, c
                          set_ldavg_lowest_date ( this_date_all, "runq_sz" );
                          set_ldavg_lowest_time ( time_value, "runq_sz" );
                      }
@@ -593,7 +593,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_runq [ file_number ] );
-@@ -3048,12 +3071,13 @@ int set_token_items ( int file_number, c
+@@ -3142,12 +3165,13 @@ int set_token_items ( int file_number, c
                          set_ldavg_lowest_date ( this_date_all, "plist_sz" );
                          set_ldavg_lowest_time ( time_value, "plist_az" );
                      }
@@ -613,7 +613,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_plist [ file_number ] );
-@@ -3132,12 +3156,13 @@ int set_token_items ( int file_number, c
+@@ -3226,12 +3250,13 @@ int set_token_items ( int file_number, c
                          set_ldavg_lowest_date ( this_date_all, "ldavg_one" );
                          set_ldavg_lowest_time ( time_value, "ldavg_one" );
                      }
@@ -633,7 +633,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_ldavg_one [ file_number ] );
-@@ -3215,12 +3240,13 @@ int set_token_items ( int file_number, c
+@@ -3309,12 +3334,13 @@ int set_token_items ( int file_number, c
                          set_ldavg_lowest_date( this_date_all, "ldavg_five" );
                          set_ldavg_lowest_time( time_value, "ldavg_five" );
                      }
@@ -653,7 +653,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_ldavg_five [ file_number ] );
-@@ -3298,12 +3324,13 @@ int set_token_items ( int file_number, c
+@@ -3392,12 +3418,13 @@ int set_token_items ( int file_number, c
                          set_ldavg_lowest_date ( this_date_all, "ldavg_15" );
                          set_ldavg_lowest_time ( time_value, "ldavg_15" );
                      }
@@ -673,7 +673,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                      {
                          /* code for postscript file */
                          horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_ldavg_15 [ file_number ] );
-@@ -4757,7 +4784,7 @@ int get_word_line ( int file_number, cha
+@@ -4851,7 +4878,7 @@ int get_word_line ( int file_number, cha
              initialize_check_int ( );
          }
          /* first, we are setting column number of interests */
@@ -682,7 +682,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
          {
              if ( MESSAGE_ONLY == 0 )
                  append_list ( &line_all_obj, str_tmp );
-@@ -4839,7 +4866,7 @@ int get_word_line ( int file_number, cha
+@@ -4933,7 +4960,7 @@ int get_word_line ( int file_number, cha
              set_token_column ( file_number, *line, "runq", 0, SAR_OPTION );
              CHK_Z = _LDAVG; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
          }
@@ -691,7 +691,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
          {
              if ( MESSAGE_ONLY == 0 )
                  append_list ( &line_all_obj, str_tmp );
-@@ -4848,7 +4875,7 @@ int get_word_line ( int file_number, cha
+@@ -4942,7 +4969,7 @@ int get_word_line ( int file_number, cha
              set_token_column ( file_number, *line, "DEV", 0, SAR_OPTION );
              CHK_Z = _BLOCK_DEVICE; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
          }
@@ -700,7 +700,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
          {
              if ( MESSAGE_ONLY == 0 )
                  append_list ( &line_all_obj, str_tmp );
-@@ -4857,7 +4884,7 @@ int get_word_line ( int file_number, cha
+@@ -4951,7 +4978,7 @@ int get_word_line ( int file_number, cha
              set_token_column ( file_number, *line, "rxpck", 0, SAR_OPTION );
              CHK_Z = _NETWORK; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
          }
@@ -709,7 +709,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
          {
              if ( MESSAGE_ONLY == 0 )
                  append_list ( &line_all_obj, str_tmp );
-@@ -4894,7 +4921,7 @@ int get_word_line ( int file_number, cha
+@@ -4988,7 +5015,7 @@ int get_word_line ( int file_number, cha
                  }
                  CHECK_CPU_EACH++;
              }
@@ -718,7 +718,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
              {
                  CHK_Z &= ~ ( 1 << 0 );  /* this means, skip this clause on next loop */
                  CHK_CORES_N = 0;
-@@ -4915,7 +4942,7 @@ int get_word_line ( int file_number, cha
+@@ -5009,7 +5036,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _TASKS )
          {
@@ -727,7 +727,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 1 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4927,7 +4954,7 @@ int get_word_line ( int file_number, cha
+@@ -5021,7 +5048,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _PSWAP )
          {
@@ -736,7 +736,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 2 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4939,7 +4966,7 @@ int get_word_line ( int file_number, cha
+@@ -5033,7 +5060,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _PAGING )
          {
@@ -745,7 +745,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 3 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4951,7 +4978,7 @@ int get_word_line ( int file_number, cha
+@@ -5045,7 +5072,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _IO_TRANSFER_RATE )
          {
@@ -754,7 +754,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 4 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4963,7 +4990,7 @@ int get_word_line ( int file_number, cha
+@@ -5057,7 +5084,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _MEMORY )
          {
@@ -763,7 +763,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 5 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4975,7 +5002,7 @@ int get_word_line ( int file_number, cha
+@@ -5069,7 +5096,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _SWPUSED )
          {
@@ -772,7 +772,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 6 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4987,7 +5014,7 @@ int get_word_line ( int file_number, cha
+@@ -5081,7 +5108,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _KERNEL_TABLE )
          {
@@ -781,7 +781,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 7 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -4999,7 +5026,7 @@ int get_word_line ( int file_number, cha
+@@ -5093,7 +5120,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _LDAVG )
          {
@@ -790,7 +790,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 8 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -5014,7 +5041,7 @@ int get_word_line ( int file_number, cha
+@@ -5108,7 +5135,7 @@ int get_word_line ( int file_number, cha
           */ 
          else if ( CHK_Z == _BLOCK_DEVICE )
          {
@@ -799,7 +799,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 9 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -5029,7 +5056,7 @@ int get_word_line ( int file_number, cha
+@@ -5123,7 +5150,7 @@ int get_word_line ( int file_number, cha
           */ 
          else if ( CHK_Z == _NETWORK )
          {
@@ -808,7 +808,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 10 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -5041,7 +5068,7 @@ int get_word_line ( int file_number, cha
+@@ -5135,7 +5162,7 @@ int get_word_line ( int file_number, cha
          }
          else if ( CHK_Z == _NETWORK_ERROR )
          {
@@ -817,7 +817,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
                  CHK_Z &= ~ ( 1 << 11 );  /* this means, skip this clause on next loop */
              else
              {
-@@ -5066,7 +5093,8 @@ int get_word_line ( int file_number, cha
+@@ -5160,7 +5187,8 @@ int get_word_line ( int file_number, cha
              && strstr ( *line, "rcvin/s" ) == 0 && strstr ( *line, "cswch/s" ) == 0 
              && strstr ( *line, "frmpg/s" ) == 0 && strstr ( *line, "call/s" ) == 0 
              && strstr ( *line, "scall/s" ) == 0 && strstr ( *line, "totsck" ) == 0 
@@ -827,7 +827,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
          {
              /* no match */
              return ( 0 );
-@@ -5422,7 +5450,7 @@ int get_word_line ( int file_number, cha
+@@ -5516,7 +5544,7 @@ int get_word_line ( int file_number, cha
               * cpu and sets core number every time. core number is incremented, so, lately, core number could be known (including all line)  
               * stop calling this clause if reached up to MAX_CORE_NUMBERS, anyway, it will no be called very soon   
               */
@@ -835,8 +835,8 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
 +            if ( ( ( strstr ( *line, "Average" ) ) || ( strstr ( *line, "平均値" ) ) ) &&  !strstr ( *line, "CPU" ) && ( SHOW_AVG == 2 ) && ( CHK_CORES_N <= MAX_CORE_NUMBERS ) )
              {
                  append_list ( &line_obj, str_tmp );
-                 set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION ); /* setting each cpu values to the object */
-@@ -5434,7 +5462,7 @@ int get_word_line ( int file_number, cha
+                 set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span ); /* setting each cpu values to the object */
+@@ -5528,7 +5556,7 @@ int get_word_line ( int file_number, cha
              /* for devices (DEV) setting values to arrays
               * just because not knowing which block device will appear every time this clause is called, setting each name to the object for future use 
               */ 
@@ -845,7 +845,7 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
              {
                  if ( strstr ( *line, "dev") != 0 )
                  {
-@@ -5445,12 +5473,12 @@ int get_word_line ( int file_number, cha
+@@ -5539,12 +5567,12 @@ int get_word_line ( int file_number, cha
              /* for devices (NET rxpck/s) setting values to arrays
               * just because not knowing which network device will appear every time this clause is called, setting each name to the object for future use 
               */ 
@@ -853,14 +853,14 @@ diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
 +            else if ( ( ( strstr ( *line, "Average" ) ) || ( strstr ( *line, "平均値" ) ) ) &&  !strstr ( *line, "rxpck" ) && ( SHOW_AVG == 4 ) )
              {
                  append_list ( &line_obj, str_tmp );
-                 set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION );
+                 set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span );
              }
 -            else if ( strstr ( *line, "Average" )  &&  !strstr ( *line, "rxerr" ) && ( SHOW_AVG == 5 ) )
 +            else if ( ( ( strstr ( *line, "Average" ) ) || ( strstr ( *line, "平均値" ) ) ) &&  !strstr ( *line, "rxerr" ) && ( SHOW_AVG == 5 ) )
              {
                  append_list ( &line_obj, str_tmp );
-                 set_token_items ( file_number, line, "rxerr" , -999, SAR_OPTION );
-@@ -5459,7 +5487,7 @@ int get_word_line ( int file_number, cha
+                 set_token_items ( file_number, line, "rxerr" , -999, SAR_OPTION, time_span );
+@@ -5553,7 +5581,7 @@ int get_word_line ( int file_number, cha
              /* Call set_token_items() here
               * this clause is for others which only have one line to be analyzed 
               */

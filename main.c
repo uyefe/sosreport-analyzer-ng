@@ -362,15 +362,11 @@ int main ( int argc, char *argv [ ] )
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
 
     if ( sar_only == 1 )
-    {
         snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s", ( char * ) dir_name ); 
-    }
     else if ( sar_only == 0 )
-    {
         snprintf ( str_tmp, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", ( char * ) get_dirname ( str_tmp3 ) ); 
-    }
 
-    sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY );
+    sar_analyzer_init ( str_tmp, file_name, SAR_OPTION, REPORT, MESSAGE_ONLY, time_span );
 
     char str_num [ MAX_FILE_NAME_LENGTH + 1 ] = { '\0' };
     char str_tmp_sar [ 10 ] = "dir_name:";
@@ -409,7 +405,10 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &header_obj, fp_sar_w );
     file_write_list ( &report_cpu_obj, fp_sar_w );
     for ( int v = 0; v <= get_core_numbers ( ); v++ )
+    {
         file_write_list ( &report_cpu_spike_obj [ v ], fp_sar_w );
+        file_write_list ( &report_cpu_time_span_spike_obj [ v ], fp_sar_w );
+    }
     file_write_list ( &report_cpu_explanation_obj, fp_sar_w );
     file_write_list ( &report_tasks_obj, fp_sar_w );
     file_write_list ( &report_tasks_spike_obj, fp_sar_w );
