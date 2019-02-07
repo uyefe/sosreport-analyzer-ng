@@ -569,7 +569,7 @@ double check_time_value ( double initial_val, double horizontal_notch, int count
     return ( initial_val + horizontal_notch * z );
 }
 
-int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION )
+int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION, const char *time_span )
 {
     char this_date_all [ MAX_DATE_STRINGS ];
     memset ( this_date_all, '\0', MAX_DATE_STRINGS ); 
@@ -589,11 +589,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     double h0 = 0, h1 = 0, h2 = 0, h3 = 0, h4 = 0, l0 = 0, l1 = 0, l2 = 0, l3 = 0, l4 = 0; /* highest value, lowest value for Z option */
     double s0 = 0, s1 = 0, s2 = 0, s3 = 0, s4 = 0, f0 = 0, f1 = 0, f2 = 0, f3 = 0, f4 = 0; /* spike value, former value for Z option */
     double ss0 = 0, ss1 = 0, ss2 = 0, ss3 = 0, ss4 = 0, ff0 = 0, ff1 = 0, ff2 = 0, ff3 = 0, ff4 = 0, hh0 = 0, hh1 = 0, hh2 = 0, hh3 = 0, hh4 = 0; /* spike each file value for Z option */
+    double t_ss0 = 0, t_ss1 = 0, t_ss2 = 0, t_ss3 = 0, t_ff0 = 0, t_ff1 = 0, t_ff2 = 0, t_ff3 = 0, t_hh0 = 0, t_hh1 = 0, t_hh2 = 0, t_hh3 = 0; /* time-span spike each file value for Z option */
+    int time_span_checked = 0;
 
     /* get the first token */
     token = strtok ( *line, s );
     /* this should be the first token, which is time value, so, copying time value to variable for future use */
     strncpy ( time_value, token, 19 );
+    /*printf("time_value:%s\n",time_value);*/
+    /*printf("time_span:%s\n",time_span);*/
+    time_span_checked = check_time_value_is_in_time_span (time_span,time_value );
+    /*printf("time_span_checked:%d\n",time_span_checked);*/
     i++;
     /* walk throuth other tokens */
     while ( token != NULL )
@@ -693,6 +699,18 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh1 = get_cpu_spike_val_each_file ( file_number, utility, "sys", "highest" );
             hh2 = get_cpu_spike_val_each_file ( file_number, utility, "iowait", "highest" );
             hh3 = get_cpu_spike_val_each_file ( file_number, utility, "sys", "highest" );
+            t_ss0 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "usr", "spike" );
+            t_ss1 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "spike" );
+            t_ss2 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "iowait", "spike" );
+            t_ss3 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "idle", "spike" );
+            t_ff0 = get_cpu_time_span_former_val_each_file ( file_number, utility, "usr" );
+            t_ff1 = get_cpu_time_span_former_val_each_file ( file_number, utility, "sys" );
+            t_ff2 = get_cpu_time_span_former_val_each_file ( file_number, utility, "iowait" );
+            t_ff3 = get_cpu_time_span_former_val_each_file ( file_number, utility, "sys" );
+            t_hh0 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "usr", "highest" );
+            t_hh1 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "highest" );
+            t_hh2 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "iowait", "highest" );
+            t_hh3 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "highest" );
 
             /* CPU All and %usr, set the value to struct, us intends 'usr' or 'user'
              * utility is used for core number here 
@@ -724,6 +742,15 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
                     }
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( ( t2 > t_ss0 ) && ( t_ff0 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "usr", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
+                        }
+                    }
                     if ( t  > hh0 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
@@ -731,6 +758,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "usr" );
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( t  > t_hh0 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "usr" );
+                    }
                     if ( h0 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "usr" );
@@ -825,6 +862,15 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
                     }
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( ( t2 > t_ss1 ) && ( t_ff1 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "sys", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
+                        }
+                    }
                     if ( t  > hh1 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
@@ -832,6 +878,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "sys" );
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( t  > t_hh1 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "sys" );
+                    }
                     if ( h1 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "sys" );
@@ -911,6 +967,15 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
                     }
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( ( t2 > t_ss2 ) && ( t_ff2 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "iowait", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
+                        }
+                    }
                     if ( t  > hh2 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
@@ -918,6 +983,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "iowait" );
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( t  > t_hh2 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "iowait" );
+                    }
                     if ( h2 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "iowait" );
@@ -997,6 +1072,15 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
                     }
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( ( t2 > t_ss3 ) && ( t_ff3 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "idle", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
+                        }
+                    }
                     if ( t  > hh3 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
@@ -1004,6 +1088,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
                     }
                     set_cpu_former_val_each_file ( file_number, t, utility, "idle" );
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( t  > t_hh3 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
+                        }
+                        set_cpu_time_span_former_val_each_file ( file_number, t, utility, "idle" );
+                    }
                     if ( h3 < t ) 
                     {
                         set_cpu_highest_val ( t, utility, "idle" );
@@ -4727,7 +4821,7 @@ void draw_graph_to_ps ( const char *item, const char *element, int file_number, 
     }
 }
 
-int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY )
+int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY, const char *time_span )
 {
     /* for analyzing all data */
     if ( SAR_OPTION == 'Z' )
@@ -4885,7 +4979,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 CHK_CORES_N = 0;
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
-                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION );
+                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span );
                 /* as counted cpu as paragraph, if it's up to it, stop echoeing lines */
                 if ( CHECK_CPU_EACH == get_cpu_as_paragraph ( ) )
                 {
@@ -4907,7 +5001,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                     append_list ( &line_all_obj, str_tmp );
 
                 set_core_numbers ( CHK_CORES_N );
-                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION );
+                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span );
 
                 if ( CHK_CORES_N == MAX_CORE_NUMBERS )
                     CHK_Z &= ~ ( 1 << 0 );  /* this means, skip this clause on next loop */
@@ -4922,7 +5016,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "proc", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "proc", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _PSWAP )
@@ -4934,7 +5028,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _PAGING )
@@ -4946,7 +5040,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "fault", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "fault", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _IO_TRANSFER_RATE )
@@ -4958,7 +5052,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _MEMORY )
@@ -4970,7 +5064,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _SWPUSED )
@@ -4982,7 +5076,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _KERNEL_TABLE )
@@ -4994,7 +5088,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _LDAVG )
@@ -5006,7 +5100,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "runq", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "runq", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         /* for devices (DEV) setting values to arrays
@@ -5021,7 +5115,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION );
+                set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION, time_span );
             }
         }
         /* for devices (NET rxpck/s) setting values to arrays
@@ -5036,7 +5130,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION );
+                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span );
             }
         }
         else if ( CHK_Z == _NETWORK_ERROR )
@@ -5048,7 +5142,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "rxerr", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "rxerr", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
             }
         }
         /* end -- THIS IS THE MAIN FEATURE OF THIS PROGRAM */
@@ -5425,7 +5519,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
             if ( strstr ( *line, "Average" ) &&  !strstr ( *line, "CPU" ) && ( SHOW_AVG == 2 ) && ( CHK_CORES_N <= MAX_CORE_NUMBERS ) )
             {
                 append_list ( &line_obj, str_tmp );
-                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION ); /* setting each cpu values to the object */
+                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span ); /* setting each cpu values to the object */
                 if ( CHK_CORES_N == MAX_CORE_NUMBERS )
                     SHOW_AVG = 0;
                 set_core_numbers ( CHK_CORES_N );
@@ -5439,7 +5533,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( strstr ( *line, "dev") != 0 )
                 {
                     append_list ( &line_obj, str_tmp );
-                    set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION );
+                    set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION, time_span );
                 }
             }
             /* for devices (NET rxpck/s) setting values to arrays
@@ -5448,12 +5542,12 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
             else if ( strstr ( *line, "Average" )  &&  !strstr ( *line, "rxpck" ) && ( SHOW_AVG == 4 ) )
             {
                 append_list ( &line_obj, str_tmp );
-                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION );
+                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span );
             }
             else if ( strstr ( *line, "Average" )  &&  !strstr ( *line, "rxerr" ) && ( SHOW_AVG == 5 ) )
             {
                 append_list ( &line_obj, str_tmp );
-                set_token_items ( file_number, line, "rxerr" , -999, SAR_OPTION );
+                set_token_items ( file_number, line, "rxerr" , -999, SAR_OPTION, time_span );
             }
 
             /* Call set_token_items() here
@@ -5464,42 +5558,42 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_obj, str_tmp );
                 if ( ( ( CHK_A >> 1 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "fault", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "fault", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 1 );
                 }
                 if ( ( ( CHK_A >> 3 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 3 );
                 }
                 if ( ( ( CHK_A >> 7 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "runq", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "runq", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 7 );
                 }
                 if ( ( ( CHK_A >> 8 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 8 );
                 }
                 if ( ( ( CHK_A >> 9 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 9 );
                 }
                 if ( ( ( CHK_A >> 10 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 10 );
                 }
                 if ( ( ( CHK_A >> 11 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 11 );
                 }
                 if ( ( ( CHK_A >> 12 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "proc", -999, SAR_OPTION ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "proc", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 12 );
                 }
             }

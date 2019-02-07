@@ -86,11 +86,12 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   Presently, it gives -ZM option to usual sar-analyzer functionality.
 
-  There are six features.
+  There are seven features.
 
   Show highest and lowest average lines to a file with a report.
   Show highest and lowest all lines to a file with a report.
   Show highest spike to a file with a report.
+  Show highest time-span spike to a file with a report.
   Show possible thrashing.
   Show network down.
   Generate graphs as postscript files.
@@ -167,6 +168,14 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
       It writes a file to './sosreport-analyzer-results/<dir>/<dir>_sar_<time>.txt'.
       and, './sosreport-analyzer-results/<dir>/graphs/<dir>-<item>-<no>.ps'.
+
+  - time-span for sar 
+
+    ex.
+
+    $ sosreport-analyzer -T 09:00-13:00 -D <sosreport-dir> 
+    $ sosreport-analyzer -T 09:00-13:00 -M -D <mcinfo-dir> 
+    $ sosreport-analyzer -T 09:00-13:00 -S -D <sa-dir-path> 
 
   You can't redirect to a file.
 
