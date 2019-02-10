@@ -598,7 +598,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     strncpy ( time_value, token, 19 );
     /*printf("time_value:%s\n",time_value);*/
     /*printf("time_span:%s\n",time_span);*/
-    time_span_checked = check_time_value_is_in_time_span (time_span,time_value );
+    if ( time_span != NULL )
+        time_span_checked = check_time_value_is_in_time_span (time_span,time_value );
     /*printf("time_span_checked:%d\n",time_span_checked);*/
     i++;
     /* walk throuth other tokens */
