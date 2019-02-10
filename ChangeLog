@@ -1,3 +1,5 @@
+1.0.36
+Fix wrong time-span str check.
 1.0.35
 Fix bug on empty time-span lines when no time-span is given.
 1.0.34
