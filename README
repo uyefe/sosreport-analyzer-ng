@@ -88,10 +88,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   There are seven features.
 
-  Show highest and lowest average lines to a file with a report.
-  Show highest and lowest all lines to a file with a report.
-  Show highest spike to a file with a report.
-  Show highest time-span spike to a file with a report.
+  Show highest and lowest average value to a file with a report.
+  Show highest spike value to a file with a report.
+  Show highest value in given time-span to a file with a report.
+  Show highest spike value in given time-span to a file with a report.
   Show possible thrashing.
   Show network down.
   Generate graphs as postscript files.

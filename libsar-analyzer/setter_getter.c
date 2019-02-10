@@ -876,6 +876,42 @@ int set_cpu_time_span_spike_val_each_file ( int x, double var, int y, const char
         return EXIT_FAILURE;
 }
 
+int set_tasks_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_spike_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_spike_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_highest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_highest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
 /* -- former val each file -- */
 
 int set_cpu_former_val_each_file ( int x, double var, int y, const char *element )
@@ -1117,6 +1153,22 @@ int set_cpu_time_span_former_val_each_file ( int x, double var, int y, const cha
     else if ( strcmp ( "idle", element ) == 0 )
     {
         sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_idle_time_span_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
+int set_tasks_time_span_former_val_each_file ( int x, double var, const char *element )
+{
+    if ( strcmp ( "proc", element ) == 0 )
+    {
+        sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_former_val_each_file [ x ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "cswch", element ) == 0 )
+    {
+        sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_former_val_each_file [ x ] = var;
         return EXIT_SUCCESS;
     }
     else
@@ -2142,6 +2194,42 @@ int set_cpu_time_span_spike_date_each_file ( int x, const char *date_string, int
         return EXIT_FAILURE;
 }
 
+int set_tasks_time_span_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_spike_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_spike_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
 /* -- spike time each file -- */
 
 int set_cpu_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item )
@@ -2785,6 +2873,42 @@ int set_cpu_time_span_spike_time_each_file ( int x, const char *date_string, int
         else if ( strcmp ( "idle", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
+int set_tasks_time_span_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_spike_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_spike_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -4928,6 +5052,30 @@ double get_cpu_time_span_spike_val_each_file ( int x, int y, const char *element
         return EXIT_FAILURE;
 }
 
+double get_tasks_time_span_spike_val_each_file ( int x, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_spike_val_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_spike_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_highest_val_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
 /* -- former val -- */
 
 double get_cpu_former_val ( int x, const char *element )
@@ -5222,6 +5370,16 @@ double get_cpu_time_span_former_val_each_file ( int x, int y, const char *elemen
         return sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_iowait_time_span_former_val_each_file [ x ] [ y ];
     else if ( strcmp ( "idle", element ) == 0 )
         return sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_idle_time_span_former_val_each_file [ x ] [ y ];
+    else
+        return EXIT_FAILURE;
+}
+
+double get_tasks_time_span_former_val_each_file ( int x, const char *element )
+{
+    if ( strcmp ( "proc", element ) == 0 )
+        return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_former_val_each_file [ x ];
+    else if ( strcmp ( "cswch", element ) == 0 )
+        return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_former_val_each_file [ x ];
     else
         return EXIT_FAILURE;
 }
@@ -9083,6 +9241,30 @@ const char *get_cpu_time_span_spike_date_each_file ( int x, int y, const char *e
         return "error";
 }
 
+const char *get_tasks_time_span_spike_date_each_file ( int x, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_spike_date_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_spike_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_highest_date_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else
+        return "error";
+}
+
 /* -- spike time each file -- */
 
 const char *get_cpu_spike_time_each_file ( int x, int y, const char *element, const char *analyze_item )
@@ -9451,6 +9633,30 @@ const char *get_cpu_time_span_spike_time_each_file ( int x, int y, const char *e
             return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_highest_time_each_file [ x ] [ y ];
         else if ( strcmp ( "idle", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_highest_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else
+        return "error";
+}
+
+const char *get_tasks_time_span_spike_time_each_file ( int x, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_spike_time_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_spike_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_highest_time_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_highest_time_each_file [ x ];
         else
             return "error";
     }

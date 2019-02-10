@@ -1419,6 +1419,7 @@ int create_sar_analyzer_obj ( )
     init_list ( &report_cpu_explanation_obj );
     init_list ( &report_tasks_obj );
     init_list ( &report_tasks_spike_obj );
+    init_list ( &report_tasks_time_span_spike_obj );
     init_list ( &report_tasks_explanation_obj );
     init_list ( &report_pswap_obj );
     init_list ( &report_pswap_spike_obj );
@@ -1524,6 +1525,7 @@ int free_sar_analyzer_obj ( )
     clear_list ( &report_cpu_explanation_obj );
     clear_list ( &report_tasks_obj );
     clear_list ( &report_tasks_spike_obj );
+    clear_list ( &report_tasks_time_span_spike_obj );
     clear_list ( &report_tasks_explanation_obj );
     clear_list ( &report_pswap_obj );
     clear_list ( &report_pswap_spike_obj );

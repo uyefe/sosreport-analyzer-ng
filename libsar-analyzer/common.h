@@ -1946,6 +1946,7 @@ extern struct line_data *report_cpu_time_span_spike_obj [ MAX_CORE_NUMBERS ];
 extern struct line_data *report_cpu_explanation_obj;
 extern struct line_data *report_tasks_obj;
 extern struct line_data *report_tasks_spike_obj;
+extern struct line_data *report_tasks_time_span_spike_obj;
 extern struct line_data *report_tasks_explanation_obj;
 extern struct line_data *report_pswap_obj;
 extern struct line_data *report_pswap_spike_obj;

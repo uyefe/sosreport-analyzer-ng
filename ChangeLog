@@ -1,5 +1,8 @@
+1.0.33
+Add tasks time-span functionality for sar-analyzer feature. 
+Fix minor bug emerging 'Average' str frivolously.
 1.0.32
-Add time-span functionality for sar-analyzer feature. 
+Add cpu time-span functionality for sar-analyzer feature. 
 1.0.31
 Add analyze files in var/log/audit/. 
 1.0.30
