@@ -1,3 +1,5 @@
+1.0.35
+Fix bug on empty time-span lines when no time-span is given.
 1.0.34
 Fix bug in always segfault when no time-span given.
 1.0.33
