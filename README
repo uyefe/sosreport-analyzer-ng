@@ -103,7 +103,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
 ## Getting "sar file"
 
-  Note that "sar file" should be basically, written in English.
+  Note that "sar file" should be basically, written in English or Japanese.
 
   It may be good to convert binary 'sa' file to text 'sar' file.
   Because, sometimes, text 'sar' file is not made yet but binary 'sa' file exists.
@@ -119,7 +119,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   example:
   $ sed -i 's/\x00//g' ./sar01
 
-  Check 'sar' file is written in Ascii text and clear.
+  When you did above, check 'sar' file is written in Ascii text and clear.
 
   example:
   $less sar01

@@ -1282,6 +1282,7 @@ int check_time_span_str ( const char *time_span_str )
                )
                    return 0;
     }
+
     if ( str_tmp [ 0 ] == '2' )
     {
         if ( ( str_tmp [ 1 ] != '0' ) && ( str_tmp [ 1 ] != '1' ) && ( str_tmp [ 1 ] != '2' ) && ( str_tmp [ 1 ] != '3' ) )
@@ -1292,20 +1293,19 @@ int check_time_span_str ( const char *time_span_str )
             return 0;
     }
 
-    if ( ( ( str_tmp [ 0 ] == '1' ) && ( str_tmp [ 6 ] == '1' ) ) ||
-        ( ( str_tmp [ 0 ] == '0' ) && ( str_tmp [ 6 ] == '0' ) ) )
+    if ( str_tmp [ 0 ] == str_tmp [ 6 ] )
     {
         if ( str_tmp [ 1 ] == '9' )
-            if ( ( str_tmp [ 7 ] == '8' ) || ( str_tmp [ 7 ] == '7' ) || ( str_tmp [ 7 ] == '6' ) || ( str_tmp [ 7 ] == '5' ) || ( str_tmp [ 7 ] == '4' ) || ( str_tmp [ 7 ] == '3' ) || ( str_tmp [ 7 ] == '2' ) || ( str_tmp [ 7 ] == '1' ) || ( str_tmp [ 7 ] == '0' ) )
+            if ( str_tmp [ 7 ] != '9' )
                 return 0;
         if ( str_tmp [ 1 ] == '8' )
-            if ( ( str_tmp [ 7 ] == '7' ) || ( str_tmp [ 7 ] == '6' ) || ( str_tmp [ 7 ] == '5' ) || ( str_tmp [ 7 ] == '4' ) || ( str_tmp [ 7 ] == '3' ) || ( str_tmp [ 7 ] == '2' ) || ( str_tmp [ 7 ] == '1' ) || ( str_tmp [ 7 ] == '0' ) )
+            if ( ( str_tmp [ 7 ] != '9' ) && ( str_tmp [ 7 ] != '8' ) )
                 return 0;
         if ( str_tmp [ 1 ] == '7' )
-            if ( ( str_tmp [ 7 ] == '6' ) || ( str_tmp [ 7 ] == '5' ) || ( str_tmp [ 7 ] == '4' ) || ( str_tmp [ 7 ] == '3' ) || ( str_tmp [ 7 ] == '2' ) || ( str_tmp [ 7 ] == '1' ) || ( str_tmp [ 7 ] == '0' ) )
+            if ( ( str_tmp [ 7 ] != '9' ) && ( str_tmp [ 7 ] != '8' ) && ( str_tmp [ 7 ] != '7' ) )
                 return 0;
         if ( str_tmp [ 1 ] == '6' )
-            if ( ( str_tmp [ 7 ] == '5' ) || ( str_tmp [ 7 ] == '4' ) || ( str_tmp [ 7 ] == '3' ) || ( str_tmp [ 7 ] == '2' ) || ( str_tmp [ 7 ] == '1' ) || ( str_tmp [ 7 ] == '0' ) )
+            if ( ( str_tmp [ 7 ] != '9' ) && ( str_tmp [ 7 ] != '8' ) && ( str_tmp [ 7 ] != '7' ) && ( str_tmp [ 7 ] != '6' ) )
                 return 0;
         if ( str_tmp [ 1 ] == '5' )
             if ( ( str_tmp [ 7 ] == '4' ) || ( str_tmp [ 7 ] == '3' ) || ( str_tmp [ 7 ] == '2' ) || ( str_tmp [ 7 ] == '1' ) || ( str_tmp [ 7 ] == '0' ) )
@@ -1322,37 +1322,37 @@ int check_time_span_str ( const char *time_span_str )
         if ( str_tmp [ 1 ] == '1' )
             if ( str_tmp [ 7 ] == '0' )
                 return 0;
-    }
 
-    if ( str_tmp [ 1 ] == str_tmp [ 7 ] )
-    {
-        if ( str_tmp [ 3 ] == '9' )
-            if ( ( str_tmp [ 9 ] == '8' ) || ( str_tmp [ 9 ] == '7' ) || ( str_tmp [ 9 ] == '6' ) || ( str_tmp [ 9 ] == '5' ) || ( str_tmp [ 9 ] == '4' ) || ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '8' )
-            if ( ( str_tmp [ 9 ] == '7' ) || ( str_tmp [ 9 ] == '6' ) || ( str_tmp [ 9 ] == '5' ) || ( str_tmp [ 9 ] == '4' ) || ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '7' )
-            if ( ( str_tmp [ 9 ] == '6' ) || ( str_tmp [ 9 ] == '5' ) || ( str_tmp [ 9 ] == '4' ) || ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '6' )
-            if ( ( str_tmp [ 9 ] == '5' ) || ( str_tmp [ 9 ] == '4' ) || ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '5' )
-            if ( ( str_tmp [ 9 ] == '4' ) || ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '4' )
-            if ( ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '3' )
-            if ( ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '2' )
-            if ( ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
-                return 0;
-        if ( str_tmp [ 3 ] == '1' )
-            if ( str_tmp [ 9 ] == '0' )
-                return 0;
+        if ( str_tmp [ 1 ] == str_tmp [ 7 ] )
+        {
+            if ( str_tmp [ 3 ] == '9' )
+                if ( str_tmp [ 9 ] != '9' )
+                    return 0;
+            if ( str_tmp [ 3 ] == '8' )
+                if ( ( str_tmp [ 9 ] != '9' ) && ( str_tmp [ 9 ] != '8' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '7' )
+                if ( ( str_tmp [ 9 ] != '9' ) && ( str_tmp [ 9 ] != '8' ) && ( str_tmp [ 9 ] != '7' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '6' )
+                if ( ( str_tmp [ 9 ] != '9' ) && ( str_tmp [ 9 ] != '8' ) && ( str_tmp [ 9 ] != '7' ) && ( str_tmp [ 9 ] != '6' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '5' )
+                if ( ( str_tmp [ 9 ] == '4' ) || ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '4' )
+                if ( ( str_tmp [ 9 ] == '3' ) || ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '3' )
+                if ( ( str_tmp [ 9 ] == '2' ) || ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '2' )
+                if ( ( str_tmp [ 9 ] == '1' ) || ( str_tmp [ 9 ] == '0' ) )
+                    return 0;
+            if ( str_tmp [ 3 ] == '1' )
+                if ( str_tmp [ 9 ] == '0' )
+                    return 0;
+        }
     }
 
     if ( str_tmp [ 6 ] == '2' )
@@ -1370,16 +1370,16 @@ int check_time_span_str ( const char *time_span_str )
        )
     {
         if ( str_tmp [ 4 ] == '9' )
-            if ( ( str_tmp [ 10 ] == '8' ) || ( str_tmp [ 10 ] == '7' ) || ( str_tmp [ 10 ] == '6' ) || ( str_tmp [ 10 ] == '5' ) || ( str_tmp [ 10 ] == '4' ) || ( str_tmp [ 10 ] == '3' ) || ( str_tmp [ 10 ] == '2' ) || ( str_tmp [ 10 ] == '1' ) || ( str_tmp [ 10 ] == '0' ) )
+            if ( str_tmp [ 10 ] != '9' )
                 return 0;
         if ( str_tmp [ 4 ] == '8' )
-            if ( ( str_tmp [ 10 ] == '7' ) || ( str_tmp [ 10 ] == '6' ) || ( str_tmp [ 10 ] == '5' ) || ( str_tmp [ 10 ] == '4' ) || ( str_tmp [ 10 ] == '3' ) || ( str_tmp [ 10 ] == '2' ) || ( str_tmp [ 10 ] == '1' ) || ( str_tmp [ 10 ] == '0' ) )
+            if ( ( str_tmp [ 10 ] != '9' ) && ( str_tmp [ 10 ] != '8' ) )
                 return 0;
         if ( str_tmp [ 4 ] == '7' )
-            if ( ( str_tmp [ 10 ] == '6' ) || ( str_tmp [ 10 ] == '5' ) || ( str_tmp [ 10 ] == '4' ) || ( str_tmp [ 10 ] == '3' ) || ( str_tmp [ 10 ] == '2' ) || ( str_tmp [ 10 ] == '1' ) || ( str_tmp [ 10 ] == '0' ) )
+            if ( ( str_tmp [ 10 ] != '9' ) && ( str_tmp [ 10 ] != '8' ) && ( str_tmp [ 10 ] != '7' ) )
                 return 0;
         if ( str_tmp [ 4 ] == '6' )
-            if ( ( str_tmp [ 10 ] == '5' ) || ( str_tmp [ 10 ] == '4' ) || ( str_tmp [ 10 ] == '3' ) || ( str_tmp [ 10 ] == '2' ) || ( str_tmp [ 10 ] == '1' ) || ( str_tmp [ 10 ] == '0' ) )
+            if ( ( str_tmp [ 10 ] != '9' ) && ( str_tmp [ 10 ] != '8' ) && ( str_tmp [ 10 ] != '7' ) && ( str_tmp [ 10 ] != '6' ) )
                 return 0;
         if ( str_tmp [ 4 ] == '5' )
             if ( ( str_tmp [ 10 ] == '4' ) || ( str_tmp [ 10 ] == '3' ) || ( str_tmp [ 10 ] == '2' ) || ( str_tmp [ 10 ] == '1' ) || ( str_tmp [ 10 ] == '0' ) )
