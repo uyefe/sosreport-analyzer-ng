@@ -721,6 +721,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -742,16 +744,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
                     }
-                    if ( time_span_checked == 1 )
-                    {
-                        if ( ( t2 > t_ss0 ) && ( t_ff0 != 0 ) )
-                        {
-                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "usr", "spike" );
-                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
-                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
-                        }
-                    }
-                    if ( t  > hh0 )
+                    if ( t > hh0 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
@@ -760,7 +753,13 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "usr" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t  > t_hh0 )
+                        if ( ( t2 > t_ss0 ) && ( t_ff0 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "usr", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "spike" );
+                        }
+                        if ( t > t_hh0 )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
@@ -768,7 +767,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "usr" );
                     }
-                    if ( h0 < t ) 
+                    if ( t > h0 ) 
                     {
                         set_cpu_highest_val ( t, utility, "usr" );
                         set_cpu_highest_date ( this_date_all, utility, "usr" );
@@ -841,6 +840,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -862,16 +863,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
                     }
-                    if ( time_span_checked == 1 )
-                    {
-                        if ( ( t2 > t_ss1 ) && ( t_ff1 != 0 ) )
-                        {
-                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "sys", "spike" );
-                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
-                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
-                        }
-                    }
-                    if ( t  > hh1 )
+                    if ( t > hh1 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
@@ -880,7 +872,13 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "sys" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t  > t_hh1 )
+                        if ( ( t2 > t_ss1 ) && ( t_ff1 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "sys", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "spike" );
+                        }
+                        if ( t > t_hh1 )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
@@ -888,7 +886,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "sys" );
                     }
-                    if ( h1 < t ) 
+                    if ( t > h1 ) 
                     {
                         set_cpu_highest_val ( t, utility, "sys" );
                         set_cpu_highest_date ( this_date_all, utility, "sys" );
@@ -946,6 +944,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -967,16 +967,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
                     }
-                    if ( time_span_checked == 1 )
-                    {
-                        if ( ( t2 > t_ss2 ) && ( t_ff2 != 0 ) )
-                        {
-                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "iowait", "spike" );
-                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
-                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
-                        }
-                    }
-                    if ( t  > hh2 )
+                    if ( t > hh2 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
@@ -985,7 +976,13 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "iowait" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t  > t_hh2 )
+                        if ( ( t2 > t_ss2 ) && ( t_ff2 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "iowait", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "spike" );
+                        }
+                        if ( t > t_hh2 )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
@@ -993,7 +990,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "iowait" );
                     }
-                    if ( h2 < t ) 
+                    if ( t > h2 ) 
                     {
                         set_cpu_highest_val ( t, utility, "iowait" );
                         set_cpu_highest_date ( this_date_all, utility, "iowait" );
@@ -1051,6 +1048,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff3 );
@@ -1072,16 +1071,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
                     }
-                    if ( time_span_checked == 1 )
-                    {
-                        if ( ( t2 > t_ss3 ) && ( t_ff3 != 0 ) )
-                        {
-                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "idle", "spike" );
-                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
-                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
-                        }
-                    }
-                    if ( t  > hh3 )
+                    if ( t > hh3 )
                     {
                         set_cpu_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
@@ -1090,7 +1080,13 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "idle" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t  > t_hh3 )
+                        if ( ( t2 > t_ss3 ) && ( t_ff3 != 0 ) )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t2, utility, "idle", "spike" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "spike" );
+                        }
+                        if ( t > t_hh3 )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
@@ -1098,7 +1094,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "idle" );
                     }
-                    if ( h3 < t ) 
+                    if ( t > h3) 
                     {
                         set_cpu_highest_val ( t, utility, "idle" );
                         set_cpu_highest_date ( this_date_all, utility, "idle" );
@@ -1168,6 +1164,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             ff1 = get_tasks_former_val_each_file ( file_number, "cswch" );
             hh0 = get_tasks_spike_val_each_file ( file_number, "proc", "highest" );
             hh1 = get_tasks_spike_val_each_file ( file_number, "cswch", "highest" );
+            t_ss0 = get_tasks_time_span_spike_val_each_file ( file_number, "proc", "spike" );
+            t_ss1 = get_tasks_time_span_spike_val_each_file ( file_number, "cswch", "spike" );
+            t_ff0 = get_tasks_time_span_former_val_each_file ( file_number, "proc" );
+            t_ff1 = get_tasks_time_span_former_val_each_file ( file_number, "cswch" );
+            t_hh0 = get_tasks_time_span_spike_val_each_file ( file_number, "proc", "highest" );
+            t_hh1 = get_tasks_time_span_spike_val_each_file ( file_number, "cswch", "highest" );
 
             /* proc, set the value to struct */
             if ( i == get_column_tasks ( "proc" ) )
@@ -1175,6 +1177,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -1196,14 +1200,30 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "proc", "spike" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "proc", "spike" );
                     }
-                    if ( t  > hh0 )
+                    if ( t > hh0 )
                     {
                         set_tasks_spike_val_each_file ( file_number, t, "proc", "highest" );
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "proc", "highest" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "proc", "highest" );
                     }
                     set_tasks_former_val_each_file ( file_number, t, "proc" );
-                    if ( h0 < t ) 
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( ( t2 > t_ss0 ) && ( t_ff0 != 0 ) )
+                        {
+                            set_tasks_time_span_spike_val_each_file ( file_number, t2, "proc", "spike" );
+                            set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "proc", "spike" );
+                            set_tasks_time_span_spike_time_each_file ( file_number, time_value, "proc", "spike" );
+                        }
+                        if ( t > t_hh0 )
+                        {
+                            set_tasks_time_span_spike_val_each_file ( file_number, t, "proc", "highest" );
+                            set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "proc", "highest" );
+                            set_tasks_time_span_spike_time_each_file ( file_number, time_value, "proc", "highest" );
+                        }
+                        set_tasks_time_span_former_val_each_file ( file_number, t, "proc" );
+                    }
+                    if ( t > h0 ) 
                     {
                         set_tasks_highest_val ( t, "proc" );
                         set_tasks_highest_date ( this_date_all, "proc" );
@@ -1271,6 +1291,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -1292,14 +1314,30 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "cswch", "spike" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "cswch", "spike" );
                     }
-                    if ( t  > hh1 )
+                    if ( t > hh1 )
                     {
                         set_tasks_spike_val_each_file ( file_number, t, "cswch", "highest" );
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "cswch", "highest" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "cswch", "highest" );
                     }
                     set_tasks_former_val_each_file ( file_number, t, "cswch" );
-                    if ( h1 < t ) 
+                    if ( time_span_checked == 1 )
+                    {
+                        if ( ( t2 > t_ss1 ) && ( t_ff1 != 0 ) )
+                        {
+                            set_tasks_time_span_spike_val_each_file ( file_number, t2, "cswch", "spike" );
+                            set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "cswch", "spike" );
+                            set_tasks_time_span_spike_time_each_file ( file_number, time_value, "cswch", "spike" );
+                        }
+                        if ( t > t_hh1 )
+                        {
+                            set_tasks_time_span_spike_val_each_file ( file_number, t, "cswch", "highest" );
+                            set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "cswch", "highest" );
+                            set_tasks_time_span_spike_time_each_file ( file_number, time_value, "cswch", "highest" );
+                        }
+                        set_tasks_time_span_former_val_each_file ( file_number, t, "cswch" );
+                    }
+                    if ( t > h1 ) 
                     {
                         set_tasks_highest_val ( t, "cswch" );
                         set_tasks_highest_date ( this_date_all, "cswch" );
@@ -1373,6 +1411,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -1469,6 +1509,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -1592,6 +1634,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -1688,6 +1732,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -1771,6 +1817,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -1855,6 +1903,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod(token, &endp);
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff3 );
@@ -1938,6 +1988,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff4 );
@@ -2048,6 +2100,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -2144,6 +2198,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -2227,6 +2283,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -2336,6 +2394,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -2433,6 +2493,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -2516,6 +2578,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -2611,6 +2675,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -2701,6 +2767,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -2797,6 +2865,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -2880,6 +2950,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -3005,6 +3077,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = atoi ( token );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -3102,6 +3176,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = atoi ( token );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -3186,6 +3262,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -3269,6 +3347,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff3 );
@@ -3352,6 +3432,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff4 );
@@ -3454,6 +3536,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -3518,6 +3602,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -3615,6 +3701,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -3685,6 +3773,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -3755,6 +3845,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -3825,6 +3917,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff3 );
@@ -3928,6 +4022,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff0 );
@@ -3992,6 +4088,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff1 );
@@ -4056,6 +4154,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff2 );
@@ -4120,6 +4220,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                 if ( SAR_OPTION == 'Z' )
                 {
                     t = strtod ( token, &endp );
+                    if ( strstr ( time_value, "Average" ) != NULL )
+                        return 0;
                     set_tmp_val ( t );
                     t = get_tmp_val ( );
                     set_tmp2_val ( t - ff3 );

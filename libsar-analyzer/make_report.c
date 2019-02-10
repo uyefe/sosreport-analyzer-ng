@@ -295,6 +295,24 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'cswch/s' is %13.2f (%s %s)",
                 get_tasks_spike_val_each_file ( j, "cswch", "highest" ), get_tasks_spike_date_each_file ( j, "cswch", "highest" ), get_tasks_spike_time_each_file ( j, "cswch", "highest" ) );
             append_list ( &report_tasks_spike_obj, str_tmp );
+
+            /* for time-span option */
+            append_list ( &report_tasks_time_span_spike_obj, "" );
+            append_list ( &report_tasks_time_span_spike_obj, str_num );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Spike   value of 'proc/s'  is %13.2f (%s %s)", time_span,
+                get_tasks_time_span_spike_val_each_file ( j, "proc", "spike" ), get_tasks_time_span_spike_date_each_file ( j, "proc", "spike" ), get_tasks_time_span_spike_time_each_file ( j, "proc", "spike" ) );
+            append_list ( &report_tasks_time_span_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Spike   value of 'cswch/s' is %13.2f (%s %s)", time_span,
+                get_tasks_time_span_spike_val_each_file ( j, "cswch", "spike" ), get_tasks_time_span_spike_date_each_file ( j, "cswch", "spike" ), get_tasks_time_span_spike_time_each_file ( j, "cswch", "spike" ) );
+            append_list ( &report_tasks_time_span_spike_obj, str_tmp );
+            append_list ( &report_tasks_time_span_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Highest value of 'proc/s'  is %13.2f (%s %s)", time_span,
+                get_tasks_time_span_spike_val_each_file ( j, "proc", "highest" ), get_tasks_time_span_spike_date_each_file ( j, "proc", "highest" ), get_tasks_time_span_spike_time_each_file ( j, "proc", "highest" ) );
+            append_list ( &report_tasks_time_span_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Highest value of 'cswch/s' is %13.2f (%s %s)", time_span,
+                get_tasks_time_span_spike_val_each_file ( j, "cswch", "highest" ), get_tasks_time_span_spike_date_each_file ( j, "cswch", "highest" ), get_tasks_time_span_spike_time_each_file ( j, "cswch", "highest" ) );
+            append_list ( &report_tasks_time_span_spike_obj, str_tmp );
         }
 
         append_list ( &report_tasks_explanation_obj, "--------" );

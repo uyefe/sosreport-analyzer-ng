@@ -412,6 +412,7 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &report_cpu_explanation_obj, fp_sar_w );
     file_write_list ( &report_tasks_obj, fp_sar_w );
     file_write_list ( &report_tasks_spike_obj, fp_sar_w );
+    file_write_list ( &report_tasks_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_tasks_explanation_obj, fp_sar_w );
     file_write_list ( &report_pswap_obj, fp_sar_w );
     file_write_list ( &report_pswap_spike_obj, fp_sar_w );

@@ -648,6 +648,13 @@ struct line_data report_tasks_spike_obj_raw =
         NULL /* next pointer */
     };
 
+/* report_tasks_time_span_spike_obj */
+struct line_data report_tasks_time_span_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
 /* report_tasks_explanation_obj */
 struct line_data report_tasks_explanation_obj_raw =
     {
@@ -1176,6 +1183,7 @@ struct line_data *report_cpu_time_span_spike_obj [ MAX_CORE_NUMBERS ] =  { &repo
 struct line_data *report_cpu_explanation_obj = &report_cpu_explanation_obj_raw;
 struct line_data *report_tasks_obj = &report_tasks_obj_raw;
 struct line_data *report_tasks_spike_obj = &report_tasks_spike_obj_raw;
+struct line_data *report_tasks_time_span_spike_obj = &report_tasks_time_span_spike_obj_raw;
 struct line_data *report_tasks_explanation_obj = &report_tasks_explanation_obj_raw;
 struct line_data *report_pswap_obj = &report_pswap_obj_raw;
 struct line_data *report_pswap_spike_obj = &report_pswap_spike_obj_raw;
