@@ -133,74 +133,12 @@ int horizontal_value_kernel_table_inode [ MAX_ANALYZE_FILES ] = { 0 };
 int linux_restart_count [ MAX_ANALYZE_FILES ] = { 0 };
 /* endstore data for each file for needed value */
 
-/* for file cpu */
-int horizontal_cpu_all_subtitle = 250;
-int vertical_cpu_all_subtitle = 1930;
-int horizontal_paging_subtitle = 250;
-int vertical_paging_subtitle = 860;
-/* for file mem */
-int horizontal_memory_subtitle = 250;
-int vertical_memory_subtitle = 1930;
-int horizontal_swapping_subtitle = 250;
-int vertical_swapping_subtitle = 860;
-/* for file ldv */
-int horizontal_ldavg_subtitle = 250;
-int vertical_ldavg_subtitle = 1930;
-int horizontal_tasks_subtitle = 250;
-int vertical_tasks_subtitle = 860;
-/* for file ior */
-int horizontal_io_transfer_rate_subtitle = 250;
-int vertical_io_transfer_rate_subtitle = 1930;
-int horizontal_kernel_table_subtitle = 250;
-int vertical_kernel_table_subtitle = 860;
-
-double horizontal_start_point = 100; /* value of left most point of graph rectangle */
-int horizontal_first_time_point = 70; /* value of left most point of graph rectangle */
-int horizontal_middle_time_point = 100 + ( 1400 - 100); /* value of left most point of graph rectangle for CPU all */
-/* for file cpu */
-int vertical_start_point_cpu_all = 1200; /* value of bottom most point of first graph rectangle for CPU all */
-int vertical_first_time_point_cpu_all = 1170; /* value of bottom most point of first graph rectangle */
-int vertical_start_point_paging = 130; /* value of bottom most point of first graph rectangle for paging */
-int vertical_first_time_point_paging = 100; /* value of bottom most point of second graph rectangle for paging */
-/* for file mem */
-int vertical_start_point_memory = 1200; /* value of bottom most point of first graph rectangle for paging */
-int vertical_first_time_point_memory = 1170; /* value of bottom most point of first graph rectangle for paging */
-int vertical_start_point_swapping = 130; /* value of bottom most point of first graph rectangle for swapping */
-int vertical_first_time_point_swapping = 100; /* value of bottom most point of second graph rectangle */
-/* for file ldv */
-int vertical_start_point_ldavg = 1200; /* value of bottom most point of first graph rectangle for ldavg */
-int vertical_first_time_point_ldavg = 1170; /* value of bottom most point of first graph rectangle */
-int vertical_start_point_tasks = 130; /* value of bottom most point of first graph rectangle for swapping */
-int vertical_first_time_point_tasks = 100; /* value of bottom most point of second graph rectangle */
-/* for file ior */
-int vertical_start_point_io_transfer_rate = 1200; /* value of bottom most point of first graph rectangle for io_transfer_rate */
-int vertical_first_time_point_io_transfer_rate = 1170; /* value of bottom most point of first graph rectangle */
-int vertical_start_point_kernel_table = 130; /* value of bottom most point of first graph rectangle for swapping */
-int vertical_first_time_point_kernel_table = 100; /* value of bottom most point of second graph rectangle */
-
+/* values which are passed as an argument to functions */
+int horizontal_first_time_point = 70;
 double horizontal_notch = 9.02777; /* devide 1300 by 144 */
-double vertical_notch_percent = 7.0; /* as 700 is the vertical size, setting max to 100 and devide 700 by 100 */
-/* for file cpu */
-double vertical_notch_paging = 0.07; /* as 700 is the vertical size, setting max to 10000 and devide 700 by 10000 */
-double vertical_notch_paging_fault = 0.0035; /* as 700 is the vertical size, setting max to 200000 and devide 700 by 200000 */
-/* for file mem */
-double vertical_notch_memory_kbcommit = 57142.8571429; /* as 700 is the vertical size, setting max to 40000000 and devide 40000000 by 700 (should be used / ) */
-double vertical_notch_swapping = 350.0; /* as 700 is the vertical size, setting max to 2 and devide 700 by 2 */
-/* for file ldv */
-double vertical_notch_ldavg = 14.0; /* as 700 is the vertical size, setting max to 50 and devide 700 by 50 */
-double vertical_notch_ldavg_plist = 0.233333333333; /* as 700 is the vertical size, setting max to 3000 and devide 700 by 3000 */
-double vertical_notch_tasks_proc = 1.4; /* as 700 is the vertical size, setting max to 500 and devide 700 by 500 */
-double vertical_notch_tasks_cswch = 0.007; /* as 700 is the vertical size, setting max to 100000 and devide 700 by 100000 */
-/* for file iro */
-double vertical_notch_io_transfer_rate_tps = 0.7; /* as 700 is the vertical size, setting max to 1000 and devide 700 by 1000 */
-double vertical_notch_io_transfer_rate_bread = 0.07; /* as 700 is the vertical size, setting max to 10000 and devide 700 by 10000 */
-double vertical_notch_io_transfer_rate_bwrtn = 0.0233333333333; /* as 700 is the vertical size, setting max to 30000 and devide 700 by 30000 */
-double vertical_notch_kernel_table_dentunusd = 0.00035; /* as 700 is the vertical size, setting max to 2000000 and devide 700 by 2000000 */
-double vertical_notch_kernel_table_file = 0.007; /* as 700 is the vertical size, setting max to 100000 and devide 700 by 100000 */
-double vertical_notch_kernel_table_inode = 0.00035; /* as 700 is the vertical size, setting max to 2000000 and devide 700 by 2000000 */
-
 int horizontal_linux_restart_point = 600;
 int vertical_linux_restart_point = 1975;
+
 /* end for postscript graph */
 
 void initialize_check_int ( void )
@@ -790,29 +728,29 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                            ( strstr ( time_value, ":40:" ) != NULL ) ||
                            ( strstr ( time_value, ":50:" ) != NULL ) )
                         {
-                            horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_usr [ file_number ] );
-                            vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
+                            horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_cpu_usr [ file_number ] );
+                            vertical_value = VERTICAL_START_POINT_CPU_ALL + ( VERTICAL_NOTCH_PERCENT * t );
                             /* only when first in element */
                             if ( horizontal_value_cpu_usr [ file_number ] == 0 )
                             {
                                 /* drawing subtitle label */
-                                write_subtitle_to_ps ( "CPU all", file_number, horizontal_cpu_all_subtitle, vertical_cpu_all_subtitle, this_date_all );
+                                write_subtitle_to_ps ( "CPU all", file_number, HORIZONTAL_CPU_ALL_SUBTITLE, VERTICAL_CPU_ALL_SUBTITLE, this_date_all );
                                 /* drawing time label */
-                                write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, vertical_first_time_point_cpu_all, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
+                                write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_CPU_ALL, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
                                 /* drawing graph */
-                                draw_graph_to_ps ( "CPU all", "usr", file_number, horizontal_start_point, vertical_value, "yes" );
-                                /* draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( horizontal_start_point, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value ), vertical_value, "yes" ); */
+                                draw_graph_to_ps ( "CPU all", "usr", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
+                                /* draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( HORIZONTAL_START_POINT, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value ), vertical_value, "yes" ); */
                             }
                             else
                             {
                                 /* drawing graph */
                                 draw_graph_to_ps ( "CPU all", "usr", file_number, horizontal_value, vertical_value, "no" );
-                                /* draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( horizontal_start_point, horizontal_notch, horizontal_value_cpu_usr [ file_number ],time_value ), vertical_value, "no" ); */
+                                /* draw_graph_to_ps ( "CPU all", "usr", file_number, check_time_value ( HORIZONTAL_START_POINT, horizontal_notch, horizontal_value_cpu_usr [ file_number ],time_value ), vertical_value, "no" ); */
                                 /* drawing time label */
                                 if ( ( horizontal_value_cpu_usr [ file_number ] % 12 ) == 0 )
-                                    write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, vertical_first_time_point_cpu_all, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
+                                    write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_CPU_ALL, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
                                 else if ( ( horizontal_value_cpu_usr [ file_number ] % 6 ) == 0 )
-                                    write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, vertical_first_time_point_cpu_all - 20, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
+                                    write_time_value_to_ps ( "CPU all", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_CPU_ALL - 20, horizontal_notch, horizontal_value_cpu_usr [ file_number ], time_value );
                             }
                             horizontal_value_cpu_usr [ file_number ] ++;
                         }
@@ -909,12 +847,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                            ( strstr ( time_value, ":40:" ) != NULL ) ||
                            ( strstr ( time_value, ":50:" ) != NULL ) )
                         {
-                            horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_sys [ file_number ] );
-                            vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
+                            horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_cpu_sys [ file_number ] );
+                            vertical_value = VERTICAL_START_POINT_CPU_ALL + ( VERTICAL_NOTCH_PERCENT * t );
                             /* only when first in element */
                             if ( horizontal_value_cpu_sys [ file_number ] == 0 )
                                 /* drawing graph */
-                                draw_graph_to_ps ( "CPU all", "sys", file_number, horizontal_start_point, vertical_value, "yes" );
+                                draw_graph_to_ps ( "CPU all", "sys", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                             else
                                 /* drawing graph */
                                 draw_graph_to_ps ( "CPU all", "sys",file_number, horizontal_value, vertical_value, "no" );
@@ -1013,12 +951,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                            ( strstr ( time_value, ":40:" ) != NULL ) ||
                            ( strstr ( time_value, ":50:" ) != NULL ) )
                         {
-                            horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_iowait [ file_number ] );
-                            vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
+                            horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_cpu_iowait [ file_number ] );
+                            vertical_value = VERTICAL_START_POINT_CPU_ALL + ( VERTICAL_NOTCH_PERCENT * t );
                             /* only when first in element */
                             if ( horizontal_value_cpu_iowait [ file_number ] == 0 )
                                 /* drawing graph */
-                                draw_graph_to_ps ( "CPU all", "iowait", file_number, horizontal_start_point, vertical_value, "yes" );
+                                draw_graph_to_ps ( "CPU all", "iowait", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                             else
                                 /* drawing graph */
                                 draw_graph_to_ps ( "CPU all", "iowait", file_number, horizontal_value, vertical_value, "no" );
@@ -1117,12 +1055,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                            ( strstr ( time_value, ":40:" ) != NULL ) ||
                            ( strstr ( time_value, ":50:" ) != NULL ) )
                         {
-                            horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_cpu_idle [ file_number ] );
-                            vertical_value = vertical_start_point_cpu_all + ( vertical_notch_percent * t );
+                            horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_cpu_idle [ file_number ] );
+                            vertical_value = VERTICAL_START_POINT_CPU_ALL + ( VERTICAL_NOTCH_PERCENT * t );
                             /* only when first in element */
                             if ( horizontal_value_cpu_idle [ file_number ] == 0 )
                                 /* drawing graph */
-                                draw_graph_to_ps ( "CPU all", "idle", file_number, horizontal_start_point, vertical_value, "yes" );
+                                draw_graph_to_ps ( "CPU all", "idle", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                             else
                                 /* drawing graph */
                                 draw_graph_to_ps ( "CPU all", "idle", file_number, horizontal_value, vertical_value, "no" );
@@ -1244,17 +1182,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_tasks_proc [ file_number ] );
-                        vertical_value = vertical_start_point_tasks + ( t * vertical_notch_tasks_proc );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_tasks_proc [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_TASKS + ( t * VERTICAL_NOTCH_TASKS_PROC );
                         /* only when first in element */
                         if ( horizontal_value_tasks_proc [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "proc", file_number, horizontal_tasks_subtitle, vertical_tasks_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "proc", file_number, HORIZONTAL_TASKS_SUBTITLE, VERTICAL_TASKS_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "proc", file_number, horizontal_first_time_point, vertical_first_time_point_tasks, horizontal_notch, horizontal_value_tasks_proc [ file_number ], time_value );
+                            write_time_value_to_ps ( "proc", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_TASKS, horizontal_notch, horizontal_value_tasks_proc [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "tasks", "proc", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "tasks", "proc", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -1262,9 +1200,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "tasks", "proc", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_tasks_proc [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "tasks", file_number, horizontal_first_time_point, vertical_first_time_point_tasks, horizontal_notch, horizontal_value_tasks_proc [ file_number ], time_value );
+                                write_time_value_to_ps ( "tasks", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_TASKS, horizontal_notch, horizontal_value_tasks_proc [ file_number ], time_value );
                             else if ( ( horizontal_value_tasks_proc [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "tasks", file_number, horizontal_first_time_point, vertical_first_time_point_tasks - 20, horizontal_notch, horizontal_value_tasks_proc [ file_number ], time_value );
+                                write_time_value_to_ps ( "tasks", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_TASKS - 20, horizontal_notch, horizontal_value_tasks_proc [ file_number ], time_value );
                         }
                         horizontal_value_tasks_proc [ file_number ] ++;
                     }
@@ -1358,12 +1296,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_tasks_cswch [ file_number ] );
-                        vertical_value = vertical_start_point_tasks + ( t * vertical_notch_tasks_cswch );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_tasks_cswch [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_TASKS + ( t * VERTICAL_NOTCH_TASKS_CSWCH );
                         /* only when first in element */
                         if ( horizontal_value_tasks_cswch [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "tasks", "cswch", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "tasks", "cswch", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "tasks", "cswch", file_number, horizontal_value, vertical_value, "no" );
@@ -1462,17 +1400,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_swapping_pswpin [ file_number ] );
-                        vertical_value = vertical_start_point_swapping + ( t * vertical_notch_swapping );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_swapping_pswpin [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_SWAPPING + ( t * VERTICAL_NOTCH_SWAPPING );
                         /* only when first in element */
                         if ( horizontal_value_swapping_pswpin [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "pswpin", file_number, horizontal_swapping_subtitle, vertical_swapping_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "pswpin", file_number, HORIZONTAL_SWAPPING_SUBTITLE, VERTICAL_SWAPPING_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "pswpin", file_number, horizontal_first_time_point, vertical_first_time_point_swapping, horizontal_notch, horizontal_value_swapping_pswpin [ file_number ], time_value );
+                            write_time_value_to_ps ( "pswpin", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_SWAPPING, horizontal_notch, horizontal_value_swapping_pswpin [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "swapping", "pswpin", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "swapping", "pswpin", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -1480,9 +1418,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "swapping", "pswpin", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_swapping_pswpin [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "swapping", file_number, horizontal_first_time_point, vertical_first_time_point_swapping, horizontal_notch, horizontal_value_swapping_pswpin [ file_number ], time_value );
+                                write_time_value_to_ps ( "swapping", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_SWAPPING, horizontal_notch, horizontal_value_swapping_pswpin [ file_number ], time_value );
                             else if ( ( horizontal_value_swapping_pswpin [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "swapping", file_number, horizontal_first_time_point, vertical_first_time_point_swapping - 20, horizontal_notch, horizontal_value_swapping_pswpin [ file_number ], time_value );
+                                write_time_value_to_ps ( "swapping", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_SWAPPING - 20, horizontal_notch, horizontal_value_swapping_pswpin [ file_number ], time_value );
                         }
                         horizontal_value_swapping_pswpin [ file_number ] ++;
                     }
@@ -1560,12 +1498,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_swapping_pswpout [ file_number ] );
-                        vertical_value = vertical_start_point_swapping + ( t * vertical_notch_swapping );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_swapping_pswpout [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_SWAPPING + ( t * VERTICAL_NOTCH_SWAPPING );
                         /* only when first in element */
                         if ( horizontal_value_swapping_pswpout [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "swapping", "pswpout", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "swapping", "pswpout", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "swapping", "pswpout", file_number, horizontal_value, vertical_value, "no" );
@@ -1685,17 +1623,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_pgpgin [ file_number ] );
-                        vertical_value = vertical_start_point_paging + ( t * vertical_notch_paging );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_paging_pgpgin [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_PAGING + ( t * VERTICAL_NOTCH_PAGING );
                         /* only when first in element */
                         if ( horizontal_value_paging_pgpgin [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "paging", file_number, horizontal_paging_subtitle, vertical_paging_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "paging", file_number, HORIZONTAL_PAGING_SUBTITLE, VERTICAL_PAGING_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "paging", file_number, horizontal_first_time_point, vertical_first_time_point_paging, horizontal_notch, horizontal_value_paging_pgpgin [ file_number ], time_value );
+                            write_time_value_to_ps ( "paging", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_PAGING, horizontal_notch, horizontal_value_paging_pgpgin [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "paging", "pgpgin", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "paging", "pgpgin", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -1703,9 +1641,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "paging", "pgpgin", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_paging_pgpgin [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "paging", file_number, horizontal_first_time_point, vertical_first_time_point_paging, horizontal_notch, horizontal_value_paging_pgpgin [ file_number ], time_value );
+                                write_time_value_to_ps ( "paging", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_PAGING, horizontal_notch, horizontal_value_paging_pgpgin [ file_number ], time_value );
                             else if ( ( horizontal_value_paging_pgpgin [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "paging", file_number, horizontal_first_time_point, vertical_first_time_point_paging - 20, horizontal_notch, horizontal_value_paging_pgpgin [ file_number ], time_value );
+                                write_time_value_to_ps ( "paging", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_PAGING - 20, horizontal_notch, horizontal_value_paging_pgpgin [ file_number ], time_value );
                         }
                         horizontal_value_paging_pgpgin [ file_number ] ++;
                     }
@@ -1783,12 +1721,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_pgpgout [ file_number ] );
-                        vertical_value = vertical_start_point_paging + ( t * vertical_notch_paging );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_paging_pgpgout [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_PAGING + ( t * VERTICAL_NOTCH_PAGING );
                         /* only when first in element */
                         if ( horizontal_value_paging_pgpgout [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "paging", "pgpgout", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "paging", "pgpgout", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "paging", "pgpgout", file_number, horizontal_value, vertical_value, "no" );
@@ -1869,12 +1807,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_fault [ file_number ] );
-                        vertical_value = vertical_start_point_paging + ( t * vertical_notch_paging_fault );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_paging_fault [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_PAGING + ( t * VERTICAL_NOTCH_PAGING_FAULT );
                         /* only when first in element */
                         if ( horizontal_value_paging_fault [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "paging", "fault", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "paging", "fault", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "paging", "fault", file_number, horizontal_value, vertical_value, "no" );
@@ -1954,12 +1892,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_mjflt [ file_number ] );
-                        vertical_value = vertical_start_point_paging + ( t * vertical_notch_paging );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_paging_mjflt [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_PAGING + ( t * VERTICAL_NOTCH_PAGING );
                         /* only when first in element */
                         if ( horizontal_value_paging_mjflt [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "paging", "majflt", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "paging", "majflt", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "paging", "majflt", file_number, horizontal_value, vertical_value, "no" );
@@ -2039,12 +1977,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_paging_vmeff [ file_number ] );
-                        vertical_value = vertical_start_point_paging + ( t * vertical_notch_percent );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_paging_vmeff [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_PAGING + ( t * VERTICAL_NOTCH_PERCENT );
                         /* only when first in element */
                         if ( horizontal_value_paging_vmeff [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "paging", "vmeff", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "paging", "vmeff", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "paging", "vmeff", file_number, horizontal_value, vertical_value, "no" );
@@ -2151,17 +2089,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_io_transfer_rate_tps [ file_number ] );
-                        vertical_value = vertical_start_point_io_transfer_rate + ( vertical_notch_io_transfer_rate_tps * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_io_transfer_rate_tps [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_IO_TRANSFER_RATE + ( VERTICAL_NOTCH_IO_TRANSFER_RATE_TPS * t );
                         /* only when first in element */
                         if ( horizontal_value_io_transfer_rate_tps [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "io_transfer_rate", file_number, horizontal_io_transfer_rate_subtitle, vertical_io_transfer_rate_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "io_transfer_rate", file_number, HORIZONTAL_IO_TRANSFER_RATE_SUBTITLE, VERTICAL_IO_TRANSFER_RATE_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "io_transfer_rate", file_number, horizontal_first_time_point, vertical_first_time_point_io_transfer_rate, horizontal_notch, horizontal_value_io_transfer_rate_tps [ file_number ], time_value );
+                            write_time_value_to_ps ( "io_transfer_rate", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_IO_TRANSFER_RATE, horizontal_notch, horizontal_value_io_transfer_rate_tps [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "io_transfer_rate", "tps", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "io_transfer_rate", "tps", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -2169,9 +2107,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "io_transfer_rate", "tps", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_io_transfer_rate_tps [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "io_transfer_rate", file_number, horizontal_first_time_point, vertical_first_time_point_io_transfer_rate, horizontal_notch, horizontal_value_io_transfer_rate_tps [ file_number ], time_value );
+                                write_time_value_to_ps ( "io_transfer_rate", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_IO_TRANSFER_RATE, horizontal_notch, horizontal_value_io_transfer_rate_tps [ file_number ], time_value );
                             else if ( ( horizontal_value_io_transfer_rate_tps [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "io_transfer_rate", file_number, horizontal_first_time_point, vertical_first_time_point_io_transfer_rate - 20, horizontal_notch, horizontal_value_io_transfer_rate_tps [ file_number ], time_value );
+                                write_time_value_to_ps ( "io_transfer_rate", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_IO_TRANSFER_RATE - 20, horizontal_notch, horizontal_value_io_transfer_rate_tps [ file_number ], time_value );
                         }
                         horizontal_value_io_transfer_rate_tps [ file_number ] ++;
                     }
@@ -2249,12 +2187,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_io_transfer_rate_bread [ file_number ] );
-                        vertical_value = vertical_start_point_io_transfer_rate + ( t * vertical_notch_io_transfer_rate_bread );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_io_transfer_rate_bread [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_IO_TRANSFER_RATE + ( t * VERTICAL_NOTCH_IO_TRANSFER_RATE_BREAD );
                         /* only when first in element */
                         if ( horizontal_value_io_transfer_rate_bread [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "io_transfer_rate", "bread", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "io_transfer_rate", "bread", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "io_transfer_rate", "bread", file_number, horizontal_value, vertical_value, "no" );
@@ -2334,12 +2272,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_io_transfer_rate_bwrtn [ file_number ] );
-                        vertical_value = vertical_start_point_io_transfer_rate + ( t * vertical_notch_io_transfer_rate_bwrtn );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_io_transfer_rate_bwrtn [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_IO_TRANSFER_RATE + ( t * VERTICAL_NOTCH_IO_TRANSFER_RATE_BWRTN );
                         /* only when first in element */
                         if ( horizontal_value_io_transfer_rate_bwrtn [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "io_transfer_rate", "bwrtn", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "io_transfer_rate", "bwrtn", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "io_transfer_rate", "bwrtn", file_number, horizontal_value, vertical_value, "no" );
@@ -2446,17 +2384,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_memory_memused [ file_number ] );
-                        vertical_value = vertical_start_point_memory + ( vertical_notch_percent * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_memory_memused [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_MEMORY + ( VERTICAL_NOTCH_PERCENT * t );
                         /* only when first in element */
                         if ( horizontal_value_memory_memused [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "memory", file_number, horizontal_memory_subtitle, vertical_memory_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "memory", file_number, HORIZONTAL_MEMORY_SUBTITLE, VERTICAL_MEMORY_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "memory", file_number, horizontal_first_time_point, vertical_first_time_point_memory, horizontal_notch, horizontal_value_memory_memused [ file_number ], time_value );
+                            write_time_value_to_ps ( "memory", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_MEMORY, horizontal_notch, horizontal_value_memory_memused [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "memory", "memused", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "memory", "memused", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -2464,9 +2402,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "memory", "memused", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_memory_memused [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "memory", file_number, horizontal_first_time_point, vertical_first_time_point_memory, horizontal_notch, horizontal_value_memory_memused [ file_number ], time_value );
+                                write_time_value_to_ps ( "memory", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_MEMORY, horizontal_notch, horizontal_value_memory_memused [ file_number ], time_value );
                             else if ( ( horizontal_value_memory_memused [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "memory", file_number, horizontal_first_time_point, vertical_first_time_point_memory - 20, horizontal_notch, horizontal_value_memory_memused [ file_number ], time_value );
+                                write_time_value_to_ps ( "memory", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_MEMORY - 20, horizontal_notch, horizontal_value_memory_memused [ file_number ], time_value );
                         }
                         horizontal_value_memory_memused [ file_number ] ++;
                     }
@@ -2544,12 +2482,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_memory_kbcommit [ file_number ] );
-                        vertical_value = vertical_start_point_memory + ( t / vertical_notch_memory_kbcommit );/* note that we calculate t / nothch unlike other ones */
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_memory_kbcommit [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_MEMORY + ( t / VERTICAL_NOTCH_MEMORY_KBCOMMIT );/* note that we calculate t / nothch unlike other ones */
                         /* only when first in element */
                         if ( horizontal_value_memory_kbcommit [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "memory", "kbcommit", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "memory", "kbcommit", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "memory", "kbcommit", file_number, horizontal_value, vertical_value, "no" );
@@ -2629,12 +2567,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_memory_commit [ file_number ] );
-                        vertical_value = vertical_start_point_memory + ( t * vertical_notch_percent );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_memory_commit [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_MEMORY + ( t * VERTICAL_NOTCH_PERCENT );
                         /* only when first in element */
                         if ( horizontal_value_memory_commit [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "memory", "commit", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "memory", "commit", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "memory", "commit", file_number, horizontal_value, vertical_value, "no" );
@@ -2818,17 +2756,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_kernel_table_dentunusd [ file_number ] );
-                        vertical_value = vertical_start_point_kernel_table + ( t * vertical_notch_kernel_table_dentunusd );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_kernel_table_dentunusd [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_KERNEL_TABLE + ( t * VERTICAL_NOTCH_KERNEL_TABLE_DENTUNUSD );
                         /* only when first in element */
                         if ( horizontal_value_kernel_table_dentunusd [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "kernel_table", file_number, horizontal_kernel_table_subtitle, vertical_kernel_table_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "kernel_table", file_number, HORIZONTAL_KERNEL_TABLE_SUBTITLE, VERTICAL_KERNEL_TABLE_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "kernel_table", file_number, horizontal_first_time_point, vertical_first_time_point_kernel_table, horizontal_notch, horizontal_value_kernel_table_dentunusd [ file_number ], time_value );
+                            write_time_value_to_ps ( "kernel_table", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_KERNEL_TABLE, horizontal_notch, horizontal_value_kernel_table_dentunusd [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "kernel_table", "dentunusd", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "kernel_table", "dentunusd", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -2836,9 +2774,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "kernel_table", "dentunusd", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_kernel_table_dentunusd [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "kernel_table", file_number, horizontal_first_time_point, vertical_first_time_point_kernel_table, horizontal_notch, horizontal_value_kernel_table_dentunusd [ file_number ], time_value );
+                                write_time_value_to_ps ( "kernel_table", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_KERNEL_TABLE, horizontal_notch, horizontal_value_kernel_table_dentunusd [ file_number ], time_value );
                             else if ( ( horizontal_value_kernel_table_dentunusd [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "kernel_table", file_number, horizontal_first_time_point, vertical_first_time_point_kernel_table - 20, horizontal_notch, horizontal_value_kernel_table_dentunusd [ file_number ], time_value );
+                                write_time_value_to_ps ( "kernel_table", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_KERNEL_TABLE - 20, horizontal_notch, horizontal_value_kernel_table_dentunusd [ file_number ], time_value );
                         }
                         horizontal_value_kernel_table_dentunusd [ file_number ] ++;
                     }
@@ -2916,12 +2854,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_kernel_table_file [ file_number ] );
-                        vertical_value = vertical_start_point_kernel_table + ( t * vertical_notch_kernel_table_file );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_kernel_table_file [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_KERNEL_TABLE + ( t * VERTICAL_NOTCH_KERNEL_TABLE_FILE );
                         /* only when first in element */
                         if ( horizontal_value_kernel_table_file [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "kernel_table", "file", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "kernel_table", "file", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "kernel_table", "file", file_number, horizontal_value, vertical_value, "no" );
@@ -3001,12 +2939,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_kernel_table_inode [ file_number ] );
-                        vertical_value = vertical_start_point_kernel_table + ( t * vertical_notch_kernel_table_inode );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_kernel_table_inode [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_KERNEL_TABLE + ( t * VERTICAL_NOTCH_KERNEL_TABLE_INODE );
                         /* only when first in element */
                         if ( horizontal_value_kernel_table_inode [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "kernel_table", "inode", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "kernel_table", "inode", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "kernel_table", "inode", file_number, horizontal_value, vertical_value, "no" );
@@ -3128,17 +3066,17 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_runq [ file_number ] );
-                        vertical_value = vertical_start_point_ldavg + ( vertical_notch_ldavg * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_ldavg_runq [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_LDAVG + ( VERTICAL_NOTCH_LDAVG * t );
                         /* only when first in element */
                         if ( horizontal_value_ldavg_runq [ file_number ] == 0 )
                         {
                             /* drawing subtitle label */
-                            write_subtitle_to_ps ( "ldavg", file_number, horizontal_ldavg_subtitle, vertical_ldavg_subtitle, this_date_all );
+                            write_subtitle_to_ps ( "ldavg", file_number, HORIZONTAL_LDAVG_SUBTITLE, VERTICAL_LDAVG_SUBTITLE, this_date_all );
                             /* drawing time label */
-                            write_time_value_to_ps ( "ldavg", file_number, horizontal_first_time_point, vertical_first_time_point_ldavg, horizontal_notch, horizontal_value_ldavg_runq [ file_number ], time_value );
+                            write_time_value_to_ps ( "ldavg", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_LDAVG, horizontal_notch, horizontal_value_ldavg_runq [ file_number ], time_value );
                             /* drawing graph */
-                            draw_graph_to_ps ( "ldavg", "runq", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "ldavg", "runq", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         }
                         else
                         {
@@ -3146,9 +3084,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             draw_graph_to_ps ( "ldavg", "runq", file_number, horizontal_value, vertical_value, "no" );
                             /* drawing time label */
                             if ( ( horizontal_value_ldavg_runq [ file_number ] % 12 ) == 0 )
-                                write_time_value_to_ps ( "ldavg", file_number, horizontal_first_time_point, vertical_first_time_point_ldavg, horizontal_notch, horizontal_value_ldavg_runq [ file_number ], time_value );
+                                write_time_value_to_ps ( "ldavg", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_LDAVG, horizontal_notch, horizontal_value_ldavg_runq [ file_number ], time_value );
                             else if ( ( horizontal_value_ldavg_runq [ file_number ] % 6 ) == 0 )
-                                write_time_value_to_ps ( "ldavg", file_number, horizontal_first_time_point, vertical_first_time_point_ldavg - 20, horizontal_notch, horizontal_value_ldavg_runq [ file_number ], time_value );
+                                write_time_value_to_ps ( "ldavg", file_number, horizontal_first_time_point, VERTICAL_FIRST_TIME_POINT_LDAVG - 20, horizontal_notch, horizontal_value_ldavg_runq [ file_number ], time_value );
                         }
                         horizontal_value_ldavg_runq [ file_number ] ++;
                     }
@@ -3227,12 +3165,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_plist [ file_number ] );
-                        vertical_value = vertical_start_point_ldavg + ( vertical_notch_ldavg_plist * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_ldavg_plist [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_LDAVG + ( VERTICAL_NOTCH_LDAVG_PLIST * t );
                         /* only when first in element */
                         if ( horizontal_value_ldavg_plist [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "ldavg", "plist", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "ldavg", "plist", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "ldavg", "plist", file_number, horizontal_value, vertical_value, "no" );
@@ -3313,12 +3251,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_ldavg_one [ file_number ] );
-                        vertical_value = vertical_start_point_ldavg + ( vertical_notch_ldavg * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_ldavg_ldavg_one [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_LDAVG + ( VERTICAL_NOTCH_LDAVG * t );
                         /* only when first in element */
                         if ( horizontal_value_ldavg_ldavg_one [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "ldavg", "ldavg_one", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "ldavg", "ldavg_one", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "ldavg", "ldavg_one", file_number, horizontal_value, vertical_value, "no" );
@@ -3398,12 +3336,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_ldavg_five [ file_number ] );
-                        vertical_value = vertical_start_point_ldavg + ( vertical_notch_ldavg * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_ldavg_ldavg_five [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_LDAVG + ( VERTICAL_NOTCH_LDAVG * t );
                         /* only when first in element */
                         if ( horizontal_value_ldavg_ldavg_five [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "ldavg", "ldavg_five", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "ldavg", "ldavg_five", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "ldavg", "ldavg_five", file_number, horizontal_value, vertical_value, "no" );
@@ -3483,12 +3421,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                        ( strstr ( time_value, ":50:" ) != NULL ) )
                     {
                         /* code for postscript file */
-                        horizontal_value = horizontal_start_point + ( horizontal_notch * horizontal_value_ldavg_ldavg_15 [ file_number ] );
-                        vertical_value = vertical_start_point_ldavg + ( vertical_notch_ldavg * t );
+                        horizontal_value = HORIZONTAL_START_POINT + ( horizontal_notch * horizontal_value_ldavg_ldavg_15 [ file_number ] );
+                        vertical_value = VERTICAL_START_POINT_LDAVG + ( VERTICAL_NOTCH_LDAVG * t );
                         /* only when first in element */
                         if ( horizontal_value_ldavg_ldavg_15 [ file_number ] == 0 )
                             /* drawing graph */
-                            draw_graph_to_ps ( "ldavg", "ldavg_15", file_number, horizontal_start_point, vertical_value, "yes" );
+                            draw_graph_to_ps ( "ldavg", "ldavg_15", file_number, HORIZONTAL_START_POINT, vertical_value, "yes" );
                         else
                             /* drawing graph */
                             draw_graph_to_ps ( "ldavg", "ldavg_15", file_number, horizontal_value, vertical_value, "no" );
