@@ -296,11 +296,9 @@ void read_analyze_dir ( const char *member, const char *dname )
 }
 
 /* These are the items to be analyzed not statically nor checked by multi-lines */
-//static int date_information = 0;
 static int bios_information = 0;
 static int memory_array_information = 0;
 static int memory_information = 0;
-//static int df_information = 0;
 
 /* These are array numbers limits. */
 int arr_max0 = 0;
