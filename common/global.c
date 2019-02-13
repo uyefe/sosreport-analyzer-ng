@@ -91,6 +91,7 @@ char *cut_str_from_the_last_slash ( char *str_tmp, int str_len, char str_ret [ M
 
     return str_ret;
 }
+
 int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item )
 {
     if ( strcmp ( "spike", analyze_item ) == 0 )

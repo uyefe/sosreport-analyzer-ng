@@ -416,36 +416,52 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &report_tasks_explanation_obj, fp_sar_w );
     file_write_list ( &report_pswap_obj, fp_sar_w );
     file_write_list ( &report_pswap_spike_obj, fp_sar_w );
+    file_write_list ( &report_pswap_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_pswap_explanation_obj, fp_sar_w );
     file_write_list ( &report_paging_obj, fp_sar_w );
     file_write_list ( &report_paging_spike_obj, fp_sar_w );
+    file_write_list ( &report_paging_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_paging_explanation_obj, fp_sar_w );
     file_write_list ( &report_io_transfer_rate_obj, fp_sar_w );
     file_write_list ( &report_io_transfer_rate_spike_obj, fp_sar_w );
+    file_write_list ( &report_io_transfer_rate_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_io_transfer_rate_explanation_obj, fp_sar_w );
     file_write_list ( &report_memory_obj, fp_sar_w );
     file_write_list ( &report_memory_spike_obj, fp_sar_w );
+    file_write_list ( &report_memory_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_memory_explanation_obj, fp_sar_w );
     file_write_list ( &report_swpused_obj, fp_sar_w );
     file_write_list ( &report_swpused_spike_obj, fp_sar_w );
+    file_write_list ( &report_swpused_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_swpused_explanation_obj, fp_sar_w );
     file_write_list ( &report_kernel_table_obj, fp_sar_w );
     file_write_list ( &report_kernel_table_spike_obj, fp_sar_w );
+    file_write_list ( &report_kernel_table_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_kernel_table_explanation_obj, fp_sar_w );
     file_write_list ( &report_ldavg_obj, fp_sar_w );
     file_write_list ( &report_ldavg_spike_obj, fp_sar_w );
+    file_write_list ( &report_ldavg_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_ldavg_explanation_obj, fp_sar_w );
     file_write_list ( &report_block_device_obj, fp_sar_w );
     for ( int v = 0; v <= get_block_device_numbers ( ); v++ )
+    {
         file_write_list ( &report_block_device_spike_obj [ v ], fp_sar_w );
+        file_write_list ( &report_block_device_time_span_spike_obj [ v ], fp_sar_w );
+    }
     file_write_list ( &report_block_device_explanation_obj, fp_sar_w );
     file_write_list ( &report_network_obj, fp_sar_w );
     for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+    {
         file_write_list ( &report_network_spike_obj [ v ], fp_sar_w );
+        file_write_list ( &report_network_time_span_spike_obj [ v ], fp_sar_w );
+    }
     file_write_list ( &report_network_explanation_obj, fp_sar_w );
     file_write_list ( &report_network_error_obj, fp_sar_w );
     for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+    {
         file_write_list ( &report_network_error_spike_obj [ v ], fp_sar_w );
+        file_write_list ( &report_network_error_time_span_spike_obj [ v ], fp_sar_w );
+    }
     file_write_list ( &report_network_error_explanation_obj, fp_sar_w );
     file_write_list ( &report_thrashing_obj, fp_sar_w );
     for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
