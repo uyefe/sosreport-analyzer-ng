@@ -183,8 +183,6 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   You can execute this program as an ordinary user not root ( you need to be root when editting conf file, though ).
 
-  Presently, it creats 4 dummy files in the current directory, with no harm.
-
   Creating directory unconditionally in the current directory for the analyzed files, with no harm.
 
   No memory leakage.

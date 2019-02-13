@@ -388,6 +388,25 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'pswpout/s'  is %13.2f (%s %s)",
                 get_pswap_spike_val_each_file ( j, "pswpout", "highest" ), get_pswap_spike_date_each_file ( j, "pswpout", "highest" ), get_pswap_spike_time_each_file ( j, "pswpout", "highest" ) );
             append_list ( &report_pswap_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_pswap_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'pswpin/s'   is %13.2f (%s %s)", time_span,
+                    get_pswap_time_span_spike_val_each_file ( j, "pswpin", "spike" ), get_pswap_time_span_spike_date_each_file ( j, "pswpin", "spike" ), get_pswap_time_span_spike_time_each_file ( j, "pswpin", "spike" ) );
+                append_list ( &report_pswap_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'pswpout/s'  is %13.2f (%s %s)", time_span,
+                    get_pswap_time_span_spike_val_each_file ( j, "pswpout", "spike" ), get_pswap_time_span_spike_date_each_file ( j, "pswpout", "spike" ), get_pswap_time_span_spike_time_each_file ( j, "pswpout", "spike" ) );
+                append_list ( &report_pswap_time_span_spike_obj, str_tmp );
+                append_list ( &report_pswap_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'pswpin/s'   is %13.2f (%s %s)", time_span,
+                    get_pswap_time_span_spike_val_each_file ( j, "pswpin", "highest" ), get_pswap_time_span_spike_date_each_file ( j, "pswpin", "highest" ), get_pswap_time_span_spike_time_each_file ( j, "pswpin", "highest" ) );
+                append_list ( &report_pswap_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'pswpout/s'  is %13.2f (%s %s)", time_span,
+                    get_pswap_time_span_spike_val_each_file ( j, "pswpout", "highest" ), get_pswap_time_span_spike_date_each_file ( j, "pswpout", "highest" ), get_pswap_time_span_spike_time_each_file ( j, "pswpout", "highest" ) );
+                append_list ( &report_pswap_time_span_spike_obj, str_tmp );
+            }
         }
 
         append_list ( &report_pswap_explanation_obj, "--------" );
@@ -480,7 +499,6 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
         append_list ( &report_paging_obj, "\n-- Report spikes for each file of paging statistics --\n" );
         for ( j = 0; j < files_n; j++ )
         {
-
             /* set for declaring file no in case -O option is set */
             char str_paging_tmp [ 13 ] = "----file no.";
             char str_num [ 50 ] = { '\0' };
@@ -520,6 +538,43 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%vmeff/s'  is %13.2f (%s %s)",
                 get_paging_spike_val_each_file ( j, "vmeff", "highest" ), get_paging_spike_date_each_file ( j, "vmeff", "highest" ), get_paging_spike_time_each_file ( j, "vmeff", "highest" ) );
             append_list ( &report_paging_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_paging_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'pgpgin/s'  is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "pgpgin", "spike" ), get_paging_time_span_spike_date_each_file ( j, "pgpgin", "spike" ), get_paging_time_span_spike_time_each_file ( j, "pgpgin", "spike" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'pgpgout/s' is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "pgpgout", "spike" ), get_paging_time_span_spike_date_each_file ( j, "pgpgout", "spike" ), get_paging_time_span_spike_time_each_file ( j, "pgpgout", "spike" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'fault/s'   is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "fault", "spike" ), get_paging_time_span_spike_date_each_file ( j, "fault", "spike" ), get_paging_time_span_spike_time_each_file ( j, "fault", "spike" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'majflt/s'  is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "majflt", "spike" ), get_paging_time_span_spike_date_each_file ( j, "majflt", "spike" ), get_paging_time_span_spike_time_each_file ( j, "majflt", "spike" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of '%%vmeff/s'  is %13.2f (%s %s)",time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "vmeff", "spike" ), get_paging_time_span_spike_date_each_file ( j, "vmeff", "spike" ), get_paging_time_span_spike_time_each_file ( j, "vmeff", "spike" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                append_list ( &report_paging_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'pgpgin/s'  is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "pgpgin", "highest" ), get_paging_time_span_spike_date_each_file ( j, "pgpgin", "highest" ), get_paging_time_span_spike_time_each_file ( j, "pgpgin", "highest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'pgpgout/s' is %13.2f (%s %s)",time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "pgpgout", "highest" ), get_paging_time_span_spike_date_each_file ( j, "pgpgout", "highest" ), get_paging_time_span_spike_time_each_file ( j, "pgpgout", "highest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'fault/s'   is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "fault", "highest" ), get_paging_time_span_spike_date_each_file ( j, "fault", "highest" ), get_paging_time_span_spike_time_each_file ( j, "fault", "highest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'majflt/s'  is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "majflt", "highest" ), get_paging_time_span_spike_date_each_file ( j, "majflt", "highest" ), get_paging_time_span_spike_time_each_file ( j, "majflt", "highest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%vmeff/s'  is %13.2f (%s %s)", time_span,
+                get_paging_time_span_spike_val_each_file ( j, "vmeff", "highest" ), get_paging_time_span_spike_date_each_file ( j, "vmeff", "highest" ), get_paging_time_span_spike_time_each_file ( j, "vmeff", "highest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+            }
         }
         append_list ( &report_paging_explanation_obj, "--------" );
         append_list ( &report_paging_explanation_obj, " If pgpgin/s is high, It is most doubtful that thrashing is occurring. Check cpu's '%iowait' in that very time." );
@@ -612,6 +667,31 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'bwrtn/s' is %13.2f (%s %s)",
                 get_io_transfer_rate_spike_val_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_spike_date_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_spike_time_each_file ( j, "bwrtn", "highest" ) );
             append_list ( &report_io_transfer_rate_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'tps'     is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "tps", "spike" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "tps", "spike" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "tps", "spike" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'bread/s' is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "bread", "spike" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bread", "spike" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bread", "spike" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'bwrtn/s' is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "bwrtn", "spike" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bwrtn", "spike" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bwrtn", "spike" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'tps'     is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "tps", "highest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "tps", "highest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "tps", "highest" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'bread/s' is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "bread", "highest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bread", "highest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bread", "highest" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'bwrtn/s' is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bwrtn", "highest" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+            }
         }
 
         append_list ( &report_io_transfer_rate_explanation_obj, "--------" );
@@ -706,6 +786,31 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%commit'  is %13.2f (%s %s)",
                 get_memory_spike_val_each_file ( j, "commit", "highest" ), get_memory_spike_date_each_file ( j, "commit", "highest" ), get_memory_spike_time_each_file ( j, "commit", "highest" ) );
             append_list ( &report_memory_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_memory_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of '%%memused' is %13.2f (%s %s)", time_span,
+                    get_memory_time_span_spike_val_each_file ( j, "memused", "spike" ), get_memory_time_span_spike_date_each_file ( j, "memused", "spike" ), get_memory_time_span_spike_time_each_file ( j, "memused", "spike" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'kbcommit' is %13d (%s %s)", time_span,
+                    (int)get_memory_time_span_spike_val_each_file ( j, "kbcommit", "spike" ), get_memory_time_span_spike_date_each_file ( j, "kbcommit", "spike" ), get_memory_time_span_spike_time_each_file ( j, "kbcommit", "spike" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of '%%commit'  is %13.2f (%s %s)", time_span,
+                    get_memory_time_span_spike_val_each_file ( j, "commit", "spike" ), get_memory_time_span_spike_date_each_file ( j, "commit", "spike" ), get_memory_time_span_spike_time_each_file ( j, "commit", "spike" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                append_list ( &report_memory_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%memused' is %13.2f (%s %s)", time_span,
+                    get_memory_time_span_spike_val_each_file ( j, "memused", "highest" ), get_memory_time_span_spike_date_each_file ( j, "memused", "highest" ), get_memory_time_span_spike_time_each_file ( j, "memused", "highest" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'kbcommit' is %13d (%s %s)", time_span,
+                    (int)get_memory_time_span_spike_val_each_file ( j, "kbcommit", "highest" ), get_memory_time_span_spike_date_each_file ( j, "kbcommit", "highest" ), get_memory_time_span_spike_time_each_file ( j, "kbcommit", "highest" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%commit'  is %13.2f (%s %s)", time_span,
+                    get_memory_time_span_spike_val_each_file ( j, "commit", "highest" ), get_memory_time_span_spike_date_each_file ( j, "commit", "highest" ), get_memory_time_span_spike_time_each_file ( j, "commit", "highest" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+            }
         }
 
         append_list ( &report_memory_explanation_obj, "--------" );
@@ -754,6 +859,19 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%swpused'  is %13.2f (%s %s)",
                 get_swpused_spike_val_each_file ( j, "highest" ), get_swpused_spike_date_each_file ( j, "highest" ), get_swpused_spike_time_each_file ( j, "highest" ) );
             append_list ( &report_swpused_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_swpused_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of '%%swpused'  is %13.2f (%s %s)", time_span,
+                    get_swpused_time_span_spike_val_each_file ( j, "spike" ), get_swpused_time_span_spike_date_each_file ( j, "spike" ), get_swpused_time_span_spike_time_each_file ( j, "spike" ) );
+                append_list ( &report_swpused_time_span_spike_obj, str_tmp );
+                append_list ( &report_swpused_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%swpused'  is %13.2f (%s %s)", time_span,
+                    get_swpused_time_span_spike_val_each_file ( j, "highest" ), get_swpused_time_span_spike_date_each_file ( j, "highest" ), get_swpused_time_span_spike_time_each_file ( j, "highest" ) );
+                append_list ( &report_swpused_time_span_spike_obj, str_tmp );
+            }
         }
 
         append_list ( &report_swpused_explanation_obj, "--------");
@@ -815,14 +933,12 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
         append_list ( &report_kernel_table_obj, "\n-- Report spikes for each file of inode, file and other kernel tables --\n" );
         for ( j = 0; j < files_n; j++ )
         {
-
             /* set for declaring file no in case -O option is set */
             char str_kernel_table_tmp [ 13 ] = "----file no.";
             char str_num [ 50 ] = { '\0' };
             snprintf ( str_num, MAX_INPUT, "%s%d", str_kernel_table_tmp, j + 1 );
             append_list ( &report_kernel_table_spike_obj, str_num );
             /* end -- set for declaring file no in case -O option is set */
-
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Spike   value of 'dentunusd'  is %13d (%s %s)",
                 get_kernel_table_spike_val_each_file ( j, "dentunusd", "spike" ), get_kernel_table_spike_date_each_file ( j, "dentunusd", "spike" ), get_kernel_table_spike_time_each_file ( j, "dentunusd", "spike" ) );
             append_list ( &report_kernel_table_spike_obj, str_tmp );
@@ -843,6 +959,31 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'inode-nr'   is %13d (%s %s)",
                 get_kernel_table_spike_val_each_file ( j, "inode", "highest" ), get_kernel_table_spike_date_each_file ( j, "inode", "highest" ), get_kernel_table_spike_time_each_file ( j, "inode", "highest" ) );
             append_list ( &report_kernel_table_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_kernel_table_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'dentunusd'  is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "dentunusd", "spike" ), get_kernel_table_time_span_spike_date_each_file ( j, "dentunusd", "spike" ), get_kernel_table_time_span_spike_time_each_file ( j, "dentunusd", "spike" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'file-nr'    is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "file", "spike" ), get_kernel_table_time_span_spike_date_each_file ( j, "file", "spike" ), get_kernel_table_time_span_spike_time_each_file ( j, "file", "spike" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'inode-nr'   is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "inode", "spike" ), get_kernel_table_time_span_spike_date_each_file ( j, "inode", "spike" ), get_kernel_table_time_span_spike_time_each_file ( j, "inode", "spike" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                append_list ( &report_kernel_table_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'dentunusd'  is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "dentunusd", "highest" ), get_kernel_table_time_span_spike_date_each_file ( j, "dentunusd", "highest" ), get_kernel_table_time_span_spike_time_each_file ( j, "dentunusd", "highest" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'file-nr'    is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "file", "highest" ), get_kernel_table_time_span_spike_date_each_file ( j, "file", "highest" ), get_kernel_table_time_span_spike_time_each_file ( j, "file", "highest" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'inode-nr'   is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "inode", "highest" ), get_kernel_table_time_span_spike_date_each_file ( j, "inode", "highest" ), get_kernel_table_time_span_spike_time_each_file ( j, "inode", "highest" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+            }
         }
         append_list ( &report_kernel_table_explanation_obj, "--------" );
         append_list ( &report_kernel_table_explanation_obj, " dentunusd is number of unused cache entries in the directory cache." );
@@ -975,6 +1116,43 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'ldavg-15' is %13.2f (%s %s)",
                 get_ldavg_spike_val_each_file ( j, "ldavg_15", "highest" ), get_ldavg_spike_date_each_file ( j, "ldavg_15", "highest" ), get_ldavg_spike_time_each_file ( j, "ldavg_15", "highest" ) );
             append_list ( &report_ldavg_spike_obj, str_tmp );
+            /* for time-span option */
+            if ( time_span != NULL )
+            {
+                append_list ( &report_ldavg_time_span_spike_obj, str_num );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'runq-sz'  is %13d (%s %s)", time_span,
+                    (int)get_ldavg_time_span_spike_val_each_file ( j, "runq_sz", "spike" ), get_ldavg_time_span_spike_date_each_file ( j, "runq_sz", "spike" ), get_ldavg_time_span_spike_time_each_file ( j, "runq_sz", "spike" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'plist-sz' is %13d (%s %s)", time_span,
+                    (int)get_ldavg_time_span_spike_val_each_file ( j, "plist_sz", "spike" ), get_ldavg_time_span_spike_date_each_file ( j, "plist_sz", "spike" ), get_ldavg_time_span_spike_time_each_file ( j, "plist_sz", "spike" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'ldavg-1'  is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_one", "spike" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_one", "spike" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_one", "spike" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Spike   value of 'ldavg-5'  is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_five", "spike" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_five", "spike" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_five", "spike" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s SPike   value of 'ldavg-15' is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_15", "spike" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_15", "spike" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_15", "spike" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                append_list ( &report_ldavg_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'runq-sz'  is %13d (%s %s)", time_span,
+                    (int)get_ldavg_time_span_spike_val_each_file ( j, "runq_sz", "highest" ), get_ldavg_time_span_spike_date_each_file ( j, "runq_sz", "highest" ), get_ldavg_time_span_spike_time_each_file ( j, "runq_sz", "highest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'plist-sz' is %13d (%s %s)", time_span,
+                    (int)get_ldavg_time_span_spike_val_each_file ( j, "plist_sz", "highest" ), get_ldavg_time_span_spike_date_each_file ( j, "plist_sz", "highest" ), get_ldavg_time_span_spike_time_each_file ( j, "plist_sz", "highest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'ldavg-1'  is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_one", "highest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_one", "highest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_one", "highest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'ldavg-5'  is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_five", "highest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_five", "highest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_five", "highest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'ldavg-15' is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_15", "highest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_15", "highest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_15", "highest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+            }
         }
 
         append_list ( &report_ldavg_explanation_obj, "--------" );

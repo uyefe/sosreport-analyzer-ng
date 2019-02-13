@@ -777,6 +777,13 @@ struct line_data report_pswap_spike_obj_raw =
         NULL /* next pointer */
     };
 
+/* report_pswap_time_span_spike_obj */
+struct line_data report_pswap_time_span_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
 /* report_pswap_explanation_obj */
 struct line_data report_pswap_explanation_obj_raw =
     {
@@ -793,6 +800,13 @@ struct line_data report_paging_obj_raw =
 
 /* report_paging_spike_obj */
 struct line_data report_paging_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
+/* report_paging_time_span_spike_obj */
+struct line_data report_paging_time_span_spike_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
@@ -819,6 +833,13 @@ struct line_data report_io_transfer_rate_spike_obj_raw =
         NULL /* next pointer */
     };
 
+/* report_io_transfer_rate_time_span_spike_obj */
+struct line_data report_io_transfer_rate_time_span_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
 /* report_io_transfer_rate_explanation_obj */
 struct line_data report_io_transfer_rate_explanation_obj_raw =
     {
@@ -835,6 +856,13 @@ struct line_data report_memory_obj_raw =
 
 /* report_memory_spike_obj */
 struct line_data report_memory_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
+/* report_memory_time_span_spike_obj */
+struct line_data report_memory_time_span_spike_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
@@ -861,6 +889,13 @@ struct line_data report_swpused_spike_obj_raw =
         NULL /* next pointer */
     };
 
+/* report_swpused_time_span_spike_obj */
+struct line_data report_swpused_time_span_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
 /* report_swpused_explanation_obj */
 struct line_data report_swpused_explanation_obj_raw =
     {
@@ -877,6 +912,13 @@ struct line_data report_kernel_table_obj_raw =
 
 /* report_kernel_table_spike_obj */
 struct line_data report_kernel_table_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
+/* report_kernel_table_time_span_spike_obj */
+struct line_data report_kernel_table_time_span_spike_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
@@ -903,6 +945,13 @@ struct line_data report_ldavg_spike_obj_raw =
         NULL /* next pointer */
     };
 
+/* report_ldavg_time_span_spike_obj */
+struct line_data report_ldavg_time_span_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
 /* report_ldavg_explanation_obj */
 struct line_data report_ldavg_explanation_obj_raw =
     {
@@ -919,6 +968,13 @@ struct line_data report_block_device_obj_raw =
 
 /* report_block_device_spike_obj */
 struct line_data report_block_device_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
+/* report_block_device_time_span_spike_obj */
+struct line_data report_block_device_time_span_spike_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
@@ -945,6 +1001,13 @@ struct line_data report_network_spike_obj_raw =
         NULL /* next pointer */
     };
 
+/* report_network_time_span_spike_obj */
+struct line_data report_network_time_span_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
 /* report_network_explanation_obj */
 struct line_data report_network_explanation_obj_raw =
     {
@@ -961,6 +1024,13 @@ struct line_data report_network_error_obj_raw =
 
 /* report_network_error_spike_obj */
 struct line_data report_network_error_spike_obj_raw =
+    {
+        "", /* each line */
+        NULL /* next pointer */
+    };
+
+/* report_network_error_time_span_spike_obj */
+struct line_data report_network_error_time_span_spike_obj_raw =
     {
         "", /* each line */
         NULL /* next pointer */
@@ -1288,33 +1358,43 @@ struct line_data *report_tasks_time_span_spike_obj = &report_tasks_time_span_spi
 struct line_data *report_tasks_explanation_obj = &report_tasks_explanation_obj_raw;
 struct line_data *report_pswap_obj = &report_pswap_obj_raw;
 struct line_data *report_pswap_spike_obj = &report_pswap_spike_obj_raw;
+struct line_data *report_pswap_time_span_spike_obj = &report_pswap_time_span_spike_obj_raw;
 struct line_data *report_pswap_explanation_obj = &report_pswap_explanation_obj_raw;
 struct line_data *report_paging_obj = &report_paging_obj_raw;
 struct line_data *report_paging_spike_obj = &report_paging_spike_obj_raw;
+struct line_data *report_paging_time_span_spike_obj = &report_paging_time_span_spike_obj_raw;
 struct line_data *report_paging_explanation_obj = &report_paging_explanation_obj_raw;
 struct line_data *report_io_transfer_rate_obj = &report_io_transfer_rate_obj_raw;
 struct line_data *report_io_transfer_rate_spike_obj = &report_io_transfer_rate_spike_obj_raw;
+struct line_data *report_io_transfer_rate_time_span_spike_obj = &report_io_transfer_rate_time_span_spike_obj_raw;
 struct line_data *report_io_transfer_rate_explanation_obj = &report_io_transfer_rate_explanation_obj_raw;
 struct line_data *report_memory_obj = &report_memory_obj_raw;
 struct line_data *report_memory_spike_obj = &report_memory_spike_obj_raw;
+struct line_data *report_memory_time_span_spike_obj = &report_memory_time_span_spike_obj_raw;
 struct line_data *report_memory_explanation_obj = &report_memory_explanation_obj_raw;
 struct line_data *report_swpused_obj = &report_swpused_obj_raw;
 struct line_data *report_swpused_spike_obj = &report_swpused_spike_obj_raw;
+struct line_data *report_swpused_time_span_spike_obj = &report_swpused_time_span_spike_obj_raw;
 struct line_data *report_swpused_explanation_obj = &report_swpused_explanation_obj_raw;
 struct line_data *report_kernel_table_obj = &report_kernel_table_obj_raw;
 struct line_data *report_kernel_table_spike_obj = &report_kernel_table_spike_obj_raw;
+struct line_data *report_kernel_table_time_span_spike_obj = &report_kernel_table_time_span_spike_obj_raw;
 struct line_data *report_kernel_table_explanation_obj = &report_kernel_table_explanation_obj_raw;
 struct line_data *report_ldavg_obj = &report_ldavg_obj_raw;
 struct line_data *report_ldavg_spike_obj = &report_ldavg_spike_obj_raw;
+struct line_data *report_ldavg_time_span_spike_obj = &report_ldavg_time_span_spike_obj_raw;
 struct line_data *report_ldavg_explanation_obj = &report_ldavg_explanation_obj_raw;
 struct line_data *report_block_device_obj = &report_block_device_obj_raw;
 struct line_data *report_block_device_spike_obj [ MAX_BLOCK_DEVICE_NUMBERS ] =  { &report_block_device_spike_obj_raw };
+struct line_data *report_block_device_time_span_spike_obj [ MAX_BLOCK_DEVICE_NUMBERS ] =  { &report_block_device_time_span_spike_obj_raw };
 struct line_data *report_block_device_explanation_obj = &report_block_device_explanation_obj_raw;
 struct line_data *report_network_obj = &report_network_obj_raw;
 struct line_data *report_network_spike_obj [ MAX_NETWORK_DEVICE_NUMBERS ] =  { &report_network_spike_obj_raw };
+struct line_data *report_network_time_span_spike_obj [ MAX_NETWORK_DEVICE_NUMBERS ] =  { &report_network_time_span_spike_obj_raw };
 struct line_data *report_network_explanation_obj = &report_network_explanation_obj_raw;
 struct line_data *report_network_error_obj = &report_network_error_obj_raw;
 struct line_data *report_network_error_spike_obj [ MAX_NETWORK_DEVICE_NUMBERS ] =  { &report_network_error_spike_obj_raw };
+struct line_data *report_network_error_time_span_spike_obj [ MAX_NETWORK_DEVICE_NUMBERS ] =  { &report_network_error_time_span_spike_obj_raw };
 struct line_data *report_network_error_explanation_obj = &report_network_error_explanation_obj_raw;
 struct line_data *report_thrashing_obj = &report_thrashing_obj_raw;
 struct line_data *report_network_down_obj [ MAX_NETWORK_DEVICE_NUMBERS ] = { &report_network_down_obj_raw };

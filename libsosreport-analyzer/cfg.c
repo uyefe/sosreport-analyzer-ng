@@ -213,30 +213,35 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
 
     if ( fstat ( fd, &st ) < 0) {
         printf("Error fstat'ing %s (%s)\n",file_name,strerror(errno)); 
-        close ( fd );
+        if ( close ( fd ) == -1 )
+            printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
         exit ( EXIT_FAILURE );
     }
     if ( st.st_uid != 0 ) {
         printf("Error - %s isn't owned by root\n",file_name); 
-        close ( fd );
+        if ( close ( fd ) == -1 )
+            printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
         exit ( EXIT_FAILURE );
     }
     if ( ( st.st_mode & S_IWOTH ) == S_IWOTH ) {
         printf("Error - %s is world writable",file_name );
-        close ( fd );
+        if ( close ( fd ) == -1 )
+            printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
         exit ( EXIT_FAILURE );
     }
     /* using macro to check file*/
     if ( !S_ISREG ( st.st_mode ) ) {
         printf("Error - %s is not a regular file",file_name );
-        close ( fd );
+        if ( close ( fd ) == -1 )
+            printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
         exit ( EXIT_FAILURE );
     }
     /* open config file */
     if ( ( fp = fopen ( file_name,"r" ) ) == NULL )
     {
         printf("can't open config file (%s): %s", file_name, strerror ( errno ) );
-        close ( fd );
+        if ( close ( fd ) == -1 )
+            printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
         exit ( EXIT_FAILURE );
     }
     /* read file and parse lines */
@@ -249,7 +254,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         if ( ( i <= 0 ) || ( line [ i - 1 ] != '\n' ) )
         {
             printf("%s:%d: line too long or last line missing newline\n", file_name, lnr);
-            close ( fd );
+            if ( close ( fd ) == -1 )
+                printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
             exit ( EXIT_FAILURE );
         }
         line [ i - 1 ] = '\0';
@@ -268,7 +274,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         /* fallthrough */
         {
             printf("%s:%d: unknown keyword: '%s'\n", file_name, lnr, keyword );
-            close ( fd );
+            if ( close ( fd ) == -1 )
+                printf("Error closing file pointer %d (%s)\n",(int)fd,strerror(errno)); 
             exit ( EXIT_FAILURE );
         }
     }

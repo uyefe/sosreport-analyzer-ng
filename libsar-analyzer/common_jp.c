@@ -256,6 +256,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
+        unlink ( "dummy.ps" );
 
         /* appending headers to ps obj */
         append_header_to_ps_objs ( &ps_common_cpu_obj [ i ], fp_ps_w [ i ] );
@@ -276,6 +277,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
+        unlink ( "dummy2.ps" );
 
         /* appending headers to ps obj */
         append_header_to_ps_objs ( &ps_common_memory_obj [ i ], fp_ps2_w [ i ] );
@@ -296,6 +298,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
+        unlink ( "dummy3.ps" );
 
         /* appending headers to ps obj */
         append_header_to_ps_objs ( &ps_common_ldavg_obj [ i ], fp_ps3_w [ i ] );
@@ -316,6 +319,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
+        unlink ( "dummy4.ps" );
 
         /* appending headers to ps obj */
         append_header_to_ps_objs ( &ps_common_io_transfer_rate_obj [ i ], fp_ps4_w [ i ] );
@@ -1423,36 +1427,52 @@ int create_sar_analyzer_obj ( )
     init_list ( &report_tasks_explanation_obj );
     init_list ( &report_pswap_obj );
     init_list ( &report_pswap_spike_obj );
+    init_list ( &report_pswap_time_span_spike_obj );
     init_list ( &report_pswap_explanation_obj );
     init_list ( &report_paging_obj );
     init_list ( &report_paging_spike_obj );
+    init_list ( &report_paging_time_span_spike_obj );
     init_list ( &report_paging_explanation_obj );
     init_list ( &report_io_transfer_rate_obj );
     init_list ( &report_io_transfer_rate_spike_obj );
+    init_list ( &report_io_transfer_rate_time_span_spike_obj );
     init_list ( &report_io_transfer_rate_explanation_obj );
     init_list ( &report_memory_obj );
     init_list ( &report_memory_spike_obj );
+    init_list ( &report_memory_time_span_spike_obj );
     init_list ( &report_memory_explanation_obj );
     init_list ( &report_swpused_obj );
     init_list ( &report_swpused_spike_obj );
+    init_list ( &report_swpused_time_span_spike_obj );
     init_list ( &report_swpused_explanation_obj );
     init_list ( &report_kernel_table_obj );
     init_list ( &report_kernel_table_spike_obj );
+    init_list ( &report_kernel_table_time_span_spike_obj );
     init_list ( &report_kernel_table_explanation_obj );
     init_list ( &report_ldavg_obj );
     init_list ( &report_ldavg_spike_obj );
+    init_list ( &report_ldavg_time_span_spike_obj );
     init_list ( &report_ldavg_explanation_obj );
     init_list ( &report_block_device_obj );
     for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
+    {
         init_list ( &report_block_device_spike_obj [ v ] );
+        init_list ( &report_block_device_time_span_spike_obj [ v ] );
+    }
     init_list ( &report_block_device_explanation_obj );
     init_list ( &report_network_obj );
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         init_list ( &report_network_spike_obj [ v ] );
+        init_list ( &report_network_time_span_spike_obj [ v ] );
+    }
     init_list ( &report_network_explanation_obj );
     init_list ( &report_network_error_obj );
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         init_list ( &report_network_error_spike_obj [ v ] );
+        init_list ( &report_network_error_time_span_spike_obj [ v ] );
+    }
     init_list ( &report_network_error_explanation_obj );
     init_list ( &report_thrashing_obj );
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
@@ -1529,36 +1549,52 @@ int free_sar_analyzer_obj ( )
     clear_list ( &report_tasks_explanation_obj );
     clear_list ( &report_pswap_obj );
     clear_list ( &report_pswap_spike_obj );
+    clear_list ( &report_pswap_time_span_spike_obj );
     clear_list ( &report_pswap_explanation_obj );
     clear_list ( &report_paging_obj );
     clear_list ( &report_paging_spike_obj );
+    clear_list ( &report_paging_time_span_spike_obj );
     clear_list ( &report_paging_explanation_obj );
     clear_list ( &report_io_transfer_rate_obj );
     clear_list ( &report_io_transfer_rate_spike_obj );
+    clear_list ( &report_io_transfer_rate_time_span_spike_obj );
     clear_list ( &report_io_transfer_rate_explanation_obj );
     clear_list ( &report_memory_obj );
     clear_list ( &report_memory_spike_obj );
+    clear_list ( &report_memory_time_span_spike_obj );
     clear_list ( &report_memory_explanation_obj );
     clear_list ( &report_swpused_obj );
     clear_list ( &report_swpused_spike_obj );
+    clear_list ( &report_swpused_time_span_spike_obj );
     clear_list ( &report_swpused_explanation_obj );
     clear_list ( &report_kernel_table_obj );
     clear_list ( &report_kernel_table_spike_obj );
+    clear_list ( &report_kernel_table_time_span_spike_obj );
     clear_list ( &report_kernel_table_explanation_obj );
     clear_list ( &report_ldavg_obj );
     clear_list ( &report_ldavg_spike_obj );
+    clear_list ( &report_ldavg_time_span_spike_obj );
     clear_list ( &report_ldavg_explanation_obj );
     clear_list ( &report_block_device_obj );
     for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
+    {
         clear_list ( &report_block_device_spike_obj [ v ] );
+        clear_list ( &report_block_device_time_span_spike_obj [ v ] );
+    }
     clear_list ( &report_block_device_explanation_obj );
     clear_list ( &report_network_obj );
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         clear_list ( &report_network_spike_obj [ v ] );
+        clear_list ( &report_network_time_span_spike_obj [ v ] );
+    }
     clear_list ( &report_network_explanation_obj );
     clear_list ( &report_network_error_obj );
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    {
         clear_list ( &report_network_error_spike_obj [ v ] );
+        clear_list ( &report_network_error_time_span_spike_obj [ v ] );
+    }
     clear_list ( &report_network_error_explanation_obj );
     clear_list ( &report_thrashing_obj );
     for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
