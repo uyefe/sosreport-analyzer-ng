@@ -365,7 +365,8 @@ static int sos_commands_logs_journalctl___no_pager = 0;
 static int sos_commands_networking_ethtool__S = 0;
 static int sos_commands_boot_ = 0;
 
-void read_file ( const char *file_name, const char *member, int files )
+//void read_file ( const char *file_name, const char *member, int files )
+int read_file ( const char *file_name, const char *member, int files )
 {
     char filename_mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];
     char filename_mcinfo_boot_grub__curr [ MAX_LINE_LENGTH ];
@@ -428,7 +429,10 @@ void read_file ( const char *file_name, const char *member, int files )
 
     /* when this function had been called from 'read_analyze_dir()', items should be set only once */
     if ( files == 0)
+{
+printf("file_name:%s\n",file_name);
         set_token_to_item_arr ( file_name );
+}
 
     /* open sosreport config file */
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
@@ -578,10 +582,11 @@ void read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf (filename_etc_cron_d_, MAX_LINE_LENGTH, "%s", file_name );
-                /* unlike others like 'messages' which have same name should be applied in the
-                 * directory, here, we don't need 'for loop' when echoing every file in member
-                 * directory, so...
-                 */
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' when echoing every file in member
+             * directory, so...
+             */
+            if ( items_etc_cron_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
         }
         else if ( strstr ( file_name, "var/log/messages" ) != NULL )
@@ -673,6 +678,8 @@ void read_file ( const char *file_name, const char *member, int files )
     }
     /* after reading all lines, close the file pointer */
     fclose ( fp );
+
+    return ( 0 );
 }
 
 void set_token_to_item_arr ( const char *file_name )
@@ -685,6 +692,10 @@ void set_token_to_item_arr ( const char *file_name )
     /* ### FIX ME - make this function for better summary */
     const char s [ 8 ] = " \t\n\r"; /* this is the delimiter */
     char *token = NULL;
+    /*
+     * ### FIX ME
+     * file_name should be excluded directory of given by -D 
+     */
     /* member boot/grub/ */
     if ( ( strstr ( file_name, "boot/grub/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_, "" ) != 0 ) )
     {
@@ -700,35 +711,35 @@ void set_token_to_item_arr ( const char *file_name )
         items_mcinfo_cmdlog_ = token;
     }
     /* member date */
-    else if ( ( strstr ( file_name, "date" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->date, s );
         items_date = token;
     }
     /* member lsb_release */
-    else if ( ( strstr ( file_name, "lsb-release" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->lsb_release, s );
         items_lsb_release = token;
     }
     /* member uname */
-    else if ( ( strstr ( file_name, "uname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uname, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uname, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->uname, s );
         items_uname = token;
     }
     /* member hostname */
-    else if ( ( strstr ( file_name, "hostname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->hostname, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->hostname, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->hostname, s );
         items_hostname = token;
     }
     /* member uptime */
-    else if ( ( strstr ( file_name, "uptime" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uptime, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uptime, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->uptime, s );
@@ -742,7 +753,7 @@ void set_token_to_item_arr ( const char *file_name )
         items_root_anaconda_ks_cfg [ 0 ] = token;
     }
     /* member dmidecode */
-    else if ( ( strstr ( file_name, "dmidecode" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->dmidecode, s );
@@ -761,7 +772,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member lsmod */
-    else if ( ( strstr ( file_name, "lsmod" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsmod, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsmod, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->lsmod, s );
@@ -780,7 +791,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member lspci */
-    else if ( ( strstr ( file_name, "lspci" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lspci, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lspci, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->lspci, s );
@@ -807,7 +818,7 @@ void set_token_to_item_arr ( const char *file_name )
         items_sos_commands_scsi_lsscsi = token;
     }
     /* member installed-rpms */
-    else if ( ( strstr ( file_name, "installed-rpms" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->installed_rpms, s );
@@ -827,7 +838,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member df */
-    else if ( ( strstr ( file_name, "df" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->df, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->df, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->df, s );
@@ -847,35 +858,35 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member vgdisplay */
-    else if ( ( strstr ( file_name, "vgdisplay" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->vgdisplay, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->vgdisplay, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->vgdisplay, s );
         items_vgdisplay = token;
     }
     /* member free */
-    else if ( ( strstr ( file_name, "free" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->free, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->free, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->free, s );
         items_free = token;
     }
     /* member ip_addr */
-    else if ( ( strstr ( file_name, "ip_addr" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->ip_addr, s );
         items_ip_addr = token;
     }
     /* member route */
-    else if ( ( strstr ( file_name, "route" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->route, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->route, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->route, s );
         items_route = token;
     }
     /* member last */
-    else if ( ( strstr ( file_name, "last" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->last, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->last, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->last, s );
@@ -895,7 +906,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member ps */
-    else if ( ( strstr ( file_name, "ps" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ps, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ps, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->ps, s );
@@ -915,7 +926,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member lsof */
-    else if ( ( strstr ( file_name, "lsof" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsof, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsof, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->lsof, s );
@@ -935,7 +946,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member netstat */
-    else if ( ( strstr ( file_name, "netstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->netstat, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->netstat, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->netstat, s );
@@ -1556,7 +1567,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
      */
     /* First, check if item has 'all'. When item is 'all', should echo every lines */
     if ( strcmp ( item, "all" ) == 0 )
-        append_list ( &sos_line_obj, line );
+            append_list ( &sos_line_obj, line );
     if ( ( strcmp ( member, "dmidecode" ) == 0 ) && ( strcmp ( item, "bios" ) == 0 ) )
     {
         if ( strcmp ( line, "BIOS Information" ) == 0 )
@@ -1594,7 +1605,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
     }
     /* These should echo matched lines which had been set by config file, note item number is 
      * limited by set_token_to_item_arr. members which could have only one item is excluded here.
-     * Another way of saying is, these should have no item 'all'.
+     * Another way of saying is, these may have item 'all' or others.
      */
     else if ( 
         ( strcmp ( member, "dmidecode" ) == 0 ) ||
@@ -1621,6 +1632,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
     {
         if ( strstr ( line , item ) != NULL )
             append_list ( &sos_line_obj, line );
+        else
+            return EXIT_SUCCESS;
     }
 
     return EXIT_SUCCESS;
