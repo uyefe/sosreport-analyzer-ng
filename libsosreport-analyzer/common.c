@@ -365,7 +365,6 @@ static int sos_commands_logs_journalctl___no_pager = 0;
 static int sos_commands_networking_ethtool__S = 0;
 static int sos_commands_boot_ = 0;
 
-//void read_file ( const char *file_name, const char *member, int files )
 int read_file ( const char *file_name, const char *member, int files )
 {
     char filename_mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];

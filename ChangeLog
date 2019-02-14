@@ -1,3 +1,5 @@
+1.0.40
+Fix time-span check function.
 1.0.39
 Fix bug when 'all' is set to etc/cron.d/ or other members draws null and
 segfaults in sosreport-analyzer feature.
