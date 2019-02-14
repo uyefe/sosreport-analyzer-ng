@@ -1659,185 +1659,210 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
     memset ( str_now, '\0', sizeof ( str_now ) ); 
     strncpy ( str_spn, time_span_str, 11 );
     strncpy ( str_now, time_value, 8 );
-    int time_span_ok = 1;
 
-    /* for time_span_start */
-    if ( str_spn [ 0 ] != str_now [ 0 ] )
-    {
-        if (
-           ( str_spn [ 0 ] == '1' && str_now [ 0 ] == '0' )
-           ||
-           ( ( str_spn [ 0 ] == '2' ) && ( ( str_now [ 0 ] == '0' ) || ( str_now [ 0 ] == '1' ) ) )
-           )
-               time_span_ok = 0;
-    }
-    else if ( str_spn [ 0 ] == str_now [ 0 ] )
-    {
-        if (
-           (
-               ( str_spn [ 1 ] == '1' && str_now [ 1 ] == '0' )
-               ||
-               ( ( str_spn [ 1 ] == '2' ) &&
-                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) ) )
-               ||
-               ( ( str_spn [ 1 ] == '3' ) &&
-                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) ) )
-               ||
-               ( ( str_spn [ 1 ] == '4' ) &&
-                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) || ( str_now [ 1 ] == '3' ) ) )
-               ||
-               ( ( str_spn [ 1 ] == '5' ) &&
-                   ( ( str_now [ 1 ] == '0' ) || ( str_now [ 1 ] == '1' ) || ( str_now [ 1 ] == '2' ) || ( str_now [ 1 ] == '3' ) || ( str_now [ 1 ] == '4' ) ) )
-               ||
-               ( ( str_spn [ 1 ] == '6' ) &&
-                   ( ( str_now [ 1 ] != '6' ) && ( str_now [ 1 ] != '7' ) && ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
-               ||
-               ( ( str_spn [ 1 ] == '7' ) &&
-                   ( ( str_now [ 1 ] != '7' ) && ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
-               ||
-               ( ( str_spn [ 1 ] == '8' ) && ( ( str_now [ 1 ] != '8' ) && ( str_now [ 1 ] != '9' ) ) )
-               ||
-               ( str_spn [ 1 ] == '9'  && str_now [ 1 ] != '9' )
-        ) )
-            time_span_ok = 0;
+    int span_start_hour_l = 0;
+    int span_start_hour_r = 0;
+    int span_start_minute_l = 0;
+    int span_start_minute_r = 0;
+    int span_start_seconds = 0;
+    int span_end_hour_l = 0;
+    int span_end_hour_r = 0;
+    int span_end_minute_l = 0;
+    int span_end_minute_r = 0;
+    int span_end_seconds = 0;
+    int now_hour_l = 0;
+    int now_hour_r = 0;
+    int now_minute_l = 0;
+    int now_minute_r = 0;
+    int now_seconds = 0;
 
-        if ( str_spn [ 1 ] == str_now [ 1 ] )
-            if (
-               (
-                   ( str_spn [ 3 ] == '1' && str_now [ 3 ] == '0' )
-                   ||
-                   ( ( str_spn [ 3 ] == '2' ) &&
-                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) ) )
-                   ||
-                   ( ( str_spn [ 3 ] == '3' ) &&
-                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) ) )
-                   ||
-                   ( ( str_spn [ 3 ] == '4' ) &&
-                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) || ( str_now [ 3 ] == '3' ) ) )
-                   ||
-                   ( ( str_spn [ 3 ] == '5' ) &&
-                       ( ( str_now [ 3 ] == '0' ) || ( str_now [ 3 ] == '1' ) || ( str_now [ 3 ] == '2' ) || ( str_now [ 3 ] == '3' ) || ( str_now [ 3 ] == '4' ) ) )
-                   ||
-                   ( ( str_spn [ 3 ] == '6' ) &&
-                       ( ( str_now [ 3 ] != '6' ) && ( str_now [ 3 ] != '7' ) && ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
-                   ||
-                   ( ( str_spn [ 3 ] == '7' ) &&
-                       ( ( str_now [ 3 ] != '7' ) && ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
-                   ||
-                   ( ( str_spn [ 3 ] == '8' ) && ( ( str_now [ 3 ] != '8' ) && ( str_now [ 3 ] != '9' ) ) )
-                   ||
-                   ( str_spn [ 3 ] == '9'  && str_now [ 3 ] != '9' )
-            ) )
-                time_span_ok = 0;
-    }
+    if ( str_spn [ 0 ] == '0' )
+        span_start_hour_l = 0;
+    if ( str_spn [ 0 ] == '1' )
+        span_start_hour_l = 1;
+    if ( str_spn [ 0 ] == '2' )
+        span_start_hour_l = 2;
+    if ( str_spn [ 1 ] == '0' )
+        span_start_hour_r = 0;
+    if ( str_spn [ 1 ] == '1' )
+        span_start_hour_r = 1;
+    if ( str_spn [ 1 ] == '2' )
+        span_start_hour_r = 2;
+    if ( str_spn [ 1 ] == '3' )
+        span_start_hour_r = 3;
+    if ( str_spn [ 1 ] == '4' )
+        span_start_hour_r = 4;
+    if ( str_spn [ 1 ] == '5' )
+        span_start_hour_r = 5;
+    if ( str_spn [ 1 ] == '6' )
+        span_start_hour_r = 6;
+    if ( str_spn [ 1 ] == '7' )
+        span_start_hour_r = 7;
+    if ( str_spn [ 1 ] == '8' )
+        span_start_hour_r = 8;
+    if ( str_spn [ 1 ] == '9' )
+        span_start_hour_r = 9;
+    if ( str_spn [ 3 ] == '0' )
+        span_start_minute_l = 0;
+    if ( str_spn [ 3 ] == '1' )
+        span_start_minute_l = 1;
+    if ( str_spn [ 3 ] == '2' )
+        span_start_minute_l = 2;
+    if ( str_spn [ 3 ] == '3' )
+        span_start_minute_l = 3;
+    if ( str_spn [ 3 ] == '4' )
+        span_start_minute_l = 4;
+    if ( str_spn [ 3 ] == '5' )
+        span_start_minute_l = 5;
+    if ( str_spn [ 4 ] == '0' )
+        span_start_minute_r = 0;
+    if ( str_spn [ 4 ] == '1' )
+        span_start_minute_r = 1;
+    if ( str_spn [ 4 ] == '2' )
+        span_start_minute_r = 2;
+    if ( str_spn [ 4 ] == '3' )
+        span_start_minute_r = 3;
+    if ( str_spn [ 4 ] == '4' )
+        span_start_minute_r = 4;
+    if ( str_spn [ 4 ] == '5' )
+        span_start_minute_r = 5;
+    if ( str_spn [ 4 ] == '6' )
+        span_start_minute_r = 6;
+    if ( str_spn [ 4 ] == '7' )
+        span_start_minute_r = 7;
+    if ( str_spn [ 4 ] == '8' )
+        span_start_minute_r = 8;
+    if ( str_spn [ 4 ] == '9' )
+        span_start_minute_r = 9;
 
-    /* time_span_end */
-    if ( time_span_ok == 1 )
-    {
-        if ( str_spn [ 6 ] != str_now [ 0 ] )
-        {
-            if ( 
-               ( ( str_spn [ 6 ] == '0' ) && ( ( str_now [ 0 ] == '1' ) || ( str_now [ 0 ] == '2' ) ) )
-               ||
-               ( str_spn [ 6 ] == '1' && str_now [ 0 ] == '2' )
-               )
-                   time_span_ok = 0;
-        }
-        else if ( str_spn [ 6 ] == str_now [ 0 ] )
-        {
-            if (
-               (
-                   ( str_spn [ 7 ] == '0' && str_now [ 1 ] != '0' )
-                   ||
-                   ( ( str_spn [ 7 ] == '1' ) &&
-                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '2' ) &&
-                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '3' ) &&
-                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) && ( str_now [ 1 ] != '3' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '4' ) &&
-                       ( ( str_now [ 1 ] != '0' ) && ( str_now [ 1 ] != '1' ) && ( str_now [ 1 ] != '2' ) && ( str_now [ 1 ] != '3' ) && ( str_now [ 1 ] != '4' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '5' ) &&
-                       ( ( str_now [ 1 ] == '6' ) || ( str_now [ 1 ] == '7' ) || ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '6' ) &&
-                       ( ( str_now [ 1 ] == '7' ) || ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '7' ) &&
-                       ( ( str_now [ 1 ] == '8' ) || ( str_now [ 1 ] == '9' ) ) )
-                   ||
-                   ( ( str_spn [ 7 ] == '8' ) && ( ( str_now [ 1 ] == '9' ) ) )
-            ) )
-                time_span_ok = 0;
+    if ( str_spn [ 6 ] == '0' )
+        span_end_hour_l = 0;
+    if ( str_spn [ 6 ] == '1' )
+        span_end_hour_l = 1;
+    if ( str_spn [ 6 ] == '2' )
+        span_end_hour_l = 2;
+    if ( str_spn [ 7 ] == '0' )
+        span_end_hour_r = 0;
+    if ( str_spn [ 7 ] == '1' )
+        span_end_hour_r = 1;
+    if ( str_spn [ 7 ] == '2' )
+        span_end_hour_r = 2;
+    if ( str_spn [ 7 ] == '3' )
+        span_end_hour_r = 3;
+    if ( str_spn [ 7 ] == '4' )
+        span_end_hour_r = 4;
+    if ( str_spn [ 7 ] == '5' )
+        span_end_hour_r = 5;
+    if ( str_spn [ 7 ] == '6' )
+        span_end_hour_r = 6;
+    if ( str_spn [ 7 ] == '7' )
+        span_end_hour_r = 7;
+    if ( str_spn [ 7 ] == '8' )
+        span_end_hour_r = 8;
+    if ( str_spn [ 7 ] == '9' )
+        span_end_hour_r = 9;
+    if ( str_spn [ 9 ] == '0' )
+        span_end_minute_l = 0;
+    if ( str_spn [ 9 ] == '1' )
+        span_end_minute_l = 1;
+    if ( str_spn [ 9 ] == '2' )
+        span_end_minute_l = 2;
+    if ( str_spn [ 9 ] == '3' )
+        span_end_minute_l = 3;
+    if ( str_spn [ 9 ] == '4' )
+        span_end_minute_l = 4;
+    if ( str_spn [ 9 ] == '5' )
+        span_end_minute_l = 5;
+    if ( str_spn [ 10 ] == '0' )
+        span_end_minute_r = 0;
+    if ( str_spn [ 10 ] == '1' )
+        span_end_minute_r = 1;
+    if ( str_spn [ 10 ] == '2' )
+        span_end_minute_r = 2;
+    if ( str_spn [ 10 ] == '3' )
+        span_end_minute_r = 3;
+    if ( str_spn [ 10 ] == '4' )
+        span_end_minute_r = 4;
+    if ( str_spn [ 10 ] == '5' )
+        span_end_minute_r = 5;
+    if ( str_spn [ 10 ] == '6' )
+        span_end_minute_r = 6;
+    if ( str_spn [ 10 ] == '7' )
+        span_end_minute_r = 7;
+    if ( str_spn [ 10 ] == '8' )
+        span_end_minute_r = 8;
+    if ( str_spn [ 10 ] == '9' )
+        span_end_minute_r = 9;
 
-            if ( str_spn [ 7 ] == str_now [ 1 ] )
-                if (
-                   (
-                       ( str_spn [ 9 ] == '0' && str_now [ 3 ] != '0' )
-                       ||
-                       ( str_spn [ 9 ] == '1' && 
-                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '2' ) &&
-                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '3' ) &&
-                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) && ( str_now [ 3 ] != '3' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '4' ) &&
-                           ( ( str_now [ 3 ] != '0' ) && ( str_now [ 3 ] != '1' ) && ( str_now [ 3 ] != '2' ) && ( str_now [ 3 ] != '3' ) && ( str_now [ 3 ] != '4' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '5' ) &&
-                           ( ( str_now [ 3 ] == '6' ) || ( str_now [ 3 ] == '7' ) || ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '6' ) &&
-                           ( ( str_now [ 3 ] == '7' ) || ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '7' ) &&
-                           ( ( str_now [ 3 ] == '8' ) || ( str_now [ 3 ] == '9' ) ) )
-                       ||
-                       ( ( str_spn [ 9 ] == '8' ) && ( ( str_now [ 3 ] == '9' ) ) )
-                ) )
-                    time_span_ok = 0;
+    if ( str_now [ 0 ] == '0' )
+        now_hour_l = 0;
+    if ( str_now [ 0 ] == '1' )
+        now_hour_l = 1;
+    if ( str_now [ 0 ] == '2' )
+        now_hour_l = 2;
+    if ( str_now [ 1 ] == '0' )
+        now_hour_r = 0;
+    if ( str_now [ 1 ] == '1' )
+        now_hour_r = 1;
+    if ( str_now [ 1 ] == '2' )
+        now_hour_r = 2;
+    if ( str_now [ 1 ] == '3' )
+        now_hour_r = 3;
+    if ( str_now [ 1 ] == '4' )
+        now_hour_r = 4;
+    if ( str_now [ 1 ] == '5' )
+        now_hour_r = 5;
+    if ( str_now [ 1 ] == '6' )
+        now_hour_r = 6;
+    if ( str_now [ 1 ] == '7' )
+        now_hour_r = 7;
+    if ( str_now [ 1 ] == '8' )
+        now_hour_r = 8;
+    if ( str_now [ 1 ] == '9' )
+        now_hour_r = 9;
+    if ( str_now [ 3 ] == '0' )
+        now_minute_l = 0;
+    if ( str_now [ 3 ] == '1' )
+        now_minute_l = 1;
+    if ( str_now [ 3 ] == '2' )
+        now_minute_l = 2;
+    if ( str_now [ 3 ] == '3' )
+        now_minute_l = 3;
+    if ( str_now [ 3 ] == '4' )
+        now_minute_l = 4;
+    if ( str_now [ 3 ] == '5' )
+        now_minute_l = 5;
+    if ( str_now [ 4 ] == '0' )
+        now_minute_r = 0;
+    if ( str_now [ 4 ] == '1' )
+        now_minute_r = 1;
+    if ( str_now [ 4 ] == '2' )
+        now_minute_r = 2;
+    if ( str_now [ 4 ] == '3' )
+        now_minute_r = 3;
+    if ( str_now [ 4 ] == '4' )
+        now_minute_r = 4;
+    if ( str_now [ 4 ] == '5' )
+        now_minute_r = 5;
+    if ( str_now [ 4 ] == '6' )
+        now_minute_r = 6;
+    if ( str_now [ 4 ] == '7' )
+        now_minute_r = 7;
+    if ( str_now [ 4 ] == '8' )
+        now_minute_r = 8;
+    if ( str_now [ 4 ] == '9' )
+        now_minute_r = 9;
 
-            if ( str_spn [ 9 ] == str_now [ 3 ] )
-                if (
-                   (
-                       ( str_spn [ 10 ] == '0' && str_now [ 4 ] != '0' )
-                       ||
-                       ( str_spn [ 10 ] == '1' && 
-                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '2' ) &&
-                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '3' ) &&
-                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) && ( str_now [ 4 ] != '3' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '4' ) &&
-                           ( ( str_now [ 4 ] != '0' ) && ( str_now [ 4 ] != '1' ) && ( str_now [ 4 ] != '2' ) && ( str_now [ 4 ] != '3' ) && ( str_now [ 4 ] != '4' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '5' ) &&
-                           ( ( str_now [ 4 ] == '6' ) || ( str_now [ 4 ] == '7' ) || ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '6' ) &&
-                           ( ( str_now [ 4 ] == '7' ) || ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '7' ) &&
-                           ( ( str_now [ 4 ] == '8' ) || ( str_now [ 4 ] == '9' ) ) )
-                       ||
-                       ( ( str_spn [ 10 ] == '8' ) && ( ( str_now [ 4 ] == '9' ) ) )
-                ) )
-                    time_span_ok = 0;
-        }
-    }
-
-    if ( time_span_ok == 1 )
+    span_start_seconds = ( span_start_minute_r * 60 ) + ( span_start_minute_l * 60 * 10 ) + ( span_start_hour_r * 3600 ) + ( span_start_hour_l * 3600 * 10 );
+    span_end_seconds = ( span_end_minute_r * 60 ) + ( span_end_minute_l * 60 * 10 ) + ( span_end_hour_r * 3600 ) + ( span_end_hour_l * 3600 * 10 );
+    now_seconds = ( now_minute_r * 60 ) + ( now_minute_l * 60 * 10 ) + ( now_hour_r * 3600 ) + ( now_hour_l * 3600 * 10 );
+        
+    if ( now_seconds >= span_start_seconds && now_seconds <= span_end_seconds )
+{
+printf("now_seconds:%d\n",now_seconds);
+printf("time_value:%s\n",time_value);
         return 1;
+}
 
     return 0;
 }
