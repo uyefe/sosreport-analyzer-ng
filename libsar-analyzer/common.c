@@ -1858,11 +1858,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
     now_seconds = ( now_minute_r * 60 ) + ( now_minute_l * 60 * 10 ) + ( now_hour_r * 3600 ) + ( now_hour_l * 3600 * 10 );
         
     if ( now_seconds >= span_start_seconds && now_seconds <= span_end_seconds )
-{
-printf("now_seconds:%d\n",now_seconds);
-printf("time_value:%s\n",time_value);
         return 1;
-}
 
     return 0;
 }
