@@ -6839,6 +6839,11 @@ double get_tmp3_val ( void )
     return sar_analyzer_all_obj->tmp3_val;
 }
 
+double get_tmp4_val ( void )
+{
+    return sar_analyzer_all_obj->tmp4_val;
+}
+
 /* -------------------------------------------------- */
 
 /* -- average highest val -- */
@@ -8453,6 +8458,11 @@ void set_tmp2_val ( double x )
 void set_tmp3_val ( double x )
 {
     sar_analyzer_all_obj->tmp3_val = x;
+}
+
+void set_tmp4_val ( double x )
+{
+    sar_analyzer_all_obj->tmp4_val = x;
 }
 
 /* getters */

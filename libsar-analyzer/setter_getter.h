@@ -120,6 +120,7 @@ void set_cpu_as_paragraph ( int x );
 void set_tmp_val ( double var );
 void set_tmp2_val ( double var );
 void set_tmp3_val ( double var );
+void set_tmp4_val ( double var );
 
 /* getters */
 

@@ -1665,11 +1665,13 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
     int span_start_minute_l = 0;
     int span_start_minute_r = 0;
     int span_start_seconds = 0;
+
     int span_end_hour_l = 0;
     int span_end_hour_r = 0;
     int span_end_minute_l = 0;
     int span_end_minute_r = 0;
     int span_end_seconds = 0;
+
     int now_hour_l = 0;
     int now_hour_r = 0;
     int now_minute_l = 0;
@@ -1682,6 +1684,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         span_start_hour_l = 1;
     if ( str_spn [ 0 ] == '2' )
         span_start_hour_l = 2;
+
     if ( str_spn [ 1 ] == '0' )
         span_start_hour_r = 0;
     if ( str_spn [ 1 ] == '1' )
@@ -1702,6 +1705,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         span_start_hour_r = 8;
     if ( str_spn [ 1 ] == '9' )
         span_start_hour_r = 9;
+
     if ( str_spn [ 3 ] == '0' )
         span_start_minute_l = 0;
     if ( str_spn [ 3 ] == '1' )
@@ -1714,6 +1718,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         span_start_minute_l = 4;
     if ( str_spn [ 3 ] == '5' )
         span_start_minute_l = 5;
+
     if ( str_spn [ 4 ] == '0' )
         span_start_minute_r = 0;
     if ( str_spn [ 4 ] == '1' )
@@ -1741,6 +1746,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         span_end_hour_l = 1;
     if ( str_spn [ 6 ] == '2' )
         span_end_hour_l = 2;
+
     if ( str_spn [ 7 ] == '0' )
         span_end_hour_r = 0;
     if ( str_spn [ 7 ] == '1' )
@@ -1761,6 +1767,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         span_end_hour_r = 8;
     if ( str_spn [ 7 ] == '9' )
         span_end_hour_r = 9;
+
     if ( str_spn [ 9 ] == '0' )
         span_end_minute_l = 0;
     if ( str_spn [ 9 ] == '1' )
@@ -1773,6 +1780,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         span_end_minute_l = 4;
     if ( str_spn [ 9 ] == '5' )
         span_end_minute_l = 5;
+
     if ( str_spn [ 10 ] == '0' )
         span_end_minute_r = 0;
     if ( str_spn [ 10 ] == '1' )
@@ -1800,6 +1808,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         now_hour_l = 1;
     if ( str_now [ 0 ] == '2' )
         now_hour_l = 2;
+
     if ( str_now [ 1 ] == '0' )
         now_hour_r = 0;
     if ( str_now [ 1 ] == '1' )
@@ -1820,6 +1829,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         now_hour_r = 8;
     if ( str_now [ 1 ] == '9' )
         now_hour_r = 9;
+
     if ( str_now [ 3 ] == '0' )
         now_minute_l = 0;
     if ( str_now [ 3 ] == '1' )
@@ -1832,6 +1842,7 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
         now_minute_l = 4;
     if ( str_now [ 3 ] == '5' )
         now_minute_l = 5;
+
     if ( str_now [ 4 ] == '0' )
         now_minute_r = 0;
     if ( str_now [ 4 ] == '1' )
@@ -1853,9 +1864,9 @@ int check_time_value_is_in_time_span ( const char *time_span_str, const char *ti
     if ( str_now [ 4 ] == '9' )
         now_minute_r = 9;
 
-    span_start_seconds = ( span_start_minute_r * 60 ) + ( span_start_minute_l * 60 * 10 ) + ( span_start_hour_r * 3600 ) + ( span_start_hour_l * 3600 * 10 );
-    span_end_seconds = ( span_end_minute_r * 60 ) + ( span_end_minute_l * 60 * 10 ) + ( span_end_hour_r * 3600 ) + ( span_end_hour_l * 3600 * 10 );
-    now_seconds = ( now_minute_r * 60 ) + ( now_minute_l * 60 * 10 ) + ( now_hour_r * 3600 ) + ( now_hour_l * 3600 * 10 );
+    span_start_seconds = ( span_start_hour_l * 3600 * 10 ) + ( span_start_hour_r * 3600 ) + ( span_start_minute_l * 60 * 10 ) + ( span_start_minute_r * 60 );
+    span_end_seconds = ( span_end_hour_l * 3600 * 10 ) + ( span_end_hour_r * 3600 ) + ( span_end_minute_l * 60 * 10 ) + ( span_end_minute_r * 60 );
+    now_seconds = ( now_hour_l * 3600 * 10 ) + ( now_hour_r * 3600 ) + ( now_minute_l * 60 * 10 ) + ( now_minute_r * 60 );
         
     if ( now_seconds >= span_start_seconds && now_seconds <= span_end_seconds )
         return 1;
