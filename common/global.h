@@ -25,7 +25,7 @@
 
 #define PROGRAM_VERSION 1
 #define PROGRAM_RELEASE 0
-#define PROGRAM_SUB_RELEASE 42
+#define PROGRAM_SUB_RELEASE 43
 
 /* the maximum line length of file name */
 #define MAX_FULL_PATH_LENGTH  512
