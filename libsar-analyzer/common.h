@@ -1824,6 +1824,7 @@ struct sar_analyzer_data_all
     double tmp_val;
     double tmp2_val;
     double tmp3_val;
+    double tmp4_val;
 };
 
 /* This is the sar_analyzer_spike_each_file object*/

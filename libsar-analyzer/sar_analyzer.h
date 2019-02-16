@@ -1784,5 +1784,6 @@ int get_cpu_as_paragraph ( void );
 double get_tmp_val ( void );
 double get_tmp2_val ( void );
 double get_tmp3_val ( void );
+double get_tmp4_val ( void );
 
 #endif /* SAR__ANALYZER_H */
