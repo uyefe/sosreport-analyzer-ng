@@ -522,7 +522,6 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     char *token = NULL;
     char time_value [ 20 ] = {'\0'};
 
-    //double t2 = 0, t3 = 0;
     double t2 = 0, t3 = 0, t4 = 0;
     double t = 0, h = 0, l = 0; /* means this value, highest value, lowest value */
     double h0 = 0, h1 = 0, h2 = 0, h3 = 0, h4 = 0, l0 = 0, l1 = 0, l2 = 0, l3 = 0, l4 = 0; /* highest value, lowest value for Z option */
@@ -692,7 +691,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "usr" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t4, utility, "usr", "spike" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "spike" );
@@ -814,7 +813,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "sys" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t4, utility, "sys", "spike" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "spike" );
@@ -921,7 +920,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "iowait" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss2 )
+                        if ( ( t4 > t_ss2 ) && ( t_ff2 != 0 ) )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t4, utility, "iowait", "spike" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "spike" );
@@ -1028,7 +1027,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_cpu_former_val_each_file ( file_number, t, utility, "idle" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss3 )
+                        if ( ( t4 > t_ss3 ) && ( t_ff3 != 0 ) )
                         {
                             set_cpu_time_span_spike_val_each_file ( file_number, t4, utility, "idle", "spike" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "spike" );
@@ -1160,7 +1159,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_tasks_former_val_each_file ( file_number, t, "proc" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_tasks_time_span_spike_val_each_file ( file_number, t4, "proc", "spike" );
                             set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "proc", "spike" );
@@ -1277,7 +1276,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_tasks_former_val_each_file ( file_number, t, "cswch" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_tasks_time_span_spike_val_each_file ( file_number, t4, "cswch", "spike" );
                             set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "cswch", "spike" );
@@ -1406,7 +1405,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_pswap_former_val_each_file ( file_number, t, "pswpin" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_pswap_time_span_spike_val_each_file ( file_number, t4, "pswpin", "spike" );
                             set_pswap_time_span_spike_date_each_file ( file_number, this_date_all, "pswpin", "spike" );
@@ -1523,7 +1522,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_pswap_former_val_each_file ( file_number, t, "pswpout" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_pswap_time_span_spike_val_each_file ( file_number, t4, "pswpout", "spike" );
                             set_pswap_time_span_spike_date_each_file ( file_number, this_date_all, "pswpout", "spike" );
@@ -1682,7 +1681,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_paging_former_val_each_file ( file_number, t, "pgpgin" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_paging_time_span_spike_val_each_file ( file_number, t4, "pgpgin", "spike" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "pgpgin", "spike" );
@@ -1799,7 +1798,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_paging_former_val_each_file ( file_number, t, "pgpgout" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_paging_time_span_spike_val_each_file ( file_number, t4, "pgpgout", "spike" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "pgpgout", "spike" );
@@ -1903,7 +1902,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_paging_former_val_each_file ( file_number, t, "fault" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss2 )
+                        if ( ( t4 > t_ss2 ) && ( t_ff2 != 0 ) )
                         {
                             set_paging_time_span_spike_val_each_file ( file_number, t4, "fault", "spike" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "fault", "spike" );
@@ -2007,7 +2006,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_paging_former_val_each_file ( file_number, t, "majflt" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss3 )
+                        if ( ( t4 > t_ss3 ) && ( t_ff3 != 0 ) )
                         {
                             set_paging_time_span_spike_val_each_file ( file_number, t4, "majflt", "spike" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "majflt", "spike" );
@@ -2111,7 +2110,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_paging_former_val_each_file ( file_number, t, "vmeff" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss4 )
+                        if ( ( t4 > t_ss4 ) && ( t_ff4 != 0 ) )
                         {
                             set_paging_time_span_spike_val_each_file ( file_number, t4, "vmeff", "spike" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "vmeff", "spike" );
@@ -2251,7 +2250,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_io_transfer_rate_former_val_each_file ( file_number, t, "tps" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t4, "tps", "spike" );
                             set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "tps", "spike" );
@@ -2368,7 +2367,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_io_transfer_rate_former_val_each_file ( file_number, t, "bread" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t4, "bread", "spike" );
                             set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "bread", "spike" );
@@ -2472,7 +2471,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_io_transfer_rate_former_val_each_file ( file_number, t, "bwrtn" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss2 )
+                        if ( ( t4 > t_ss2 ) && ( t_ff2 != 0 ) )
                         {
                             set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t4, "bwrtn", "spike" );
                             set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "bwrtn", "spike" );
@@ -2612,7 +2611,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_memory_double_former_val_each_file ( file_number, t, "memused" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_memory_double_time_span_spike_val_each_file ( file_number, t4, "memused", "spike" );
                             set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "memused", "spike" );
@@ -2729,7 +2728,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_memory_int_former_val_each_file ( file_number, t, "kbcommit" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_memory_int_time_span_spike_val_each_file ( file_number, t4, "kbcommit", "spike" );
                             set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "kbcommit", "spike" );
@@ -2833,7 +2832,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_memory_double_former_val_each_file ( file_number, t, "commit" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss2 )
+                        if ( ( t4 > t_ss2 ) && ( t_ff2 != 0 ) )
                         {
                             set_memory_double_time_span_spike_val_each_file ( file_number, t4, "commit", "spike" );
                             set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "commit", "spike" );
@@ -2952,7 +2951,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_swpused_former_val_each_file ( file_number, t );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_swpused_time_span_spike_val_each_file ( file_number, t4, "spike" );
                             set_swpused_time_span_spike_date_each_file ( file_number, this_date_all, "spike" );
@@ -3071,7 +3070,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_kernel_table_former_val_each_file ( file_number, t, "dentunusd" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_kernel_table_time_span_spike_val_each_file ( file_number, t4, "dentunusd", "spike" );
                             set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "dentunusd", "spike" );
@@ -3188,7 +3187,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_kernel_table_former_val_each_file ( file_number, t, "file" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_kernel_table_time_span_spike_val_each_file ( file_number, t4, "file", "spike" );
                             set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "file", "spike" );
@@ -3292,7 +3291,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_kernel_table_former_val_each_file ( file_number, t, "inode" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss2 )
+                        if ( ( t4 > t_ss2 ) && ( t_ff2 != 0 ) )
                         {
                             set_kernel_table_time_span_spike_val_each_file ( file_number, t4, "inode", "spike" );
                             set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "inode", "spike" );
@@ -3453,7 +3452,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_ldavg_int_former_val_each_file ( file_number, t, "runq_sz" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss0 )
+                        if ( ( t4 > t_ss0 ) && ( t_ff0 != 0 ) )
                         {
                             set_ldavg_int_time_span_spike_val_each_file ( file_number, t4, "runq_sz", "spike" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "runq_sz", "spike" );
@@ -3571,7 +3570,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_ldavg_int_former_val_each_file ( file_number, t, "plist_sz" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss1 )
+                        if ( ( t4 > t_ss1 ) && ( t_ff1 != 0 ) )
                         {
                             set_ldavg_int_time_span_spike_val_each_file ( file_number, t4, "plist_sz", "spike" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "plist_sz", "spike" );
@@ -3676,7 +3675,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_ldavg_double_former_val_each_file ( file_number, t, "ldavg_one" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss2 )
+                        if ( ( t4 > t_ss2 ) && ( t_ff2 != 0 ) )
                         {
                             set_ldavg_double_time_span_spike_val_each_file ( file_number, t4, "ldavg_one", "spike" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_one", "spike" );
@@ -3780,7 +3779,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_ldavg_double_former_val_each_file ( file_number, t, "ldavg_five" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss3 )
+                        if ( ( t4 > t_ss3 ) && ( t_ff3 != 0 ) )
                         {
                             set_ldavg_double_time_span_spike_val_each_file ( file_number, t4, "ldavg_five", "spike" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_five", "spike" );
@@ -3884,7 +3883,7 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                     set_ldavg_double_former_val_each_file ( file_number, t, "ldavg_15" );
                     if ( time_span_checked == 1 )
                     {
-                        if ( t4 > t_ss4 )
+                        if ( ( t4 > t_ss4 ) && ( t_ff4 != 0 ) )
                         {
                             set_ldavg_double_time_span_spike_val_each_file ( file_number, t4, "ldavg_15", "spike" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_15", "spike" );
