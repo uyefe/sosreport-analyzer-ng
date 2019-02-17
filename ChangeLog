@@ -1,3 +1,5 @@
+1.0.46
+Delete unneeded debug strings.
 1.0.45
 Fix date and time initial strings in sar-analyzer feature.
 1.0.44
