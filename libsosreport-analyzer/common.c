@@ -428,10 +428,7 @@ int read_file ( const char *file_name, const char *member, int files )
 
     /* when this function had been called from 'read_analyze_dir()', items should be set only once */
     if ( files == 0)
-{
-printf("file_name:%s\n",file_name);
         set_token_to_item_arr ( file_name );
-}
 
     /* open sosreport config file */
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
