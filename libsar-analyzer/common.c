@@ -1017,63 +1017,63 @@ int create_sar_analyzer_obj ( )
     /* CPU all, 0 to MAX_CORE_NUMBERS */
     for ( i = 0; i <= MAX_CORE_NUMBERS; i++ )
     {
-        set_cpu_avg_highest_val ( -0.01, i, "usr" );
-        set_cpu_avg_highest_val ( -0.01, i, "sys" );
-        set_cpu_avg_highest_val ( -0.01, i, "iowait" );
-        set_cpu_avg_highest_val ( -0.01, i, "idle" );
+        set_cpu_avg_highest_val ( 0.00, i, "usr" );
+        set_cpu_avg_highest_val ( 0.00, i, "sys" );
+        set_cpu_avg_highest_val ( 0.00, i, "iowait" );
+        set_cpu_avg_highest_val ( 0.00, i, "idle" );
     }
 
-    set_tasks_avg_highest_val ( -0.01, "proc" );
-    set_tasks_avg_highest_val ( -0.01, "cswch" );
-    set_pswap_avg_highest_val ( -1, "pswpin" );
-    set_pswap_avg_highest_val ( -1, "pswpout" );
-    set_paging_avg_highest_val ( -0.01, "pgpgin" );
-    set_paging_avg_highest_val ( -0.01, "pgpgout" );
-    set_paging_avg_highest_val ( -0.01, "fault" );
-    set_paging_avg_highest_val ( -0.01, "majflt" );
-    set_paging_avg_highest_val ( -0.01, "vmeff" );
-    set_io_transfer_rate_avg_highest_val ( -0.01, "tps" );
-    set_io_transfer_rate_avg_highest_val ( -0.01, "bread" );
-    set_io_transfer_rate_avg_highest_val ( -0.01, "bwrtn" );
-    set_memory_double_avg_highest_val ( -0.01, "memused" );
-    set_memory_double_avg_highest_val ( -0.01, "commit" );
-    set_memory_int_avg_highest_val ( -0.01, "kbcommit" );
-    set_swpused_avg_highest_val ( -0.01 );
-    set_kernel_table_avg_highest_val ( -1, "dentunusd" );
-    set_kernel_table_avg_highest_val ( -1, "file" );
-    set_kernel_table_avg_highest_val ( -1, "inode" );
-    set_ldavg_int_avg_highest_val ( -1, "runq_sz" );
-    set_ldavg_int_avg_highest_val ( -1, "plist_sz" );
-    set_ldavg_double_avg_highest_val ( -0.01, "ldavg_one" );
-    set_ldavg_double_avg_highest_val ( -0.01, "ldavg_five" );
-    set_ldavg_double_avg_highest_val ( -0.01, "ldavg_15" );
+    set_tasks_avg_highest_val ( 0.00, "proc" );
+    set_tasks_avg_highest_val ( 0.00, "cswch" );
+    set_pswap_avg_highest_val ( 0, "pswpin" );
+    set_pswap_avg_highest_val ( 0, "pswpout" );
+    set_paging_avg_highest_val ( 0.00, "pgpgin" );
+    set_paging_avg_highest_val ( 0.00, "pgpgout" );
+    set_paging_avg_highest_val ( 0.00, "fault" );
+    set_paging_avg_highest_val ( 0.00, "majflt" );
+    set_paging_avg_highest_val ( 0.00, "vmeff" );
+    set_io_transfer_rate_avg_highest_val ( 0.00, "tps" );
+    set_io_transfer_rate_avg_highest_val ( 0.00, "bread" );
+    set_io_transfer_rate_avg_highest_val ( 0.00, "bwrtn" );
+    set_memory_double_avg_highest_val ( 0.00, "memused" );
+    set_memory_double_avg_highest_val ( 0.00, "commit" );
+    set_memory_int_avg_highest_val ( 0.00, "kbcommit" );
+    set_swpused_avg_highest_val ( 0.00 );
+    set_kernel_table_avg_highest_val ( 0, "dentunusd" );
+    set_kernel_table_avg_highest_val ( 0, "file" );
+    set_kernel_table_avg_highest_val ( 0, "inode" );
+    set_ldavg_int_avg_highest_val ( 0, "runq_sz" );
+    set_ldavg_int_avg_highest_val ( 0, "plist_sz" );
+    set_ldavg_double_avg_highest_val ( 0.00, "ldavg_one" );
+    set_ldavg_double_avg_highest_val ( 0.00, "ldavg_five" );
+    set_ldavg_double_avg_highest_val ( 0.00, "ldavg_15" );
 
     /* up to MAX_DEVICE_NUMBERS */
     for ( i = 0; i < MAX_BLOCK_DEVICE_NUMBERS; i++ )
     {
-        set_block_device_avg_highest_val ( -0.01, i, "areqsz" );
-        set_block_device_avg_highest_val ( -0.01, i, "util" );
+        set_block_device_avg_highest_val ( 0.00, i, "areqsz" );
+        set_block_device_avg_highest_val ( 0.00, i, "util" );
     }
 
     /* up to MAX_NETWORK_DEVICE_NUMBERS */
     for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
     {
-        set_network_avg_highest_val ( -0.01, i, "rxpck" );
-        set_network_avg_highest_val ( -0.01, i, "txpck" );
-        set_network_avg_highest_val( -0.01, i, "rxkb" );
-        set_network_avg_highest_val ( -0.01, i, "txkb" );
-        set_network_avg_highest_val ( -0.01, i, "rxerr" );
-        set_network_avg_highest_val ( -0.01, i, "txerr" );
-        set_network_avg_highest_val ( -0.01, i, "rxdrop" );
-        set_network_avg_highest_val ( -0.01, i, "txdrop" );
-        set_network_former_val ( -0.01, i, "rxpck" );
-        set_network_former_val ( -0.01, i, "txpck" );
-        set_network_former_val ( -0.01, i, "rxkb" );
-        set_network_former_val ( -0.01, i, "txkb" );
-        set_network_former_val ( -0.01, i, "rxerr" );
-        set_network_former_val ( -0.01, i, "txerr" );
-        set_network_former_val ( -0.01, i, "rxdrop" );
-        set_network_former_val ( -0.01, i, "txdrop" );
+        set_network_avg_highest_val ( 0.00, i, "rxpck" );
+        set_network_avg_highest_val ( 0.00, i, "txpck" );
+        set_network_avg_highest_val ( 0.00, i, "rxkb" );
+        set_network_avg_highest_val ( 0.00, i, "txkb" );
+        set_network_avg_highest_val ( 0.00, i, "rxerr" );
+        set_network_avg_highest_val ( 0.00, i, "txerr" );
+        set_network_avg_highest_val ( 0.00, i, "rxdrop" );
+        set_network_avg_highest_val ( 0.00, i, "txdrop" );
+        set_network_former_val ( 0.00, i, "rxpck" );
+        set_network_former_val ( 0.00, i, "txpck" );
+        set_network_former_val ( 0.00, i, "rxkb" );
+        set_network_former_val ( 0.00, i, "txkb" );
+        set_network_former_val ( 0.00, i, "rxerr" );
+        set_network_former_val ( 0.00, i, "txerr" );
+        set_network_former_val ( 0.00, i, "rxdrop" );
+        set_network_former_val ( 0.00, i, "txdrop" );
     }
 
     /*  initialize spike and former each file */
@@ -1083,58 +1083,58 @@ int create_sar_analyzer_obj ( )
     {
         for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
         {
-            set_network_spike_val_each_file ( x, -0.01, i, "rxpck", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxpck", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxpck", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxpck", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txpck", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txpck", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txpck", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txpck", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxkb", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxkb", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxkb", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxkb", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txkb", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txkb", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txkb", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txkb", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxerr", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxerr", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxerr", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxerr", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txerr", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txerr", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txerr", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txerr", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxdrop", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxdrop", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxdrop", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxdrop", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txdrop", "highest" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txdrop", "highest" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txdrop", "highest" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txdrop", "highest" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxpck", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxpck", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxpck", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxpck", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txpck", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txpck", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txpck", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txpck", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxkb", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxkb", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxkb", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxkb", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txkb", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txkb", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txkb", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txkb", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxerr", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxerr", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxerr", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxerr", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txerr", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txerr", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txerr", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txerr", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "rxdrop", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "rxdrop", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "rxdrop", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "rxdrop", "spike" );
-            set_network_spike_val_each_file ( x, -0.01, i, "txdrop", "spike" );
+            set_network_spike_val_each_file ( x, 0.00, i, "txdrop", "spike" );
             set_network_spike_date_each_file ( x, "1970/1/1", i, "txdrop", "spike" );
             set_network_spike_time_each_file ( x, "1970/1/1", i, "txdrop", "spike" );
-            set_network_former_val_each_file ( x, -0.01, i, "rxerr" );
-            set_network_former_val_each_file ( x, -0.01, i, "txerr" );
-            set_network_former_val_each_file ( x, -0.01, i, "rxdrop" );
-            set_network_former_val_each_file ( x, -0.01, i, "txdrop" );
+            set_network_former_val_each_file ( x, 0.00, i, "rxerr" );
+            set_network_former_val_each_file ( x, 0.00, i, "txerr" );
+            set_network_former_val_each_file ( x, 0.00, i, "rxdrop" );
+            set_network_former_val_each_file ( x, 0.00, i, "txdrop" );
         }
     }
 
@@ -1143,20 +1143,20 @@ int create_sar_analyzer_obj ( )
     /* CPU all, 0 to MAX_CORE_NUMBERS */
     for ( i = 0; i <= MAX_CORE_NUMBERS; i++ )
     {
-        set_cpu_spike_val ( -0.01, i, "usr" );
-        set_cpu_former_val ( -0.01, i, "usr" );
-        set_cpu_spike_val ( -0.01, i, "sys" );
-        set_cpu_former_val ( -0.01, i, "sys" );
-        set_cpu_spike_val ( -0.01, i, "iowait" );
-        set_cpu_former_val ( -0.01, i, "iowait" );
-        set_cpu_spike_val ( -0.01, i, "idle" );
-        set_cpu_former_val ( -0.01, i, "idle" );
+        set_cpu_spike_val ( 0.00, i, "usr" );
+        set_cpu_former_val ( 0.00, i, "usr" );
+        set_cpu_spike_val ( 0.00, i, "sys" );
+        set_cpu_former_val ( 0.00, i, "sys" );
+        set_cpu_spike_val ( 0.00, i, "iowait" );
+        set_cpu_former_val ( 0.00, i, "iowait" );
+        set_cpu_spike_val ( 0.00, i, "idle" );
+        set_cpu_former_val ( 0.00, i, "idle" );
     }
 
-    set_tasks_spike_val ( -0.01, "proc" );
-    set_tasks_former_val ( -0.01, "proc" );
-    set_tasks_spike_val ( -0.01, "cswch" );
-    set_tasks_former_val ( -0.01, "cswch" );
+    set_tasks_spike_val ( 0.00, "proc" );
+    set_tasks_former_val ( 0.00, "proc" );
+    set_tasks_spike_val ( 0.00, "cswch" );
+    set_tasks_former_val ( 0.00, "cswch" );
     set_pswap_spike_val ( 0.00, "pswpin" );
     set_pswap_former_val ( 0.00, "pswpin" );
     set_pswap_spike_val ( 0.00, "pswpout" );
@@ -1165,72 +1165,72 @@ int create_sar_analyzer_obj ( )
     set_paging_former_val ( 0.00, "pgpgin" );
     set_paging_spike_val ( 0.00, "pgpgout" );
     set_paging_former_val ( 0.00, "pgpgout" );
-    set_paging_spike_val ( -0.01, "fault" );
-    set_paging_former_val ( -0.01, "fault" );
-    set_paging_spike_val ( -0.01, "majflt" );
-    set_paging_former_val ( -0.01, "majflt" );
-    set_paging_spike_val ( -0.01, "vmeff" );
-    set_paging_former_val ( -0.01, "vmeff" );
-    set_io_transfer_rate_spike_val ( -0.01, "tps" );
-    set_io_transfer_rate_former_val ( -0.01, "tps" );
-    set_io_transfer_rate_spike_val ( -0.01, "bread" );
-    set_io_transfer_rate_former_val ( -0.01, "bread" );
-    set_io_transfer_rate_spike_val ( -0.01, "bwrtn" );
-    set_io_transfer_rate_former_val ( -0.01, "bwrtn" );
-    set_memory_double_spike_val ( -0.01, "memused" );
-    set_memory_double_former_val ( -0.01, "memused" );
-    set_memory_double_spike_val ( -0.01, "commit" );
-    set_memory_double_former_val ( -0.01, "commit" );
-    set_memory_int_spike_val ( -1, "kbcommit" );
-    set_memory_int_former_val ( -1, "kbcommit" );
-    set_swpused_spike_val ( -0.01 );
-    set_swpused_former_val ( -0.01 );
-    set_kernel_table_spike_val ( -1, "dentunusd" );
-    set_kernel_table_former_val ( -1, "dentunusd" );
-    set_kernel_table_spike_val ( -1, "file" );
-    set_kernel_table_former_val ( -1, "file" );
-    set_kernel_table_spike_val ( -1, "inode" );
-    set_kernel_table_former_val ( -1, "inode" );
+    set_paging_spike_val ( 0.00, "fault" );
+    set_paging_former_val ( 0.00, "fault" );
+    set_paging_spike_val ( 0.00, "majflt" );
+    set_paging_former_val ( 0.00, "majflt" );
+    set_paging_spike_val ( 0.00, "vmeff" );
+    set_paging_former_val ( 0.00, "vmeff" );
+    set_io_transfer_rate_spike_val ( 0.00, "tps" );
+    set_io_transfer_rate_former_val ( 0.00, "tps" );
+    set_io_transfer_rate_spike_val ( 0.00, "bread" );
+    set_io_transfer_rate_former_val ( 0.00, "bread" );
+    set_io_transfer_rate_spike_val ( 0.00, "bwrtn" );
+    set_io_transfer_rate_former_val ( 0.00, "bwrtn" );
+    set_memory_double_spike_val ( 0.00, "memused" );
+    set_memory_double_former_val ( 0.00, "memused" );
+    set_memory_double_spike_val ( 0.00, "commit" );
+    set_memory_double_former_val ( 0.00, "commit" );
+    set_memory_int_spike_val ( 0, "kbcommit" );
+    set_memory_int_former_val ( 0, "kbcommit" );
+    set_swpused_spike_val ( 0.00 );
+    set_swpused_former_val ( 0.00 );
+    set_kernel_table_spike_val ( 0, "dentunusd" );
+    set_kernel_table_former_val ( 0, "dentunusd" );
+    set_kernel_table_spike_val ( 0, "file" );
+    set_kernel_table_former_val ( 0, "file" );
+    set_kernel_table_spike_val ( 0, "inode" );
+    set_kernel_table_former_val ( 0, "inode" );
 
-    set_ldavg_int_spike_val ( -1, "runq_sz" );
-    set_ldavg_int_former_val ( -1, "runq_sz" );
-    set_ldavg_int_spike_val ( -1, "plist_sz" );
-    set_ldavg_int_former_val ( -1, "plist_sz" );
-    set_ldavg_double_spike_val ( -0.01, "ldavg_one" );
-    set_ldavg_double_former_val ( -0.01, "ldavg_one" );
-    set_ldavg_double_spike_val ( -0.01, "ldavg_five" );
-    set_ldavg_double_former_val ( -0.01, "ldavg_five" );
-    set_ldavg_double_spike_val ( -0.01, "ldavg_15" );
-    set_ldavg_double_former_val ( -0.01, "ldavg_15" );
+    set_ldavg_int_spike_val ( 0, "runq_sz" );
+    set_ldavg_int_former_val ( 0, "runq_sz" );
+    set_ldavg_int_spike_val ( 0, "plist_sz" );
+    set_ldavg_int_former_val ( 0, "plist_sz" );
+    set_ldavg_double_spike_val ( 0.00, "ldavg_one" );
+    set_ldavg_double_former_val ( 0.00, "ldavg_one" );
+    set_ldavg_double_spike_val ( 0.00, "ldavg_five" );
+    set_ldavg_double_former_val ( 0.00, "ldavg_five" );
+    set_ldavg_double_spike_val ( 0.00, "ldavg_15" );
+    set_ldavg_double_former_val ( 0.00, "ldavg_15" );
 
     /* up to MAX_DEVICE_NUMBERS */
     for ( i = 0; i < MAX_BLOCK_DEVICE_NUMBERS; i++ )
     {
-        set_block_device_spike_val ( -0.01, i, "areqsz" );
-        set_block_device_former_val ( -0.01, i, "areqsz" );
-        set_block_device_spike_val ( -0.01, i, "util" );
-        set_block_device_former_val ( -0.01, i, "util" );
+        set_block_device_spike_val ( 0.00, i, "areqsz" );
+        set_block_device_former_val ( 0.00, i, "areqsz" );
+        set_block_device_spike_val ( 0.00, i, "util" );
+        set_block_device_former_val ( 0.00, i, "util" );
     }
 
     /* up to MAX_NETWORK_DEVICE_NUMBERS */
     for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
     {
-        set_network_spike_val ( -0.01, i, "rxpck" );
-        set_network_former_val ( -0.01, i, "rxpck" );
-        set_network_spike_val ( -0.01, i, "txpck" );
-        set_network_former_val ( -0.01, i, "txpck" );
-        set_network_spike_val( -0.01, i, "rxkb" );
-        set_network_former_val( -0.01, i, "rxkb" );
-        set_network_spike_val ( -0.01, i, "txkb" );
-        set_network_former_val ( -0.01, i, "txkb" );
-        set_network_spike_val ( -0.01, i, "rxerr" );
-        set_network_former_val ( -0.01, i, "rxerr" );
-        set_network_spike_val ( -0.01, i, "txerr" );
-        set_network_former_val ( -0.01, i, "txerr" );
-        set_network_spike_val ( -0.01, i, "rxdrop" );
-        set_network_former_val ( -0.01, i, "rxdrop" );
-        set_network_spike_val ( -0.01, i, "txdrop" );
-        set_network_former_val ( -0.01, i, "txdrop" );
+        set_network_spike_val ( 0.00, i, "rxpck" );
+        set_network_former_val ( 0.00, i, "rxpck" );
+        set_network_spike_val ( 0.00, i, "txpck" );
+        set_network_former_val ( 0.00, i, "txpck" );
+        set_network_spike_val( 0.00, i, "rxkb" );
+        set_network_former_val( 0.00, i, "rxkb" );
+        set_network_spike_val ( 0.00, i, "txkb" );
+        set_network_former_val ( 0.00, i, "txkb" );
+        set_network_spike_val ( 0.00, i, "rxerr" );
+        set_network_former_val ( 0.00, i, "rxerr" );
+        set_network_spike_val ( 0.00, i, "txerr" );
+        set_network_former_val ( 0.00, i, "txerr" );
+        set_network_spike_val ( 0.00, i, "rxdrop" );
+        set_network_former_val ( 0.00, i, "rxdrop" );
+        set_network_spike_val ( 0.00, i, "txdrop" );
+        set_network_former_val ( 0.00, i, "txdrop" );
     }
 
     /* ---- All highest ---- */
@@ -1238,37 +1238,37 @@ int create_sar_analyzer_obj ( )
     /* CPU all, 0 to MAX_CORE_NUMBERS */
     for ( i = 0; i <= MAX_CORE_NUMBERS; i++ )
     {
-        set_cpu_highest_val ( -0.01, i, "usr" );
-        set_cpu_highest_val ( -0.01, i, "sys" );
-        set_cpu_highest_val ( -0.01, i, "iowait" );
-        set_cpu_highest_val ( -0.01, i, "idle" );
+        set_cpu_highest_val ( 0.00, i, "usr" );
+        set_cpu_highest_val ( 0.00, i, "sys" );
+        set_cpu_highest_val ( 0.00, i, "iowait" );
+        set_cpu_highest_val ( 0.00, i, "idle" );
     }
 
-    set_tasks_highest_val ( -0.01, "proc" );
-    set_tasks_highest_val ( -0.01, "cswch" );
-    set_pswap_highest_val ( -1, "pswpin" );
-    set_pswap_highest_val ( -1, "pswpout" );
-    set_paging_highest_val ( -0.01, "pgpgin" );
-    set_paging_highest_val ( -0.01, "pgpgout" );
-    set_paging_highest_val ( -0.01, "fault" );
-    set_paging_highest_val ( -0.01, "majflt" );
-    set_paging_highest_val ( -0.01, "vmeff" );
-    set_io_transfer_rate_highest_val ( -0.01, "tps" );
-    set_io_transfer_rate_highest_val ( -0.01, "bread" );
-    set_io_transfer_rate_highest_val ( -0.01, "bwrtn" );
-    set_memory_double_highest_val ( -0.01, "memused" );
-    set_memory_double_highest_val ( -0.01, "commit" );
-    set_memory_int_highest_val ( -1, "kbcommit" );
-    set_swpused_highest_val ( -0.01 );
-    set_kernel_table_highest_val ( -1, "dentunusd" );
-    set_kernel_table_highest_val ( -1, "file" );
-    set_kernel_table_highest_val ( -1, "inode" );
+    set_tasks_highest_val ( 0.00, "proc" );
+    set_tasks_highest_val ( 0.00, "cswch" );
+    set_pswap_highest_val ( 0, "pswpin" );
+    set_pswap_highest_val ( 0, "pswpout" );
+    set_paging_highest_val ( 0.00, "pgpgin" );
+    set_paging_highest_val ( 0.00, "pgpgout" );
+    set_paging_highest_val ( 0.00, "fault" );
+    set_paging_highest_val ( 0.00, "majflt" );
+    set_paging_highest_val ( 0.00, "vmeff" );
+    set_io_transfer_rate_highest_val ( 0.00, "tps" );
+    set_io_transfer_rate_highest_val ( 0.00, "bread" );
+    set_io_transfer_rate_highest_val ( 0.00, "bwrtn" );
+    set_memory_double_highest_val ( 0.00, "memused" );
+    set_memory_double_highest_val ( 0.00, "commit" );
+    set_memory_int_highest_val ( 0, "kbcommit" );
+    set_swpused_highest_val ( 0.00 );
+    set_kernel_table_highest_val ( 0, "dentunusd" );
+    set_kernel_table_highest_val ( 0, "file" );
+    set_kernel_table_highest_val ( 0, "inode" );
 
-    set_ldavg_int_highest_val ( -1, "runq_sz" );
-    set_ldavg_int_highest_val ( -1, "plist_sz" );
-    set_ldavg_double_highest_val ( -0.01, "ldavg_one" );
-    set_ldavg_double_highest_val ( -0.01, "ldavg_five" );
-    set_ldavg_double_highest_val ( -0.01, "ldavg_15" );
+    set_ldavg_int_highest_val ( 0, "runq_sz" );
+    set_ldavg_int_highest_val ( 0, "plist_sz" );
+    set_ldavg_double_highest_val ( 0.00, "ldavg_one" );
+    set_ldavg_double_highest_val ( 0.00, "ldavg_five" );
+    set_ldavg_double_highest_val ( 0.00, "ldavg_15" );
 
     /* up to MAX_DEVICE_NUMBERS */
     for ( i = 0; i < MAX_BLOCK_DEVICE_NUMBERS; i++ )
@@ -1280,14 +1280,14 @@ int create_sar_analyzer_obj ( )
     /* up to MAX_NETWORK_DEVICE_NUMBERS */
     for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
     {
-        set_network_highest_val ( -0.01, i, "rxpck" );
-        set_network_highest_val ( -0.01, i, "txpck" );
-        set_network_highest_val( -0.01, i, "rxkb" );
-        set_network_highest_val ( -0.01, i, "txkb" );
-        set_network_highest_val ( -0.01, i, "rxerr" );
-        set_network_highest_val ( -0.01, i, "txerr" );
-        set_network_highest_val ( -0.01, i, "rxdrop" );
-        set_network_highest_val ( -0.01, i, "txdrop" );
+        set_network_highest_val ( 0.00, i, "rxpck" );
+        set_network_highest_val ( 0.00, i, "txpck" );
+        set_network_highest_val ( 0.00, i, "rxkb" );
+        set_network_highest_val ( 0.00, i, "txkb" );
+        set_network_highest_val ( 0.00, i, "rxerr" );
+        set_network_highest_val ( 0.00, i, "txerr" );
+        set_network_highest_val ( 0.00, i, "rxdrop" );
+        set_network_highest_val ( 0.00, i, "txdrop" );
     }
 
     /* these values should be big enough for the comparison */
