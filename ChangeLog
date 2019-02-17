@@ -1,3 +1,5 @@
+1.0.44
+Fix date and time initial strings in sar-analyzer feature.
 1.0.43
 Fix time-span functionality in sar-analyzer feature.
 1.0.42
