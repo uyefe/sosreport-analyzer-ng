@@ -62,6 +62,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo proc/net/sockstat file.
   Echo etc/logrotate.conf file.
   Echo files in etc/cron.d/.
+  Echo var/log/dmesg file.
   Analyze var/log/messages* files.
   Analyze var/log/secure* files.
   Analyze files in var/log/audit/.
@@ -79,6 +80,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in cmdlog/.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
+  Echo var/log/dmesg file.
   Analyze var/log/messages* files.
   Analyze files in var/log/audit/.
 
