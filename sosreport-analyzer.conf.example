@@ -213,6 +213,12 @@ var/log/secure=su:session failure
 
 var/log/audit/=denied
 
+## var/log/dmesg 
+##
+## All you can set is 'all'
+
+var/log/dmesg=all
+
 ## var/log/messages 
 ##
 ## You can set arbitrary item-name including 'all' up to 12

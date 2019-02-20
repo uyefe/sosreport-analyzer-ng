@@ -92,6 +92,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
         /* common stuff for both mcinfo and sosreport */
         if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
             strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/log/dmesg" ) == 0 )
+            strncpy ( cfg->var_log_dmesg, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
             strncpy ( cfg->var_log_messages, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
@@ -325,6 +327,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/logrotate.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
     }
+    append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
     append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
     if ( mcinfo == 0 ) 
     {
@@ -350,6 +353,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->proc_meminfo );
     else if ( strcmp ( member, "proc/interrupts" ) == 0 )
         strcat ( str_tmp, cfg->proc_interrupts );
+    else if ( strcmp ( member, "var/log/dmesg" ) == 0 )
+        strcat ( str_tmp, cfg->var_log_dmesg );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
         strcat ( str_tmp, cfg->var_log_messages );
 
