@@ -239,6 +239,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "cmdlog/", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
+            read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, "--------" );
@@ -279,6 +280,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/net/sockstat", dir_name );
             read_file_pre ( "etc/logrotate.conf", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
             read_file_pre ( "var/log/secure", dir_name );
             read_file_pre ( "var/log/audit/", dir_name );

@@ -1,3 +1,6 @@
+1.0.47
+Add member 'var/log/dmidecode'.
+Fix initial values of kernel-tables.
 1.0.46
 Delete unneeded debug strings.
 1.0.45
