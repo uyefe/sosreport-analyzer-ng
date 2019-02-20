@@ -42,6 +42,12 @@ proc/meminfo=all
 
 proc/interrupts=all
 
+## var/log/dmesg 
+##
+## All you can set is 'all'
+
+var/log/dmesg=all
+
 ## var/log/messages 
 ##
 ## You can set arbitrary item-name including 'all' up to 12

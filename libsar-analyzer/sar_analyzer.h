@@ -322,14 +322,14 @@ struct sar_analyzer_data_all sar_analyzer_all_obj_raw =
         {100.01}, /* swap_data_highest */
         {100.01}, /* swap_data_lowest */
 
-        {999999, 999999}, /* pswap_data_spike */
-        {999999, 999999}, /* pswap_data_former */
-        {999999, 999999}, /* pswap_data_highest */
+        {0, 0}, /* pswap_data_spike */
+        {0, 0}, /* pswap_data_former */
+        {0, 0}, /* pswap_data_highest */
         {999999, 999999}, /* pswap_data_lowest */
 
-        {999999, 999999, 999999}, /* kernel_table_data_spike */
-        {999999, 999999, 999999}, /* kernel_table_data_former */
-        {999999, 999999, 999999}, /* kernel_table_data_highest */
+        {0, 0, 0}, /* kernel_table_data_spike */
+        {0, 0, 0}, /* kernel_table_data_former */
+        {0, 0, 0}, /* kernel_table_data_highest */
         {999999, 999999, 999999}, /* kernel_table_data_lowest */
 
         {{100.01, 100.1, 100.1, 100.1, 100.1, 100.1, 100.1, 100.1}}, /* network_data_spike */

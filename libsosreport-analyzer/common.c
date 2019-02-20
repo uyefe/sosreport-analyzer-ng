@@ -336,6 +336,7 @@ const char *items_proc_net_dev;
 const char *items_proc_net_sockstat;
 const char *items_etc_logrotate_conf;
 const char *items_etc_cron_d_;
+const char *items_var_log_dmesg;
 const char *items_var_log_messages [ 12 ];
 const char *items_var_log_secure [ 12 ];
 const char *items_var_log_audit_ [ 12 ];
@@ -585,6 +586,8 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_cron_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
         }
+        else if ( strstr ( file_name, "var/log/dmesg" ) != NULL )
+            append_item_to_sos_line_obj ( line, "var/log/dmesg", items_var_log_dmesg );
         else if ( strstr ( file_name, "var/log/messages" ) != NULL )
         {
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -1037,6 +1040,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_cron_d_, s );
         items_etc_cron_d_ = token;
     }
+    /* member var/log/dmesg */
+    else if ( ( strstr ( file_name, "var/log/dmesg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->var_log_dmesg, s );
+        items_var_log_dmesg = token;
+    }
     /* member var/log/messages */
     else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) )
     {
@@ -1225,6 +1235,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/dmesg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/secure") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_, "" ) != 0 ) ) ||
