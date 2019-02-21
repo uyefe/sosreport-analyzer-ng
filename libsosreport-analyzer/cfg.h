@@ -29,91 +29,98 @@
 /* the delimiters of tokens */
 #define TOKEN_DELIM "="
 
+typedef struct
+{
+    char member [ MAX_LINE_LENGTH ];
+    int item_num;
+
+} config_each;
+
 /*
  *  The members which should be analyzed.
  */
 struct sosreport_analyzer_config
 {
     /* should be all */
-    char mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];
+    config_each mcinfo_boot_grub_;
     /* should be all */
-    char mcinfo_cmdlog_ [ MAX_LINE_LENGTH ];
+    config_each mcinfo_cmdlog_;
     /* should be all */
-    char date [ MAX_LINE_LENGTH ];
+    config_each date;
     /* should be all */
-    char lsb_release [ MAX_LINE_LENGTH ];
+    config_each lsb_release;
     /* should be all */
-    char uname [ MAX_LINE_LENGTH ];
+    config_each uname;
     /* should be all */
-    char hostname [ MAX_LINE_LENGTH ];
+    config_each hostname;
     /* should be all */
-    char uptime [ MAX_LINE_LENGTH ];
+    config_each uptime;
     /* should be all */
-    char root_anaconda_ks_cfg [ MAX_LINE_LENGTH ];
+    config_each root_anaconda_ks_cfg;
     /* allows word delimited by space */
-    char dmidecode [ MAX_LINE_LENGTH ];
+    config_each dmidecode;
     /* allows word delimited by space */
-    char lsmod [ MAX_LINE_LENGTH ];
+    config_each lsmod;
     /* allows word delimited by space */
-    char lspci [ MAX_LINE_LENGTH ];
+    config_each lspci;
     /* should be all */
-    char sos_commands_scsi_lsscsi [ MAX_LINE_LENGTH ];
+    config_each sos_commands_scsi_lsscsi;
     /* allows word delimited by space */
-    char installed_rpms [ MAX_LINE_LENGTH ];
+    config_each installed_rpms;
     /* allows word delimited by space */
-    char df [ MAX_LINE_LENGTH ];
+    config_each df;
     /* should be all */
-    char vgdisplay [ MAX_LINE_LENGTH ];
+    config_each vgdisplay;
     /* should be all */
-    char free [ MAX_LINE_LENGTH ];
+    config_each free;
     /* should be all */
-    char ip_addr [ MAX_LINE_LENGTH ];
+    config_each ip_addr;
     /* should be all */
-    char route [ MAX_LINE_LENGTH ];
+    config_each route;
     /* should be all */
-    char last [ MAX_LINE_LENGTH ];
+    config_each last;
     /* should be all */
-    char ps [ MAX_LINE_LENGTH ];
+    config_each ps;
     /* should be all */
-    char lsof [ MAX_LINE_LENGTH ];
+    config_each lsof;
     /* should be all */
-    char netstat [ MAX_LINE_LENGTH ];
+    config_each netstat;
     /* allows word delimited by space */
-    char etc_kdump_conf [ MAX_LINE_LENGTH ];
+    config_each etc_kdump_conf;
     /* allows word delimited by space */
-    char etc_sysctl_conf [ MAX_LINE_LENGTH ];
+    config_each etc_sysctl_conf;
     /* should be all */
-    char etc_sysconfig_network_scripts_ifcfg_ [ MAX_LINE_LENGTH ];
+    config_each etc_sysconfig_network_scripts_ifcfg_;
     /* allows word delimited by space */
-    char proc_meminfo [ MAX_LINE_LENGTH ];
+    config_each proc_meminfo;
     /* should be all */
-    char proc_net_dev [ MAX_LINE_LENGTH ];
+    config_each proc_net_dev;
     /* should be all */
-    char proc_net_sockstat [ MAX_LINE_LENGTH ];
+    config_each proc_net_sockstat;
     /* should be all */
-    char proc_interrupts [ MAX_LINE_LENGTH ];
+    config_each proc_interrupts;
     /* should be all */
-    char etc_logrotate_conf [ MAX_LINE_LENGTH ];
+    config_each etc_logrotate_conf;
     /* should be all */
-    char etc_cron_d_ [ MAX_LINE_LENGTH ];
+    config_each etc_cron_d_;
     /* should be all */
-    char var_log_dmesg [ MAX_LINE_LENGTH ];
+    config_each var_log_dmesg;
     /* allows word delimited by space */
-    char var_log_messages [ MAX_LINE_LENGTH ];
+    config_each var_log_messages;
     /* allows word delimited by space */
-    char var_log_secure [ MAX_LINE_LENGTH ];
+    config_each var_log_secure;
     /* allows word delimited by space */
-    char var_log_audit_ [ MAX_LINE_LENGTH ];
+    config_each var_log_audit_;
     /* allows word delimited by space */
-    char sos_commands_kernel_sysctl__a [ MAX_LINE_LENGTH ];
+    config_each sos_commands_kernel_sysctl__a;
     /* allows word delimited by space */
-    char sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];
+    config_each sos_commands_logs_journalctl___no_pager;
     /* allows word delimited by space */
-    char sos_commands_networking_ethtool__S [ MAX_LINE_LENGTH ];
+    config_each sos_commands_networking_ethtool__S;
     /* allows word delimited by space */
-    char sos_commands_networking_ethtool__i [ MAX_LINE_LENGTH ];
+    config_each sos_commands_networking_ethtool__i;
     /* allows word delimited by space */
-    char sos_commands_boot_ [ MAX_LINE_LENGTH ];
+    config_each sos_commands_boot_;
 };
 
 /*  This is a pointer to the global configuration, it should be available
