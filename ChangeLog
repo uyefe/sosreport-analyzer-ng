@@ -1,4 +1,6 @@
 1.0.47
+Add member 'sos_commands/networking/ethtool__-i'.
+1.0.47
 Add member 'var/log/dmidecode'.
 Fix initial values of kernel-tables.
 1.0.46
