@@ -111,6 +111,8 @@ struct sosreport_analyzer_config
     /* allows word delimited by space */
     char sos_commands_networking_ethtool__S [ MAX_LINE_LENGTH ];
     /* allows word delimited by space */
+    char sos_commands_networking_ethtool__i [ MAX_LINE_LENGTH ];
+    /* allows word delimited by space */
     char sos_commands_boot_ [ MAX_LINE_LENGTH ];
 };
 
