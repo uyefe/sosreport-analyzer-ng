@@ -121,6 +121,13 @@ struct line_data sos_commands_networking_ethtool__S_obj_raw =
         NULL /* next pointer */
     };
 
+/* sos_commands_networking_ethtool__i_obj */
+struct line_data sos_commands_networking_ethtool__i_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* sos_commands_boot__obj */
 struct line_data sos_commands_boot__obj_raw =
     {
@@ -142,6 +149,7 @@ struct line_data *var_log_secure_obj = &var_log_secure_obj_raw;
 struct line_data *var_log_audit__obj = &var_log_audit__obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
+struct line_data *sos_commands_networking_ethtool__i_obj = &sos_commands_networking_ethtool__i_obj_raw;
 struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
 
 void read_analyze_dir ( const char *member, const char *dname )
@@ -252,6 +260,8 @@ void read_analyze_dir ( const char *member, const char *dname )
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, read_path );
             else if ( strstr ( read_path, "ethtool_-S") != 0 )
                 append_list ( &sos_commands_networking_ethtool__S_obj, read_path );
+            else if ( strstr ( read_path, "ethtool_-i") != 0 )
+                append_list ( &sos_commands_networking_ethtool__i_obj, read_path );
             else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
                 append_list ( &sos_commands_boot__obj, read_path );
             i++; /* needed here */
@@ -283,6 +293,8 @@ void read_analyze_dir ( const char *member, const char *dname )
         ptr_tmp = *(&sos_commands_logs_journalctl___no_pager_obj);
     else if ( strstr ( read_path, "ethtool_-S") != 0 )
         ptr_tmp = *(&sos_commands_networking_ethtool__S_obj);
+    else if ( strstr ( read_path, "ethtool_-i") != 0 )
+        ptr_tmp = *(&sos_commands_networking_ethtool__i_obj);
     else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
         ptr_tmp = *(&sos_commands_boot__obj);
     /* now we read each file in the directory */
@@ -343,6 +355,7 @@ const char *items_var_log_audit_ [ 12 ];
 const char *items_sos_commands_kernel_sysctl__a [ 12 ];
 const char *items_sos_commands_logs_journalctl___no_pager [ 12 ];
 const char *items_sos_commands_networking_ethtool__S [ 12 ];
+const char *items_sos_commands_networking_ethtool__i [ 12 ];
 const char *items_sos_commands_boot_ [ 12 ];
 
 /* members which could have items */
@@ -364,6 +377,7 @@ static int var_log_audit_ = 0;
 static int sos_commands_kernel_sysctl__a = 0;
 static int sos_commands_logs_journalctl___no_pager = 0;
 static int sos_commands_networking_ethtool__S = 0;
+static int sos_commands_networking_ethtool__i = 0;
 static int sos_commands_boot_ = 0;
 
 int read_file ( const char *file_name, const char *member, int files )
@@ -404,6 +418,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_sos_commands_networking_ethtool__S_curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_networking_ethtool__S, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_sos_commands_networking_ethtool__S_curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_sos_commands_networking_ethtool__i [ MAX_LINE_LENGTH ];
+    char filename_sos_commands_networking_ethtool__i_curr [ MAX_LINE_LENGTH ];
+    memset ( filename_sos_commands_networking_ethtool__i, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_sos_commands_networking_ethtool__i_curr, '\0', MAX_LINE_LENGTH ); 
     char filename_sos_commands_boot_ [ MAX_LINE_LENGTH ];
     char filename_sos_commands_boot__curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_boot_, '\0', MAX_LINE_LENGTH ); 
@@ -656,6 +674,19 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sos_commands_networking_ethtool__S; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
         }
+        else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf (filename_sos_commands_networking_ethtool__i_curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_sos_commands_networking_ethtool__i, filename_sos_commands_networking_ethtool__i_curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf ( filename_sos_commands_networking_ethtool__i, MAX_LINE_LENGTH, "%s", file_name );
+            for ( x = 0; x < sos_commands_networking_ethtool__i; x++ )
+                append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-i", items_sos_commands_networking_ethtool__i [ x ] );
+        }
         else if ( strstr ( file_name, "sos_commands/boot/" ) != NULL )
         {
             snprintf ( filename_sos_commands_boot__curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -688,6 +719,7 @@ void set_token_to_item_arr ( const char *file_name )
     ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0, var_log_messages = 0;
     var_log_secure = 0, sos_commands_kernel_sysctl__a = 0, sos_commands_logs_journalctl___no_pager = 0;
     sos_commands_networking_ethtool__S = 0, sos_commands_boot_ = 0, mcinfo_cmdlog_ = 0;
+    sos_commands_networking_ethtool__i = 0;
     /* ### FIX ME - make this function for better summary */
     const char s [ 8 ] = " \t\n\r"; /* this is the delimiter */
     char *token = NULL;
@@ -1167,6 +1199,26 @@ void set_token_to_item_arr ( const char *file_name )
             items_sos_commands_networking_ethtool__S  [ sos_commands_networking_ethtool__S ] = token;
         }
     }
+    /* member sos_commands/networking/ethtool_-i */
+    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i, s );
+        items_sos_commands_networking_ethtool__i [ 0 ] = token;
+        /* get the next token ... */
+        while ( token != NULL )
+        {
+            if ( sos_commands_networking_ethtool__i > arr_max12 )
+            {
+                printf("can't set items over %d for sos_commands/networking/ethtool_-i\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
+                exit ( EXIT_FAILURE );
+            }
+            token = strtok ( NULL, s );
+            sos_commands_networking_ethtool__i ++;
+            items_sos_commands_networking_ethtool__i  [ sos_commands_networking_ethtool__i ] = token;
+        }
+    }
     /* member sos_commands/boot/ */
     else if ( ( strstr ( file_name, "sos_commands/boot/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_, "" ) != 0 ) )
     {
@@ -1242,6 +1294,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networking/ethtool_-i") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_, "" ) != 0 ) )
     )
     {
@@ -1265,6 +1318,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "var/log/audit/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/boot/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ) );
@@ -1634,6 +1688,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/boot/" ) == 0 )
     )
     {
@@ -1657,6 +1712,7 @@ void free_sosreport_analyzer_obj ( void )
     clear_list ( &var_log_audit__obj ); 
     clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
     clear_list ( &sos_commands_networking_ethtool__S_obj ); 
+    clear_list ( &sos_commands_networking_ethtool__i_obj ); 
     clear_list ( &sos_commands_boot__obj ); 
     clear_list ( &sos_tail_obj ); 
     clear_list ( &mcinfo_boot_grub__obj );

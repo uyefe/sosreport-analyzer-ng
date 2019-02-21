@@ -172,6 +172,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_logs_journalctl___no_pager, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-S" ) == 0 )
                 strncpy ( cfg->sos_commands_networking_ethtool__S, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-i" ) == 0 )
+                strncpy ( cfg->sos_commands_networking_ethtool__i, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
                 strncpy ( cfg->sos_commands_boot_, line, MAX_LINE_LENGTH - 1 );
         }
@@ -336,6 +338,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
     }
     append_list ( &sos_header_obj, "--------" );
 }
@@ -430,6 +433,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S );
+        else if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_networking_ethtool__i );
         else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_boot_ );
     }

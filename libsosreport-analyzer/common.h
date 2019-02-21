@@ -42,6 +42,7 @@ extern struct line_data *var_log_secure_obj;
 extern struct line_data *var_log_audit__obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
+extern struct line_data *sos_commands_networking_ethtool__i_obj;
 extern struct line_data *sos_commands_boot__obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
