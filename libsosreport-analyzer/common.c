@@ -358,28 +358,6 @@ const char *items_sos_commands_networking_ethtool__S [ 12 ];
 const char *items_sos_commands_networking_ethtool__i [ 12 ];
 const char *items_sos_commands_boot_ [ 12 ];
 
-/* members which could have items */
-static int mcinfo_cmdlog_ = 0;
-static int dmidecode = 0;
-static int lsmod = 0;
-static int lspci = 0;
-static int installed_rpms = 0;
-static int df = 0;
-static int last = 0;
-static int ps = 0;
-static int lsof = 0;
-static int netstat = 0;
-static int proc_meminfo = 0;
-static int etc_cron_d_ = 0;
-static int var_log_messages = 0;
-static int var_log_secure = 0;
-static int var_log_audit_ = 0;
-static int sos_commands_kernel_sysctl__a = 0;
-static int sos_commands_logs_journalctl___no_pager = 0;
-static int sos_commands_networking_ethtool__S = 0;
-static int sos_commands_networking_ethtool__i = 0;
-static int sos_commands_boot_ = 0;
-
 int read_file ( const char *file_name, const char *member, int files )
 {
     char filename_mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];
@@ -524,21 +502,21 @@ int read_file ( const char *file_name, const char *member, int files )
         else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
         else if ( ( strstr ( file_name, "dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < dmidecode ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->dmidecode.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
         else if ( ( strstr ( file_name, "lsmod" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < lsmod ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->lsmod.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lsmod", items_lsmod [ x ] );
         else if ( ( strstr ( file_name, "lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < lspci ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->lspci.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
         else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
         else if ( ( strstr ( file_name, "installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < installed_rpms ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->installed_rpms.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
         else if ( ( strstr ( file_name, "df" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < df ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->df.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "df", items_df [ x ] );
         else if ( ( strstr ( file_name, "vgdisplay" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "vgdisplay", items_vgdisplay );
@@ -549,16 +527,16 @@ int read_file ( const char *file_name, const char *member, int files )
         else if ( ( strstr ( file_name, "route" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "route", items_route );
         else if ( ( strstr ( file_name, "last" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < last ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->last.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "last", items_last [ x ] );
         else if ( ( strstr ( file_name, "ps" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < ps ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->ps.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "ps", items_ps [ x ] );
         else if ( ( strstr ( file_name, "lsof" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < lsof ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->lsof.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lsof", items_lsof [ x ] );
         else if ( ( strstr ( file_name, "netstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < netstat ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->netstat.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "netstat", items_netstat [ x ] );
         else if ( ( strstr ( file_name, "etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
@@ -577,7 +555,7 @@ int read_file ( const char *file_name, const char *member, int files )
             append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
         }
         else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
-            for ( x = 0; x < proc_meminfo ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->proc_meminfo.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
         else if ( strstr ( file_name, "proc/interrupts" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/interrupts", items_proc_interrupts );
@@ -616,7 +594,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf (filename_var_log_messages, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < var_log_messages; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->var_log_messages.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
         }
         else if ( strstr ( file_name, "var/log/secure" ) != NULL )
@@ -629,7 +607,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf (filename_var_log_secure, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < var_log_secure; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->var_log_secure.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/secure", items_var_log_secure [ x ] );
         }
         else if ( strstr ( file_name, "var/log/audit/" ) != NULL )
@@ -642,11 +620,11 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf (filename_var_log_audit_, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < var_log_audit_; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->var_log_audit_.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/audit/", items_var_log_audit_ [ x ] );
         }
         else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            for ( x = 0; x < sos_commands_kernel_sysctl__a ; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
         else if ( ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
@@ -658,7 +636,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf ( filename_sos_commands_logs_journalctl___no_pager, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < sos_commands_logs_journalctl___no_pager; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
         }
         else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -671,7 +649,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf ( filename_sos_commands_networking_ethtool__S, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < sos_commands_networking_ethtool__S; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
         }
         else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -684,7 +662,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf ( filename_sos_commands_networking_ethtool__i, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < sos_commands_networking_ethtool__i; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-i", items_sos_commands_networking_ethtool__i [ x ] );
         }
         else if ( strstr ( file_name, "sos_commands/boot/" ) != NULL )
@@ -697,7 +675,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, "----------------" );
             }
             snprintf (filename_sos_commands_boot_, MAX_LINE_LENGTH, "%s", file_name );
-            for ( x = 0; x < sos_commands_boot_; x++ )
+            for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_boot_.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/boot/", items_sos_commands_boot_ [ x ] );
         }
         else
@@ -715,11 +693,28 @@ int read_file ( const char *file_name, const char *member, int files )
 void set_token_to_item_arr ( const char *file_name )
 {
     /* on members which have more than 2 tokens, should be initialized here */
-    dmidecode = 0, lsmod = 0, lspci = 0, installed_rpms = 0, df = 0, last = 0;
-    ps = 0, lsof = 0, netstat = 0, proc_meminfo = 0, etc_cron_d_ = 0, var_log_messages = 0;
-    var_log_secure = 0, sos_commands_kernel_sysctl__a = 0, sos_commands_logs_journalctl___no_pager = 0;
-    sos_commands_networking_ethtool__S = 0, sos_commands_boot_ = 0, mcinfo_cmdlog_ = 0;
-    sos_commands_networking_ethtool__i = 0;
+    sosreport_analyzer_cfg->dmidecode.item_num = 0;
+    sosreport_analyzer_cfg->lsmod.item_num = 0;
+    sosreport_analyzer_cfg->lspci.item_num = 0;
+    sosreport_analyzer_cfg->installed_rpms.item_num = 0;
+    sosreport_analyzer_cfg->df.item_num = 0;
+    sosreport_analyzer_cfg->last.item_num = 0;
+    sosreport_analyzer_cfg->ps.item_num = 0;
+    sosreport_analyzer_cfg->lsof.item_num = 0;
+    sosreport_analyzer_cfg->netstat.item_num = 0;
+    sosreport_analyzer_cfg->proc_meminfo.item_num = 0;
+    sosreport_analyzer_cfg->etc_cron_d_.item_num = 0;
+    sosreport_analyzer_cfg->var_log_messages.item_num = 0;
+    sosreport_analyzer_cfg->var_log_secure.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_boot_.item_num = 0;
+    sosreport_analyzer_cfg->mcinfo_cmdlog_.item_num = 0;
+
+    int i = 0;
+
     /* ### FIX ME - make this function for better summary */
     const char s [ 8 ] = " \t\n\r"; /* this is the delimiter */
     char *token = NULL;
@@ -728,515 +723,533 @@ void set_token_to_item_arr ( const char *file_name )
      * file_name should be excluded directory of given by -D 
      */
     /* member boot/grub/ */
-    if ( ( strstr ( file_name, "boot/grub/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_, "" ) != 0 ) )
+    if ( ( strstr ( file_name, "boot/grub/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->mcinfo_boot_grub_, s );
+        token = strtok ( sosreport_analyzer_cfg->mcinfo_boot_grub_.member, s );
         items_mcinfo_boot_grub_ = token;
     }
     /* member cmdlog */
-    else if ( ( strstr ( file_name, "cmdlog/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "cmdlog/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->mcinfo_cmdlog_, s );
+        token = strtok ( sosreport_analyzer_cfg->mcinfo_cmdlog_.member, s );
         items_mcinfo_cmdlog_ = token;
     }
     /* member date */
-    else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->date.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->date, s );
+        token = strtok ( sosreport_analyzer_cfg->date.member, s );
         items_date = token;
     }
     /* member lsb_release */
-    else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lsb_release, s );
+        token = strtok ( sosreport_analyzer_cfg->lsb_release.member, s );
         items_lsb_release = token;
     }
     /* member uname */
-    else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uname, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uname.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->uname, s );
+        token = strtok ( sosreport_analyzer_cfg->uname.member, s );
         items_uname = token;
     }
     /* member hostname */
-    else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->hostname, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->hostname.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->hostname, s );
+        token = strtok ( sosreport_analyzer_cfg->hostname.member, s );
         items_hostname = token;
     }
     /* member uptime */
-    else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uptime, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->uptime.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->uptime, s );
+        token = strtok ( sosreport_analyzer_cfg->uptime.member, s );
         items_uptime = token;
     }
     /* member root/anaconda-ks.cfg */
-    else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->root_anaconda_ks_cfg, s );
+        token = strtok ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.member, s );
         items_root_anaconda_ks_cfg [ 0 ] = token;
     }
     /* member dmidecode */
-    else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->dmidecode, s );
+        token = strtok ( sosreport_analyzer_cfg->dmidecode.member, s );
         items_dmidecode [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( dmidecode > arr_max12 )
+            if ( sosreport_analyzer_cfg->dmidecode.item_num > arr_max12 )
             {
                 printf("can't set items over %d for dmidecode\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            dmidecode ++;
-            items_dmidecode  [ dmidecode ] = token;
+            i ++;
+            sosreport_analyzer_cfg->dmidecode.item_num = i; 
+            items_dmidecode  [ sosreport_analyzer_cfg->dmidecode.item_num ] = token;
         }
     }
     /* member lsmod */
-    else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsmod, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsmod.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lsmod, s );
+        token = strtok ( sosreport_analyzer_cfg->lsmod.member, s );
         items_lsmod [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( lsmod > arr_max12 )
+            if ( sosreport_analyzer_cfg->lsmod.item_num > arr_max12 )
             {
                 printf("can't set items over %d for lsmod\n",arr_max12);
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            lsmod ++;
-            items_lsmod  [ lsmod ] = token;
+            i ++;
+            sosreport_analyzer_cfg->lsmod.item_num = i; 
+            items_lsmod  [ sosreport_analyzer_cfg->lsmod.item_num ] = token;
         }
     }
     /* member lspci */
-    else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lspci, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lspci.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lspci, s );
+        token = strtok ( sosreport_analyzer_cfg->lspci.member, s );
         items_lspci [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( lspci > arr_max20 )
+            if ( sosreport_analyzer_cfg->lspci.item_num > arr_max20 )
             {
                 printf("can't set items over %d for lspci\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            lspci ++;
-            items_lspci  [ lspci ] = token;
+            i ++;
+            sosreport_analyzer_cfg->lspci.item_num = i; 
+            items_lspci  [ sosreport_analyzer_cfg->lspci.item_num ] = token;
         }
     }
     /* member sos_commands/scsi/lsscsi */
-    else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi, s );
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, s );
         items_sos_commands_scsi_lsscsi = token;
     }
     /* member installed-rpms */
-    else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->installed_rpms, s );
+        token = strtok ( sosreport_analyzer_cfg->installed_rpms.member, s );
         items_installed_rpms [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( installed_rpms > arr_max12 )
+            if ( sosreport_analyzer_cfg->installed_rpms.item_num > arr_max12 )
             {
                 printf("can't set items over %d for installed_rpms\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            installed_rpms ++;
-            items_installed_rpms  [ installed_rpms ] = token;
+            i ++;
+            sosreport_analyzer_cfg->installed_rpms.item_num = i; 
+            items_installed_rpms  [ sosreport_analyzer_cfg->installed_rpms.item_num ] = token;
         }
     }
     /* member df */
-    else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->df, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->df.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->df, s );
+        token = strtok ( sosreport_analyzer_cfg->df.member, s );
         items_df [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( df > arr_max2 )
+            if ( sosreport_analyzer_cfg->df.item_num > arr_max2 )
             {
                 printf("can't set items over %d for df\n",arr_max2);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            df ++;
-            items_df  [ df ] = token;
+            i ++;
+            sosreport_analyzer_cfg->df.item_num = i; 
+            items_df  [ sosreport_analyzer_cfg->df.item_num ] = token;
         }
     }
     /* member vgdisplay */
-    else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->vgdisplay, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->vgdisplay.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->vgdisplay, s );
+        token = strtok ( sosreport_analyzer_cfg->vgdisplay.member, s );
         items_vgdisplay = token;
     }
     /* member free */
-    else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->free, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->free.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->free, s );
+        token = strtok ( sosreport_analyzer_cfg->free.member, s );
         items_free = token;
     }
     /* member ip_addr */
-    else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->ip_addr, s );
+        token = strtok ( sosreport_analyzer_cfg->ip_addr.member, s );
         items_ip_addr = token;
     }
     /* member route */
-    else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->route, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->route.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->route, s );
+        token = strtok ( sosreport_analyzer_cfg->route.member, s );
         items_route = token;
     }
     /* member last */
-    else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->last, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->last.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->last, s );
+        token = strtok ( sosreport_analyzer_cfg->last.member, s );
         items_last [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( last > arr_max12 )
+            if ( sosreport_analyzer_cfg->last.item_num > arr_max12 )
             {
                 printf("can't set items over %d for last\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            last ++;
-            items_last  [ last ] = token;
+            i ++;
+            sosreport_analyzer_cfg->last.item_num = i; 
+            items_last  [ sosreport_analyzer_cfg->last.item_num ] = token;
         }
     }
     /* member ps */
-    else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ps, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->ps.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->ps, s );
+        token = strtok ( sosreport_analyzer_cfg->ps.member, s );
         items_ps [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( ps > arr_max12 )
+            if ( sosreport_analyzer_cfg->ps.item_num > arr_max12 )
             {
                 printf("can't set items over %d for ps\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            ps ++;
-            items_ps  [ ps ] = token;
+            i ++;
+            sosreport_analyzer_cfg->ps.item_num = i; 
+            items_ps  [ sosreport_analyzer_cfg->ps.item_num ] = token;
         }
     }
     /* member lsof */
-    else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsof, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lsof.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lsof, s );
+        token = strtok ( sosreport_analyzer_cfg->lsof.member, s );
         items_lsof [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( lsof > arr_max12 )
+            if ( sosreport_analyzer_cfg->lsof.item_num > arr_max12 )
             {
                 printf("can't set items over %d for lsof\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            lsof ++;
-            items_lsof  [ lsof ] = token;
+            i ++;
+            sosreport_analyzer_cfg->lsof.item_num = i; 
+            items_lsof  [ sosreport_analyzer_cfg->lsof.item_num ] = token;
         }
     }
     /* member netstat */
-    else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->netstat, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->netstat.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->netstat, s );
+        token = strtok ( sosreport_analyzer_cfg->netstat.member, s );
         items_netstat [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( netstat > arr_max12 )
+            if ( sosreport_analyzer_cfg->netstat.item_num > arr_max12 )
             {
                 printf("can't set items over %d for netstat\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            netstat ++;
-            items_netstat  [ netstat ] = token;
+            i ++;
+            sosreport_analyzer_cfg->netstat.item_num = i; 
+            items_netstat  [ sosreport_analyzer_cfg->netstat.item_num ] = token;
         }
     }
     /* member etc/kdump.conf */
-    else if ( ( strstr ( file_name, "etc/kdump.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "etc/kdump.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_kdump_conf, s );
+        token = strtok ( sosreport_analyzer_cfg->etc_kdump_conf.member, s );
         items_etc_kdump_conf = token;
     }
     /* member etc/sysctl.conf */
-    else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_sysctl_conf, s );
+        token = strtok ( sosreport_analyzer_cfg->etc_sysctl_conf.member, s );
         items_etc_sysctl_conf = token;
     }
     /* member etc/sysconfig/network-scripts/ifcfg- */
-    else if ( ( strstr ( file_name, "etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_, s );
+        token = strtok ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, s );
         items_etc_sysconfig_network_scripts_ifcfg_ = token;
     }
     /* member proc/meminfo */
-    else if ( ( strstr ( file_name, "proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_meminfo, s );
+        token = strtok ( sosreport_analyzer_cfg->proc_meminfo.member, s );
         items_proc_meminfo [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( proc_meminfo > arr_max2 )
+            if ( sosreport_analyzer_cfg->proc_meminfo.item_num > arr_max12 )
             {
                 printf("can't set items over %d for proc/meminfo\n",arr_max2);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            proc_meminfo ++;
-            items_proc_meminfo  [ proc_meminfo ] = token;
+            i ++;
+            sosreport_analyzer_cfg->proc_meminfo.item_num = i; 
+            items_proc_meminfo  [ sosreport_analyzer_cfg->proc_meminfo.item_num ] = token;
         }
     }
     /* member proc/interrupts */
-    else if ( ( strstr ( file_name, "proc/interrupts" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "proc/interrupts" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_interrupts, s );
+        token = strtok ( sosreport_analyzer_cfg->proc_interrupts.member, s );
         items_proc_interrupts = token;
     }
     /* member proc/net/dev */
-    else if ( ( strstr ( file_name, "proc/net/dev" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "proc/net/dev" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_net_dev, s );
+        token = strtok ( sosreport_analyzer_cfg->proc_net_dev.member, s );
         items_proc_net_dev = token;
     }
     /* member proc/net/sockstat */
-    else if ( ( strstr ( file_name, "proc/net/sockstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "proc/net/sockstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat, s );
+        token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat.member, s );
         items_proc_net_sockstat = token;
     }
     /* member etc/logrotate.conf */
-    else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_logrotate_conf, s );
+        token = strtok ( sosreport_analyzer_cfg->etc_logrotate_conf.member, s );
         items_etc_logrotate_conf = token;
     }
     /* member etc/cron.d/ */
-    else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_cron_d_, s );
+        token = strtok ( sosreport_analyzer_cfg->etc_cron_d_.member, s );
         items_etc_cron_d_ = token;
     }
     /* member var/log/dmesg */
-    else if ( ( strstr ( file_name, "var/log/dmesg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "var/log/dmesg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_dmesg, s );
+        token = strtok ( sosreport_analyzer_cfg->var_log_dmesg.member, s );
         items_var_log_dmesg = token;
     }
     /* member var/log/messages */
-    else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_messages, s );
+        token = strtok ( sosreport_analyzer_cfg->var_log_messages.member, s );
         items_var_log_messages [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( var_log_messages > arr_max12 )
+            if ( sosreport_analyzer_cfg->var_log_messages.item_num > arr_max12 )
             {
                 printf("can't set items over %d for var/log/messages\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            var_log_messages ++;
-            items_var_log_messages  [ var_log_messages ] = token;
+            i ++;
+            sosreport_analyzer_cfg->var_log_messages.item_num = i; 
+            items_var_log_messages  [ sosreport_analyzer_cfg->var_log_messages.item_num ] = token;
         }
     }
     /* member var/log/secure */
-    else if ( ( strstr ( file_name, "var/log/secure" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "var/log/secure" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_secure, s );
+        token = strtok ( sosreport_analyzer_cfg->var_log_secure.member, s );
         items_var_log_secure [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( var_log_secure > arr_max12 )
+            if ( sosreport_analyzer_cfg->var_log_secure.item_num > arr_max12 )
             {
                 printf("can't set items over %d for var/log/secure\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            var_log_secure ++;
-            items_var_log_secure  [ var_log_secure ] = token;
+            i ++;
+            sosreport_analyzer_cfg->var_log_secure.item_num = i; 
+            items_var_log_secure  [ sosreport_analyzer_cfg->var_log_secure.item_num ] = token;
         }
     }
     /* member var/log/audit/ */
-    else if ( ( strstr ( file_name, "var/log/audit/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "var/log/audit/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_audit_, s );
+        token = strtok ( sosreport_analyzer_cfg->var_log_audit_.member, s );
         items_var_log_audit_ [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( var_log_audit_ > arr_max12 )
+            if ( sosreport_analyzer_cfg->var_log_audit_.item_num > arr_max12 )
             {
                 printf("can't set items over %d for var/log/audit/\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            var_log_audit_ ++;
-            items_var_log_audit_  [ var_log_audit_ ] = token;
+            i ++;
+            sosreport_analyzer_cfg->var_log_audit_.item_num = i; 
+            items_var_log_audit_  [ sosreport_analyzer_cfg->var_log_audit_.item_num ] = token;
         }
     }
     /* member sos_commands/kernel/sysctl_-a */
-    else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, s );
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, s );
         items_sos_commands_kernel_sysctl__a [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sos_commands_kernel_sysctl__a > arr_max12 )
+            if ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/kernel/sysctl_-a\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            sos_commands_kernel_sysctl__a ++;
-            items_sos_commands_kernel_sysctl__a  [ sos_commands_kernel_sysctl__a ] = token;
+            i ++;
+            sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num = i; 
+            items_sos_commands_kernel_sysctl__a  [ sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num ] = token;
         }
     }
     /* member sos_commands/logs/journalctl_--no-pager */
-    else if ( ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, s );
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, s );
         items_sos_commands_logs_journalctl___no_pager [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sos_commands_logs_journalctl___no_pager > arr_max12 )
+            if ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/logs/journalctl_--no-pager\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            sos_commands_logs_journalctl___no_pager ++;
-            items_sos_commands_logs_journalctl___no_pager  [ sos_commands_logs_journalctl___no_pager ] = token;
+            i ++;
+            sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num = i; 
+            items_sos_commands_logs_journalctl___no_pager  [ sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num ] = token;
         }
     }
     /* member sos_commands/networking/ethtool_-S */
-    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, s );
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, s );
         items_sos_commands_networking_ethtool__S [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sos_commands_networking_ethtool__S > arr_max12 )
+            if ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/networking/ethtool_-S\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            sos_commands_networking_ethtool__S ++;
-            items_sos_commands_networking_ethtool__S  [ sos_commands_networking_ethtool__S ] = token;
+            i ++;
+            sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num = i; 
+            items_sos_commands_networking_ethtool__S  [ sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num ] = token;
         }
     }
     /* member sos_commands/networking/ethtool_-i */
-    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i, s );
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, s );
         items_sos_commands_networking_ethtool__i [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sos_commands_networking_ethtool__i > arr_max12 )
+            if ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/networking/ethtool_-i\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            sos_commands_networking_ethtool__i ++;
-            items_sos_commands_networking_ethtool__i  [ sos_commands_networking_ethtool__i ] = token;
+            i ++;
+            sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num = i; 
+            items_sos_commands_networking_ethtool__i  [ sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num ] = token;
         }
     }
     /* member sos_commands/boot/ */
-    else if ( ( strstr ( file_name, "sos_commands/boot/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "sos_commands/boot/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_boot_, s );
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_boot_.member, s );
         items_sos_commands_boot_ [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sos_commands_boot_ > arr_max12 )
+            if ( sosreport_analyzer_cfg->sos_commands_boot_.item_num > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/boot/\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
             token = strtok ( NULL, s );
-            sos_commands_boot_ ++;
-            items_sos_commands_boot_  [ sos_commands_boot_ ] = token;
+            i ++;
+            sosreport_analyzer_cfg->sos_commands_boot_.item_num = i; 
+            items_sos_commands_boot_  [ sosreport_analyzer_cfg->sos_commands_boot_.item_num ] = token;
         }
     }
 }
@@ -1256,46 +1269,46 @@ void read_file_pre ( const char *member, const char *dir_name )
     memset ( str_tmp3, '\0', MAX_LINE_LENGTH ); 
 
     if (
-        ( ( strcmp ( member, "boot/grub/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "cmdlog/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "date") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->date, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "lsb-release") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "uname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uname, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "hostname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->hostname, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "uptime") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uptime, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "root/anaconda-ks.cfg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "dmidecode") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "lsmod") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsmod, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "lspci") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lspci, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/scsi/lsscsi") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "installed-rpms") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "df") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->df, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "vgdisplay") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->vgdisplay, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "free") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->free, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "ip_addr") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "route") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->route, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "last") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->last, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "ps") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->ps, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "lsof") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsof, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "netstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->netstat, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/kdump.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/sysctl.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "var/log/dmesg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "var/log/secure") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "var/log/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/networking/ethtool_-i") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_, "" ) != 0 ) )
+        ( ( strcmp ( member, "boot/grub/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "cmdlog/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_cmdlog_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "date") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->date.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "lsb-release") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsb_release.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "uname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uname.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "hostname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->hostname.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "uptime") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uptime.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "root/anaconda-ks.cfg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "dmidecode") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "lsmod") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsmod.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "lspci") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lspci.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/scsi/lsscsi") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "installed-rpms") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "df") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->df.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "vgdisplay") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->vgdisplay.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "free") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->free.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "ip_addr") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->ip_addr.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "route") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->route.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "last") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->last.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "ps") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->ps.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "lsof") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsof.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "netstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->netstat.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/kdump.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/sysctl.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/dmesg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/secure") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/log/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networking/ethtool_-i") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );

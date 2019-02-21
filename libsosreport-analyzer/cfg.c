@@ -91,91 +91,91 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
     {
         /* common stuff for both mcinfo and sosreport */
         if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
-            strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/dmesg" ) == 0 )
-            strncpy ( cfg->var_log_dmesg, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->var_log_dmesg.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
-            strncpy ( cfg->var_log_messages, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->var_log_messages.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
-            strncpy ( cfg->proc_meminfo, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->proc_meminfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/interrupts" ) == 0 )
-            strncpy ( cfg->proc_interrupts, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->proc_interrupts.member, line, MAX_LINE_LENGTH - 1 );
 
         if ( mcinfo == 1 )
         {
           if ( strcmp ( keyword, "boot/grub/" ) == 0 )
-            strncpy ( cfg->mcinfo_boot_grub_, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->mcinfo_boot_grub_.member, line, MAX_LINE_LENGTH - 1 );
           else if ( strcmp ( keyword, "cmdlog/" ) == 0 )
-            strncpy ( cfg->mcinfo_cmdlog_, line, MAX_LINE_LENGTH - 1 );
+            strncpy ( cfg->mcinfo_cmdlog_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else if ( mcinfo == 0 )
         {
             if ( strcmp ( keyword, "date" ) == 0 )
-                strncpy ( cfg->date, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->date.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lsb-release" ) == 0 )
-                strncpy ( cfg->lsb_release, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->lsb_release.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "uname" ) == 0 )
-                strncpy ( cfg->uname, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->uname.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "hostname" ) == 0 )
-                strncpy ( cfg->hostname, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->hostname.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "uptime" ) == 0 )
-                strncpy ( cfg->uptime, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->uptime.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "root/anaconda-ks.cfg" ) == 0 )
-                strncpy ( cfg->root_anaconda_ks_cfg, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->root_anaconda_ks_cfg.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "dmidecode" ) == 0 )
-                strncpy ( cfg->dmidecode, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->dmidecode.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lsmod" ) == 0 )
-                strncpy ( cfg->lsmod, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->lsmod.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lspci" ) == 0 )
-                strncpy ( cfg->lspci, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->lspci.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/scsi/lsscsi" ) == 0 )
-                strncpy ( cfg->sos_commands_scsi_lsscsi, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->sos_commands_scsi_lsscsi.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "installed-rpms" ) == 0 )
-                strncpy ( cfg->installed_rpms, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->installed_rpms.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "df" ) == 0 )
-                strncpy ( cfg->df, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->df.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
-                strncpy ( cfg->vgdisplay, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->vgdisplay.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "free" ) == 0 )
-                strncpy ( cfg->free, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->free.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "ip_addr" ) == 0 )
-                strncpy ( cfg->ip_addr, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->ip_addr.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "route" ) == 0 )
-                strncpy ( cfg->route, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->route.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "last" ) == 0 )
-                strncpy ( cfg->last, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->last.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "ps" ) == 0 )
-                strncpy ( cfg->ps, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->ps.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lsof" ) == 0 )
-                strncpy ( cfg->lsof, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->lsof.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "netstat" ) == 0 )
-                strncpy ( cfg->netstat, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->netstat.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/kdump.conf" ) == 0 )
-                strncpy ( cfg->etc_kdump_conf, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->etc_kdump_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
-                strncpy ( cfg->etc_sysctl_conf, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->etc_sysctl_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
-                strncpy ( cfg->proc_net_dev, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->proc_net_dev.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
-                strncpy ( cfg->proc_net_sockstat, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->proc_net_sockstat.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/logrotate.conf" ) == 0 )
-                strncpy ( cfg->etc_logrotate_conf, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->etc_logrotate_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
-                strncpy ( cfg->etc_cron_d_, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/secure" ) == 0 )
-                strncpy ( cfg->var_log_secure, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->var_log_secure.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/audit/" ) == 0 )
-                strncpy ( cfg->var_log_audit_, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->var_log_audit_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
-                strncpy ( cfg->sos_commands_kernel_sysctl__a, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
-                strncpy ( cfg->sos_commands_logs_journalctl___no_pager, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->sos_commands_logs_journalctl___no_pager.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-S" ) == 0 )
-                strncpy ( cfg->sos_commands_networking_ethtool__S, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->sos_commands_networking_ethtool__S.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-i" ) == 0 )
-                strncpy ( cfg->sos_commands_networking_ethtool__i, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->sos_commands_networking_ethtool__i.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
-                strncpy ( cfg->sos_commands_boot_, line, MAX_LINE_LENGTH - 1 );
+                strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -351,92 +351,92 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
 
     /* these members are those included in sosreport and mcinfo */
     if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
-        strcat ( str_tmp, cfg->etc_sysconfig_network_scripts_ifcfg_ );
+        strcat ( str_tmp, cfg->etc_sysconfig_network_scripts_ifcfg_.member );
     else if ( strcmp ( member, "proc/meminfo" ) == 0 )
-        strcat ( str_tmp, cfg->proc_meminfo );
+        strcat ( str_tmp, cfg->proc_meminfo.member );
     else if ( strcmp ( member, "proc/interrupts" ) == 0 )
-        strcat ( str_tmp, cfg->proc_interrupts );
+        strcat ( str_tmp, cfg->proc_interrupts.member );
     else if ( strcmp ( member, "var/log/dmesg" ) == 0 )
-        strcat ( str_tmp, cfg->var_log_dmesg );
+        strcat ( str_tmp, cfg->var_log_dmesg.member );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
-        strcat ( str_tmp, cfg->var_log_messages );
+        strcat ( str_tmp, cfg->var_log_messages.member );
 
     /* mcinfo only and sosreport only ones */
     if ( mcinfo == 1 )
     {
         if ( strcmp ( member, "boot/grub/" ) == 0 )
-            strcat ( str_tmp, cfg->mcinfo_boot_grub_ );
+            strcat ( str_tmp, cfg->mcinfo_boot_grub_.member );
         else if ( strcmp ( member, "cmdlog/" ) == 0 )
-            strcat ( str_tmp, cfg->mcinfo_cmdlog_ );
+            strcat ( str_tmp, cfg->mcinfo_cmdlog_.member );
     }
     else if ( mcinfo == 0 )
     {
         if ( strcmp ( member, "date" ) == 0 )
-            strcat ( str_tmp, cfg->date );
+            strcat ( str_tmp, cfg->date.member );
         else if ( strcmp ( member, "lsb-release" ) == 0 )
-            strcat ( str_tmp, cfg->lsb_release );
+            strcat ( str_tmp, cfg->lsb_release.member );
         else if ( strcmp ( member, "uname" ) == 0 )
-            strcat ( str_tmp, cfg->uname );
+            strcat ( str_tmp, cfg->uname.member );
         else if ( strcmp ( member, "hostname" ) == 0 )
-            strcat ( str_tmp, cfg->hostname );
+            strcat ( str_tmp, cfg->hostname.member );
         else if ( strcmp ( member, "uptime" ) == 0 )
-            strcat ( str_tmp, cfg->uptime );
+            strcat ( str_tmp, cfg->uptime.member );
         else if ( strcmp ( member, "root/anaconda-ks.cfg" ) == 0 )
-            strcat ( str_tmp, cfg->root_anaconda_ks_cfg );
+            strcat ( str_tmp, cfg->root_anaconda_ks_cfg.member );
         else if ( strcmp ( member, "dmidecode" ) == 0 )
-            strcat ( str_tmp, cfg->dmidecode );
+            strcat ( str_tmp, cfg->dmidecode.member );
         else if ( strcmp ( member, "lsmod" ) == 0 )
-            strcat ( str_tmp, cfg->lsmod );
+            strcat ( str_tmp, cfg->lsmod.member );
         else if ( strcmp ( member, "lspci" ) == 0 )
-            strcat ( str_tmp, cfg->lspci );
+            strcat ( str_tmp, cfg->lspci.member );
         else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi );
+            strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
         else if ( strcmp ( member, "installed-rpms" ) == 0 )
-            strcat ( str_tmp, cfg->installed_rpms );
+            strcat ( str_tmp, cfg->installed_rpms.member );
         else if ( strcmp ( member, "df" ) == 0 )
-            strcat ( str_tmp, cfg->df );
+            strcat ( str_tmp, cfg->df.member );
         else if ( strcmp ( member, "vgdisplay" ) == 0 )
-            strcat ( str_tmp, cfg->vgdisplay );
+            strcat ( str_tmp, cfg->vgdisplay.member );
         else if ( strcmp ( member, "free" ) == 0 )
-            strcat ( str_tmp, cfg->free );
+            strcat ( str_tmp, cfg->free.member );
         else if ( strcmp ( member, "ip_addr" ) == 0 )
-            strcat ( str_tmp, cfg->ip_addr );
+            strcat ( str_tmp, cfg->ip_addr.member );
         else if ( strcmp ( member, "route" ) == 0 )
-            strcat ( str_tmp, cfg->route );
+            strcat ( str_tmp, cfg->route.member );
         else if ( strcmp ( member, "last" ) == 0 )
-            strcat ( str_tmp, cfg->last );
+            strcat ( str_tmp, cfg->last.member );
         else if ( strcmp ( member, "ps" ) == 0 )
-            strcat ( str_tmp, cfg->ps );
+            strcat ( str_tmp, cfg->ps.member );
         else if ( strcmp ( member, "lsof" ) == 0 )
-            strcat ( str_tmp, cfg->lsof );
+            strcat ( str_tmp, cfg->lsof.member );
         else if ( strcmp ( member, "netstat" ) == 0 )
-            strcat ( str_tmp, cfg->netstat );
+            strcat ( str_tmp, cfg->netstat.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )
-            strcat ( str_tmp, cfg->etc_kdump_conf );
+            strcat ( str_tmp, cfg->etc_kdump_conf.member );
         else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
-            strcat ( str_tmp, cfg->etc_sysctl_conf );
+            strcat ( str_tmp, cfg->etc_sysctl_conf.member );
         else if ( strcmp ( member, "proc/net/dev" ) == 0 )
-            strcat ( str_tmp, cfg->proc_net_dev );
+            strcat ( str_tmp, cfg->proc_net_dev.member );
         else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )
-            strcat ( str_tmp, cfg->proc_net_sockstat );
+            strcat ( str_tmp, cfg->proc_net_sockstat.member );
         else if ( strcmp ( member, "etc/logrotate.conf" ) == 0 )
-            strcat ( str_tmp, cfg->etc_logrotate_conf );
+            strcat ( str_tmp, cfg->etc_logrotate_conf.member );
         else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_cron_d_ );
+            strcat ( str_tmp, cfg->etc_cron_d_.member );
         else if ( strcmp ( member, "var/log/secure" ) == 0 )
-            strcat ( str_tmp, cfg->var_log_secure );
+            strcat ( str_tmp, cfg->var_log_secure.member );
         else if ( strcmp ( member, "var/log/audit/" ) == 0 )
-            strcat ( str_tmp, cfg->var_log_audit_ );
+            strcat ( str_tmp, cfg->var_log_audit_.member );
         else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a );
+            strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a.member );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager );
+            strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager.member );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S );
+            strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S.member );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_networking_ethtool__i );
+            strcat ( str_tmp, cfg->sos_commands_networking_ethtool__i.member );
         else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_boot_ );
+            strcat ( str_tmp, cfg->sos_commands_boot_.member );
     }
 
     append_list ( &sos_header_obj, str_tmp );
