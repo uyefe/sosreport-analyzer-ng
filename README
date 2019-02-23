@@ -33,7 +33,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Copy it as /etc/sosreport-analyzer.conf.
 
   Echo date file.
-  Echo lsg-release file.
+  Echo lsb-release file.
   Echo uname file.
   Echo hostname file.
   Echo uptime file.
@@ -41,6 +41,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze dmidecode file.
   Analyze lsmod file.
   Analyze lspci file.
+  Analyze sos_commands/devices/udevadm_info_--export-db file.
   Echo sos_commands/scsi/lsscsi file.
   Analyze installed-rpms file.
   Analyze df file.
