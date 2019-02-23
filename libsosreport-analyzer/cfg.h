@@ -63,6 +63,8 @@ struct sosreport_analyzer_config
     config_each lsmod;
     /* allows word delimited by space */
     config_each lspci;
+    /* allows word delimited by space */
+    config_each sos_commands_devices_udevadm_info___export_db;
     /* should be all */
     config_each sos_commands_scsi_lsscsi;
     /* allows word delimited by space */

@@ -128,6 +128,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->lsmod.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lspci" ) == 0 )
                 strncpy ( cfg->lspci.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
+                strncpy ( cfg->sos_commands_devices_udevadm_info___export_db.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/scsi/lsscsi" ) == 0 )
                 strncpy ( cfg->sos_commands_scsi_lsscsi.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "installed-rpms" ) == 0 )
@@ -304,6 +306,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "dmidecode", cfg, mcinfo );
         append_sos_header_obj ( "lsmod", cfg, mcinfo );
         append_sos_header_obj ( "lspci", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
         append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
         append_sos_header_obj ( "df", cfg, mcinfo );
@@ -389,6 +392,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->lsmod.member );
         else if ( strcmp ( member, "lspci" ) == 0 )
             strcat ( str_tmp, cfg->lspci.member );
+        else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
         else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
         else if ( strcmp ( member, "installed-rpms" ) == 0 )
