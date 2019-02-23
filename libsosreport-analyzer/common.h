@@ -29,6 +29,8 @@
 /*
  * These are pointers to the global data, it should be available
  * once sosreport_analyzer_init() was called.
+ *
+ * These structs are for ones of which should read directory, or matched files in the directory.
  */
 extern struct line_data *tmp_obj;
 extern struct dir_file_name *sos_dir_file_obj;

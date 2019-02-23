@@ -260,6 +260,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "dmidecode", dir_name );
             read_file_pre ( "lsmod", dir_name );
             read_file_pre ( "lspci", dir_name );
+            read_file_pre ( "sos_commands/devices/udevadm_info_--export-db", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
             read_file_pre ( "installed-rpms", dir_name );
             read_file_pre ( "df", dir_name );

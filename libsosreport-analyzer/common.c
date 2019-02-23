@@ -328,6 +328,7 @@ const char *items_root_anaconda_ks_cfg [ 12 ];
 const char *items_dmidecode [ 12 ];
 const char *items_lsmod [ 12 ];
 const char *items_lspci [ 20 ];
+const char *items_sos_commands_devices_udevadm_info___export_db [ 12 ];
 const char *items_sos_commands_scsi_lsscsi;
 const char *items_installed_rpms [ 12 ];
 const char *items_df [ 2 ];
@@ -510,6 +511,9 @@ int read_file ( const char *file_name, const char *member, int files )
         else if ( ( strstr ( file_name, "lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->lspci.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
+        else if ( ( strstr ( file_name, "sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+            for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num ; x++ )
+                append_item_to_sos_line_obj ( line, "sos_commands/devices/udevadm_info_--export-db", items_sos_commands_devices_udevadm_info___export_db [ x ] );
         else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
         else if ( ( strstr ( file_name, "installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -696,6 +700,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->dmidecode.item_num = 0;
     sosreport_analyzer_cfg->lsmod.item_num = 0;
     sosreport_analyzer_cfg->lspci.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = 0;
     sosreport_analyzer_cfg->installed_rpms.item_num = 0;
     sosreport_analyzer_cfg->df.item_num = 0;
     sosreport_analyzer_cfg->last.item_num = 0;
@@ -837,6 +842,27 @@ void set_token_to_item_arr ( const char *file_name )
             i ++;
             sosreport_analyzer_cfg->lspci.item_num = i; 
             items_lspci  [ sosreport_analyzer_cfg->lspci.item_num ] = token;
+        }
+    }
+    /* member sos_commands/devices/udevadm_info_--export-db */
+    else if ( ( strstr ( file_name, "sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, s );
+        items_sos_commands_devices_udevadm_info___export_db [ 0 ] = token;
+        /* get the next token ... */
+        while ( token != NULL )
+        {
+            if ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num > arr_max12 )
+            {
+                printf("can't set items over %d for sos_commands/devices/udevadm_info_--export-db\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
+                exit ( EXIT_FAILURE );
+            }
+            token = strtok ( NULL, s );
+            i ++;
+            sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = i; 
+            items_sos_commands_devices_udevadm_info___export_db  [ sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num ] = token;
         }
     }
     /* member sos_commands/scsi/lsscsi */
@@ -1280,6 +1306,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "dmidecode") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "lsmod") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsmod.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "lspci") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lspci.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/scsi/lsscsi") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "installed-rpms") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->installed_rpms.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "df") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->df.member, "" ) != 0 ) ) ||
@@ -1316,6 +1343,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         snprintf (str_tmp, MAX_LINE_LENGTH, "%s/%s", get_dirname ( str_tmp3 ), member );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
         append_list ( &sos_line_obj, "" );
+        append_list ( &sos_line_obj, "####" );
         append_list ( &sos_line_obj, str_tmp2 );
         append_list ( &sos_line_obj, result_tmp );
         append_list ( &sos_line_obj, "" );
@@ -1685,6 +1713,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "dmidecode" ) == 0 ) ||
         ( strcmp ( member, "lsmod" ) == 0 ) ||
         ( strcmp ( member, "lspci" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
         ( strcmp ( member, "installed-rpms" ) == 0 ) ||
         ( strcmp ( member, "df" ) == 0 ) ||
         ( strcmp ( member, "last" ) == 0 ) ||

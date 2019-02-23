@@ -53,7 +53,7 @@ root/anaconda-ks.cfg=all
 
 dmidecode=bios memory Smart Firmware firmware
 
-## lsmod= <item> ...
+## lsmod=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 
@@ -63,7 +63,7 @@ lsmod=Module kvm video
 ##
 ## You can set arbitrary item-name including 'all' up to 20
 
-lspci=00: 01: 02: 03: 04: 05: 06: 07: 08: 09: 
+lspci=00: 01: 02: 03: 04: 05: 06: 07: 08: 09: 7f 80 driver modules
 
 ## sos_commands/scsi/lsscsi 
 ##
@@ -71,13 +71,19 @@ lspci=00: 01: 02: 03: 04: 05: 06: 07: 08: 09:
 
 sos_commands/scsi/lsscsi=all 
 
-## installed-rpms= <item> ...
+## devices/udevadm_info_--export-db=<item> ...
+##
+## You can set arbitrary item-name including 'all' up to 12
+
+sos_commands/devices/udevadm_info_--export-db=all
+
+## installed-rpms=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 
 installed-rpms=kernel 
 
-## df= <item> ...
+## df=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 2
 
@@ -110,9 +116,9 @@ route=all
 ## last
 ##
 ## You can set 'username' including 'all' up to 12
-## example1 - last= fujiwara
-## example2 - last= fujiwara root
-## example3 - last= all
+## example1 - last=fujiwara
+## example2 - last=fujiwara root
+## example3 - last=all
 
 last=all
 
