@@ -162,6 +162,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->proc_net_sockstat.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/logrotate.conf" ) == 0 )
                 strncpy ( cfg->etc_logrotate_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/pki/" ) == 0 )
+                strncpy ( cfg->etc_pki_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
                 strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/secure" ) == 0 )
@@ -330,6 +332,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "proc/net/dev", cfg, mcinfo );
         append_sos_header_obj ( "proc/net/sockstat", cfg, mcinfo );
         append_sos_header_obj ( "etc/logrotate.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/pki/", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
     }
     append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
@@ -426,6 +429,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->proc_net_sockstat.member );
         else if ( strcmp ( member, "etc/logrotate.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_logrotate_conf.member );
+        else if ( strcmp ( member, "etc/pki/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_pki_.member );
         else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_cron_d_.member );
         else if ( strcmp ( member, "var/log/secure" ) == 0 )
@@ -443,7 +448,6 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_boot_.member );
     }
-
     append_list ( &sos_header_obj, str_tmp );
 }
 

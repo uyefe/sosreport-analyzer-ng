@@ -281,6 +281,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/net/dev", dir_name );
             read_file_pre ( "proc/net/sockstat", dir_name );
             read_file_pre ( "etc/logrotate.conf", dir_name );
+            read_file_pre ( "etc/pki/", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
@@ -293,6 +294,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, "--------" );
             append_list ( &sos_commands_boot__obj, "--------" );
+            append_list ( &etc_pki__obj, "--------" );
             append_list ( &etc_cron_d__obj, "--------" );
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
             append_list ( &var_log_messages_obj, "--------" );
@@ -337,6 +339,7 @@ int main ( int argc, char *argv [ ] )
         }
         if ( mcinfo == 0 )
         {
+            file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
             file_write_list ( &sos_commands_boot__obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );

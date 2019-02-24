@@ -72,6 +72,13 @@ struct line_data sos_tail_obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_pki__obj */
+struct line_data etc_pki__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* etc_cron_d__obj */
 struct line_data etc_cron_d__obj_raw =
     {
@@ -142,6 +149,7 @@ struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
+struct line_data *etc_pki__obj = &etc_pki__obj_raw;
 struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
 struct line_data *etc_sysconfig_network_scripts_ifcfg__obj = &etc_sysconfig_network_scripts_ifcfg__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
@@ -152,8 +160,9 @@ struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_network
 struct line_data *sos_commands_networking_ethtool__i_obj = &sos_commands_networking_ethtool__i_obj_raw;
 struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
 
-void read_analyze_dir ( const char *member, const char *dname )
+int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
+
     DIR *dir = NULL;
     struct dirent *dp;
     int str_len = 0;
@@ -179,7 +188,9 @@ void read_analyze_dir ( const char *member, const char *dname )
     }
     full_path [ str_len ] = '\0';
     strcpy ( str_orig, full_path );
+
     fname_part = cut_str_from_the_last_slash ( reverse_the_string ( full_path, str_len ), str_len, str_ret );
+
     snprintf (fname_part_path, MAX_LINE_LENGTH, "%s", fname_part );
     str_len_fname_part = ( int ) strlen ( fname_part );
     str_len_dname_full = str_len - str_len_fname_part;
@@ -189,7 +200,11 @@ void read_analyze_dir ( const char *member, const char *dname )
         free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
-    dname_full = cut_str_by_the_last_slash ( full_path, str_len_dname_full );
+
+    if ( recursive == 0 )
+        dname_full = cut_str_by_the_last_slash ( full_path, str_len_dname_full );
+    else
+        dname_full = ( char * ) dname;
     
     if ( dname_full != NULL )
     {
@@ -214,6 +229,9 @@ void read_analyze_dir ( const char *member, const char *dname )
         etc_sysconfig_network_scripts_ifcfg__obj = NULL;
     else if ( strstr ( full_path, "cmdlog") != 0 )
         mcinfo_cmdlog__obj = NULL;
+    /* etc/pki should be set null only once because read many times */
+    else if ( ( strstr ( full_path, "etc/pki/") != 0 ) && ( recursive == 0 ) )
+        etc_pki__obj = NULL;
     else if ( strstr ( full_path, "cron") != 0 )
         etc_cron_d__obj = NULL;
     else if ( strstr ( full_path, "messages") != 0 )
@@ -232,9 +250,29 @@ void read_analyze_dir ( const char *member, const char *dname )
     /* read from directory and set in an array */
     for ( dp = readdir ( dir ),i = 0; dp != NULL; dp = readdir ( dir ) )
     {
-        if ( dp->d_type != DT_REG )
+        char full_path_plus_str [ MAX_LINE_LENGTH ];  
+        memset ( full_path_plus_str, '\0', sizeof ( full_path_plus_str ) ); 
+
+        if ( ( dp->d_type != DT_REG ) && ( dp->d_type != DT_DIR ) )
             continue;
+
         str = dp->d_name;
+
+        if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) )
+            continue;
+
+        if ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( recursive == 0 ) )
+        {
+            if ( dp->d_type == DT_DIR )
+            {
+                snprintf (full_path_plus_str, MAX_LINE_LENGTH, "%s%s/", dname_full, str );
+                /* call myself and read files in the directory */
+                read_analyze_dir ( member, full_path_plus_str, 1 );
+                continue;
+            }
+        }
+        if ( ( strcmp ( member, "etc/pki/") == 0 ) && ( recursive == 0 ) )
+            continue;
         /*
          *  find files with name fname_part 
          */
@@ -242,10 +280,13 @@ void read_analyze_dir ( const char *member, const char *dname )
         {
             /* so, only fname_part files will remain */
             snprintf (read_path, MAX_LINE_LENGTH, "%s%s", dname_full, str );
+
             if ( strstr ( read_path, "boot/grub") != 0 )
                 append_list ( &mcinfo_boot_grub__obj, read_path );
             else if ( strstr ( read_path, "cmdlog") != 0 )
                 append_list ( &mcinfo_cmdlog__obj, read_path );
+            else if ( ( strstr ( read_path, "etc/pki/") != 0 ) && ( recursive == 1 ) )
+                append_list ( &etc_pki__obj, read_path );
             else if ( strstr ( read_path, "cron") != 0 )
                 append_list ( &etc_cron_d__obj, read_path );
             else if ( strstr ( read_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
@@ -273,38 +314,27 @@ void read_analyze_dir ( const char *member, const char *dname )
     /* close the directory */
     closedir ( dir );
 
-    /* read every files related */
-    node *ptr_tmp = NULL;
-    if ( strstr ( read_path, "boot/grub") != 0 )
-        ptr_tmp = *(&mcinfo_boot_grub__obj);
-    else if ( strstr ( read_path, "cmdlog") != 0 )
-        ptr_tmp = *(&mcinfo_cmdlog__obj);
-    else if ( strstr ( read_path, "cron") != 0 )
-        ptr_tmp = *(&etc_cron_d__obj);
-    else if ( strstr ( read_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
-        ptr_tmp = *(&etc_sysconfig_network_scripts_ifcfg__obj);
-    else if ( strstr ( read_path, "messages") != 0 )
-        ptr_tmp = *(&var_log_messages_obj);
-    else if ( strstr ( read_path, "secure") != 0 )
-        ptr_tmp = *(&var_log_secure_obj);
-    else if ( strstr ( read_path, "audit") != 0 )
-        ptr_tmp = *(&var_log_audit__obj);
-    else if ( strstr ( read_path, "journalctl") != 0 )
-        ptr_tmp = *(&sos_commands_logs_journalctl___no_pager_obj);
-    else if ( strstr ( read_path, "ethtool_-S") != 0 )
-        ptr_tmp = *(&sos_commands_networking_ethtool__S_obj);
-    else if ( strstr ( read_path, "ethtool_-i") != 0 )
-        ptr_tmp = *(&sos_commands_networking_ethtool__i_obj);
-    else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
-        ptr_tmp = *(&sos_commands_boot__obj);
-    /* now we read each file in the directory */
+    return ( 0 );
+}
+
+int read_file_from_analyze_dir ( node **obj, const char *member )
+{
     int files = 0;
+    node *ptr_tmp = NULL;
+    ptr_tmp = *obj;
     while ( ptr_tmp != NULL )
     {
+        if ( strcmp ( ptr_tmp->_line, "") == 0 )
+        {
+            files ++;
+            ptr_tmp = ptr_tmp->next;
+            continue;
+        }
         read_file ( ptr_tmp->_line, member, files );
         files ++;
         ptr_tmp = ptr_tmp->next;
     }
+    return ( 0 );
 }
 
 /* These are the items to be analyzed not statically nor checked by multi-lines */
@@ -348,6 +378,7 @@ const char *items_proc_interrupts;
 const char *items_proc_net_dev;
 const char *items_proc_net_sockstat;
 const char *items_etc_logrotate_conf;
+const char *items_etc_pki_;
 const char *items_etc_cron_d_;
 const char *items_var_log_dmesg;
 const char *items_var_log_messages [ 12 ];
@@ -369,6 +400,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_mcinfo_cmdlog__curr [ MAX_LINE_LENGTH ];
     memset ( filename_mcinfo_cmdlog_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_mcinfo_cmdlog__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_pki_ [ MAX_LINE_LENGTH ];
+    char filename_etc_pki__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_pki_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_pki__curr, '\0', MAX_LINE_LENGTH ); 
     char filename_etc_cron_d_ [ MAX_LINE_LENGTH ];
     char filename_etc_cron_d__curr [ MAX_LINE_LENGTH ];
     memset ( filename_etc_cron_d_, '\0', MAX_LINE_LENGTH ); 
@@ -569,6 +604,23 @@ int read_file ( const char *file_name, const char *member, int files )
             append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
         else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/logrotate.conf", items_etc_logrotate_conf );
+        else if ( ( strstr ( file_name, "etc/pki/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_etc_pki__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_pki_, filename_etc_pki__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_etc_pki_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' when echoing every file in member
+             * directory, so...
+             */
+            if ( items_etc_pki_ != NULL )
+                append_item_to_sos_line_obj ( line, "etc/pki/", items_etc_pki_ );
+        }
         else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -708,6 +760,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->lsof.item_num = 0;
     sosreport_analyzer_cfg->netstat.item_num = 0;
     sosreport_analyzer_cfg->proc_meminfo.item_num = 0;
+    sosreport_analyzer_cfg->etc_pki_.item_num = 0;
     sosreport_analyzer_cfg->etc_cron_d_.item_num = 0;
     sosreport_analyzer_cfg->var_log_messages.item_num = 0;
     sosreport_analyzer_cfg->var_log_secure.item_num = 0;
@@ -1096,6 +1149,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_logrotate_conf.member, s );
         items_etc_logrotate_conf = token;
     }
+    /* member etc/pki/ */
+    else if ( ( strstr ( file_name, "etc/pki/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_pki_.member, s );
+        items_etc_pki_ = token;
+    }
     /* member etc/cron.d/ */
     else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) )
     {
@@ -1326,6 +1386,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/pki/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/dmesg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages.member, "" ) != 0 ) ) ||
@@ -1352,6 +1413,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         if (
             ( strcmp ( member, "boot/grub/" ) == 0 ) ||
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
+            ( strcmp ( member, "etc/pki/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
@@ -1362,9 +1424,36 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/boot/" ) == 0 )
            )
-            read_analyze_dir ( member, get_dirname ( str_tmp3 ) );
+            read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
+        {
             read_file ( str_tmp, member, 0 );
+        }
+        /* now, we actually read files here for directory stuff */
+        if ( strcmp ( member, "boot/grub/" ) == 0 )
+            read_file_from_analyze_dir ( &mcinfo_boot_grub__obj, "boot/grub/" );
+        if ( strcmp ( member, "cmdlog/" ) == 0 )
+            read_file_from_analyze_dir ( &mcinfo_cmdlog__obj, "cmdlog/" );
+        if ( strcmp ( member, "etc/pki/" ) == 0 )
+            read_file_from_analyze_dir ( &etc_pki__obj, "etc/pki/" );
+        if ( strcmp ( member, "etc/cron.d/" ) == 0 )
+            read_file_from_analyze_dir ( &etc_cron_d__obj, "etc/cron.d/" );
+        if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
+            read_file_from_analyze_dir ( &etc_sysconfig_network_scripts_ifcfg__obj, "etc/sysconfig/network-scripts/ifcfg-" );
+        if ( strcmp ( member, "var/log/messages" ) == 0 )
+            read_file_from_analyze_dir ( &var_log_messages_obj, "var/log/messages" );
+        if ( strcmp ( member, "var/log/secure" ) == 0 )
+            read_file_from_analyze_dir ( &var_log_secure_obj, "var/log/secure" );
+        if ( strcmp ( member, "var/log/audit/" ) == 0 )
+            read_file_from_analyze_dir ( &var_log_audit__obj, "var/log/audit/" );
+        if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
+            read_file_from_analyze_dir ( &sos_commands_logs_journalctl___no_pager_obj, "sos_commands/logs/journalctl_--no-pager" );
+        if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
+            read_file_from_analyze_dir ( &sos_commands_networking_ethtool__S_obj, "sos_commands/networking/ethtool_-S" );
+        if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
+            read_file_from_analyze_dir ( &sos_commands_networking_ethtool__i_obj, "sos_commands/networking/ethtool_-i" );
+        if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
+            read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
     }
 }
 
@@ -1721,6 +1810,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "lsof" ) == 0 ) ||
         ( strcmp ( member, "netstat" ) == 0 ) ||
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
+        ( strcmp ( member, "etc/pki/" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
@@ -1747,6 +1837,7 @@ void free_sosreport_analyzer_obj ( void )
 {
     clear_list ( &sos_header_obj ); 
     clear_list ( &sos_line_obj ); 
+    clear_list ( &etc_pki__obj ); 
     clear_list ( &etc_cron_d__obj ); 
     clear_list ( &etc_sysconfig_network_scripts_ifcfg__obj ); 
     clear_list ( &var_log_messages_obj ); 
