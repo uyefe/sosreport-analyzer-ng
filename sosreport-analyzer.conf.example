@@ -199,6 +199,12 @@ proc/interrupts=all
 
 etc/logrotate.conf=all
 
+## etc/pki/
+##
+## All you can set is 'all'
+
+etc/pki/=all
+
 ## etc/cron.d/
 ##
 ## All you can set is 'all'

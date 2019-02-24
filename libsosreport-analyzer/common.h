@@ -37,6 +37,7 @@ extern struct dir_file_name *sos_dir_file_obj;
 extern struct line_data *sos_header_obj;
 extern struct line_data *sos_line_obj;
 extern struct line_data *sos_tail_obj;
+extern struct line_data *etc_pki__obj;
 extern struct line_data *etc_cron_d__obj;
 extern struct line_data *etc_sysconfig_network_scripts_ifcfg__obj;
 extern struct line_data *var_log_messages_obj;
@@ -51,12 +52,17 @@ extern struct line_data *mcinfo_cmdlog__obj;
 extern struct file_data *file_data_obj;
 
 /*
+ * new function reading files from the result of 'read_analyze_dir'
+ */
+int read_file_from_analyze_dir ( node **obj, const char *member );
+
+/*
  * read_analyze_dir()
  *
  * This function read directory and do something
  *
  */
-void read_analyze_dir ( const char *member, const char *dname );
+int read_analyze_dir ( const char *member, const char *dname, int recursive );
 
 /*
  * read_file()

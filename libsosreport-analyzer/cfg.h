@@ -104,6 +104,8 @@ struct sosreport_analyzer_config
     /* should be all */
     config_each etc_logrotate_conf;
     /* should be all */
+    config_each etc_pki_;
+    /* should be all */
     config_each etc_cron_d_;
     /* should be all */
     config_each var_log_dmesg;
