@@ -1,3 +1,5 @@
+1.0.52
+Add member 'etc/httpd/'.
 1.0.51
 Add member 'etc/pki/' with fixes for directory read.
 1.0.50
