@@ -265,3 +265,9 @@ sos_commands/networking/ethtool_-S=all
 ## ex. sos_commands/networking/ethtool_-i=firmware 
 
 sos_commands/networking/ethtool_-i=all
+
+## etc/httpd/
+##
+## All you can set is 'all'
+
+etc/httpd/=all

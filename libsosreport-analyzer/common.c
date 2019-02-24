@@ -142,6 +142,13 @@ struct line_data sos_commands_boot__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_httpd__obj */
+struct line_data etc_httpd__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
@@ -159,6 +166,7 @@ struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_lo
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
 struct line_data *sos_commands_networking_ethtool__i_obj = &sos_commands_networking_ethtool__i_obj_raw;
 struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
+struct line_data *etc_httpd__obj = &etc_httpd__obj_raw;
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -246,6 +254,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         sos_commands_networking_ethtool__S_obj = NULL;
     else if ( strstr ( full_path, "sos_commands/boot/") != 0 )
         sos_commands_boot__obj = NULL;
+    else if ( ( strstr ( full_path, "etc/httpd/") != 0 ) && ( recursive == 0 ) )
+        etc_httpd__obj = NULL;
 
     /* read from directory and set in an array */
     for ( dp = readdir ( dir ),i = 0; dp != NULL; dp = readdir ( dir ) )
@@ -261,7 +271,12 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) )
             continue;
 
-        if ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( recursive == 0 ) )
+        if (
+            ( ( strcmp ( member, "etc/pki/" ) == 0 ) || 
+            ( strcmp ( member, "etc/httpd/" ) == 0 ) )
+            &&
+            ( recursive == 0 )
+            )
         {
             if ( dp->d_type == DT_DIR )
             {
@@ -271,7 +286,12 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 continue;
             }
         }
-        if ( ( strcmp ( member, "etc/pki/") == 0 ) && ( recursive == 0 ) )
+        if (
+            ( ( strcmp ( member, "etc/pki/" ) == 0 ) || 
+            ( strcmp ( member, "etc/httpd/" ) == 0 ) )
+            &&
+            ( recursive == 0 )
+            )
             continue;
         /*
          *  find files with name fname_part 
@@ -305,6 +325,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 append_list ( &sos_commands_networking_ethtool__i_obj, read_path );
             else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
                 append_list ( &sos_commands_boot__obj, read_path );
+            else if ( ( strstr ( read_path, "etc/httpd/") != 0 ) && ( recursive == 1 ) )
+                append_list ( &etc_httpd__obj, read_path );
             i++; /* needed here */
             str_arr_valid_size++;
             if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -389,6 +411,7 @@ const char *items_sos_commands_logs_journalctl___no_pager [ 12 ];
 const char *items_sos_commands_networking_ethtool__S [ 12 ];
 const char *items_sos_commands_networking_ethtool__i [ 12 ];
 const char *items_sos_commands_boot_ [ 12 ];
+const char *items_etc_httpd_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -440,6 +463,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_sos_commands_boot__curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_boot_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_sos_commands_boot__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_httpd_ [ MAX_LINE_LENGTH ];
+    char filename_etc_httpd__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_httpd_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_httpd__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     if ( file_name_len <= 0 )
@@ -734,6 +761,23 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_boot_.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/boot/", items_sos_commands_boot_ [ x ] );
         }
+        else if ( ( strstr ( file_name, "etc/httpd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_etc_httpd__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_httpd_, filename_etc_httpd__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, "----------------" );
+            }
+            snprintf (filename_etc_httpd_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' when echoing every file in member
+             * directory, so...
+             */
+            if ( items_etc_httpd_ != NULL )
+                append_item_to_sos_line_obj ( line, "etc/httpd/", items_etc_httpd_ );
+        }
         else
             break;
         /* strip trailing spaces */
@@ -770,6 +814,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_boot_.item_num = 0;
     sosreport_analyzer_cfg->mcinfo_cmdlog_.item_num = 0;
+    sosreport_analyzer_cfg->etc_httpd_.item_num = 0;
 
     int i = 0;
 
@@ -1338,6 +1383,13 @@ void set_token_to_item_arr ( const char *file_name )
             items_sos_commands_boot_  [ sosreport_analyzer_cfg->sos_commands_boot_.item_num ] = token;
         }
     }
+    /* member etc/httpd/ */
+    else if ( ( strstr ( file_name, "etc/httpd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_httpd_.member, s );
+        items_etc_httpd_ = token;
+    }
 }
 
 void read_file_pre ( const char *member, const char *dir_name )
@@ -1396,7 +1448,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-i") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/httpd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -1422,7 +1475,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
-            ( strcmp ( member, "sos_commands/boot/" ) == 0 )
+            ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+            ( strcmp ( member, "etc/httpd/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
@@ -1454,6 +1508,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__i_obj, "sos_commands/networking/ethtool_-i" );
         if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
             read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
+        if ( strcmp ( member, "etc/httpd/" ) == 0 )
+            read_file_from_analyze_dir ( &etc_httpd__obj, "etc/httpd/" );
     }
 }
 
@@ -1821,7 +1877,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/boot/" ) == 0 )
+        ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+        ( strcmp ( member, "etc/httpd/" ) == 0 )
     )
     {
         if ( strstr ( line , item ) != NULL )
@@ -1850,4 +1907,5 @@ void free_sosreport_analyzer_obj ( void )
     clear_list ( &sos_tail_obj ); 
     clear_list ( &mcinfo_boot_grub__obj );
     clear_list ( &mcinfo_cmdlog__obj );
+    clear_list ( &etc_httpd__obj ); 
 }

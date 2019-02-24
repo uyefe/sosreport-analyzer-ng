@@ -50,6 +50,7 @@ extern struct line_data *sos_commands_boot__obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct file_data *file_data_obj;
+extern struct line_data *etc_httpd__obj;
 
 /*
  * new function reading files from the result of 'read_analyze_dir'
