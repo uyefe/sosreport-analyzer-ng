@@ -1,3 +1,5 @@
+1.0.51
+Add member 'etc/pki/' with fixes for directory read.
 1.0.50
 Add member 'sos_commands/devices/udevadm_info_--export-db'.
 1.0.49

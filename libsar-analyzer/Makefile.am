@@ -8,7 +8,7 @@ else
 libsar_analyzer_la_SOURCES=common.c make_report.c sar_analyzer.c setter_getter.c
 endif
 
-libsar_analyzer_la_LDFLAGS = -version-info 1:50:0 
+libsar_analyzer_la_LDFLAGS = -version-info 1:51:0 
 
 all:
 
