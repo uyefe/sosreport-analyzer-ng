@@ -1,3 +1,5 @@
+1.0.53
+Fix possible core dump when freeing memory.
 1.0.52
 Add member 'etc/httpd/'.
 1.0.51
