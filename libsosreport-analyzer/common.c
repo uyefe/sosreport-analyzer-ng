@@ -1892,20 +1892,36 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
 
 void free_sosreport_analyzer_obj ( void )
 {
-    clear_list ( &sos_header_obj ); 
-    clear_list ( &sos_line_obj ); 
-    clear_list ( &etc_pki__obj ); 
-    clear_list ( &etc_cron_d__obj ); 
-    clear_list ( &etc_sysconfig_network_scripts_ifcfg__obj ); 
-    clear_list ( &var_log_messages_obj ); 
-    clear_list ( &var_log_secure_obj ); 
-    clear_list ( &var_log_audit__obj ); 
-    clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
-    clear_list ( &sos_commands_networking_ethtool__S_obj ); 
-    clear_list ( &sos_commands_networking_ethtool__i_obj ); 
-    clear_list ( &sos_commands_boot__obj ); 
-    clear_list ( &sos_tail_obj ); 
-    clear_list ( &mcinfo_boot_grub__obj );
-    clear_list ( &mcinfo_cmdlog__obj );
-    clear_list ( &etc_httpd__obj ); 
+    if ( sos_header_obj != NULL ) 
+        clear_list ( &sos_header_obj ); 
+    if ( sos_line_obj != NULL ) 
+        clear_list ( &sos_line_obj ); 
+    if ( etc_pki__obj != NULL ) 
+        clear_list ( &etc_pki__obj ); 
+    if ( etc_cron_d__obj != NULL ) 
+        clear_list ( &etc_cron_d__obj ); 
+    if ( etc_sysconfig_network_scripts_ifcfg__obj != NULL ) 
+        clear_list ( &etc_sysconfig_network_scripts_ifcfg__obj ); 
+    if ( var_log_messages_obj != NULL ) 
+        clear_list ( &var_log_messages_obj ); 
+    if ( var_log_secure_obj != NULL ) 
+        clear_list ( &var_log_secure_obj ); 
+    if ( var_log_audit__obj != NULL ) 
+        clear_list ( &var_log_audit__obj ); 
+    if ( sos_commands_logs_journalctl___no_pager_obj != NULL ) 
+        clear_list ( &sos_commands_logs_journalctl___no_pager_obj ); 
+    if ( sos_commands_networking_ethtool__S_obj != NULL ) 
+        clear_list ( &sos_commands_networking_ethtool__S_obj ); 
+    if ( sos_commands_networking_ethtool__i_obj != NULL ) 
+        clear_list ( &sos_commands_networking_ethtool__i_obj ); 
+    if ( sos_commands_boot__obj != NULL ) 
+        clear_list ( &sos_commands_boot__obj ); 
+    if ( sos_tail_obj != NULL ) 
+        clear_list ( &sos_tail_obj ); 
+    if ( mcinfo_boot_grub__obj != NULL )
+        clear_list ( &mcinfo_boot_grub__obj );
+    if ( mcinfo_cmdlog__obj != NULL )
+        clear_list ( &mcinfo_cmdlog__obj );
+    if ( etc_httpd__obj != NULL ) 
+        clear_list ( &etc_httpd__obj ); 
 }
