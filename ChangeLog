@@ -1,3 +1,5 @@
+1.0.54
+Add member 'proc/', also fix forgotten object initialization.
 1.0.53
 Fix possible core dump when freeing memory.
 1.0.52
