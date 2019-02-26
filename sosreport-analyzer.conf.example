@@ -271,3 +271,11 @@ sos_commands/networking/ethtool_-i=all
 ## All you can set is 'all'
 
 etc/httpd/=all
+
+## proc/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/=all
+
+proc/=all
+
