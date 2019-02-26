@@ -73,6 +73,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze sos_commands/networking/ethtool_-S files.
   Analyze sos_commands/networking/ethtool_-i files.
   Echo files under etc/httpd/.
+  Analyze files under proc/.
 
   For mcinfo 
 
@@ -87,6 +88,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo var/log/dmesg file.
   Analyze var/log/messages* files.
   Analyze files in var/log/audit/.
+  Analyze files under proc/.
 
 2. sar-analyzer
 
