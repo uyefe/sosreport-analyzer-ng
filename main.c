@@ -100,6 +100,9 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_networking_ethtool__S_obj );
     init_list ( &sos_commands_networking_ethtool__i_obj );
     init_list ( &sos_commands_boot__obj );
+    init_list ( &etc_pki__obj );
+    init_list ( &etc_httpd__obj );
+    init_list ( &proc__obj );
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
 
@@ -242,12 +245,14 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
+            read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, "--------" );
             append_list ( &mcinfo_boot_grub__obj, "--------" );
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
             append_list ( &mcinfo_cmdlog__obj, "--------" );
             append_list ( &var_log_messages_obj, "--------" );
+            append_list ( &proc__obj, "--------" );
         }
         if ( mcinfo == 0 )
         {
@@ -292,6 +297,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-i", dir_name );
             read_file_pre ( "etc/httpd/", dir_name );
+            read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, "--------" );
             append_list ( &sos_commands_boot__obj, "--------" );
@@ -305,6 +311,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
             append_list ( &sos_commands_networking_ethtool__i_obj, "--------" );
             append_list ( &etc_httpd__obj, "--------" );
+            append_list ( &proc__obj, "--------" );
         }
     }
     sos_file_to_write ( );
@@ -339,6 +346,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &mcinfo_cmdlog__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
+            file_write_list ( &proc__obj, fp_w );
         }
         if ( mcinfo == 0 )
         {
@@ -353,6 +361,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );
             file_write_list ( &etc_httpd__obj, fp_w );
+            file_write_list ( &proc__obj, fp_w );
         }
         /* real lines ( this comes all lines analyzed for both ) */
         file_write_list ( &sos_line_obj, fp_w );

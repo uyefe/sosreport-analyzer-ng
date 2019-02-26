@@ -100,6 +100,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->proc_meminfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/interrupts" ) == 0 )
             strncpy ( cfg->proc_interrupts.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/" ) == 0 )
+            strncpy ( cfg->proc_.member, line, MAX_LINE_LENGTH - 1 );
 
         if ( mcinfo == 1 )
         {
@@ -349,6 +351,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
     }
+    append_sos_header_obj ( "proc/", cfg, mcinfo );
     append_list ( &sos_header_obj, "--------" );
 }
 
@@ -369,6 +372,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->var_log_dmesg.member );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
         strcat ( str_tmp, cfg->var_log_messages.member );
+    else if ( strcmp ( member, "proc/" ) == 0 )
+        strcat ( str_tmp, cfg->proc_.member );
 
     /* mcinfo only and sosreport only ones */
     if ( mcinfo == 1 )
@@ -377,6 +382,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->mcinfo_boot_grub_.member );
         else if ( strcmp ( member, "cmdlog/" ) == 0 )
             strcat ( str_tmp, cfg->mcinfo_cmdlog_.member );
+        else if ( strcmp ( member, "proc/" ) == 0 )
+            strcat ( str_tmp, cfg->proc_.member );
     }
     else if ( mcinfo == 0 )
     {
