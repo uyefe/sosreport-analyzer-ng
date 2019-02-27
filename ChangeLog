@@ -1,3 +1,5 @@
+1.0.55
+Fix multiple read in mcinfo.
 1.0.54
 Add member 'proc/', also fix forgotten object initialization.
 1.0.53
