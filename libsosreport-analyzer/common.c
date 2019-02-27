@@ -294,7 +294,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 snprintf (full_path_plus_str, MAX_LINE_LENGTH, "%s%s/", dname_full, str );
                 /* call myself and read files in the directory */
                 read_analyze_dir ( member, full_path_plus_str, 1 );
-                continue;
+                //continue;
             }
         }
         if (
