@@ -382,8 +382,6 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->mcinfo_boot_grub_.member );
         else if ( strcmp ( member, "cmdlog/" ) == 0 )
             strcat ( str_tmp, cfg->mcinfo_cmdlog_.member );
-        else if ( strcmp ( member, "proc/" ) == 0 )
-            strcat ( str_tmp, cfg->proc_.member );
     }
     else if ( mcinfo == 0 )
     {
