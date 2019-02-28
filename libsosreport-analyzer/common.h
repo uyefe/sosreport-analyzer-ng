@@ -96,6 +96,20 @@ void read_file_pre ( const char *member, const char *dir_name );
 int check_result_dir ( const char *dname );
 
 /* 
+ *  Function Name: is_dir_present ()
+ *
+ *  This function checks directory.
+ *  If directory does not exist, returns 1.
+ *  If directory exists returns 0.
+ *
+ *  Caller : main ()
+ *
+ *  Calls : none
+ *
+ */
+int is_dir_present ( const char *dname );
+
+/* 
  *  Function Name: check_time_span_str ()
  *
  *  This function checks time-span string.

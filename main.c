@@ -109,9 +109,11 @@ int main ( int argc, char *argv [ ] )
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp3 [ MAX_FILE_NAME_LENGTH ]; 
+    char dir_sa [ MAX_FILE_NAME_LENGTH ]; 
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
     memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     memset ( str_tmp3, '\0', sizeof ( str_tmp3 ) ); 
+    memset ( dir_sa, '\0', sizeof ( dir_sa ) ); 
     append_list ( &sos_header_obj, "########" );
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
     append_list ( &sos_header_obj, str_tmp2 );
@@ -370,6 +372,16 @@ int main ( int argc, char *argv [ ] )
     
         /* close the file pointer */
         fclose ( fp_w );
+    }
+    snprintf ( dir_sa, MAX_FILE_NAME_LENGTH, "%s/var/log/sa", dir_name ); 
+    
+    if ( is_dir_present ( dir_sa ) == 1 && sar_only == 0 )
+    {
+        printf("Please check result file ./%s\n",sos_file_write);
+        printf("%s does not exist. Program ends.\n",dir_sa);
+        /* freeing sosreport-analyzer objects */
+        free_sosreport_analyzer_obj ( );
+        return EXIT_SUCCESS;
     }
 
     /* for sar-analyzer stuff */
