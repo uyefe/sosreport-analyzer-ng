@@ -1,3 +1,5 @@
+1.0.56
+Fix not to proceed when var/log/sa directory does not present.
 1.0.55
 Fix multiple read in mcinfo.
 1.0.54
