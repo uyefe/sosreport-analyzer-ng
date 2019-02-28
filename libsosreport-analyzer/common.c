@@ -1726,6 +1726,38 @@ const char *get_ps_file_name_to_be_written ( void )
     return sos_dir_file_obj->dir_file_names.ps_file_name_to_be_written;
 }
 
+int is_dir_present ( const char *dname )
+{
+    int strlen_dname = ( int )strlen ( dname );
+
+    if ( strlen_dname <= 0 )
+    {
+        printf("Directory (%s) name is too short.: %s\n",dname,strerror(errno));
+        return ( 0 );
+    }
+    if ( strlen_dname > NAME_MAX )
+    {
+        printf("Directory (%s) name is too long.: %s\n",dname,strerror(errno));
+        return ( 0 );
+    }
+    if ( dname != NULL )
+    {
+        DIR *dir = NULL;
+        /* if open directory fails, return 1 */
+        char str_tmp [ NAME_MAX ];
+        strncpy ( str_tmp, dname, NAME_MAX - 1 );
+        if ( ( dir = opendir ( str_tmp ) ) == NULL ) 
+        {
+            printf("can't open directory (%s): %s\n",dname,strerror(errno));
+            free_sosreport_analyzer_obj ( );
+            return 1;
+        }
+        else
+        closedir ( dir );
+    }
+    return ( 0 );
+}
+
 int check_result_dir ( const char *dname )
 {
     int strlen_dname = ( int )strlen ( dname );
