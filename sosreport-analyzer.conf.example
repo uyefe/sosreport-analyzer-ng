@@ -155,6 +155,12 @@ etc/kdump.conf=all
 
 etc/sysctl.conf=all 
 
+## etc/rsyslog.conf 
+##
+## All you can set is 'all'
+
+etc/rsyslog.conf=all 
+
 ## etc/sysconfig/network-scripts/ifcfg-
 ##
 ## All you can set is 'all'
@@ -279,3 +285,9 @@ etc/httpd/=all
 
 proc/=all
 
+## var/crash/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. var/crash/=all
+
+var/crash/=all

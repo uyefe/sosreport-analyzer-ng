@@ -103,6 +103,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_pki__obj );
     init_list ( &etc_httpd__obj );
     init_list ( &proc__obj );
+    init_list ( &var_crash__obj );
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
 
@@ -247,6 +248,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
+            read_file_pre ( "var/crash/", dir_name );
             read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, "--------" );
@@ -281,6 +283,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "netstat", dir_name );
             read_file_pre ( "etc/kdump.conf", dir_name );
             read_file_pre ( "etc/sysctl.conf", dir_name );
+            read_file_pre ( "etc/rsyslog.conf", dir_name );
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
@@ -294,6 +297,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "var/log/messages", dir_name );
             read_file_pre ( "var/log/secure", dir_name );
             read_file_pre ( "var/log/audit/", dir_name );
+            read_file_pre ( "var/crash/", dir_name );
             read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
             read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
@@ -309,6 +313,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &var_log_messages_obj, "--------" );
             append_list ( &var_log_secure_obj, "--------" );
             append_list ( &var_log_audit__obj, "--------" );
+            append_list ( &var_crash__obj, "--------" );
             append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
             append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
             append_list ( &sos_commands_networking_ethtool__i_obj, "--------" );
@@ -348,6 +353,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &mcinfo_cmdlog__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
+            file_write_list ( &var_crash__obj, fp_w );
             file_write_list ( &proc__obj, fp_w );
         }
         if ( mcinfo == 0 )
@@ -359,6 +365,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
             file_write_list ( &var_log_audit__obj, fp_w );
+            file_write_list ( &var_crash__obj, fp_w );
             file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );

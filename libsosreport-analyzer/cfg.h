@@ -92,6 +92,8 @@ struct sosreport_analyzer_config
     /* allows word delimited by space */
     config_each etc_sysctl_conf;
     /* should be all */
+    config_each etc_rsyslog_conf;
+    /* should be all */
     config_each etc_sysconfig_network_scripts_ifcfg_;
     /* allows word delimited by space */
     config_each proc_meminfo;
@@ -115,6 +117,8 @@ struct sosreport_analyzer_config
     config_each var_log_secure;
     /* allows word delimited by space */
     config_each var_log_audit_;
+    /* allows word delimited by space */
+    config_each var_crash_;
     /* allows word delimited by space */
     config_each sos_commands_kernel_sysctl__a;
     /* allows word delimited by space */

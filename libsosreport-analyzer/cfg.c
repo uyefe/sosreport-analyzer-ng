@@ -96,6 +96,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->var_log_dmesg.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
             strncpy ( cfg->var_log_messages.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/crash/" ) == 0 )
+            strncpy ( cfg->var_crash_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
             strncpy ( cfg->proc_meminfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/interrupts" ) == 0 )
@@ -158,6 +160,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_kdump_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
                 strncpy ( cfg->etc_sysctl_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/rsyslog.conf" ) == 0 )
+                strncpy ( cfg->etc_rsyslog_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
                 strncpy ( cfg->proc_net_dev.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
@@ -326,6 +330,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "netstat", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/rsyslog.conf", cfg, mcinfo );
     }
     append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
     append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
@@ -341,6 +346,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
     }
     append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
     append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
+    append_sos_header_obj ( "var/crash/", cfg, mcinfo );
     if ( mcinfo == 0 ) 
     {
         append_sos_header_obj ( "var/log/secure", cfg, mcinfo );
@@ -372,6 +378,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->var_log_dmesg.member );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
         strcat ( str_tmp, cfg->var_log_messages.member );
+    else if ( strcmp ( member, "var/crash/" ) == 0 )
+        strcat ( str_tmp, cfg->var_crash_.member );
     else if ( strcmp ( member, "proc/" ) == 0 )
         strcat ( str_tmp, cfg->proc_.member );
 
@@ -431,6 +439,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_kdump_conf.member );
         else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_sysctl_conf.member );
+        else if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
+            strcat ( str_tmp, cfg->etc_rsyslog_conf.member );
         else if ( strcmp ( member, "proc/net/dev" ) == 0 )
             strcat ( str_tmp, cfg->proc_net_dev.member );
         else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )
