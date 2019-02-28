@@ -43,6 +43,7 @@ extern struct line_data *etc_sysconfig_network_scripts_ifcfg__obj;
 extern struct line_data *var_log_messages_obj;
 extern struct line_data *var_log_secure_obj;
 extern struct line_data *var_log_audit__obj;
+extern struct line_data *var_crash__obj;
 extern struct line_data *sos_commands_logs_journalctl___no_pager_obj;
 extern struct line_data *sos_commands_networking_ethtool__S_obj;
 extern struct line_data *sos_commands_networking_ethtool__i_obj;
