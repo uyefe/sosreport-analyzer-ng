@@ -40,7 +40,7 @@ int init_list ( node **obj )
     return ( 0 );
 }
 
-node *allocate_mem_to_one_node ( )
+node *allocate_mem_to_one_node ( void )
 {
     return ( struct line_data * ) calloc ( 1, sizeof ( struct line_data ) );
 }
@@ -91,6 +91,53 @@ int append_list ( node **obj, char *line )
         set_list ( obj_new->next, line, NULL );
     }
 
+    return ( 0 );
+}
+
+#define MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR    500
+
+int *bubble_sort_object_by_the_string ( node **obj )
+{
+    node *ptr_tmp = *obj;
+    char str_cmp_line  [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] [ MAX_LINE_LENGTH ];
+    for ( int i = 0; i < MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR; i++ )
+    {
+        memset ( str_cmp_line [ i ], '\0', MAX_LINE_LENGTH ); 
+    }
+    char *str_arr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+    char *str_tmp;
+    int obj_size = 0, j = 0, ii = 0;
+
+    /* read from object and copy strings to an array */
+    while ( ptr_tmp != NULL )
+    {
+        strcpy ( str_cmp_line  [ obj_size ], ptr_tmp->_line );
+        str_arr [ obj_size ] = & ( str_cmp_line [ obj_size ] [ 0 ]); 
+        obj_size++;
+        ptr_tmp = ptr_tmp->next;
+    }
+    /* bubble sort the array */
+    for ( j= 0; j < obj_size; j++ )
+    {
+        /* This makes largest item to the end of an array. */
+        for ( int i = 0; i < obj_size - ( 1 + j ); i++ )
+        {
+            ii = i + 1;
+            if ( strcmp ( str_arr [ i ], str_arr [ ii ] ) > 0 )
+            {
+                str_tmp = str_arr [ i ]; 
+                str_arr [ i ] = str_arr [ ii ]; 
+                str_arr [ ii ] = str_tmp; 
+            }
+        }
+    }
+    /* now writing lines to object anew */
+    clear_list ( obj ); 
+    for ( j= 0; j < obj_size; j++ )
+    {
+        append_list ( obj, str_arr [ j ] );
+    }
+    /* end bubble sort */
     return ( 0 );
 }
 
@@ -160,7 +207,7 @@ int print_and_file_write_analyzed_files ( node **obj, const char *expression , c
     return ( 0 );
 }
 
-void print_list ( node **obj ) 
+void print_list ( node **obj )
 {
     node *ptr_tmp = *obj;
     while ( ptr_tmp != NULL )
@@ -170,7 +217,7 @@ void print_list ( node **obj )
     }
 }
 
-void file_write_list ( node **obj, FILE *fp_w ) 
+void file_write_list ( node **obj, FILE *fp_w )
 {
     node *ptr_tmp = *obj;
     while ( ptr_tmp != NULL )

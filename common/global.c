@@ -37,6 +37,7 @@ char str [ MAX_LINE_LENGTH ];
 char str2 [ MAX_LINE_LENGTH ];  
 char str3 [ MAX_LINE_LENGTH ];  
 
+
 char *reverse_the_string ( char *str_tmp, int str_len )
 {
     int i = 0, j = 0, strlen_str_tmp = 0;

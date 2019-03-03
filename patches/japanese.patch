@@ -1,7 +1,7 @@
 diff -ruNp a/common.c b/common.c
---- a/common.c	2019-02-17 16:29:20.211899469 +0900
-+++ b/common.c	2019-02-17 16:25:17.971388756 +0900
-@@ -395,7 +395,7 @@ void read_sar_cpu_as_paragraph ( const c
+--- a/common.c	2019-03-03 10:36:51.462950304 +0900
++++ b/common.c	2019-03-03 10:31:21.070062699 +0900
+@@ -396,7 +396,7 @@ void read_sar_cpu_as_paragraph ( const c
          for ( i--; ( i > 0 ) && isspace ( line [ i -1 ] ) ; i-- )
              line [ i -1 ] = '\0';
          /* count cpu all line and set numbers to cpu_as_paragraph */
@@ -10,7 +10,7 @@ diff -ruNp a/common.c b/common.c
              break;
          if ( ( strstr ( *(&line), "all" ) != 0 ) ) 
              _cpu_as_paragraph++;
-@@ -760,37 +760,37 @@ void sanity_check_file ( char * line, co
+@@ -761,37 +761,37 @@ void sanity_check_file ( char * line, co
      if ( strstr ( line, "LINUX RESTART" ) != 0 )
          initialize_avg_checked_int ( );
  
@@ -55,7 +55,7 @@ diff -ruNp a/common.c b/common.c
      {
          if ( ( kbhugfree == 1 ) || ( dentunusd == 0 ) )
          {
-@@ -800,47 +800,47 @@ void sanity_check_file ( char * line, co
+@@ -801,47 +801,47 @@ void sanity_check_file ( char * line, co
              kbhugfree_avg_checked = "Checked";
          }
      }
@@ -112,7 +112,7 @@ diff -ruNp a/common.c b/common.c
      {
          if ( squeezd == 0 )
          {
-@@ -850,7 +850,7 @@ void sanity_check_file ( char * line, co
+@@ -851,7 +851,7 @@ void sanity_check_file ( char * line, co
              squeezd_avg_checked = "Checked";
          }
      }
@@ -122,8 +122,8 @@ diff -ruNp a/common.c b/common.c
          squeezd_avg_checked_int = 1;
          squeezd_avg_checked = "Checked";
 diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
---- a/sar_analyzer.c	2019-02-17 17:13:49.228499185 +0900
-+++ b/sar_analyzer.c	2019-02-17 16:32:31.334357537 +0900
+--- a/sar_analyzer.c	2019-03-03 10:56:17.745374888 +0900
++++ b/sar_analyzer.c	2019-03-03 10:31:40.202708735 +0900
 @@ -204,7 +204,7 @@ int set_token_column ( int file_number,
          /* if AM or PM will appear, column number should be decremented, unless, segfault in set_column_item() */
          if ( SAR_OPTION != 'Z' )

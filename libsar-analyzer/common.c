@@ -132,6 +132,7 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
     if ( str_arr_valid_size == 0 )
     {
         printf("-There are no sar files in this directory (%s):%s\n",dname,strerror(errno));
+        printf("-If you are not in sar-analyzer only mode, check file in sosreport-analyzer-results dir.");
         /* freeing object and setting it to NULL */
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );

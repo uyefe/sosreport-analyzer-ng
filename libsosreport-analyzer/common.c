@@ -285,7 +285,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         etc_httpd__obj = NULL;
     else if ( ( strstr ( full_path, "proc/") != 0 ) && ( recursive == 0 ) )
         proc__obj = NULL;
-    //else if ( ( strstr ( full_path, "var/crash/") != 0 ) && ( var_crash_exists == 1 ) && ( recursive == 0 ) )
     else if ( ( strstr ( full_path, "var/crash/") != 0 ) && ( recursive == 0 ) )
         var_crash__obj = NULL;
 
@@ -378,6 +377,24 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
     /* close the directory */
     if ( var_crash_exists == 1 )
         closedir ( dir );
+
+    /* sorting directory read objects */
+    bubble_sort_object_by_the_string ( &mcinfo_boot_grub__obj );
+    bubble_sort_object_by_the_string ( &mcinfo_cmdlog__obj );
+    bubble_sort_object_by_the_string ( &etc_pki__obj );
+    bubble_sort_object_by_the_string ( &etc_cron_d__obj );
+    bubble_sort_object_by_the_string ( &etc_sysconfig_network_scripts_ifcfg__obj );
+    bubble_sort_object_by_the_string ( &var_log_messages_obj );
+    bubble_sort_object_by_the_string ( &var_log_secure_obj );
+    bubble_sort_object_by_the_string ( &var_log_audit__obj );
+    bubble_sort_object_by_the_string ( &var_crash__obj );
+    bubble_sort_object_by_the_string ( &sos_commands_logs_journalctl___no_pager_obj );
+    bubble_sort_object_by_the_string ( &sos_commands_networking_ethtool__S_obj );
+    bubble_sort_object_by_the_string ( &sos_commands_networking_ethtool__i_obj );
+    bubble_sort_object_by_the_string ( &sos_commands_boot__obj );
+    bubble_sort_object_by_the_string ( &etc_httpd__obj );
+    /* ###FIXME */
+    //bubble_sort_object_by_the_string ( &proc__obj );
 
     return ( 0 );
 }
