@@ -94,25 +94,19 @@ int append_list ( node **obj, char *line )
     return ( 0 );
 }
 
-#define MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR    500
-
-int *bubble_sort_object_by_the_string ( node **obj )
+int bubble_sort_object_by_the_string ( node **obj, char *str_arr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] ) 
 {
     node *ptr_tmp = *obj;
     char str_cmp_line  [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] [ MAX_LINE_LENGTH ];
     for ( int i = 0; i < MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR; i++ )
-    {
-        memset ( str_cmp_line [ i ], '\0', MAX_LINE_LENGTH ); 
-    }
-    char *str_arr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+        memset ( str_cmp_line [ i ], '\0', sizeof ( str_cmp_line [ i ] ) ); 
     char *str_tmp;
     int obj_size = 0, j = 0, ii = 0;
 
     /* read from object and copy strings to an array */
     while ( ptr_tmp != NULL )
     {
-        strcpy ( str_cmp_line  [ obj_size ], ptr_tmp->_line );
-        str_arr [ obj_size ] = & ( str_cmp_line [ obj_size ] [ 0 ]); 
+        str_arr [ obj_size ] = ( char * ) & ( ptr_tmp->_line [ 0 ] ); 
         obj_size++;
         ptr_tmp = ptr_tmp->next;
     }
@@ -131,14 +125,9 @@ int *bubble_sort_object_by_the_string ( node **obj )
             }
         }
     }
-    /* now writing lines to object anew */
-    clear_list ( obj ); 
-    for ( j= 0; j < obj_size; j++ )
-    {
-        append_list ( obj, str_arr [ j ] );
-    }
+    init_list ( obj );
     /* end bubble sort */
-    return ( 0 );
+    return ( obj_size );
 }
 
 char *search_list ( node **obj, const char *line, char result [ MAX_LINE_LENGTH ] )
