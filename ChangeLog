@@ -1,3 +1,5 @@
+1.0.59
+Fix sorting function.
 1.0.58
 Sort dir read objects except member 'proc/'.
 1.0.57
