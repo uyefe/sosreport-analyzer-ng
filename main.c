@@ -235,6 +235,8 @@ int main ( int argc, char *argv [ ] )
     /* read sosreport files */
     cfg_init ( fname, mcinfo );
 
+    char *hairline = "--------";
+
     if ( sar_only != 1 )
     {
         /* this is the actual order which each member will be written to a file */
@@ -251,12 +253,12 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "var/crash/", dir_name );
             read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
-            append_list ( &sos_header_obj, "--------" );
-            append_list ( &mcinfo_boot_grub__obj, "--------" );
-            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
-            append_list ( &mcinfo_cmdlog__obj, "--------" );
-            append_list ( &var_log_messages_obj, "--------" );
-            append_list ( &proc__obj, "--------" );
+            append_list ( &sos_header_obj, hairline );
+            append_list ( &mcinfo_boot_grub__obj, hairline );
+            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
+            append_list ( &mcinfo_cmdlog__obj, hairline );
+            append_list ( &var_log_messages_obj, hairline );
+            append_list ( &proc__obj, hairline );
         }
         if ( mcinfo == 0 )
         {
@@ -305,22 +307,23 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/httpd/", dir_name );
             read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
-            append_list ( &sos_header_obj, "--------" );
-            append_list ( &sos_commands_boot__obj, "--------" );
-            append_list ( &etc_pki__obj, "--------" );
-            append_list ( &etc_cron_d__obj, "--------" );
-            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, "--------" );
-            append_list ( &var_log_messages_obj, "--------" );
-            append_list ( &var_log_secure_obj, "--------" );
-            append_list ( &var_log_audit__obj, "--------" );
-            append_list ( &var_crash__obj, "--------" );
-            append_list ( &sos_commands_logs_journalctl___no_pager_obj, "--------" );
-            append_list ( &sos_commands_networking_ethtool__S_obj, "--------" );
-            append_list ( &sos_commands_networking_ethtool__i_obj, "--------" );
-            append_list ( &etc_httpd__obj, "--------" );
-            append_list ( &proc__obj, "--------" );
+            append_list ( &sos_header_obj, hairline );
+            append_list ( &sos_commands_boot__obj, hairline );
+            append_list ( &etc_pki__obj, hairline );
+            append_list ( &etc_cron_d__obj, hairline );
+            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
+            append_list ( &var_log_messages_obj, hairline );
+            append_list ( &var_log_secure_obj, hairline );
+            append_list ( &var_log_audit__obj, hairline );
+            append_list ( &var_crash__obj, hairline );
+            append_list ( &sos_commands_logs_journalctl___no_pager_obj, hairline );
+            append_list ( &sos_commands_networking_ethtool__S_obj, hairline );
+            append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
+            append_list ( &etc_httpd__obj, hairline );
+            append_list ( &proc__obj, hairline );
         }
     }
+
     sos_file_to_write ( );
 
     const char *sos_file_write = ""; 

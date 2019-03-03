@@ -34,7 +34,7 @@ int init_list ( node **obj );
 node *allocate_mem_to_one_node ( void );
 void set_list ( node *obj, char *line, node *obj_next );
 int append_list ( node **obj, char *line );
-int *bubble_sort_object_by_the_string ( node **obj );
+int bubble_sort_object_by_the_string ( node **obj, char *str_arr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] );
 int print_and_file_write_analyzed_files ( node **obj, const char *expression , const char *word, FILE *fp_w );
 void print_list ( node **obj );
 void file_write_list ( node **obj, FILE *fp_w );

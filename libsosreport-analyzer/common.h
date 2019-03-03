@@ -54,6 +54,38 @@ extern struct file_data *file_data_obj;
 extern struct line_data *etc_httpd__obj;
 extern struct line_data *proc__obj;
 
+/* for sorting array */
+extern int i_cmdlog;
+extern int i_boot_grub;
+extern int i_pki;
+extern int i_cron;
+extern int i_ifcfg;
+extern int i_logs_journalctl;
+extern int i_var_log_messages;
+extern int i_var_log_secure;
+extern int i_var_log_audit;
+extern int i_var_crash;
+extern int i_ethtool_S;
+extern int i_ethtool_i;
+extern int i_boot;
+extern int i_httpd;
+extern int i_proc;
+extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_cron [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_ifcfg [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_logs_journalctl [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_var_log_messages [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_var_log_secure [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_var_log_audit [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_var_crash [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_ethtool_S [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_ethtool_i [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_boot [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_httpd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_proc [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+
 /*
  * new function reading files from the result of 'read_analyze_dir'
  */
