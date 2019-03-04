@@ -1,3 +1,5 @@
+1.0.60
+Fix slight possible memory leak.
 1.0.59
 Fix sorting function.
 1.0.58
