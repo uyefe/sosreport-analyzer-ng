@@ -1,3 +1,5 @@
+1.0.61
+Fix segfault problem.
 1.0.60
 Fix slight possible memory leak.
 1.0.59
