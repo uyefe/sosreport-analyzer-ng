@@ -125,6 +125,7 @@ int bubble_sort_object_by_the_string ( node **obj, char *str_arr [ MAX_ANALYZE_F
             }
         }
     }
+    clear_list ( obj );
     init_list ( obj );
     /* end bubble sort */
     return ( obj_size );
