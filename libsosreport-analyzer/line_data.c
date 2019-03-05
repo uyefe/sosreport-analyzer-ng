@@ -125,11 +125,7 @@ int bubble_sort_object_by_the_string ( node **obj, char *str_arr [ MAX_ANALYZE_F
             }
         }
     }
-    /*### FIXME
-     * should be cleared when member item is NULL or 'skip' 
-     */
-    //clear_list ( obj );
-    init_list ( obj );
+
     /* end bubble sort */
     return ( obj_size );
 }
