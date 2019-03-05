@@ -89,8 +89,28 @@ int main ( int argc, char *argv [ ] )
     /* initialize the line list object (node) */
     /* sos_dir_file_obj doesn't need to be initialized */
     init_list ( &sos_header_obj );
-    init_list ( &sos_tail_obj );
     init_list ( &sos_line_obj );
+    init_list ( &sos_tail_obj );
+
+    init_list ( &tmp_1_obj );
+    init_list ( &tmp_2_obj );
+    init_list ( &tmp_3_obj );
+    init_list ( &tmp_4_obj );
+    init_list ( &tmp_5_obj );
+    init_list ( &tmp_6_obj );
+    init_list ( &tmp_7_obj );
+    init_list ( &tmp_8_obj );
+    init_list ( &tmp_9_obj );
+    init_list ( &tmp_10_obj );
+    init_list ( &tmp_11_obj );
+    init_list ( &tmp_12_obj );
+    init_list ( &tmp_13_obj );
+    init_list ( &tmp_14_obj );
+    init_list ( &tmp_15_obj );
+
+    init_list ( &mcinfo_boot_grub__obj );
+    init_list ( &mcinfo_cmdlog__obj );
+    init_list ( &etc_pki__obj );
     init_list ( &etc_cron_d__obj );
     init_list ( &etc_sysconfig_network_scripts_ifcfg__obj );
     init_list ( &var_log_messages_obj );
@@ -100,12 +120,9 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_networking_ethtool__S_obj );
     init_list ( &sos_commands_networking_ethtool__i_obj );
     init_list ( &sos_commands_boot__obj );
-    init_list ( &etc_pki__obj );
     init_list ( &etc_httpd__obj );
     init_list ( &proc__obj );
     init_list ( &var_crash__obj );
-    init_list ( &mcinfo_boot_grub__obj );
-    init_list ( &mcinfo_cmdlog__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -115,11 +132,11 @@ int main ( int argc, char *argv [ ] )
     memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     memset ( str_tmp3, '\0', sizeof ( str_tmp3 ) ); 
     memset ( dir_sa, '\0', sizeof ( dir_sa ) ); 
-    append_list ( &sos_header_obj, "########" );
+    append_list ( &sos_header_obj, "####" );
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s: Version-%d.%d.%d", app_name, PROGRAM_VERSION, PROGRAM_RELEASE, PROGRAM_SUB_RELEASE ); 
     append_list ( &sos_header_obj, str_tmp2 );
-    append_list ( &sos_header_obj, "########" );
-    append_list ( &sos_tail_obj, "########" );
+    append_list ( &sos_header_obj, "####" );
+    append_list ( &sos_tail_obj, "####" );
     memset ( str_tmp2, '\0', sizeof ( str_tmp2 ) ); 
     snprintf ( str_tmp2, MAX_FILE_NAME_LENGTH, "%s ends.", app_name ); 
     append_list ( &sos_tail_obj, str_tmp2 );
@@ -235,7 +252,7 @@ int main ( int argc, char *argv [ ] )
     /* read sosreport files */
     cfg_init ( fname, mcinfo );
 
-    char *hairline = "--------";
+    char *hairline = "----";
 
     if ( sar_only != 1 )
     {

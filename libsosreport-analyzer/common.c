@@ -37,20 +37,6 @@
 struct dir_file_name sos_dir_file_obj_raw = 
     {{ "test.txt", "test.txt", "test.txt", "test.txt" }};
 
-/* mcinfo_boot_grub__obj */
-struct line_data mcinfo_boot_grub__obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
-/* mcinfo_cmdlog__obj */
-struct line_data mcinfo_cmdlog__obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
 /* sos_header_obj */
 struct line_data sos_header_obj_raw =
     {
@@ -67,6 +53,20 @@ struct line_data sos_line_obj_raw =
 
 /* tail_obj */
 struct line_data sos_tail_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* mcinfo_boot_grub__obj */
+struct line_data mcinfo_boot_grub__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* mcinfo_cmdlog__obj */
+struct line_data mcinfo_cmdlog__obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
@@ -114,13 +114,6 @@ struct line_data var_log_audit__obj_raw =
         NULL /* next pointer */
     };
 
-/* var_crash__obj */
-struct line_data var_crash__obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
 /* sos_commands_logs_journalctl___no_pager_obj */
 struct line_data sos_commands_logs_journalctl___no_pager_obj_raw =
     {
@@ -163,61 +156,187 @@ struct line_data proc__obj_raw =
         NULL /* next pointer */
     };
 
+/* var_crash__obj */
+struct line_data var_crash__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_1_obj */
+struct line_data tmp_1_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_2_obj */
+struct line_data tmp_2_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_3_obj */
+struct line_data tmp_3_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_4_obj */
+struct line_data tmp_4_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_5_obj */
+struct line_data tmp_5_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_6_obj */
+struct line_data tmp_6_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_7_obj */
+struct line_data tmp_7_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_8_obj */
+struct line_data tmp_8_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_9_obj */
+struct line_data tmp_9_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_10_obj */
+struct line_data tmp_10_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_11_obj */
+struct line_data tmp_11_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_12_obj */
+struct line_data tmp_12_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_13_obj */
+struct line_data tmp_13_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_14_obj */
+struct line_data tmp_14_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_15_obj */
+struct line_data tmp_15_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
-struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
-struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
+struct line_data *tmp_1_obj = &tmp_1_obj_raw;
+struct line_data *tmp_2_obj = &tmp_2_obj_raw;
+struct line_data *tmp_3_obj = &tmp_3_obj_raw;
+struct line_data *tmp_4_obj = &tmp_4_obj_raw;
+struct line_data *tmp_5_obj = &tmp_5_obj_raw;
+struct line_data *tmp_6_obj = &tmp_6_obj_raw;
+struct line_data *tmp_7_obj = &tmp_7_obj_raw;
+struct line_data *tmp_8_obj = &tmp_8_obj_raw;
+struct line_data *tmp_9_obj = &tmp_9_obj_raw;
+struct line_data *tmp_10_obj = &tmp_10_obj_raw;
+struct line_data *tmp_11_obj = &tmp_11_obj_raw;
+struct line_data *tmp_12_obj = &tmp_12_obj_raw;
+struct line_data *tmp_13_obj = &tmp_13_obj_raw;
+struct line_data *tmp_14_obj = &tmp_14_obj_raw;
+struct line_data *tmp_15_obj = &tmp_15_obj_raw;
+struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
+struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
 struct line_data *etc_cron_d__obj = &etc_cron_d__obj_raw;
 struct line_data *etc_sysconfig_network_scripts_ifcfg__obj = &etc_sysconfig_network_scripts_ifcfg__obj_raw;
 struct line_data *var_log_messages_obj = &var_log_messages_obj_raw;
 struct line_data *var_log_secure_obj = &var_log_secure_obj_raw;
 struct line_data *var_log_audit__obj = &var_log_audit__obj_raw;
-struct line_data *var_crash__obj = &var_crash__obj_raw;
 struct line_data *sos_commands_logs_journalctl___no_pager_obj = &sos_commands_logs_journalctl___no_pager_obj_raw;
 struct line_data *sos_commands_networking_ethtool__S_obj = &sos_commands_networking_ethtool__S_obj_raw;
 struct line_data *sos_commands_networking_ethtool__i_obj = &sos_commands_networking_ethtool__i_obj_raw;
 struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
 struct line_data *etc_httpd__obj = &etc_httpd__obj_raw;
 struct line_data *proc__obj = &proc__obj_raw;
+struct line_data *var_crash__obj = &var_crash__obj_raw;
 
-int i_cmdlog = 0;
 int i_boot_grub = 0;
+int i_cmdlog = 0;
 int i_pki = 0;
 int i_cron = 0;
 int i_ifcfg = 0;
-int i_logs_journalctl = 0;
 int i_var_log_messages = 0;
 int i_var_log_secure = 0;
 int i_var_log_audit = 0;
-int i_var_crash = 0;
+int i_logs_journalctl = 0;
 int i_ethtool_S = 0;
 int i_ethtool_i = 0;
 int i_boot = 0;
 int i_httpd = 0;
 int i_proc = 0;
-char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+int i_var_crash = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cron [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_ifcfg [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
-char *str_arr_logs_journalctl [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_log_messages [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_log_secure [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_log_audit [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
-char *str_arr_var_crash [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_logs_journalctl [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_ethtool_S [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_ethtool_i [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_boot [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_httpd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_proc [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_var_crash [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
-
     DIR *dir = NULL;
     struct dirent *dp;
     int str_len = 0;
@@ -290,35 +409,36 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
 
     /* setting NULL to objects for directory related stuff including those matched files */
     if ( strstr ( full_path, "boot/gurb/") != 0 )
-        mcinfo_boot_grub__obj = NULL;
-    else if ( strstr ( full_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
-        etc_sysconfig_network_scripts_ifcfg__obj = NULL;
+        tmp_1_obj = NULL;
     else if ( strstr ( full_path, "cmdlog") != 0 )
-        mcinfo_cmdlog__obj = NULL;
+        tmp_2_obj = NULL;
     /* etc/pki should be set null only once because read many times */
     else if ( ( strstr ( full_path, "etc/pki/") != 0 ) && ( recursive == 0 ) )
-        etc_pki__obj = NULL;
+        tmp_3_obj = NULL;
     else if ( strstr ( full_path, "cron") != 0 )
-        etc_cron_d__obj = NULL;
+        tmp_4_obj = NULL;
+    else if ( strstr ( full_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
+        tmp_5_obj = NULL;
     else if ( strstr ( full_path, "messages") != 0 )
-        var_log_messages_obj = NULL;
+        tmp_6_obj = NULL;
     else if ( strstr ( full_path, "secure") != 0 )
-        var_log_secure_obj = NULL;
+        tmp_7_obj = NULL;
     else if ( strstr ( full_path, "audit") != 0 )
-        var_log_audit__obj = NULL;
+        tmp_8_obj = NULL;
     else if ( strstr ( full_path, "journalctl") != 0 )
-        sos_commands_logs_journalctl___no_pager_obj = NULL;
+        tmp_9_obj = NULL;
     else if ( strstr ( full_path, "ethtool_-S") != 0 )
-        sos_commands_networking_ethtool__S_obj = NULL;
+        tmp_10_obj = NULL;
+    else if ( strstr ( full_path, "ethtool_-i") != 0 )
+        tmp_11_obj = NULL;
     else if ( strstr ( full_path, "sos_commands/boot/") != 0 )
-        sos_commands_boot__obj = NULL;
+        tmp_12_obj = NULL;
     else if ( ( strstr ( full_path, "etc/httpd/") != 0 ) && ( recursive == 0 ) )
-        etc_httpd__obj = NULL;
+        tmp_13_obj = NULL;
     else if ( ( strstr ( full_path, "proc/") != 0 ) && ( recursive == 0 ) )
-        proc__obj = NULL;
+        tmp_14_obj = NULL;
     else if ( ( strstr ( full_path, "var/crash/") != 0 ) && ( recursive == 0 ) )
-        var_crash__obj = NULL;
-
+        tmp_15_obj = NULL;
 
     /* read from directory and set in an array */
     if ( var_crash_exists == 1 )
@@ -370,35 +490,35 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 snprintf (read_path, MAX_LINE_LENGTH, "%s%s", dname_full, str );
 
                 if ( strstr ( read_path, "boot/grub") != 0 )
-                    append_list ( &mcinfo_boot_grub__obj, read_path );
+                    append_list ( &tmp_1_obj, read_path );
                 else if ( strstr ( read_path, "cmdlog") != 0 )
-                    append_list ( &mcinfo_cmdlog__obj, read_path );
+                    append_list ( &tmp_2_obj, read_path );
                 else if ( ( strstr ( read_path, "etc/pki/") != 0 ) && ( recursive == 1 ) )
-                    append_list ( &etc_pki__obj, read_path );
+                    append_list ( &tmp_3_obj, read_path );
                 else if ( strstr ( read_path, "cron") != 0 )
-                    append_list ( &etc_cron_d__obj, read_path );
+                    append_list ( &tmp_4_obj, read_path );
                 else if ( strstr ( read_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
-                    append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, read_path );
+                    append_list ( &tmp_5_obj, read_path );
                 else if ( strstr ( read_path, "messages") != 0 )
-                    append_list ( &var_log_messages_obj, read_path );
+                    append_list ( &tmp_6_obj, read_path );
                 else if ( strstr ( read_path, "secure") != 0 )
-                    append_list ( &var_log_secure_obj, read_path );
+                    append_list ( &tmp_7_obj, read_path );
                 else if ( strstr ( read_path, "audit") != 0 )
-                    append_list ( &var_log_audit__obj, read_path );
-                else if ( strstr ( read_path, "var/crash/") != 0 )
-                    append_list ( &var_crash__obj, read_path );
+                    append_list ( &tmp_8_obj, read_path );
                 else if ( strstr ( read_path, "journalctl") != 0 )
-                    append_list ( &sos_commands_logs_journalctl___no_pager_obj, read_path );
+                    append_list ( &tmp_9_obj, read_path );
                 else if ( strstr ( read_path, "ethtool_-S") != 0 )
-                    append_list ( &sos_commands_networking_ethtool__S_obj, read_path );
+                    append_list ( &tmp_10_obj, read_path );
                 else if ( strstr ( read_path, "ethtool_-i") != 0 )
-                    append_list ( &sos_commands_networking_ethtool__i_obj, read_path );
+                    append_list ( &tmp_11_obj, read_path );
                 else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
-                    append_list ( &sos_commands_boot__obj, read_path );
+                    append_list ( &tmp_12_obj, read_path );
                 else if ( ( strstr ( read_path, "etc/httpd/") != 0 ) && ( recursive == 1 ) )
-                    append_list ( &etc_httpd__obj, read_path );
+                    append_list ( &tmp_13_obj, read_path );
                 else if ( ( strstr ( read_path, "proc/") != 0 ) && ( recursive == 1 ) )
-                    append_list ( &proc__obj, read_path );
+                    append_list ( &tmp_14_obj, read_path );
+                else if ( strstr ( read_path, "var/crash/") != 0 )
+                    append_list ( &tmp_15_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -554,6 +674,7 @@ int read_file ( const char *file_name, const char *member, int files )
     memset ( filename_proc__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
+    char *hairline = "<<<<";
     if ( file_name_len <= 0 )
     {
         printf("no file name supplied (%s): %d %s\n",file_name,file_name_len,strerror(errno));
@@ -610,9 +731,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_mcinfo_boot_grub__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_mcinfo_boot_grub_, filename_mcinfo_boot_grub__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_mcinfo_boot_grub_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -626,9 +747,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_mcinfo_cmdlog__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_mcinfo_cmdlog_, filename_mcinfo_cmdlog__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_mcinfo_cmdlog_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -700,9 +821,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_etc_sysconfig_network_scripts_ifcfg__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_sysconfig_network_scripts_ifcfg_, filename_etc_sysconfig_network_scripts_ifcfg__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_etc_sysconfig_network_scripts_ifcfg_, MAX_LINE_LENGTH, "%s", file_name );
             append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
@@ -723,9 +844,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_etc_pki__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_pki_, filename_etc_pki__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_etc_pki_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -740,9 +861,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_cron_d_, filename_etc_cron_d__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_etc_cron_d_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -759,9 +880,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_messages, filename_var_log_messages_curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_var_log_messages, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->var_log_messages.item_num ; x++ )
@@ -772,9 +893,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_var_log_secure_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_secure, filename_var_log_secure_curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_var_log_secure, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->var_log_secure.item_num ; x++ )
@@ -785,9 +906,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_var_log_audit__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_audit_, filename_var_log_audit__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_var_log_audit_, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->var_log_audit_.item_num ; x++ )
@@ -801,9 +922,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf (filename_sos_commands_logs_journalctl___no_pager_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_logs_journalctl___no_pager, filename_sos_commands_logs_journalctl___no_pager_curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf ( filename_sos_commands_logs_journalctl___no_pager, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num ; x++ )
@@ -814,9 +935,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf (filename_sos_commands_networking_ethtool__S_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_networking_ethtool__S, filename_sos_commands_networking_ethtool__S_curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf ( filename_sos_commands_networking_ethtool__S, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num ; x++ )
@@ -827,9 +948,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf (filename_sos_commands_networking_ethtool__i_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_networking_ethtool__i, filename_sos_commands_networking_ethtool__i_curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf ( filename_sos_commands_networking_ethtool__i, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num ; x++ )
@@ -840,9 +961,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_sos_commands_boot__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_boot_, filename_sos_commands_boot__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_sos_commands_boot_, MAX_LINE_LENGTH, "%s", file_name );
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_boot_.item_num ; x++ )
@@ -853,9 +974,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_etc_httpd__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_httpd_, filename_etc_httpd__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_etc_httpd_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -870,9 +991,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_proc__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_proc_, filename_proc__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_proc_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -887,9 +1008,9 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf ( filename_var_crash__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_crash_, filename_var_crash__curr) != 0 )
             {
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
                 append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, "----------------" );
+                append_list ( &sos_line_obj, hairline );
             }
             snprintf (filename_var_crash_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
@@ -1610,6 +1731,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         append_list ( &sos_line_obj, "" );
 
         /* for ones of which should read directory, or matched files in the directory */
+        /* This order is the order of tmp_<number>_obj */
         if (
             ( strcmp ( member, "boot/grub/" ) == 0 ) ||
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
@@ -1629,111 +1751,109 @@ void read_file_pre ( const char *member, const char *dir_name )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
-        {
             read_file ( str_tmp, member, 0 );
-        }
         /* now, we actually read files here for directory stuff */
         if ( strcmp ( member, "boot/grub/" ) == 0 )
         {
-            i_boot_grub = bubble_sort_object_by_the_string ( &mcinfo_boot_grub__obj, str_arr_boot_grub );
+            i_boot_grub = bubble_sort_object_by_the_string ( &tmp_1_obj, str_arr_boot_grub );
             for ( int i = 0; i < i_boot_grub; i++ )
                 append_list ( &mcinfo_boot_grub__obj, str_arr_boot_grub [ i ] );
             read_file_from_analyze_dir ( &mcinfo_boot_grub__obj, "boot/grub/" );
         }
         if ( strcmp ( member, "cmdlog/" ) == 0 )
         {
-            i_cmdlog = bubble_sort_object_by_the_string ( &mcinfo_cmdlog__obj, str_arr_cmdlog );
+            i_cmdlog = bubble_sort_object_by_the_string ( &tmp_2_obj, str_arr_cmdlog );
             for ( int i = 0; i < i_cmdlog; i++ )
                 append_list ( &mcinfo_cmdlog__obj, str_arr_cmdlog [ i ] );
             read_file_from_analyze_dir ( &mcinfo_cmdlog__obj, "cmdlog/" );
         }
         if ( strcmp ( member, "etc/pki/" ) == 0 )
         {
-            i_pki = bubble_sort_object_by_the_string ( &etc_pki__obj, str_arr_pki );
+            i_pki = bubble_sort_object_by_the_string ( &tmp_3_obj, str_arr_pki );
             for ( int i = 0; i < i_pki; i++ )
                 append_list ( &etc_pki__obj, str_arr_pki [ i ] );
             read_file_from_analyze_dir ( &etc_pki__obj, "etc/pki/" );
         }
         if ( strcmp ( member, "etc/cron.d/" ) == 0 )
         {
-            i_cron = bubble_sort_object_by_the_string ( &etc_cron_d__obj, str_arr_cron );
+            i_cron = bubble_sort_object_by_the_string ( &tmp_4_obj, str_arr_cron );
             for ( int i = 0; i < i_cron; i++ )
                 append_list ( &etc_cron_d__obj, str_arr_cron [ i ] );
             read_file_from_analyze_dir ( &etc_cron_d__obj, "etc/cron.d/" );
         }
         if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         {
-            i_ifcfg = bubble_sort_object_by_the_string ( &etc_sysconfig_network_scripts_ifcfg__obj, str_arr_ifcfg );
+            i_ifcfg = bubble_sort_object_by_the_string ( &tmp_5_obj, str_arr_ifcfg );
             for ( int i = 0; i < i_ifcfg; i++ )
                 append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, str_arr_ifcfg [ i ] );
             read_file_from_analyze_dir ( &etc_sysconfig_network_scripts_ifcfg__obj, "etc/sysconfig/network-scripts/ifcfg-" );
         }
         if ( strcmp ( member, "var/log/messages" ) == 0 )
         {
-            i_var_log_messages = bubble_sort_object_by_the_string ( &var_log_messages_obj, str_arr_var_log_messages );
+            i_var_log_messages = bubble_sort_object_by_the_string ( &tmp_6_obj, str_arr_var_log_messages );
             for ( int i = 0; i < i_var_log_messages; i++ )
                 append_list ( &var_log_messages_obj, str_arr_var_log_messages [ i ] );
             read_file_from_analyze_dir ( &var_log_messages_obj, "var/log/messages" );
         }
         if ( strcmp ( member, "var/log/secure" ) == 0 )
         {
-            i_var_log_secure = bubble_sort_object_by_the_string ( &var_log_secure_obj, str_arr_var_log_secure );
+            i_var_log_secure = bubble_sort_object_by_the_string ( &tmp_7_obj, str_arr_var_log_secure );
             for ( int i = 0; i < i_var_log_secure; i++ )
                 append_list ( &var_log_secure_obj, str_arr_var_log_secure [ i ] );
             read_file_from_analyze_dir ( &var_log_secure_obj, "var/log/secure" );
         }
         if ( strcmp ( member, "var/log/audit/" ) == 0 )
         {
-            i_var_log_audit = bubble_sort_object_by_the_string ( &var_log_audit__obj, str_arr_var_log_audit );
+            i_var_log_audit = bubble_sort_object_by_the_string ( &tmp_8_obj, str_arr_var_log_audit );
             for ( int i = 0; i < i_var_log_audit; i++ )
                 append_list ( &var_log_audit__obj, str_arr_var_log_audit [ i ] );
             read_file_from_analyze_dir ( &var_log_audit__obj, "var/log/audit/" );
         }
         if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
         {
-            i_logs_journalctl = bubble_sort_object_by_the_string ( &sos_commands_logs_journalctl___no_pager_obj, str_arr_logs_journalctl );
+            i_logs_journalctl = bubble_sort_object_by_the_string ( &tmp_9_obj, str_arr_logs_journalctl );
             for ( int i = 0; i < i_logs_journalctl; i++ )
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, str_arr_logs_journalctl [ i ] );
             read_file_from_analyze_dir ( &sos_commands_logs_journalctl___no_pager_obj, "sos_commands/logs/journalctl_--no-pager" );
         }
         if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
         {
-            i_ethtool_S = bubble_sort_object_by_the_string ( &sos_commands_networking_ethtool__S_obj, str_arr_ethtool_S );
+            i_ethtool_S = bubble_sort_object_by_the_string ( &tmp_10_obj, str_arr_ethtool_S );
             for ( int i = 0; i < i_ethtool_S; i++ )
                 append_list ( &sos_commands_networking_ethtool__S_obj, str_arr_ethtool_S [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__S_obj, "sos_commands/networking/ethtool_-S" );
         }
         if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
         {
-            i_ethtool_i = bubble_sort_object_by_the_string ( &sos_commands_networking_ethtool__i_obj, str_arr_ethtool_i );
+            i_ethtool_i = bubble_sort_object_by_the_string ( &tmp_11_obj, str_arr_ethtool_i );
             for ( int i = 0; i < i_ethtool_i; i++ )
                 append_list ( &sos_commands_networking_ethtool__i_obj, str_arr_ethtool_i [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__i_obj, "sos_commands/networking/ethtool_-i" );
         }
         if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
         {
-            i_boot = bubble_sort_object_by_the_string ( &sos_commands_boot__obj, str_arr_boot );
+            i_boot = bubble_sort_object_by_the_string ( &tmp_12_obj, str_arr_boot );
             for ( int i = 0; i < i_boot; i++ )
                 append_list ( &sos_commands_boot__obj, str_arr_boot [ i ] );
             read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
         }
         if ( strcmp ( member, "etc/httpd/" ) == 0 )
         {
-            i_httpd = bubble_sort_object_by_the_string ( &etc_httpd__obj, str_arr_etc_httpd );
+            i_httpd = bubble_sort_object_by_the_string ( &tmp_13_obj, str_arr_etc_httpd );
             for ( int i = 0; i < i_httpd; i++ )
                 append_list ( &etc_httpd__obj, str_arr_etc_httpd [ i ] );
             read_file_from_analyze_dir ( &etc_httpd__obj, "etc/httpd/" );
         }
         if ( strcmp ( member, "proc/" ) == 0 )
         {
-            i_proc = bubble_sort_object_by_the_string ( &proc__obj, str_arr_proc );
+            i_proc = bubble_sort_object_by_the_string ( &tmp_14_obj, str_arr_proc );
             for ( int i = 0; i < i_proc; i++ )
                 append_list ( &proc__obj, str_arr_proc [ i ] );
             read_file_from_analyze_dir ( &proc__obj, "proc/" );
         }
         if ( strcmp ( member, "var/crash/" ) == 0 )
         {
-            i_var_crash = bubble_sort_object_by_the_string ( &var_crash__obj, str_arr_var_crash );
+            i_var_crash = bubble_sort_object_by_the_string ( &tmp_15_obj, str_arr_var_crash );
             for ( int i = 0; i < i_var_crash; i++ )
                 append_list ( &var_crash__obj, str_arr_var_crash [ i ] );
             read_file_from_analyze_dir ( &var_crash__obj, "var/crash/" );
@@ -2158,6 +2278,40 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_header_obj ); 
     if ( sos_line_obj != NULL ) 
         clear_list ( &sos_line_obj ); 
+    if ( sos_tail_obj != NULL ) 
+        clear_list ( &sos_tail_obj ); 
+
+    if ( tmp_1_obj != NULL ) 
+        clear_list ( &tmp_1_obj ); 
+    if ( tmp_2_obj != NULL ) 
+        clear_list ( &tmp_2_obj ); 
+    if ( tmp_3_obj != NULL ) 
+        clear_list ( &tmp_3_obj ); 
+    if ( tmp_4_obj != NULL ) 
+        clear_list ( &tmp_4_obj ); 
+    if ( tmp_5_obj != NULL ) 
+        clear_list ( &tmp_5_obj ); 
+    if ( tmp_6_obj != NULL ) 
+        clear_list ( &tmp_6_obj ); 
+    if ( tmp_7_obj != NULL ) 
+        clear_list ( &tmp_7_obj ); 
+    if ( tmp_8_obj != NULL ) 
+        clear_list ( &tmp_8_obj ); 
+    if ( tmp_9_obj != NULL ) 
+        clear_list ( &tmp_9_obj ); 
+    if ( tmp_10_obj != NULL ) 
+        clear_list ( &tmp_10_obj ); 
+    if ( tmp_11_obj != NULL ) 
+        clear_list ( &tmp_11_obj ); 
+    if ( tmp_12_obj != NULL ) 
+        clear_list ( &tmp_12_obj ); 
+    if ( tmp_13_obj != NULL ) 
+        clear_list ( &tmp_13_obj ); 
+    if ( tmp_14_obj != NULL ) 
+        clear_list ( &tmp_14_obj ); 
+    if ( tmp_15_obj != NULL ) 
+        clear_list ( &tmp_15_obj ); 
+
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
     if ( etc_cron_d__obj != NULL ) 
@@ -2178,8 +2332,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_networking_ethtool__i_obj ); 
     if ( sos_commands_boot__obj != NULL ) 
         clear_list ( &sos_commands_boot__obj ); 
-    if ( sos_tail_obj != NULL ) 
-        clear_list ( &sos_tail_obj ); 
     if ( mcinfo_boot_grub__obj != NULL )
         clear_list ( &mcinfo_boot_grub__obj );
     if ( mcinfo_cmdlog__obj != NULL )
