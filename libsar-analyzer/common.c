@@ -1417,6 +1417,8 @@ int create_sar_analyzer_obj ( )
     init_list ( &header_obj );
     init_list ( &report_obj );
     init_list ( &report_cpu_obj );
+
+    int v = 0;
     for ( v = 0; v < MAX_CORE_NUMBERS; v++ )
     {
         init_list ( &report_cpu_spike_obj [ v ] );
