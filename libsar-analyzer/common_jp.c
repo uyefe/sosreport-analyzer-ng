@@ -1417,7 +1417,7 @@ int create_sar_analyzer_obj ( )
     init_list ( &header_obj );
     init_list ( &report_obj );
     init_list ( &report_cpu_obj );
-    for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_CORE_NUMBERS; v++ )
     {
         init_list ( &report_cpu_spike_obj [ v ] );
         init_list ( &report_cpu_time_span_spike_obj [ v ] );
@@ -1456,30 +1456,30 @@ int create_sar_analyzer_obj ( )
     init_list ( &report_ldavg_time_span_spike_obj );
     init_list ( &report_ldavg_explanation_obj );
     init_list ( &report_block_device_obj );
-    for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
     {
         init_list ( &report_block_device_spike_obj [ v ] );
         init_list ( &report_block_device_time_span_spike_obj [ v ] );
     }
     init_list ( &report_block_device_explanation_obj );
     init_list ( &report_network_obj );
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
     {
         init_list ( &report_network_spike_obj [ v ] );
         init_list ( &report_network_time_span_spike_obj [ v ] );
     }
     init_list ( &report_network_explanation_obj );
     init_list ( &report_network_error_obj );
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
     {
         init_list ( &report_network_error_spike_obj [ v ] );
         init_list ( &report_network_error_time_span_spike_obj [ v ] );
     }
     init_list ( &report_network_error_explanation_obj );
     init_list ( &report_thrashing_obj );
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
         init_list ( &report_network_down_obj [ v ] );
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for each file */
         init_list ( &ps_common_cpu_obj [ v ] );
@@ -1533,13 +1533,15 @@ int create_sar_analyzer_obj ( )
 
 int free_sar_analyzer_obj ( )
 {
+    int v = 0;
+
     /* clear list */
     clear_list ( &line_obj );
     clear_list ( &line_all_obj );
     clear_list ( &header_obj );
     clear_list ( &report_obj );
     clear_list ( &report_cpu_obj );
-    for ( int v = 0; v < MAX_CORE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_CORE_NUMBERS; v++ )
     {
         clear_list ( &report_cpu_spike_obj [ v ] );
         clear_list ( &report_cpu_time_span_spike_obj [ v ] );
@@ -1578,30 +1580,30 @@ int free_sar_analyzer_obj ( )
     clear_list ( &report_ldavg_time_span_spike_obj );
     clear_list ( &report_ldavg_explanation_obj );
     clear_list ( &report_block_device_obj );
-    for ( int v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_BLOCK_DEVICE_NUMBERS; v++ )
     {
         clear_list ( &report_block_device_spike_obj [ v ] );
         clear_list ( &report_block_device_time_span_spike_obj [ v ] );
     }
     clear_list ( &report_block_device_explanation_obj );
     clear_list ( &report_network_obj );
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
     {
         clear_list ( &report_network_spike_obj [ v ] );
         clear_list ( &report_network_time_span_spike_obj [ v ] );
     }
     clear_list ( &report_network_explanation_obj );
     clear_list ( &report_network_error_obj );
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
     {
         clear_list ( &report_network_error_spike_obj [ v ] );
         clear_list ( &report_network_error_time_span_spike_obj [ v ] );
     }
     clear_list ( &report_network_error_explanation_obj );
     clear_list ( &report_thrashing_obj );
-    for ( int v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
+    for ( v = 0; v < MAX_NETWORK_DEVICE_NUMBERS; v++ )
         clear_list ( &report_network_down_obj [ v ] );
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for each file */
         clear_list ( &ps_common_cpu_obj [ v ] );
