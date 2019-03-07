@@ -1714,6 +1714,7 @@ void read_file_pre ( const char *member, const char *dir_name )
 
     char str_tmp3 [ MAX_LINE_LENGTH ]; 
     memset ( str_tmp3, '\0', MAX_LINE_LENGTH ); 
+    int i = 0;
 
     if (
         ( ( strcmp ( member, "boot/grub/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_.member, "" ) != 0 ) ) ||
@@ -1802,112 +1803,112 @@ void read_file_pre ( const char *member, const char *dir_name )
         if ( strcmp ( member, "boot/grub/" ) == 0 )
         {
             i_boot_grub = bubble_sort_object_by_the_string ( &tmp_1_obj, str_arr_boot_grub );
-            for ( int i = 0; i < i_boot_grub; i++ )
+            for ( i = 0; i < i_boot_grub; i++ )
                 append_list ( &mcinfo_boot_grub__obj, str_arr_boot_grub [ i ] );
             read_file_from_analyze_dir ( &mcinfo_boot_grub__obj, "boot/grub/" );
         }
         if ( strcmp ( member, "cmdlog/" ) == 0 )
         {
             i_cmdlog = bubble_sort_object_by_the_string ( &tmp_2_obj, str_arr_cmdlog );
-            for ( int i = 0; i < i_cmdlog; i++ )
+            for ( i = 0; i < i_cmdlog; i++ )
                 append_list ( &mcinfo_cmdlog__obj, str_arr_cmdlog [ i ] );
             read_file_from_analyze_dir ( &mcinfo_cmdlog__obj, "cmdlog/" );
         }
         if ( strcmp ( member, "etc/pki/" ) == 0 )
         {
             i_pki = bubble_sort_object_by_the_string ( &tmp_3_obj, str_arr_pki );
-            for ( int i = 0; i < i_pki; i++ )
+            for ( i = 0; i < i_pki; i++ )
                 append_list ( &etc_pki__obj, str_arr_pki [ i ] );
             read_file_from_analyze_dir ( &etc_pki__obj, "etc/pki/" );
         }
         if ( strcmp ( member, "etc/cron.d/" ) == 0 )
         {
             i_cron = bubble_sort_object_by_the_string ( &tmp_4_obj, str_arr_cron );
-            for ( int i = 0; i < i_cron; i++ )
+            for ( i = 0; i < i_cron; i++ )
                 append_list ( &etc_cron_d__obj, str_arr_cron [ i ] );
             read_file_from_analyze_dir ( &etc_cron_d__obj, "etc/cron.d/" );
         }
         if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         {
             i_ifcfg = bubble_sort_object_by_the_string ( &tmp_5_obj, str_arr_ifcfg );
-            for ( int i = 0; i < i_ifcfg; i++ )
+            for ( i = 0; i < i_ifcfg; i++ )
                 append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, str_arr_ifcfg [ i ] );
             read_file_from_analyze_dir ( &etc_sysconfig_network_scripts_ifcfg__obj, "etc/sysconfig/network-scripts/ifcfg-" );
         }
         if ( strcmp ( member, "var/log/messages" ) == 0 )
         {
             i_var_log_messages = bubble_sort_object_by_the_string ( &tmp_6_obj, str_arr_var_log_messages );
-            for ( int i = 0; i < i_var_log_messages; i++ )
+            for ( i = 0; i < i_var_log_messages; i++ )
                 append_list ( &var_log_messages_obj, str_arr_var_log_messages [ i ] );
             read_file_from_analyze_dir ( &var_log_messages_obj, "var/log/messages" );
         }
         if ( strcmp ( member, "var/log/secure" ) == 0 )
         {
             i_var_log_secure = bubble_sort_object_by_the_string ( &tmp_7_obj, str_arr_var_log_secure );
-            for ( int i = 0; i < i_var_log_secure; i++ )
+            for ( i = 0; i < i_var_log_secure; i++ )
                 append_list ( &var_log_secure_obj, str_arr_var_log_secure [ i ] );
             read_file_from_analyze_dir ( &var_log_secure_obj, "var/log/secure" );
         }
         if ( strcmp ( member, "var/log/audit/" ) == 0 )
         {
             i_var_log_audit = bubble_sort_object_by_the_string ( &tmp_8_obj, str_arr_var_log_audit );
-            for ( int i = 0; i < i_var_log_audit; i++ )
+            for ( i = 0; i < i_var_log_audit; i++ )
                 append_list ( &var_log_audit__obj, str_arr_var_log_audit [ i ] );
             read_file_from_analyze_dir ( &var_log_audit__obj, "var/log/audit/" );
         }
         if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
         {
             i_logs_journalctl = bubble_sort_object_by_the_string ( &tmp_9_obj, str_arr_logs_journalctl );
-            for ( int i = 0; i < i_logs_journalctl; i++ )
+            for ( i = 0; i < i_logs_journalctl; i++ )
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, str_arr_logs_journalctl [ i ] );
             read_file_from_analyze_dir ( &sos_commands_logs_journalctl___no_pager_obj, "sos_commands/logs/journalctl_--no-pager" );
         }
         if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
         {
             i_ethtool_S = bubble_sort_object_by_the_string ( &tmp_10_obj, str_arr_ethtool_S );
-            for ( int i = 0; i < i_ethtool_S; i++ )
+            for ( i = 0; i < i_ethtool_S; i++ )
                 append_list ( &sos_commands_networking_ethtool__S_obj, str_arr_ethtool_S [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__S_obj, "sos_commands/networking/ethtool_-S" );
         }
         if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
         {
             i_ethtool_i = bubble_sort_object_by_the_string ( &tmp_11_obj, str_arr_ethtool_i );
-            for ( int i = 0; i < i_ethtool_i; i++ )
+            for ( i = 0; i < i_ethtool_i; i++ )
                 append_list ( &sos_commands_networking_ethtool__i_obj, str_arr_ethtool_i [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__i_obj, "sos_commands/networking/ethtool_-i" );
         }
         if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
         {
             i_boot = bubble_sort_object_by_the_string ( &tmp_12_obj, str_arr_boot );
-            for ( int i = 0; i < i_boot; i++ )
+            for ( i = 0; i < i_boot; i++ )
                 append_list ( &sos_commands_boot__obj, str_arr_boot [ i ] );
             read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
         }
         if ( strcmp ( member, "etc/httpd/" ) == 0 )
         {
             i_httpd = bubble_sort_object_by_the_string ( &tmp_13_obj, str_arr_etc_httpd );
-            for ( int i = 0; i < i_httpd; i++ )
+            for ( i = 0; i < i_httpd; i++ )
                 append_list ( &etc_httpd__obj, str_arr_etc_httpd [ i ] );
             read_file_from_analyze_dir ( &etc_httpd__obj, "etc/httpd/" );
         }
         if ( strcmp ( member, "proc/" ) == 0 )
         {
             i_proc = bubble_sort_object_by_the_string ( &tmp_14_obj, str_arr_proc );
-            for ( int i = 0; i < i_proc; i++ )
+            for ( i = 0; i < i_proc; i++ )
                 append_list ( &proc__obj, str_arr_proc [ i ] );
             read_file_from_analyze_dir ( &proc__obj, "proc/" );
         }
         if ( strcmp ( member, "var/crash/" ) == 0 )
         {
             i_var_crash = bubble_sort_object_by_the_string ( &tmp_15_obj, str_arr_var_crash );
-            for ( int i = 0; i < i_var_crash; i++ )
+            for ( i = 0; i < i_var_crash; i++ )
                 append_list ( &var_crash__obj, str_arr_var_crash [ i ] );
             read_file_from_analyze_dir ( &var_crash__obj, "var/crash/" );
         }
         if ( strcmp ( member, "etc/default/" ) == 0 )
         {
             i_etc_default = bubble_sort_object_by_the_string ( &tmp_16_obj, str_arr_etc_default );
-            for ( int i = 0; i < i_etc_default; i++ )
+            for ( i = 0; i < i_etc_default; i++ )
                 append_list ( &etc_default__obj, str_arr_etc_default [ i ] );
             read_file_from_analyze_dir ( &etc_default__obj, "etc/default/" );
         }
@@ -1919,7 +1920,8 @@ int check_time_span_str ( const char *time_span_str )
     char str_tmp [ 12 ];
     memset ( str_tmp, '\0', sizeof ( str_tmp ) ); 
     strncpy ( str_tmp, time_span_str, 11 );
-    for ( int i = 0; i < 11; i++ )
+    int i = 0;
+    for ( i = 0; i < 11; i++ )
     {
         if ( ( i == 0 ) || ( i == 6 ) )
             if ( ( str_tmp [ i ] != '0' ) && ( str_tmp [ i ] != '1' ) && ( str_tmp [ i ] != '2' ) )

@@ -172,11 +172,13 @@ void read_sa_dir ( const char *dname, int SAR_OPTION, int REPORT, int MESSAGE_ON
 void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files_n, int SAR_OPTION, int REPORT, int MESSAGE_ONLY, const char *time_span )
 {
     int dname_len = ( int ) strlen ( dname );
+    int i = 0;
+
     if ( dname_len <= 0 )
     {
         printf("no dir name supplied (%s): %d %s\n",dname,dname_len,strerror(errno));
         /* freeing object and setting it to NULL */
-        for ( int i = 0; i < files_n; i++ )
+        for ( i = 0; i < files_n; i++ )
             sar_arr[i]=NULL;
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );
@@ -185,14 +187,12 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
     {
         printf("directory name too long (%s): %d %s\n",dname,dname_len,strerror(errno));
         /* freeing object and setting it to NULL */
-        for ( int i = 0; i < files_n; i++ )
+        for ( i = 0; i < files_n; i++ )
             sar_arr[i]=NULL;
         free_sar_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
     /* stripping last slash if any */
-
-    int i = 0;
     /* new array: MAX_ANALYZE_FILES tupples with MAX_DIR_NAME_LENGTH characters */
 
     char sar_full_path_arr [ MAX_ANALYZE_FILES ] [ MAX_DIR_NAME_LENGTH ] = { { 0 } };
@@ -252,7 +252,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
         if ( ( fp_ps_w [ i ] = fopen ( "dummy.ps", "a" ) ) == NULL )
         {
             printf("can't open file (%s): %s\n","dummy.ps",strerror(errno));
-            for ( int i = 0; i < files_n; i++ )
+            for ( i = 0; i < files_n; i++ )
                 sar_arr[i]=NULL;
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
@@ -273,7 +273,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
         if ( ( fp_ps2_w [ i ] = fopen ( "dummy2.ps", "a" ) ) == NULL )
         {
             printf("can't open file (%s): %s\n","dummy2.ps",strerror(errno));
-            for ( int i = 0; i < files_n; i++ )
+            for ( i = 0; i < files_n; i++ )
                 sar_arr[i]=NULL;
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
@@ -294,7 +294,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
         if ( ( fp_ps3_w [ i ] = fopen ( "dummy3.ps", "a" ) ) == NULL )
         {
             printf("can't open file (%s): %s\n","dummy3.ps",strerror(errno));
-            for ( int i = 0; i < files_n; i++ )
+            for ( i = 0; i < files_n; i++ )
                 sar_arr[i]=NULL;
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
@@ -315,7 +315,7 @@ void read_write_file ( DIR *dir, const char *dname, char *sar_arr [ ], int files
         if ( ( fp_ps4_w [ i ] = fopen ( "dummy4.ps", "a" ) ) == NULL )
         {
             printf("can't open file (%s): %s\n","dummy4.ps",strerror(errno));
-            for ( int i = 0; i < files_n; i++ )
+            for ( i = 0; i < files_n; i++ )
                 sar_arr[i]=NULL;
             free_sar_analyzer_obj ( );
             exit ( EXIT_FAILURE );
@@ -1001,6 +1001,7 @@ void sar_analyzer_init ( const char *dname, const char *fname, int SAR_OPTION, i
 int create_sar_analyzer_obj ( )
 {
     int i = 0;
+    int x = 0;
 
     /* initialize some of the items here */
 
@@ -1080,7 +1081,7 @@ int create_sar_analyzer_obj ( )
     /*  initialize spike and former each file */
 
     /* up to MAX_NETWORK_DEVICE_NUMBERS */
-    for ( int x = 0; i < MAX_ANALYZE_FILES ; x++ )
+    for ( x = 0; i < MAX_ANALYZE_FILES ; x++ )
     {
         for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
         {
