@@ -170,7 +170,6 @@ AC_ARG_WITH(sar-analyzerd-lib-file,
 AC_DEFINE_UNQUOTED(SAR_ANALYZER_LIB_PATH, "$SAR_ANALYZER_LIB_PATH", [Path to sar-analyzer lib file.])
 AC_SUBST(SAR_ANALYZER_LIB_PATH)
 
-AC_PROG_CC
 AC_CONFIG_FILES([
   Makefile
   libsosreport-analyzer/Makefile

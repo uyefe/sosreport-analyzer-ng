@@ -1,6 +1,6 @@
 diff -ruNp a/common.c b/common.c
---- a/common.c	2019-03-03 10:36:51.462950304 +0900
-+++ b/common.c	2019-03-03 10:31:21.070062699 +0900
+--- a/common.c	2019-03-07 22:14:39.691600948 +0900
++++ b/common.c	2019-03-07 22:10:06.776523775 +0900
 @@ -396,7 +396,7 @@ void read_sar_cpu_as_paragraph ( const c
          for ( i--; ( i > 0 ) && isspace ( line [ i -1 ] ) ; i-- )
              line [ i -1 ] = '\0';
@@ -122,8 +122,8 @@ diff -ruNp a/common.c b/common.c
          squeezd_avg_checked_int = 1;
          squeezd_avg_checked = "Checked";
 diff -ruNp a/sar_analyzer.c b/sar_analyzer.c
---- a/sar_analyzer.c	2019-03-03 10:56:17.745374888 +0900
-+++ b/sar_analyzer.c	2019-03-03 10:31:40.202708735 +0900
+--- a/sar_analyzer.c	2019-03-07 22:40:04.277761265 +0900
++++ b/sar_analyzer.c	2019-03-07 22:10:33.796036399 +0900
 @@ -204,7 +204,7 @@ int set_token_column ( int file_number,
          /* if AM or PM will appear, column number should be decremented, unless, segfault in set_column_item() */
          if ( SAR_OPTION != 'Z' )

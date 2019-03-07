@@ -107,6 +107,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_13_obj );
     init_list ( &tmp_14_obj );
     init_list ( &tmp_15_obj );
+    init_list ( &tmp_16_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -123,6 +124,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_httpd__obj );
     init_list ( &proc__obj );
     init_list ( &var_crash__obj );
+    init_list ( &etc_default__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -146,6 +148,9 @@ int main ( int argc, char *argv [ ] )
     int value = 0;
     int mcinfo = 0;
     int sar_only = 0;
+    int i = 0;
+    int v = 0;
+    int x = 0;
     int time_span_str_len = 0;
     const char *dir_name = NULL;
     const char *time_span = NULL;
@@ -197,7 +202,7 @@ int main ( int argc, char *argv [ ] )
                 }else{
                     strcpy ( sos_dir_file_obj->dir_file_names.dirname, dir_name );
                     strcpy ( str_tmp2, reverse_the_string ( ( char * ) dir_name, dir_len ) );
-                    for ( int i = 0; i < dir_len; i++ )
+                    for ( i = 0; i < dir_len; i++ )
                     {
                     if ( i > 0 )
                         str_tmp2[i] = '\0';
@@ -300,6 +305,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "ps", dir_name );
             read_file_pre ( "lsof", dir_name );
             read_file_pre ( "netstat", dir_name );
+            read_file_pre ( "etc/default/", dir_name );
             read_file_pre ( "etc/kdump.conf", dir_name );
             read_file_pre ( "etc/sysctl.conf", dir_name );
             read_file_pre ( "etc/rsyslog.conf", dir_name );
@@ -338,6 +344,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
             append_list ( &etc_httpd__obj, hairline );
             append_list ( &proc__obj, hairline );
+            append_list ( &etc_default__obj, hairline );
         }
     }
 
@@ -380,6 +387,7 @@ int main ( int argc, char *argv [ ] )
         {
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &etc_default__obj, fp_w );
             file_write_list ( &sos_commands_boot__obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
@@ -465,7 +473,7 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &line_all_obj, fp_sar_w );
     file_write_list ( &header_obj, fp_sar_w );
     file_write_list ( &report_cpu_obj, fp_sar_w );
-    for ( int v = 0; v <= get_core_numbers ( ); v++ )
+    for ( v = 0; v <= get_core_numbers ( ); v++ )
     {
         file_write_list ( &report_cpu_spike_obj [ v ], fp_sar_w );
         file_write_list ( &report_cpu_time_span_spike_obj [ v ], fp_sar_w );
@@ -504,28 +512,28 @@ int main ( int argc, char *argv [ ] )
     file_write_list ( &report_ldavg_time_span_spike_obj, fp_sar_w );
     file_write_list ( &report_ldavg_explanation_obj, fp_sar_w );
     file_write_list ( &report_block_device_obj, fp_sar_w );
-    for ( int v = 0; v <= get_block_device_numbers ( ); v++ )
+    for ( v = 0; v <= get_block_device_numbers ( ); v++ )
     {
         file_write_list ( &report_block_device_spike_obj [ v ], fp_sar_w );
         file_write_list ( &report_block_device_time_span_spike_obj [ v ], fp_sar_w );
     }
     file_write_list ( &report_block_device_explanation_obj, fp_sar_w );
     file_write_list ( &report_network_obj, fp_sar_w );
-    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+    for ( v = 0; v <= get_network_device_numbers ( ); v++ )
     {
         file_write_list ( &report_network_spike_obj [ v ], fp_sar_w );
         file_write_list ( &report_network_time_span_spike_obj [ v ], fp_sar_w );
     }
     file_write_list ( &report_network_explanation_obj, fp_sar_w );
     file_write_list ( &report_network_error_obj, fp_sar_w );
-    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+    for ( v = 0; v <= get_network_device_numbers ( ); v++ )
     {
         file_write_list ( &report_network_error_spike_obj [ v ], fp_sar_w );
         file_write_list ( &report_network_error_time_span_spike_obj [ v ], fp_sar_w );
     }
     file_write_list ( &report_network_error_explanation_obj, fp_sar_w );
     file_write_list ( &report_thrashing_obj, fp_sar_w );
-    for ( int v = 0; v <= get_network_device_numbers ( ); v++ )
+    for ( v = 0; v <= get_network_device_numbers ( ); v++ )
         file_write_list ( &report_network_down_obj [ v ], fp_sar_w );
     file_write_list ( &report_obj, fp_sar_w );
 
@@ -553,7 +561,7 @@ int main ( int argc, char *argv [ ] )
     /* close the file pointer */
     fclose ( fp_sar_w );
 
-    for ( int v = 0, x = 1; v < MAX_ANALYZE_FILES; v++, x++ )
+    for ( v = 0, x = 1; v < MAX_ANALYZE_FILES; v++, x++ )
     {
         char str_tmp [ MAX_LINE_LENGTH ] = { '\0' };
         memset ( str_tmp, '\0', sizeof ( str_tmp ) );
@@ -583,7 +591,7 @@ int main ( int argc, char *argv [ ] )
         }
     }
     /* appending needed lines to ps obj -- this is needed we don't know the last line of each graph when drawing */
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for file cpu */
         append_list ( &ps_cpu_usr_obj [ v ], "stroke");
@@ -621,7 +629,7 @@ int main ( int argc, char *argv [ ] )
         append_list ( &ps_restart_obj [ v ], "%");
     }
     /* appending needed lines to ps obj -- adding % to the very last of each ps file */
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for file cpu */
         append_list ( &ps_paging_vmeff_obj [ v ], "%");
@@ -633,7 +641,7 @@ int main ( int argc, char *argv [ ] )
         append_list ( &ps_kernel_table_inode_obj [ v ], "%");
     }
     /* appending needed lines to ps obj -- adding % to the very last of each box */
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for file cpu */
         append_list ( &ps_cpu_label_obj [ v ], "stroke");
@@ -657,7 +665,7 @@ int main ( int argc, char *argv [ ] )
         append_list ( &ps_kernel_table_label_obj [ v ], "%");
     }
     /* now we write obj to postscript (.ps) file */
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     {
         /* for file cpu */
         file_write_list ( &ps_common_cpu_obj [ v ], fp_ps_w [ v ] );
@@ -713,7 +721,7 @@ int main ( int argc, char *argv [ ] )
     snprintf ( str_tmp_echo, MAX_LINE_LENGTH, "%s%s", file_ps_write, "-<item>-<no>.ps" );
     printf("Please check graphs in the ps file: %s\n\n",str_tmp_echo);
     /* close the file pointers */
-    for ( int v = 0; v < MAX_ANALYZE_FILES; v++ )
+    for ( v = 0; v < MAX_ANALYZE_FILES; v++ )
     { 
         fclose ( fp_ps_w [ v ] );
         fclose ( fp_ps2_w [ v ] );
