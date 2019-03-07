@@ -96,9 +96,11 @@ int append_list ( node **obj, char *line )
 
 int bubble_sort_object_by_the_string ( node **obj, char *str_arr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] ) 
 {
+    
     node *ptr_tmp = *obj;
     char str_cmp_line  [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] [ MAX_LINE_LENGTH ];
-    for ( int i = 0; i < MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR; i++ )
+    int i = 0;
+    for ( i = 0; i < MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR; i++ )
         memset ( str_cmp_line [ i ], '\0', sizeof ( str_cmp_line [ i ] ) ); 
     char *str_tmp;
     int obj_size = 0, j = 0, ii = 0;
@@ -114,7 +116,7 @@ int bubble_sort_object_by_the_string ( node **obj, char *str_arr [ MAX_ANALYZE_F
     for ( j= 0; j < obj_size; j++ )
     {
         /* This makes largest item to the end of an array. */
-        for ( int i = 0; i < obj_size - ( 1 + j ); i++ )
+        for ( i = 0; i < obj_size - ( 1 + j ); i++ )
         {
             ii = i + 1;
             if ( strcmp ( str_arr [ i ], str_arr [ ii ] ) > 0 )
