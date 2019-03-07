@@ -1,3 +1,5 @@
+1.0.63
+Add member 'etc/default/' with others.
 1.0.62
 Fix memory management on dir read objects.
 1.0.61
