@@ -143,6 +143,13 @@ lsof=bash
 
 netstat=TIME_WAIT 
 
+## etc/default/
+##
+## All you can set is 'all'
+
+etc/default/=all 
+
+## etc/sysctl.conf 
 ## etc/kdump.conf 
 ##
 ## All you can set is 'all'

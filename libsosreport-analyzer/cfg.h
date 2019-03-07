@@ -87,6 +87,8 @@ struct sosreport_analyzer_config
     config_each lsof;
     /* should be all */
     config_each netstat;
+    /* should be all */
+    config_each etc_default_;
     /* allows word delimited by space */
     config_each etc_kdump_conf;
     /* allows word delimited by space */

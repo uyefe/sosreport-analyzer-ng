@@ -163,6 +163,13 @@ struct line_data var_crash__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_default__obj */
+struct line_data etc_default__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -268,6 +275,13 @@ struct line_data tmp_15_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_16_obj */
+struct line_data tmp_16_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -288,6 +302,7 @@ struct line_data *tmp_12_obj = &tmp_12_obj_raw;
 struct line_data *tmp_13_obj = &tmp_13_obj_raw;
 struct line_data *tmp_14_obj = &tmp_14_obj_raw;
 struct line_data *tmp_15_obj = &tmp_15_obj_raw;
+struct line_data *tmp_16_obj = &tmp_16_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
@@ -303,6 +318,7 @@ struct line_data *sos_commands_boot__obj = &sos_commands_boot__obj_raw;
 struct line_data *etc_httpd__obj = &etc_httpd__obj_raw;
 struct line_data *proc__obj = &proc__obj_raw;
 struct line_data *var_crash__obj = &var_crash__obj_raw;
+struct line_data *etc_default__obj = &etc_default__obj_raw;
 
 int i_boot_grub = 0;
 int i_cmdlog = 0;
@@ -319,6 +335,7 @@ int i_boot = 0;
 int i_httpd = 0;
 int i_proc = 0;
 int i_var_crash = 0;
+int i_etc_default = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -334,6 +351,7 @@ char *str_arr_boot [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_httpd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_proc [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_crash [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_default [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -439,6 +457,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         tmp_14_obj = NULL;
     else if ( ( strstr ( full_path, "var/crash/") != 0 ) && ( recursive == 0 ) )
         tmp_15_obj = NULL;
+    else if ( strstr ( full_path, "etc/default/") != 0 )
+        tmp_16_obj = NULL;
 
     /* read from directory and set in an array */
     if ( var_crash_exists == 1 )
@@ -460,7 +480,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( ( strcmp ( member, "etc/pki/" ) == 0 ) || 
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
                 ( strcmp ( member, "var/crash/" ) == 0 ) ||
-                ( strcmp ( member, "proc/" ) == 0 ) )
+                ( strcmp ( member, "proc/" ) == 0 ) ) 
                 &&
                 ( recursive == 0 )
                 )
@@ -519,6 +539,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_14_obj, read_path );
                 else if ( strstr ( read_path, "var/crash/") != 0 )
                     append_list ( &tmp_15_obj, read_path );
+                else if ( strstr ( read_path, "etc/default/") != 0 )
+                    append_list ( &tmp_16_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -609,6 +631,7 @@ const char *items_sos_commands_boot_ [ 12 ];
 const char *items_etc_httpd_;
 const char *items_proc_;
 const char *items_var_crash_;
+const char *items_etc_default_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -672,6 +695,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_proc__curr [ MAX_LINE_LENGTH ];
     memset ( filename_proc_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_proc__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_default_ [ MAX_LINE_LENGTH ];
+    char filename_etc_default__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_default_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_default__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline = "<<<<";
@@ -737,8 +764,7 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_mcinfo_boot_grub_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             append_item_to_sos_line_obj ( line, "boot/grub/", items_mcinfo_boot_grub_ );
         }
@@ -753,8 +779,7 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_mcinfo_cmdlog_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             append_item_to_sos_line_obj ( line, "cmdlog/", items_mcinfo_cmdlog_ );
         }
@@ -850,8 +875,7 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_etc_pki_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             if ( items_etc_pki_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/pki/", items_etc_pki_ );
@@ -867,8 +891,7 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_etc_cron_d_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             if ( items_etc_cron_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
@@ -980,8 +1003,7 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_etc_httpd_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             if ( items_etc_httpd_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/httpd/", items_etc_httpd_ );
@@ -997,8 +1019,7 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_proc_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             if ( items_proc_ != NULL )
                 append_item_to_sos_line_obj ( line, "proc/", items_proc_ );
@@ -1014,11 +1035,26 @@ int read_file ( const char *file_name, const char *member, int files )
             }
             snprintf (filename_var_crash_, MAX_LINE_LENGTH, "%s", file_name );
             /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' when echoing every file in member
-             * directory, so...
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
              */
             if ( items_var_crash_ != NULL )
                 append_item_to_sos_line_obj ( line, "var/crash/", items_var_crash_ );
+        }
+        else if ( ( strstr ( file_name, "etc/default/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_etc_default__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_default_, filename_etc_default__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, hairline );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline );
+            }
+            snprintf (filename_etc_default_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
+             */
+            if ( items_etc_default_ != NULL )
+                append_item_to_sos_line_obj ( line, "etc/default/", items_etc_default_ );
         }
         else
             break;
@@ -1059,6 +1095,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->etc_httpd_.item_num = 0;
     sosreport_analyzer_cfg->proc_.item_num = 0;
     sosreport_analyzer_cfg->var_crash_.item_num = 0;
+    sosreport_analyzer_cfg->etc_default_.item_num = 0;
 
     int i = 0;
 
@@ -1655,6 +1692,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->var_crash_.member, s );
         items_var_crash_ = token;
     }
+    /* member etc/default/ */
+    else if ( ( strstr ( file_name, "etc/default/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_default_.member, s );
+        items_etc_default_ = token;
+    }
 }
 
 void read_file_pre ( const char *member, const char *dir_name )
@@ -1717,7 +1761,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/httpd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "var/crash/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_crash_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "var/crash/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_crash_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/default/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -1747,7 +1792,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
             ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
             ( strcmp ( member, "proc/" ) == 0 ) ||
-            ( strcmp ( member, "var/crash/" ) == 0 )
+            ( strcmp ( member, "var/crash/" ) == 0 ) ||
+            ( strcmp ( member, "etc/default/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
@@ -1857,6 +1903,13 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( int i = 0; i < i_var_crash; i++ )
                 append_list ( &var_crash__obj, str_arr_var_crash [ i ] );
             read_file_from_analyze_dir ( &var_crash__obj, "var/crash/" );
+        }
+        if ( strcmp ( member, "etc/default/" ) == 0 )
+        {
+            i_etc_default = bubble_sort_object_by_the_string ( &tmp_16_obj, str_arr_etc_default );
+            for ( int i = 0; i < i_etc_default; i++ )
+                append_list ( &etc_default__obj, str_arr_etc_default [ i ] );
+            read_file_from_analyze_dir ( &etc_default__obj, "etc/default/" );
         }
     }
 }
@@ -2260,7 +2313,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
         ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
         ( strcmp ( member, "proc/" ) == 0 ) ||
-        ( strcmp ( member, "var/crash/" ) == 0 )
+        ( strcmp ( member, "var/crash/" ) == 0 ) ||
+        ( strcmp ( member, "etc/default/" ) == 0 )
     )
     {
         if ( strstr ( line , item ) != NULL )
@@ -2311,6 +2365,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_14_obj ); 
     if ( tmp_15_obj != NULL ) 
         clear_list ( &tmp_15_obj ); 
+    if ( tmp_16_obj != NULL ) 
+        clear_list ( &tmp_16_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2342,4 +2398,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &proc__obj ); 
     if ( var_crash__obj != NULL ) 
         clear_list ( &var_crash__obj ); 
+    if ( etc_default__obj != NULL ) 
+        clear_list ( &etc_default__obj ); 
 }

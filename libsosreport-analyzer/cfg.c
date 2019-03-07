@@ -156,6 +156,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->lsof.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "netstat" ) == 0 )
                 strncpy ( cfg->netstat.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/default/" ) == 0 )
+                strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/kdump.conf" ) == 0 )
                 strncpy ( cfg->etc_kdump_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
@@ -328,6 +330,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "ps", cfg, mcinfo );
         append_sos_header_obj ( "lsof", cfg, mcinfo );
         append_sos_header_obj ( "netstat", cfg, mcinfo );
+        append_sos_header_obj ( "etc/default/", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/rsyslog.conf", cfg, mcinfo );
@@ -435,6 +438,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->lsof.member );
         else if ( strcmp ( member, "netstat" ) == 0 )
             strcat ( str_tmp, cfg->netstat.member );
+        else if ( strcmp ( member, "etc/default/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_default_.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_kdump_conf.member );
         else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
