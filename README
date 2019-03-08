@@ -63,6 +63,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo proc/net/dev file.
   Echo proc/net/sockstat file.
   Echo etc/logrotate.conf file.
+  Echo files in etc/logrotate.d/.
   Echo files under etc/pki/.
   Echo files in etc/cron.d/.
   Echo var/log/dmesg file.
