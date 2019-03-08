@@ -108,6 +108,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_14_obj );
     init_list ( &tmp_15_obj );
     init_list ( &tmp_16_obj );
+    init_list ( &tmp_17_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -125,6 +126,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &proc__obj );
     init_list ( &var_crash__obj );
     init_list ( &etc_default__obj );
+    init_list ( &etc_logrotate_d__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -316,6 +318,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/net/dev", dir_name );
             read_file_pre ( "proc/net/sockstat", dir_name );
             read_file_pre ( "etc/logrotate.conf", dir_name );
+            read_file_pre ( "etc/logrotate.d/", dir_name );
             read_file_pre ( "etc/pki/", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
@@ -345,6 +348,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &etc_httpd__obj, hairline );
             append_list ( &proc__obj, hairline );
             append_list ( &etc_default__obj, hairline );
+            append_list ( &etc_logrotate_d__obj, hairline );
         }
     }
 
@@ -388,6 +392,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
             file_write_list ( &etc_default__obj, fp_w );
+            file_write_list ( &etc_logrotate_d__obj, fp_w );
             file_write_list ( &sos_commands_boot__obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
