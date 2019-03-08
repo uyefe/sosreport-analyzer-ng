@@ -149,7 +149,6 @@ netstat=TIME_WAIT
 
 etc/default/=all 
 
-## etc/sysctl.conf 
 ## etc/kdump.conf 
 ##
 ## All you can set is 'all'
@@ -211,6 +210,12 @@ proc/interrupts=all
 ## All you can set is 'all'
 
 etc/logrotate.conf=all
+
+## etc/logrotate.d/
+##
+## All you can set is 'all'
+
+etc/logrotate.d/=all
 
 ## etc/pki/
 ##
