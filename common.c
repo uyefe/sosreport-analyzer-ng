@@ -177,13 +177,6 @@ struct line_data etc_logrotate_d__obj_raw =
         NULL /* next pointer */
     };
 
-/* etc_modprobe_d__obj */
-struct line_data etc_modprobe_d__obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -303,13 +296,6 @@ struct line_data tmp_17_obj_raw =
         NULL /* next pointer */
     };
 
-/* tmp_18_obj */
-struct line_data tmp_18_obj_raw =
-    {
-        "\0", /* each line */
-        NULL /* next pointer */
-    };
-
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -332,7 +318,6 @@ struct line_data *tmp_14_obj = &tmp_14_obj_raw;
 struct line_data *tmp_15_obj = &tmp_15_obj_raw;
 struct line_data *tmp_16_obj = &tmp_16_obj_raw;
 struct line_data *tmp_17_obj = &tmp_17_obj_raw;
-struct line_data *tmp_18_obj = &tmp_18_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
@@ -350,7 +335,6 @@ struct line_data *proc__obj = &proc__obj_raw;
 struct line_data *var_crash__obj = &var_crash__obj_raw;
 struct line_data *etc_default__obj = &etc_default__obj_raw;
 struct line_data *etc_logrotate_d__obj = &etc_logrotate_d__obj_raw;
-struct line_data *etc_modprobe_d__obj = &etc_modprobe_d__obj_raw;
 
 int i_boot_grub = 0;
 int i_cmdlog = 0;
@@ -369,7 +353,6 @@ int i_proc = 0;
 int i_var_crash = 0;
 int i_etc_default = 0;
 int i_etc_logrotate_d = 0;
-int i_etc_modprobe_d = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -387,7 +370,6 @@ char *str_arr_proc [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_crash [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_default [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_logrotate_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
-char *str_arr_etc_modprobe_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -497,8 +479,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         tmp_16_obj = NULL;
     else if ( strstr ( full_path, "etc/logrotate.d/") != 0 )
         tmp_17_obj = NULL;
-    else if ( strstr ( full_path, "etc/modprobe.d/") != 0 )
-        tmp_18_obj = NULL;
 
     /* read from directory and set in an array */
     if ( var_crash_exists == 1 )
@@ -583,8 +563,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_16_obj, read_path );
                 else if ( strstr ( read_path, "etc/logrotate.d/") != 0 )
                     append_list ( &tmp_17_obj, read_path );
-                else if ( strstr ( read_path, "etc/modprobe.d/") != 0 )
-                    append_list ( &tmp_18_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -677,7 +655,6 @@ const char *items_proc_;
 const char *items_var_crash_;
 const char *items_etc_default_;
 const char *items_etc_logrotate_d_;
-const char *items_etc_modprobe_d_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -749,10 +726,6 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_etc_logrotate_d__curr [ MAX_LINE_LENGTH ];
     memset ( filename_etc_logrotate_d_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_etc_logrotate_d__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_modprobe_d_ [ MAX_LINE_LENGTH ];
-    char filename_etc_modprobe_d__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_modprobe_d_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_modprobe_d__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
@@ -816,6 +789,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_mcinfo_boot_grub_, MAX_LINE_LENGTH, "%s", file_name );
@@ -832,6 +806,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_mcinfo_cmdlog_, MAX_LINE_LENGTH, "%s", file_name );
@@ -906,6 +881,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_etc_sysconfig_network_scripts_ifcfg_, MAX_LINE_LENGTH, "%s", file_name );
@@ -930,6 +906,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_etc_pki_, MAX_LINE_LENGTH, "%s", file_name );
@@ -947,6 +924,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_etc_cron_d_, MAX_LINE_LENGTH, "%s", file_name );
@@ -966,6 +944,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_var_log_messages, MAX_LINE_LENGTH, "%s", file_name );
@@ -980,6 +959,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_var_log_secure, MAX_LINE_LENGTH, "%s", file_name );
@@ -994,6 +974,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_var_log_audit_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1011,6 +992,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf ( filename_sos_commands_logs_journalctl___no_pager, MAX_LINE_LENGTH, "%s", file_name );
@@ -1025,6 +1007,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf ( filename_sos_commands_networking_ethtool__S, MAX_LINE_LENGTH, "%s", file_name );
@@ -1039,6 +1022,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf ( filename_sos_commands_networking_ethtool__i, MAX_LINE_LENGTH, "%s", file_name );
@@ -1053,6 +1037,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_sos_commands_boot_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1067,6 +1052,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_etc_httpd_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1084,6 +1070,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_proc_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1101,6 +1088,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_var_crash_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1118,6 +1106,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_etc_default_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1135,6 +1124,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_list ( &sos_line_obj, blank_line );
                 append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, hairline2 );
                 append_list ( &sos_line_obj, blank_line );
             }
             snprintf (filename_etc_logrotate_d_, MAX_LINE_LENGTH, "%s", file_name );
@@ -1143,23 +1133,6 @@ int read_file ( const char *file_name, const char *member, int files )
              */
             if ( items_etc_logrotate_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/logrotate.d/", items_etc_logrotate_d_ );
-        }
-        else if ( ( strstr ( file_name, "etc/modprobe.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-        {
-            snprintf ( filename_etc_modprobe_d__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_modprobe_d_, filename_etc_modprobe_d__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_modprobe_d_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
-            if ( items_etc_modprobe_d_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/modprobe.d/", items_etc_modprobe_d_ );
         }
         else
             break;
@@ -1202,7 +1175,6 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->var_crash_.item_num = 0;
     sosreport_analyzer_cfg->etc_default_.item_num = 0;
     sosreport_analyzer_cfg->etc_logrotate_d_.item_num = 0;
-    sosreport_analyzer_cfg->etc_modprobe_d_.item_num = 0;
 
     int i = 0;
 
@@ -1813,13 +1785,6 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_logrotate_d_.member, s );
         items_etc_logrotate_d_ = token;
     }
-    /* member etc/modprobe.d/ */
-    else if ( ( strstr ( file_name, "etc/modprobe.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) )
-    {
-        /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_modprobe_d_.member, s );
-        items_etc_modprobe_d_ = token;
-    }
 }
 
 void read_file_pre ( const char *member, const char *dir_name )
@@ -1885,8 +1850,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "proc/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/crash/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_crash_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/default/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/logrotate.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_d_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/modprobe.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "etc/logrotate.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_d_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -1918,8 +1882,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "proc/" ) == 0 ) ||
             ( strcmp ( member, "var/crash/" ) == 0 ) ||
             ( strcmp ( member, "etc/default/" ) == 0 ) ||
-            ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
-            ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
+            ( strcmp ( member, "etc/logrotate.d/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
@@ -2043,13 +2006,6 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < i_etc_logrotate_d; i++ )
                 append_list ( &etc_logrotate_d__obj, str_arr_etc_logrotate_d [ i ] );
             read_file_from_analyze_dir ( &etc_logrotate_d__obj, "etc/logrotate.d/" );
-        }
-        if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
-        {
-            i_etc_modprobe_d = bubble_sort_object_by_the_string ( &tmp_18_obj, str_arr_etc_modprobe_d );
-            for ( i = 0; i < i_etc_modprobe_d; i++ )
-                append_list ( &etc_modprobe_d__obj, str_arr_etc_modprobe_d [ i ] );
-            read_file_from_analyze_dir ( &etc_modprobe_d__obj, "etc/modprobe.d/" );
         }
     }
 }
@@ -2456,8 +2412,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "proc/" ) == 0 ) ||
         ( strcmp ( member, "var/crash/" ) == 0 ) ||
         ( strcmp ( member, "etc/default/" ) == 0 ) ||
-        ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
-        ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
+        ( strcmp ( member, "etc/logrotate.d/" ) == 0 )
     )
     {
         if ( strstr ( line , item ) != NULL )
@@ -2512,8 +2467,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_16_obj ); 
     if ( tmp_17_obj != NULL ) 
         clear_list ( &tmp_17_obj ); 
-    if ( tmp_18_obj != NULL ) 
-        clear_list ( &tmp_18_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2549,6 +2502,4 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &etc_default__obj ); 
     if ( etc_logrotate_d__obj != NULL ) 
         clear_list ( &etc_logrotate_d__obj ); 
-    if ( etc_modprobe_d__obj != NULL ) 
-        clear_list ( &etc_modprobe_d__obj ); 
 }

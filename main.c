@@ -109,6 +109,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_15_obj );
     init_list ( &tmp_16_obj );
     init_list ( &tmp_17_obj );
+    init_list ( &tmp_18_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -127,6 +128,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &var_crash__obj );
     init_list ( &etc_default__obj );
     init_list ( &etc_logrotate_d__obj );
+    init_list ( &etc_modprobe_d__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -294,6 +296,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "root/anaconda-ks.cfg", dir_name );
             read_file_pre ( "dmidecode", dir_name );
             read_file_pre ( "lsmod", dir_name );
+            read_file_pre ( "etc/modprobe.d/", dir_name );
             read_file_pre ( "lspci", dir_name );
             read_file_pre ( "sos_commands/devices/udevadm_info_--export-db", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
@@ -349,6 +352,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &proc__obj, hairline );
             append_list ( &etc_default__obj, hairline );
             append_list ( &etc_logrotate_d__obj, hairline );
+            append_list ( &etc_modprobe_d__obj, hairline );
         }
     }
 
@@ -389,6 +393,7 @@ int main ( int argc, char *argv [ ] )
         }
         if ( mcinfo == 0 )
         {
+            file_write_list ( &etc_modprobe_d__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
             file_write_list ( &etc_default__obj, fp_w );

@@ -59,6 +59,12 @@ dmidecode=bios memory Smart Firmware firmware
 
 lsmod=Module kvm video 
 
+## etc/modprobe.d/
+##
+## All you can set is 'all'
+
+etc/modprobe.d/=all
+
 ## lspci=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 20
@@ -254,7 +260,7 @@ var/log/dmesg=all
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. var/log/messages=error 
 
-var/log/messages=error WARNING dump_stack
+var/log/messages=error WARNING dump_stack bnx2x
 
 ## sos_commands/sysctl_-a 
 ##
@@ -268,7 +274,7 @@ sos_commands/kernel/sysctl_-a=panic
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. sos_commands/logs/journalctl_--no-pager=kdump 
 
-sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack
+sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack bnx2x
 
 ## sos_commands/networking/ethtool_-S
 ##
