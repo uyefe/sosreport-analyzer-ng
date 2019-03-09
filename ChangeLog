@@ -1,3 +1,5 @@
+1.0.67
+Add member 'etc/modprobe.d/' with other minor fixes.
 1.0.66
 Add member 'etc/logrotate.d/'.
 1.0.65

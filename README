@@ -40,6 +40,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo root/anaconda-ks.cfg file.
   Analyze dmidecode file.
   Analyze lsmod file.
+  Echo files in etc/modprobe.d/.
   Analyze lspci file.
   Analyze sos_commands/devices/udevadm_info_--export-db file.
   Echo sos_commands/scsi/lsscsi file.
