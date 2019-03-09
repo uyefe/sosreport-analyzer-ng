@@ -61,6 +61,8 @@ struct sosreport_analyzer_config
     config_each dmidecode;
     /* allows word delimited by space */
     config_each lsmod;
+    /* should be all */
+    config_each etc_modprobe_d_;
     /* allows word delimited by space */
     config_each lspci;
     /* allows word delimited by space */

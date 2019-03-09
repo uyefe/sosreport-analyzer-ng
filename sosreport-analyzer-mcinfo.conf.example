@@ -53,7 +53,7 @@ var/log/dmesg=all
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. var/log/messages=error 
 
-var/log/messages=error WARNING dump_stack
+var/log/messages=error WARNING dump_stack bnx2x
 
 ## proc/ 
 ##

@@ -130,6 +130,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->dmidecode.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lsmod" ) == 0 )
                 strncpy ( cfg->lsmod.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/modprobe.d/" ) == 0 )
+                strncpy ( cfg->etc_modprobe_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lspci" ) == 0 )
                 strncpy ( cfg->lspci.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
@@ -319,6 +321,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "root/anaconda-ks.cfg", cfg, mcinfo );
         append_sos_header_obj ( "dmidecode", cfg, mcinfo );
         append_sos_header_obj ( "lsmod", cfg, mcinfo );
+        append_sos_header_obj ( "etc/modprobe.d/", cfg, mcinfo );
         append_sos_header_obj ( "lspci", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
@@ -415,6 +418,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->dmidecode.member );
         else if ( strcmp ( member, "lsmod" ) == 0 )
             strcat ( str_tmp, cfg->lsmod.member );
+        else if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_modprobe_d_.member );
         else if ( strcmp ( member, "lspci" ) == 0 )
             strcat ( str_tmp, cfg->lspci.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
