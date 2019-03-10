@@ -54,6 +54,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze last file.
   Analyze ps file.
   Analyze lsof file.
+  Echo files in etc/systemd/.
+  Echo files in etc/systemd/system/.
   Analyze netstat file.
   Analyze etc/kdump.conf.
   Analyze etc/sysctl.conf.

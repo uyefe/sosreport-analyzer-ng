@@ -113,6 +113,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_19_obj );
     init_list ( &tmp_20_obj );
     init_list ( &tmp_21_obj );
+    init_list ( &tmp_22_obj );
+    init_list ( &tmp_23_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -135,6 +137,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_host_obj );
     init_list ( &etc_udev__obj );
     init_list ( &etc_yum_repos_d__obj );
+    init_list ( &etc_systemd_system__obj );
+    init_list ( &etc_systemd__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -321,6 +325,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "ps", dir_name );
             read_file_pre ( "lsof", dir_name );
             read_file_pre ( "netstat", dir_name );
+            read_file_pre ( "etc/systemd/", dir_name );
+            read_file_pre ( "etc/systemd/system/", dir_name );
             read_file_pre ( "etc/default/", dir_name );
             read_file_pre ( "etc/kdump.conf", dir_name );
             read_file_pre ( "etc/sysctl.conf", dir_name );
@@ -369,6 +375,8 @@ int main ( int argc, char *argv [ ] )
             append_list ( &proc__obj, hairline );
             append_list ( &etc_udev__obj, hairline );
             append_list ( &etc_yum_repos_d__obj, hairline );
+            append_list ( &etc_systemd__obj, hairline );
+            append_list ( &etc_systemd_system__obj, hairline );
         }
     }
 
@@ -415,6 +423,8 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_udev__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &etc_systemd__obj, fp_w );
+            file_write_list ( &etc_systemd_system__obj, fp_w );
             file_write_list ( &etc_default__obj, fp_w );
             file_write_list ( &etc_logrotate_d__obj, fp_w );
             file_write_list ( &sos_commands_boot__obj, fp_w );

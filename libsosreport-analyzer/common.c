@@ -205,6 +205,20 @@ struct line_data etc_yum_repos_d__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_systemd_system__obj */
+struct line_data etc_systemd_system__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* etc_systemd__obj */
+struct line_data etc_systemd__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -352,6 +366,20 @@ struct line_data tmp_21_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_22_obj */
+struct line_data tmp_22_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_23_obj */
+struct line_data tmp_23_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -378,6 +406,8 @@ struct line_data *tmp_18_obj = &tmp_18_obj_raw;
 struct line_data *tmp_19_obj = &tmp_19_obj_raw;
 struct line_data *tmp_20_obj = &tmp_20_obj_raw;
 struct line_data *tmp_21_obj = &tmp_21_obj_raw;
+struct line_data *tmp_22_obj = &tmp_22_obj_raw;
+struct line_data *tmp_23_obj = &tmp_23_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
@@ -399,6 +429,8 @@ struct line_data *etc_modprobe_d__obj = &etc_modprobe_d__obj_raw;
 struct line_data *etc_host_obj = &etc_host_obj_raw;
 struct line_data *etc_udev__obj = &etc_udev__obj_raw;
 struct line_data *etc_yum_repos_d__obj = &etc_yum_repos_d__obj_raw;
+struct line_data *etc_systemd_system__obj = &etc_systemd_system__obj_raw;
+struct line_data *etc_systemd__obj = &etc_systemd__obj_raw;
 
 int i_boot_grub = 0;
 int i_cmdlog = 0;
@@ -421,6 +453,8 @@ int i_etc_modprobe_d = 0;
 int i_etc_host = 0;
 int i_etc_udev = 0;
 int i_etc_yum_repos_d = 0;
+int i_etc_systemd_system = 0;
+int i_etc_systemd = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -442,6 +476,8 @@ char *str_arr_etc_modprobe_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_host [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_udev [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_yum_repos_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_systemd_system [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_systemd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -559,6 +595,10 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         tmp_20_obj = NULL;
     else if ( strstr ( full_path, "etc/yum.repos.d/") != 0 )
         tmp_21_obj = NULL;
+    else if ( ( strstr ( full_path, "etc/systemd/system/") != 0 ) && ( recursive == 0 ) )
+        tmp_22_obj = NULL;
+    else if ( strstr ( full_path, "etc/systemd/") != 0 )
+        tmp_23_obj = NULL;
 
     /* read from directory and set in an array */
     if ( var_crash_exists == 1 )
@@ -581,7 +621,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
                 ( strcmp ( member, "var/crash/" ) == 0 ) ||
                 ( strcmp ( member, "proc/" ) == 0 ) ||
-                ( strcmp ( member, "etc/udev/" ) == 0 ) ) 
+                ( strcmp ( member, "etc/udev/" ) == 0 ) ||
+                ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ) 
                 &&
                 ( recursive == 0 )
                 )
@@ -598,7 +639,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) || 
                 ( strcmp ( member, "var/crash/" ) == 0 ) || 
                 ( strcmp ( member, "proc/" ) == 0 ) ||
-                ( strcmp ( member, "etc/udev/" ) == 0 ) )
+                ( strcmp ( member, "etc/udev/" ) == 0 ) ||
+                ( strcmp ( member, "etc/systemd/system/" ) == 0 ) )
                 &&
                 ( recursive == 0 )
                 )
@@ -653,6 +695,10 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_20_obj, read_path );
                 else if ( strstr ( read_path, "etc/yum.repos.d/") != 0 )
                     append_list ( &tmp_21_obj, read_path );
+                else if ( ( strstr ( read_path, "etc/systemd/system/") != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_22_obj, read_path );
+                else if ( strstr ( read_path, "etc/systemd/") != 0 )
+                    append_list ( &tmp_23_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -750,6 +796,8 @@ const char *items_etc_host;
 const char *items_etc_udev_;
 const char *items_etc_yum_cfg;
 const char *items_etc_yum_repos_d_;
+const char *items_etc_systemd_system_;
+const char *items_etc_systemd_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -837,6 +885,14 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_etc_yum_repos_d__curr [ MAX_LINE_LENGTH ];
     memset ( filename_etc_yum_repos_d_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_etc_yum_repos_d__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_systemd_system_ [ MAX_LINE_LENGTH ];
+    char filename_etc_systemd_system__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_systemd_system_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_systemd_system__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_systemd_ [ MAX_LINE_LENGTH ];
+    char filename_etc_systemd__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_systemd_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc_systemd__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
@@ -1294,6 +1350,40 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_yum_repos_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/yum.repos.d/", items_etc_yum_repos_d_ );
         }
+        else if ( ( strstr ( file_name, "etc/systemd/system/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_etc_systemd_system__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_systemd_system_, filename_etc_systemd_system__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, blank_line );
+                append_list ( &sos_line_obj, hairline2 );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, blank_line );
+            }
+            snprintf (filename_etc_systemd_system_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
+             */
+            if ( items_etc_systemd_system_ != NULL )
+                append_item_to_sos_line_obj ( line, "etc/systemd/system/", items_etc_systemd_system_ );
+        }
+        else if ( ( strstr ( file_name, "etc/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_etc_systemd__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_systemd_, filename_etc_systemd__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, blank_line );
+                append_list ( &sos_line_obj, hairline2 );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, blank_line );
+            }
+            snprintf (filename_etc_systemd_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
+             */
+            if ( items_etc_systemd_ != NULL )
+                append_item_to_sos_line_obj ( line, "etc/systemd/", items_etc_systemd_ );
+        }
         else
             break;
         /* strip trailing spaces */
@@ -1340,6 +1430,8 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->etc_udev_.item_num = 0;
     sosreport_analyzer_cfg->etc_yum_conf.item_num = 0;
     sosreport_analyzer_cfg->etc_yum_repos_d_.item_num = 0;
+    sosreport_analyzer_cfg->etc_systemd_system_.item_num = 0;
+    sosreport_analyzer_cfg->etc_systemd_.item_num = 0;
 
     int i = 0;
 
@@ -1985,6 +2077,20 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, s );
         items_etc_yum_repos_d_ = token;
     }
+    /* member etc/systemd/system/ */
+    else if ( ( strstr ( file_name, "etc/systemd/system/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_systemd_system_.member, s );
+        items_etc_systemd_system_ = token;
+    }
+    /* member etc/systemd/ */
+    else if ( ( strstr ( file_name, "etc/systemd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_systemd_.member, s );
+        items_etc_systemd_ = token;
+    }
 }
 
 void read_file_pre ( const char *member, const char *dir_name )
@@ -2055,7 +2161,9 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/host") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_host.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/udev/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_udev_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/yum.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_conf.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/yum.repos.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "etc/yum.repos.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/systemd/system/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/systemd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -2091,7 +2199,9 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/host" ) == 0 ) ||
             ( strcmp ( member, "etc/udev/" ) == 0 ) ||
-            ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
+            ( strcmp ( member, "etc/yum.repos.d/" ) == 0 ) ||
+            ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
+            ( strcmp ( member, "etc/systemd/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
@@ -2243,6 +2353,20 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < i_etc_yum_repos_d; i++ )
                 append_list ( &etc_yum_repos_d__obj, str_arr_etc_yum_repos_d [ i ] );
             read_file_from_analyze_dir ( &etc_yum_repos_d__obj, "etc/yum.repos.d/" );
+        }
+        if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
+        {
+            i_etc_systemd_system = bubble_sort_object_by_the_string ( &tmp_22_obj, str_arr_etc_systemd_system );
+            for ( i = 0; i < i_etc_systemd_system; i++ )
+                append_list ( &etc_systemd_system__obj, str_arr_etc_systemd_system [ i ] );
+            read_file_from_analyze_dir ( &etc_systemd_system__obj, "etc/systemd/system/" );
+        }
+        if ( strcmp ( member, "etc/systemd/" ) == 0 )
+        {
+            i_etc_systemd = bubble_sort_object_by_the_string ( &tmp_23_obj, str_arr_etc_systemd );
+            for ( i = 0; i < i_etc_systemd; i++ )
+                append_list ( &etc_systemd__obj, str_arr_etc_systemd [ i ] );
+            read_file_from_analyze_dir ( &etc_systemd__obj, "etc/systemd/" );
         }
     }
 }
@@ -2653,7 +2777,9 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/host" ) == 0 ) ||
         ( strcmp ( member, "etc/udev/" ) == 0 ) ||
-        ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
+        ( strcmp ( member, "etc/yum.repos.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
+        ( strcmp ( member, "etc/systemd/" ) == 0 )
     )
     {
         if ( strstr ( line , item ) != NULL )
@@ -2716,6 +2842,10 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_20_obj ); 
     if ( tmp_21_obj != NULL ) 
         clear_list ( &tmp_21_obj ); 
+    if ( tmp_22_obj != NULL ) 
+        clear_list ( &tmp_22_obj ); 
+    if ( tmp_23_obj != NULL ) 
+        clear_list ( &tmp_23_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2759,4 +2889,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &etc_udev__obj ); 
     if ( etc_yum_repos_d__obj != NULL ) 
         clear_list ( &etc_yum_repos_d__obj ); 
+    if ( etc_systemd_system__obj != NULL ) 
+        clear_list ( &etc_systemd_system__obj ); 
+    if ( etc_systemd__obj != NULL ) 
+        clear_list ( &etc_systemd__obj ); 
 }

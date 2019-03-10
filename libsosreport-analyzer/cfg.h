@@ -65,16 +65,16 @@ struct sosreport_analyzer_config
     config_each etc_modprobe_d_;
     /* allows word delimited by space */
     config_each lspci;
+    /* should be all */
+    config_each etc_udev_;
     /* allows word delimited by space */
     config_each sos_commands_devices_udevadm_info___export_db;
+    /* allows word delimited by space */
+    config_each df;
     /* should be all */
     config_each sos_commands_scsi_lsscsi;
     /* allows word delimited by space */
     config_each installed_rpms;
-    /* should be all */
-    config_each etc_udev_;
-    /* allows word delimited by space */
-    config_each df;
     /* should be all */
     config_each vgdisplay;
     /* should be all */
@@ -94,6 +94,10 @@ struct sosreport_analyzer_config
     /* should be all */
     config_each etc_host;
     /* should be all */
+    config_each etc_systemd_;
+    /* should be all */
+    config_each etc_systemd_system_;
+    /* allows word delimited by space */
     config_each etc_default_;
     /* allows word delimited by space */
     config_each etc_kdump_conf;

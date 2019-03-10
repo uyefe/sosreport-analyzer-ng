@@ -166,6 +166,10 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->lsof.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "netstat" ) == 0 )
                 strncpy ( cfg->netstat.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/systemd/" ) == 0 )
+                strncpy ( cfg->etc_systemd_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/systemd/system/" ) == 0 )
+                strncpy ( cfg->etc_systemd_system_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
                 strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/kdump.conf" ) == 0 )
@@ -339,10 +343,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "lsmod", cfg, mcinfo );
         append_sos_header_obj ( "etc/modprobe.d/", cfg, mcinfo );
         append_sos_header_obj ( "lspci", cfg, mcinfo );
+        append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
         append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
-        append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
         append_sos_header_obj ( "df", cfg, mcinfo );
         append_sos_header_obj ( "vgdisplay", cfg, mcinfo );
         append_sos_header_obj ( "free", cfg, mcinfo );
@@ -353,6 +357,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "ps", cfg, mcinfo );
         append_sos_header_obj ( "lsof", cfg, mcinfo );
         append_sos_header_obj ( "netstat", cfg, mcinfo );
+        append_sos_header_obj ( "etc/systemd/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/systemd/system/", cfg, mcinfo );
         append_sos_header_obj ( "etc/default/", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
@@ -438,6 +444,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_modprobe_d_.member );
         else if ( strcmp ( member, "lspci" ) == 0 )
             strcat ( str_tmp, cfg->lspci.member );
+        else if ( strcmp ( member, "etc/udev/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_udev_.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
         else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
@@ -448,8 +456,6 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_yum_conf.member );
         else if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_yum_repos_d_.member );
-        else if ( strcmp ( member, "etc/udev/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_udev_.member );
         else if ( strcmp ( member, "df" ) == 0 )
             strcat ( str_tmp, cfg->df.member );
         else if ( strcmp ( member, "vgdisplay" ) == 0 )
@@ -468,6 +474,10 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->lsof.member );
         else if ( strcmp ( member, "netstat" ) == 0 )
             strcat ( str_tmp, cfg->netstat.member );
+        else if ( strcmp ( member, "etc/systemd/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_systemd_.member );
+        else if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_systemd_system_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )

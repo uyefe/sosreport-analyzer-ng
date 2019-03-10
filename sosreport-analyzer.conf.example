@@ -161,6 +161,18 @@ netstat=TIME_WAIT
 
 etc/host=all 
 
+## etc/systemd/
+##
+## All you can set is 'all'
+
+etc/systemd/=all 
+
+## etc/systemd/system/
+##
+## All you can set is 'all'
+
+etc/systemd/system/=all 
+
 ## etc/default/
 ##
 ## All you can set is 'all'
