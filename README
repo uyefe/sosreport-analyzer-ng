@@ -58,6 +58,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze etc/kdump.conf.
   Analyze etc/sysctl.conf.
   Echo etc/rsyslog.conf.
+  Echo etc/yum.conf file.
+  Echo files in etc/yum.repos.d/.
   Echo files etc/sysconfig/network-scripts/ifcfg-*.
   Analyze files in sos_commands/boot/.
   Analyze proc/meminfo file.

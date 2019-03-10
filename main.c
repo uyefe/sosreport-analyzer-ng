@@ -111,6 +111,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_17_obj );
     init_list ( &tmp_18_obj );
     init_list ( &tmp_19_obj );
+    init_list ( &tmp_20_obj );
+    init_list ( &tmp_21_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -131,6 +133,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_logrotate_d__obj );
     init_list ( &etc_modprobe_d__obj );
     init_list ( &etc_host_obj );
+    init_list ( &etc_udev__obj );
+    init_list ( &etc_yum_repos_d__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -306,6 +310,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/devices/udevadm_info_--export-db", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
             read_file_pre ( "installed-rpms", dir_name );
+            read_file_pre ( "etc/udev/", dir_name );
             read_file_pre ( "df", dir_name );
             read_file_pre ( "vgdisplay", dir_name );
             read_file_pre ( "free", dir_name );
@@ -320,6 +325,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/kdump.conf", dir_name );
             read_file_pre ( "etc/sysctl.conf", dir_name );
             read_file_pre ( "etc/rsyslog.conf", dir_name );
+            read_file_pre ( "etc/yum.conf", dir_name );
+            read_file_pre ( "etc/yum.repos.d/", dir_name );
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
@@ -360,6 +367,8 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
             append_list ( &etc_httpd__obj, hairline );
             append_list ( &proc__obj, hairline );
+            append_list ( &etc_udev__obj, hairline );
+            append_list ( &etc_yum_repos_d__obj, hairline );
         }
     }
 
@@ -403,11 +412,13 @@ int main ( int argc, char *argv [ ] )
         {
             file_write_list ( &etc_host_obj, fp_w );
             file_write_list ( &etc_modprobe_d__obj, fp_w );
+            file_write_list ( &etc_udev__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
             file_write_list ( &etc_default__obj, fp_w );
             file_write_list ( &etc_logrotate_d__obj, fp_w );
             file_write_list ( &sos_commands_boot__obj, fp_w );
+            file_write_list ( &etc_yum_repos_d__obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
