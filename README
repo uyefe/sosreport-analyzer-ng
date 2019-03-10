@@ -48,6 +48,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze df file.
   Echo vgdisplay file.
   Echo free file.
+  Echo files etc/host-*.
   Echo ip_addr file.
   Echo route file.
   Analyze last file.

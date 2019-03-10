@@ -90,6 +90,8 @@ struct sosreport_analyzer_config
     /* should be all */
     config_each netstat;
     /* should be all */
+    config_each etc_host;
+    /* should be all */
     config_each etc_default_;
     /* allows word delimited by space */
     config_each etc_kdump_conf;

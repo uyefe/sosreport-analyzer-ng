@@ -29,6 +29,12 @@ etc/sysconfig/network-scripts/ifcfg-=all
 
 cmdlog/=all
 
+## etc/host
+##
+## All you can set is 'all'
+
+etc/host=all 
+
 ## proc/meminfo
 ##
 ## You can set arbitrary item-name including 'all' up to 12
