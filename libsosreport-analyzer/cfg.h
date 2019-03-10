@@ -71,6 +71,8 @@ struct sosreport_analyzer_config
     config_each sos_commands_scsi_lsscsi;
     /* allows word delimited by space */
     config_each installed_rpms;
+    /* should be all */
+    config_each etc_udev_;
     /* allows word delimited by space */
     config_each df;
     /* should be all */
@@ -141,6 +143,10 @@ struct sosreport_analyzer_config
     config_each etc_httpd_;
     /* allows word delimited by space */
     config_each proc_;
+    /* should be all */
+    config_each etc_yum_conf;
+    /* should be all */
+    config_each etc_yum_repos_d_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

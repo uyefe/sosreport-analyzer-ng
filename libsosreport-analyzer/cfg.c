@@ -142,6 +142,12 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_scsi_lsscsi.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "installed-rpms" ) == 0 )
                 strncpy ( cfg->installed_rpms.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/yum.conf" ) == 0 )
+                strncpy ( cfg->etc_yum_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/yum.repos.d/" ) == 0 )
+                strncpy ( cfg->etc_yum_repos_d_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/udev/" ) == 0 )
+                strncpy ( cfg->etc_udev_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "df" ) == 0 )
                 strncpy ( cfg->df.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
@@ -336,6 +342,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
         append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
+        append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
         append_sos_header_obj ( "df", cfg, mcinfo );
         append_sos_header_obj ( "vgdisplay", cfg, mcinfo );
         append_sos_header_obj ( "free", cfg, mcinfo );
@@ -350,6 +357,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/rsyslog.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/yum.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/yum.repos.d/", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
@@ -435,6 +444,12 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
         else if ( strcmp ( member, "installed-rpms" ) == 0 )
             strcat ( str_tmp, cfg->installed_rpms.member );
+        else if ( strcmp ( member, "etc/yum.conf" ) == 0 )
+            strcat ( str_tmp, cfg->etc_yum_conf.member );
+        else if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_yum_repos_d_.member );
+        else if ( strcmp ( member, "etc/udev/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_udev_.member );
         else if ( strcmp ( member, "df" ) == 0 )
             strcat ( str_tmp, cfg->df.member );
         else if ( strcmp ( member, "vgdisplay" ) == 0 )

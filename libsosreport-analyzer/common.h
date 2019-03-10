@@ -57,6 +57,8 @@ extern struct line_data *tmp_16_obj;
 extern struct line_data *tmp_17_obj;
 extern struct line_data *tmp_18_obj;
 extern struct line_data *tmp_19_obj;
+extern struct line_data *tmp_20_obj;
+extern struct line_data *tmp_21_obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct line_data *etc_pki__obj;
@@ -77,6 +79,8 @@ extern struct line_data *etc_default__obj;
 extern struct line_data *etc_logrotate_d__obj;
 extern struct line_data *etc_modprobe_d__obj;
 extern struct line_data *etc_host_obj;
+extern struct line_data *etc_udev__obj;
+extern struct line_data *etc_yum_repos_d__obj;
 
 /* for sorting array */
 extern int i_cmdlog;
@@ -98,6 +102,8 @@ extern int i_etc_default;
 extern int i_etc_logrotate_d;
 extern int i_etc_modprobe_d;
 extern int i_etc_host;
+extern int i_etc_udev;
+extern int i_etc_yum_repos_d;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -118,6 +124,8 @@ extern char *str_arr_etc_default [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_logrotate_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_modprobe_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_host [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_udev [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_yum_repos_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'

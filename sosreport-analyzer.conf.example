@@ -89,6 +89,12 @@ sos_commands/devices/udevadm_info_--export-db=all
 
 installed-rpms=kernel 
 
+## etc/udev/ 
+##
+## All you can set is 'all'
+
+etc/udev/=all
+
 ## df=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 2
@@ -178,6 +184,18 @@ etc/sysctl.conf=all
 ## All you can set is 'all'
 
 etc/rsyslog.conf=all 
+
+## etc/yum.conf 
+##
+## All you can set is 'all'
+
+etc/yum.conf=all 
+
+## etc/yum.repos.d/
+##
+## All you can set is 'all'
+
+etc/yum.repos.d/=all
 
 ## etc/sysconfig/network-scripts/ifcfg-
 ##
