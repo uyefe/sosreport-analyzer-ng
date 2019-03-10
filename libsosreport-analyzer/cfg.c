@@ -90,8 +90,12 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
     else
     {
         /* common stuff for both mcinfo and sosreport */
-        if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
+        if ( strcmp ( keyword, "etc/host" ) == 0 )
+            strncpy ( cfg->etc_host.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
             strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/modprobe.d/" ) == 0 )
+            strncpy ( cfg->etc_modprobe_d_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/dmesg" ) == 0 )
             strncpy ( cfg->var_log_dmesg.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
@@ -130,8 +134,6 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->dmidecode.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lsmod" ) == 0 )
                 strncpy ( cfg->lsmod.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/modprobe.d/" ) == 0 )
-                strncpy ( cfg->etc_modprobe_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lspci" ) == 0 )
                 strncpy ( cfg->lspci.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
@@ -310,6 +312,14 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
     {
         append_sos_header_obj ( "boot/grub/", cfg, mcinfo );
         append_sos_header_obj ( "cmdlog/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/host", cfg, mcinfo );
+        append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
+        append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
+        append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
+        append_sos_header_obj ( "var/crash/", cfg, mcinfo );
+        append_sos_header_obj ( "proc/", cfg, mcinfo );
     }
     if ( mcinfo == 0 ) 
     {
@@ -329,6 +339,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "df", cfg, mcinfo );
         append_sos_header_obj ( "vgdisplay", cfg, mcinfo );
         append_sos_header_obj ( "free", cfg, mcinfo );
+        append_sos_header_obj ( "etc/host", cfg, mcinfo );
         append_sos_header_obj ( "ip_addr", cfg, mcinfo );
         append_sos_header_obj ( "route", cfg, mcinfo );
         append_sos_header_obj ( "last", cfg, mcinfo );
@@ -339,12 +350,9 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/rsyslog.conf", cfg, mcinfo );
-    }
-    append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
-    append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
-    append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
-    if ( mcinfo == 0 ) 
-    {
+        append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
+        append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
+        append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/boot/", cfg, mcinfo );
         append_sos_header_obj ( "proc/net/dev", cfg, mcinfo );
         append_sos_header_obj ( "proc/net/sockstat", cfg, mcinfo );
@@ -352,12 +360,9 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/logrotate.d/", cfg, mcinfo );
         append_sos_header_obj ( "etc/pki/", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
-    }
-    append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
-    append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
-    append_sos_header_obj ( "var/crash/", cfg, mcinfo );
-    if ( mcinfo == 0 ) 
-    {
+        append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
+        append_sos_header_obj ( "var/crash/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/secure", cfg, mcinfo );
         append_sos_header_obj ( "var/log/audit/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
@@ -377,7 +382,9 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     snprintf (str_tmp, strlen ( member ) + 2, "%s=", member );
 
     /* these members are those included in sosreport and mcinfo */
-    if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
+    if ( strcmp ( member, "etc/host" ) == 0 )
+        strcat ( str_tmp, cfg->etc_host.member );
+    else if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         strcat ( str_tmp, cfg->etc_sysconfig_network_scripts_ifcfg_.member );
     else if ( strcmp ( member, "proc/meminfo" ) == 0 )
         strcat ( str_tmp, cfg->proc_meminfo.member );

@@ -149,6 +149,12 @@ lsof=bash
 
 netstat=TIME_WAIT 
 
+## etc/host
+##
+## All you can set is 'all'
+
+etc/host=all 
+
 ## etc/default/
 ##
 ## All you can set is 'all'

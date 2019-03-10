@@ -110,6 +110,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_16_obj );
     init_list ( &tmp_17_obj );
     init_list ( &tmp_18_obj );
+    init_list ( &tmp_19_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -129,6 +130,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_default__obj );
     init_list ( &etc_logrotate_d__obj );
     init_list ( &etc_modprobe_d__obj );
+    init_list ( &etc_host_obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -272,6 +274,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "boot/grub/", dir_name );
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
             read_file_pre ( "cmdlog/", dir_name );
+            read_file_pre ( "etc/host", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
@@ -283,7 +286,9 @@ int main ( int argc, char *argv [ ] )
             append_list ( &mcinfo_boot_grub__obj, hairline );
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
             append_list ( &mcinfo_cmdlog__obj, hairline );
+            append_list ( &etc_host_obj, hairline );
             append_list ( &var_log_messages_obj, hairline );
+            append_list ( &var_crash__obj, hairline );
             append_list ( &proc__obj, hairline );
         }
         if ( mcinfo == 0 )
@@ -304,6 +309,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "df", dir_name );
             read_file_pre ( "vgdisplay", dir_name );
             read_file_pre ( "free", dir_name );
+            read_file_pre ( "etc/host", dir_name );
             read_file_pre ( "ip_addr", dir_name );
             read_file_pre ( "route", dir_name );
             read_file_pre ( "last", dir_name );
@@ -338,9 +344,13 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, hairline );
             append_list ( &sos_commands_boot__obj, hairline );
+            append_list ( &etc_host_obj, hairline );
             append_list ( &etc_pki__obj, hairline );
             append_list ( &etc_cron_d__obj, hairline );
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
+            append_list ( &etc_default__obj, hairline );
+            append_list ( &etc_logrotate_d__obj, hairline );
+            append_list ( &etc_modprobe_d__obj, hairline );
             append_list ( &var_log_messages_obj, hairline );
             append_list ( &var_log_secure_obj, hairline );
             append_list ( &var_log_audit__obj, hairline );
@@ -350,9 +360,6 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
             append_list ( &etc_httpd__obj, hairline );
             append_list ( &proc__obj, hairline );
-            append_list ( &etc_default__obj, hairline );
-            append_list ( &etc_logrotate_d__obj, hairline );
-            append_list ( &etc_modprobe_d__obj, hairline );
         }
     }
 
@@ -384,6 +391,7 @@ int main ( int argc, char *argv [ ] )
         if ( mcinfo == 1 )
         {
             file_write_list ( &mcinfo_boot_grub__obj, fp_w );
+            file_write_list ( &etc_host_obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &mcinfo_cmdlog__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
@@ -393,6 +401,7 @@ int main ( int argc, char *argv [ ] )
         }
         if ( mcinfo == 0 )
         {
+            file_write_list ( &etc_host_obj, fp_w );
             file_write_list ( &etc_modprobe_d__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
