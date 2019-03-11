@@ -535,8 +535,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             if ( strcmp ( member, "var/crash/" ) == 0 )
             {
                 var_crash_exists = 0;                
-                puts("I skip 'var/crash/' auatimatically.");
-                puts("Do not set skip to member 'var/crash/'.");
+                puts("I skip 'var/crash/' automatically.");
+                puts("Do not set 'skip' to member 'var/crash/'.");
             }
             else
             {
