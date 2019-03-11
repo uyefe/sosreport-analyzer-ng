@@ -37,6 +37,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo uname file.
   Echo hostname file.
   Echo uptime file.
+  Analyze proc/meminfo file.
   Echo root/anaconda-ks.cfg file.
   Analyze dmidecode file.
   Analyze lsmod file.
@@ -89,6 +90,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.example.
   Copy it as /etc/sosreport-analyzer-mcinfo.conf.
 
+  Analyze proc/meminfo file.
   Analyze boot/grub/ files.
   Echo files etc/sysconfig/network-scripts/ifcfg-*.
   Echo files in cmdlog/.

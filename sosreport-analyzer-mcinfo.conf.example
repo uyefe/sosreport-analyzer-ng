@@ -17,6 +17,13 @@
 
 boot/grub/=all
 
+## proc/cpuinfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/cpuinfo=vendor_id model flags
+
+proc/cpuinfo=vendor_id model flags
+
 ## etc/sysconfig/network-scripts/ifcfg-
 ##
 ## All you can set is 'all'

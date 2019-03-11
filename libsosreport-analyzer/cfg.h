@@ -55,6 +55,8 @@ struct sosreport_analyzer_config
     config_each hostname;
     /* should be all */
     config_each uptime;
+    /* allows word delimited by space */
+    config_each proc_cpuinfo;
     /* should be all */
     config_each root_anaconda_ks_cfg;
     /* allows word delimited by space */

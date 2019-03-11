@@ -41,6 +41,13 @@ hostname=all
 
 uptime=all
 
+## proc/cpuinfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/cpuinfo=
+
+proc/cpuinfo=vendor_id model flags
+
 ## root/anaconda-ks.cfg 
 ##
 ## All you can set is 'all'
