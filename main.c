@@ -279,6 +279,7 @@ int main ( int argc, char *argv [ ] )
         /* it should be the same order as one which had been set in cfg.c */
         if ( mcinfo == 1 )
         {
+            read_file_pre ( "proc/cpuinfo", dir_name );
             read_file_pre ( "boot/grub/", dir_name );
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
             read_file_pre ( "cmdlog/", dir_name );
@@ -306,6 +307,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "uname", dir_name );
             read_file_pre ( "hostname", dir_name );
             read_file_pre ( "uptime", dir_name );
+            read_file_pre ( "proc/cpuinfo", dir_name );
             read_file_pre ( "root/anaconda-ks.cfg", dir_name );
             read_file_pre ( "dmidecode", dir_name );
             read_file_pre ( "lsmod", dir_name );

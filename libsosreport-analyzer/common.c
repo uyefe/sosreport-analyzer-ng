@@ -750,6 +750,7 @@ const char *items_lsb_release;
 const char *items_uname;
 const char *items_hostname;
 const char *items_uptime;
+const char *items_proc_cpuinfo [ 12 ];
 const char *items_root_anaconda_ks_cfg [ 12 ];
 const char *items_dmidecode [ 12 ];
 const char *items_lsmod [ 12 ];
@@ -990,6 +991,9 @@ int read_file ( const char *file_name, const char *member, int files )
             append_item_to_sos_line_obj ( line, "hostname", items_hostname );
         else if ( ( strstr ( file_name, "uptime" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "uptime", items_uptime );
+        else if ( strstr ( file_name, "proc/cpuinfo" ) != NULL )
+            for ( x = 0; x < sosreport_analyzer_cfg->proc_cpuinfo.item_num ; x++ )
+                append_item_to_sos_line_obj ( line, "proc/cpuinfo", items_proc_cpuinfo [ x ] );
         else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
         else if ( ( strstr ( file_name, "dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -1402,6 +1406,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->dmidecode.item_num = 0;
     sosreport_analyzer_cfg->lsmod.item_num = 0;
     sosreport_analyzer_cfg->lspci.item_num = 0;
+    sosreport_analyzer_cfg->proc_cpuinfo.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = 0;
     sosreport_analyzer_cfg->installed_rpms.item_num = 0;
     sosreport_analyzer_cfg->df.item_num = 0;
@@ -1769,6 +1774,27 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, s );
         items_etc_sysconfig_network_scripts_ifcfg_ = token;
     }
+    /* member proc/cpuinfo */
+    else if ( ( strstr ( file_name, "proc/cpuinfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_cpuinfo.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->proc_cpuinfo.member, s );
+        items_proc_cpuinfo [ 0 ] = token;
+        /* get the next token ... */
+        while ( token != NULL )
+        {
+            if ( sosreport_analyzer_cfg->proc_cpuinfo.item_num > arr_max12 )
+            {
+                printf("can't set items over %d for proc/cpuinfo\n",arr_max12);
+                free_sosreport_analyzer_obj ( );
+                exit ( EXIT_FAILURE );
+            }
+            token = strtok ( NULL, s );
+            i ++;
+            sosreport_analyzer_cfg->proc_cpuinfo.item_num = i; 
+            items_proc_cpuinfo  [ sosreport_analyzer_cfg->proc_cpuinfo.item_num ] = token;
+        }
+    }
     /* member proc/meminfo */
     else if ( ( strstr ( file_name, "proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) )
     {
@@ -1780,7 +1806,7 @@ void set_token_to_item_arr ( const char *file_name )
         {
             if ( sosreport_analyzer_cfg->proc_meminfo.item_num > arr_max12 )
             {
-                printf("can't set items over %d for proc/meminfo\n",arr_max2);
+                printf("can't set items over %d for proc/meminfo\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
@@ -2116,6 +2142,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "uname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uname.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "hostname") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->hostname.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "uptime") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->uptime.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/cpuinfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_cpuinfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "root/anaconda-ks.cfg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "dmidecode") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dmidecode.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "lsmod") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsmod.member, "" ) != 0 ) ) ||
@@ -2749,6 +2776,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "dmidecode" ) == 0 ) ||
         ( strcmp ( member, "lsmod" ) == 0 ) ||
         ( strcmp ( member, "lspci" ) == 0 ) ||
+        ( strcmp ( member, "proc/cpuinfo" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
         ( strcmp ( member, "installed-rpms" ) == 0 ) ||
         ( strcmp ( member, "df" ) == 0 ) ||

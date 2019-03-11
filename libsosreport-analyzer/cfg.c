@@ -92,6 +92,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
         /* common stuff for both mcinfo and sosreport */
         if ( strcmp ( keyword, "etc/host" ) == 0 )
             strncpy ( cfg->etc_host.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/cpuinfo" ) == 0 )
+            strncpy ( cfg->proc_cpuinfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
             strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/modprobe.d/" ) == 0 )
@@ -320,6 +322,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
     /* the order of these are appended to object, so, don't mingle them */
     if ( mcinfo == 1 ) 
     {
+        append_sos_header_obj ( "proc/cpuinfo", cfg, mcinfo );
         append_sos_header_obj ( "boot/grub/", cfg, mcinfo );
         append_sos_header_obj ( "cmdlog/", cfg, mcinfo );
         append_sos_header_obj ( "etc/host", cfg, mcinfo );
@@ -338,6 +341,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "uname", cfg, mcinfo );
         append_sos_header_obj ( "hostname", cfg, mcinfo );
         append_sos_header_obj ( "uptime", cfg, mcinfo );
+        append_sos_header_obj ( "proc/cpuinfo", cfg, mcinfo );
         append_sos_header_obj ( "root/anaconda-ks.cfg", cfg, mcinfo );
         append_sos_header_obj ( "dmidecode", cfg, mcinfo );
         append_sos_header_obj ( "lsmod", cfg, mcinfo );
@@ -401,6 +405,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->etc_host.member );
     else if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         strcat ( str_tmp, cfg->etc_sysconfig_network_scripts_ifcfg_.member );
+    else if ( strcmp ( member, "proc/cpuinfo" ) == 0 )
+        strcat ( str_tmp, cfg->proc_cpuinfo.member );
     else if ( strcmp ( member, "proc/meminfo" ) == 0 )
         strcat ( str_tmp, cfg->proc_meminfo.member );
     else if ( strcmp ( member, "proc/interrupts" ) == 0 )
