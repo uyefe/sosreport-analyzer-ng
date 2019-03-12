@@ -99,6 +99,8 @@ struct sosreport_analyzer_config
     config_each etc_systemd_;
     /* should be all */
     config_each etc_systemd_system_;
+    /* should be all */
+    config_each usr_lib_systemd_;
     /* allows word delimited by space */
     config_each etc_default_;
     /* allows word delimited by space */
