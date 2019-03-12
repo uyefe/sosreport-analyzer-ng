@@ -172,6 +172,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_systemd_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/systemd/system/" ) == 0 )
                 strncpy ( cfg->etc_systemd_system_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "usr/lib/systemd/" ) == 0 )
+                strncpy ( cfg->usr_lib_systemd_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
                 strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/kdump.conf" ) == 0 )
@@ -363,6 +365,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "netstat", cfg, mcinfo );
         append_sos_header_obj ( "etc/systemd/", cfg, mcinfo );
         append_sos_header_obj ( "etc/systemd/system/", cfg, mcinfo );
+        append_sos_header_obj ( "usr/lib/systemd/", cfg, mcinfo );
         append_sos_header_obj ( "etc/default/", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
@@ -484,6 +487,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_systemd_.member );
         else if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
             strcat ( str_tmp, cfg->etc_systemd_system_.member );
+        else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
+            strcat ( str_tmp, cfg->usr_lib_systemd_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )

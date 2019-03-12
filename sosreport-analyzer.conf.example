@@ -180,6 +180,12 @@ etc/systemd/=all
 
 etc/systemd/system/=all 
 
+## usr/lib/systemd/
+##
+## All you can set is 'all'
+
+usr/lib/systemd/=all 
+
 ## etc/default/
 ##
 ## All you can set is 'all'
