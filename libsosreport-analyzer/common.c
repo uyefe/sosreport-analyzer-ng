@@ -569,57 +569,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
     /* limit of fname_part files to be analyzed */
     int str_arr_valid_size = 0;
 
-    /* setting NULL to objects for directory related stuff including those matched files */
-    if ( strstr ( full_path, "boot/gurb/") != 0 )
-        tmp_1_obj = NULL;
-    else if ( strstr ( full_path, "cmdlog") != 0 )
-        tmp_2_obj = NULL;
-    /* etc/pki should be set null only once because read many times */
-    else if ( ( strstr ( full_path, "etc/pki/") != 0 ) && ( recursive == 0 ) )
-        tmp_3_obj = NULL;
-    else if ( strstr ( full_path, "cron") != 0 )
-        tmp_4_obj = NULL;
-    else if ( strstr ( full_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
-        tmp_5_obj = NULL;
-    else if ( strstr ( full_path, "messages") != 0 )
-        tmp_6_obj = NULL;
-    else if ( strstr ( full_path, "secure") != 0 )
-        tmp_7_obj = NULL;
-    else if ( strstr ( full_path, "audit") != 0 )
-        tmp_8_obj = NULL;
-    else if ( strstr ( full_path, "journalctl") != 0 )
-        tmp_9_obj = NULL;
-    else if ( strstr ( full_path, "ethtool_-S") != 0 )
-        tmp_10_obj = NULL;
-    else if ( strstr ( full_path, "ethtool_-i") != 0 )
-        tmp_11_obj = NULL;
-    else if ( strstr ( full_path, "sos_commands/boot/") != 0 )
-        tmp_12_obj = NULL;
-    else if ( ( strstr ( full_path, "etc/httpd/") != 0 ) && ( recursive == 0 ) )
-        tmp_13_obj = NULL;
-    else if ( ( strstr ( full_path, "proc/") != 0 ) && ( recursive == 0 ) )
-        tmp_14_obj = NULL;
-    else if ( ( strstr ( full_path, "var/crash/") != 0 ) && ( recursive == 0 ) )
-        tmp_15_obj = NULL;
-    else if ( strstr ( full_path, "etc/default/") != 0 )
-        tmp_16_obj = NULL;
-    else if ( strstr ( full_path, "etc/logrotate.d/") != 0 )
-        tmp_17_obj = NULL;
-    else if ( strstr ( full_path, "etc/modprobe.d/") != 0 )
-        tmp_18_obj = NULL;
-    else if ( strstr ( full_path, "etc/host") != 0 )
-        tmp_19_obj = NULL;
-    else if ( strstr ( full_path, "etc/udev/") != 0 )
-        tmp_20_obj = NULL;
-    else if ( strstr ( full_path, "etc/yum.repos.d/") != 0 )
-        tmp_21_obj = NULL;
-    else if ( ( strstr ( full_path, "etc/systemd/system/") != 0 ) && ( recursive == 0 ) )
-        tmp_22_obj = NULL;
-    else if ( strstr ( full_path, "etc/systemd/") != 0 )
-        tmp_23_obj = NULL;
-    else if ( strstr ( full_path, "usr/lib/systemd/") != 0 )
-        tmp_24_obj = NULL;
-
     /* read from directory and set in an array */
     if ( var_crash_exists == 1 )
     {
@@ -675,53 +624,53 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 /* so, only fname_part files will remain */
                 snprintf (read_path, MAX_LINE_LENGTH, "%s%s", dname_full, str );
 
-                if ( strstr ( read_path, "boot/grub") != 0 )
+                if ( strstr ( read_path, "/boot/grub/") != 0 )
                     append_list ( &tmp_1_obj, read_path );
-                else if ( strstr ( read_path, "cmdlog") != 0 )
+                else if ( strstr ( read_path, "/cmdlog/") != 0 )
                     append_list ( &tmp_2_obj, read_path );
-                else if ( ( strstr ( read_path, "etc/pki/") != 0 ) && ( recursive == 1 ) )
+                else if ( ( strstr ( read_path, "/etc/pki/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_3_obj, read_path );
-                else if ( strstr ( read_path, "cron") != 0 )
+                else if ( strstr ( read_path, "/etc/cron.d/") != 0 )
                     append_list ( &tmp_4_obj, read_path );
-                else if ( strstr ( read_path, "etc/sysconfig/network-scripts/ifcfg-") != 0 )
+                else if ( strstr ( read_path, "/etc/sysconfig/network-scripts/ifcfg-") != 0 )
                     append_list ( &tmp_5_obj, read_path );
-                else if ( strstr ( read_path, "messages") != 0 )
+                else if ( strstr ( read_path, "/var/log/messages") != 0 )
                     append_list ( &tmp_6_obj, read_path );
-                else if ( strstr ( read_path, "secure") != 0 )
+                else if ( strstr ( read_path, "/var/log/secure") != 0 )
                     append_list ( &tmp_7_obj, read_path );
-                else if ( strstr ( read_path, "audit") != 0 )
+                else if ( strstr ( read_path, "/var/log/audit/") != 0 )
                     append_list ( &tmp_8_obj, read_path );
-                else if ( strstr ( read_path, "journalctl") != 0 )
+                else if ( strstr ( read_path, "/sos_commands/logs/journalctl_--no-pager") != 0 )
                     append_list ( &tmp_9_obj, read_path );
-                else if ( strstr ( read_path, "ethtool_-S") != 0 )
+                else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-S") != 0 )
                     append_list ( &tmp_10_obj, read_path );
-                else if ( strstr ( read_path, "ethtool_-i") != 0 )
+                else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-i") != 0 )
                     append_list ( &tmp_11_obj, read_path );
-                else if ( strstr ( read_path, "sos_commands/boot/") != 0 )
+                else if ( strstr ( read_path, "/sos_commands/boot/") != 0 )
                     append_list ( &tmp_12_obj, read_path );
-                else if ( ( strstr ( read_path, "etc/httpd/") != 0 ) && ( recursive == 1 ) )
+                else if ( ( strstr ( read_path, "/etc/httpd/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_13_obj, read_path );
-                else if ( ( strstr ( read_path, "proc/") != 0 ) && ( recursive == 1 ) )
+                else if ( ( strstr ( read_path, "/proc/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_14_obj, read_path );
-                else if ( strstr ( read_path, "var/crash/") != 0 )
+                else if ( strstr ( read_path, "/var/crash/") != 0 )
                     append_list ( &tmp_15_obj, read_path );
-                else if ( strstr ( read_path, "etc/default/") != 0 )
+                else if ( strstr ( read_path, "/etc/default/") != 0 )
                     append_list ( &tmp_16_obj, read_path );
-                else if ( strstr ( read_path, "etc/logrotate.d/") != 0 )
+                else if ( strstr ( read_path, "/etc/logrotate.d/") != 0 )
                     append_list ( &tmp_17_obj, read_path );
-                else if ( strstr ( read_path, "etc/modprobe.d/") != 0 )
+                else if ( strstr ( read_path, "/etc/modprobe.d/") != 0 )
                     append_list ( &tmp_18_obj, read_path );
-                else if ( strstr ( read_path, "etc/host") != 0 )
+                else if ( strstr ( read_path, "/etc/host") != 0 )
                     append_list ( &tmp_19_obj, read_path );
-                else if ( ( strstr ( read_path, "etc/udev/") != 0 ) && ( recursive == 1 ) )
+                else if ( ( strstr ( read_path, "/etc/udev/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_20_obj, read_path );
-                else if ( strstr ( read_path, "etc/yum.repos.d/") != 0 )
+                else if ( strstr ( read_path, "/etc/yum.repos.d/") != 0 )
                     append_list ( &tmp_21_obj, read_path );
-                else if ( ( strstr ( read_path, "etc/systemd/system/") != 0 ) && ( recursive == 1 ) )
+                else if ( ( strstr ( read_path, "/etc/systemd/system/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_22_obj, read_path );
-                else if ( strstr ( read_path, "etc/systemd/") != 0 )
+                else if ( strstr ( read_path, "/etc/systemd/") != 0 )
                     append_list ( &tmp_23_obj, read_path );
-                else if ( ( strstr ( read_path, "usr/lib/systemd/") != 0 ) && ( recursive == 1 ) )
+                else if ( ( strstr ( read_path, "/usr/lib/systemd/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_24_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
@@ -2456,7 +2405,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             i_usr_lib_systemd = bubble_sort_object_by_the_string ( &tmp_24_obj, str_arr_usr_lib_systemd );
             for ( i = 0; i < i_usr_lib_systemd; i++ )
                 append_list ( &usr_lib_systemd__obj, str_arr_usr_lib_systemd [ i ] );
-            read_file_from_analyze_dir ( &usr_lib_systemd__obj, "usr_lib/systemd/" );
+            read_file_from_analyze_dir ( &usr_lib_systemd__obj, "usr/lib/systemd/" );
         }
     }
 }
