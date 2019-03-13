@@ -1,3 +1,5 @@
+1.0.74
+Fix memory management which rightly read files in the directoy.
 1.0.73
 Add member 'usr/lib/systemd/'.
 1.0.72
