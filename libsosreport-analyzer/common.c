@@ -582,7 +582,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
 
             str = dp->d_name;
 
-            if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) )
+            /* proc/kallsyms is a big file, so... */
+            if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) || ( strstr ( str, "kallsyms" ) != NULL ) )
                 continue;
 
             if (
@@ -604,11 +605,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     read_analyze_dir ( member, full_path_plus_str, 1 );
                 }
             }
+            /* do read proc/'s rootdir so, no need here */
             if (
                 ( ( strcmp ( member, "etc/pki/" ) == 0 ) || 
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) || 
                 ( strcmp ( member, "var/crash/" ) == 0 ) || 
-                ( strcmp ( member, "proc/" ) == 0 ) ||
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
                 ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) )
@@ -650,6 +651,9 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_12_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/httpd/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_13_obj, read_path );
+                /* for proc/'s rootdir */
+                else if ( strstr ( read_path, "/proc/") != 0 )
+                    append_list ( &tmp_14_obj, read_path );
                 else if ( ( strstr ( read_path, "/proc/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_14_obj, read_path );
                 else if ( strstr ( read_path, "/var/crash/") != 0 )

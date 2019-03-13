@@ -334,7 +334,6 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
         append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
-        append_sos_header_obj ( "proc/", cfg, mcinfo );
     }
     if ( mcinfo == 0 ) 
     {
