@@ -111,8 +111,8 @@ extern int i_etc_host;
 extern int i_etc_udev;
 extern int i_etc_yum_repos_d;
 extern int i_etc_systemd_system;
-extern int i_etc_systemd_;
-extern int i_usr_lib_systemd_;
+extern int i_etc_systemd;
+extern int i_usr_lib_systemd;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -136,8 +136,8 @@ extern char *str_arr_etc_host [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_udev [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_yum_repos_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_systemd_system [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
-extern char *str_arr_etc_systemd_ [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
-extern char *str_arr_usr_lib_systemd_ [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_systemd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_usr_lib_systemd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'
