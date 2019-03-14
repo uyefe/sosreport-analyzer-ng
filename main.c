@@ -51,11 +51,12 @@ static void print_help ( void )
     printf("\n     Edit '%s'.\n",fname_mcinfo);
     printf("     If you are unsure, copy from '%s' to %s.\n",fname_mcinfo_example,fname_mcinfo);
     printf("\n Options:\n\n");
-    printf("   -D|--directory <path_to_sosreport_directory>    Analyze files in the directory\n");
-    printf("   -M|--mcinfo    Analyze mcinfo files\n");
-    printf("   -S|--sar-only    Analyze sar files only.\n");
-    printf("   -T|--time-span    Analyze time-span on sar files.(now working)\n");
-    printf("   -h|--help    Print this help\n");
+    printf("   -D|--directory <path_to_sosreport_directory>\n");
+    printf("                     Analyze files in the directory\n");
+    printf("   -M|--mcinfo       Analyze mcinfo files\n");
+    printf("   -S|--sar-only     Analyze sar files only\n");
+    printf("   -T|--time-span    Analyze time-span on sar files\n");
+    printf("   -h|--help         Print this help\n");
     printf("\n Usage:\n\n");
     printf("   To analyze sosreport (including sar analyzing)\n\n");
     printf("     $ %s -D <path_to_sosreport_directory>\n\n",app_name);
