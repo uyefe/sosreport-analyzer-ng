@@ -1,3 +1,5 @@
+1.0.76
+Fix alignment in usage().
 1.0.75
 Fix member 'proc/' to read its rootdir.
 1.0.74
