@@ -216,6 +216,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_virsh_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/usb/" ) == 0 )
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "lib/" ) == 0 )
+                strncpy ( cfg->lib_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -400,6 +402,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
+        append_sos_header_obj ( "lib/", cfg, mcinfo );
     }
     append_sos_header_obj ( "proc/", cfg, mcinfo );
     append_list ( &sos_header_obj, "--------" );
@@ -539,6 +542,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_boot_.member );
         else if ( strcmp ( member, "etc/httpd/" ) == 0 )
             strcat ( str_tmp, cfg->etc_httpd_.member );
+        else if ( strcmp ( member, "lib/" ) == 0 )
+            strcat ( str_tmp, cfg->lib_.member );
     }
     append_list ( &sos_header_obj, str_tmp );
 }

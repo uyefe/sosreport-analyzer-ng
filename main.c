@@ -120,6 +120,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_25_obj );
     init_list ( &tmp_26_obj );
     init_list ( &tmp_27_obj );
+    init_list ( &tmp_28_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -148,6 +149,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_sar__obj );
     init_list ( &sos_commands_virsh__obj );
     init_list ( &sos_commands_usb__obj );
+    init_list ( &lib__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -368,6 +370,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-i", dir_name );
             read_file_pre ( "etc/httpd/", dir_name );
+            read_file_pre ( "lib/", dir_name );
             read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
             append_list ( &sos_header_obj, hairline );
@@ -396,6 +399,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_sar__obj, hairline );
             append_list ( &sos_commands_virsh__obj, hairline );
             append_list ( &sos_commands_usb__obj, hairline );
+            append_list ( &lib__obj, hairline );
         }
     }
 
@@ -461,6 +465,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );
             file_write_list ( &etc_httpd__obj, fp_w );
+            file_write_list ( &lib__obj, fp_w );
             file_write_list ( &proc__obj, fp_w );
         }
         /* real lines ( this comes all lines analyzed for both ) */

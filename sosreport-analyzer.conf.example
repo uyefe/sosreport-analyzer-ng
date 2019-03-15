@@ -327,7 +327,7 @@ var/log/dmesg=all
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. var/log/messages=error 
 
-var/log/messages=error WARNING dump_stack bnx2x
+var/log/messages=error WARNING dump_stack bnx2x tg3
 
 ## sos_commands/sysctl_-a 
 ##
@@ -341,7 +341,7 @@ sos_commands/kernel/sysctl_-a=panic
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. sos_commands/logs/journalctl_--no-pager=kdump 
 
-sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack bnx2x
+sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack bnx2x tg3
 
 ## sos_commands/networking/ethtool_-S
 ##
@@ -362,6 +362,12 @@ sos_commands/networking/ethtool_-i=all
 ## All you can set is 'all'
 
 etc/httpd/=all
+
+## lib/
+##
+## All you can set is 'all'
+
+lib/=all 
 
 ## proc/ 
 ##

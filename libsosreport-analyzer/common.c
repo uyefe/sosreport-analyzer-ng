@@ -247,6 +247,13 @@ struct line_data sos_commands_usb__obj_raw =
         NULL /* next pointer */
     };
 
+/* lib__obj */
+struct line_data lib__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -436,6 +443,13 @@ struct line_data tmp_27_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_28_obj */
+struct line_data tmp_28_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -468,6 +482,7 @@ struct line_data *tmp_24_obj = &tmp_24_obj_raw;
 struct line_data *tmp_25_obj = &tmp_25_obj_raw;
 struct line_data *tmp_26_obj = &tmp_26_obj_raw;
 struct line_data *tmp_27_obj = &tmp_27_obj_raw;
+struct line_data *tmp_28_obj = &tmp_28_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
@@ -495,6 +510,7 @@ struct line_data *usr_lib_systemd__obj = &usr_lib_systemd__obj_raw;
 struct line_data *sos_commands_sar__obj = &sos_commands_sar__obj_raw;
 struct line_data *sos_commands_virsh__obj = &sos_commands_virsh__obj_raw;
 struct line_data *sos_commands_usb__obj = &sos_commands_usb__obj_raw;
+struct line_data *lib__obj = &lib__obj_raw;
 
 int i_boot_grub = 0;
 int i_cmdlog = 0;
@@ -523,6 +539,7 @@ int i_usr_lib_systemd = 0;
 int i_sar = 0;
 int i_virsh = 0;
 int i_usb = 0;
+int i_lib = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -550,6 +567,7 @@ char *str_arr_usr_lib_systemd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sar [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_virsh [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_usb [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_lib [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -637,7 +655,9 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             str = dp->d_name;
 
             /* proc/kallsyms is a big file, so... */
-            if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) || ( strstr ( str, "kallsyms" ) != NULL ) )
+            if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) || ( strstr ( str, "kallsyms" ) != NULL ) ||
+                ( strstr ( str, "register" ) != NULL ) || ( strstr ( str, "compact_memory" ) != NULL ) ||
+                ( strstr ( str, "flush" ) != NULL ) )
                 continue;
 
             if (
@@ -647,9 +667,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "proc/" ) == 0 ) ||
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
-                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) ) 
+                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
+                ( strcmp ( member, "lib/" ) == 0 ) ) 
                 &&
-                ( recursive == 0 )
+                /* try to read all files in the directory */
+                ( ( recursive == 0 ) || ( recursive == 1 ) )
                 )
             {
                 if ( dp->d_type == DT_DIR )
@@ -666,7 +688,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "var/crash/" ) == 0 ) || 
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
-                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) )
+                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
+                ( strcmp ( member, "lib/" ) == 0 ) )
                 &&
                 ( recursive == 0 )
                 )
@@ -736,6 +759,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_26_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/usb/") != 0 )
                     append_list ( &tmp_27_obj, read_path );
+                else if ( ( strstr ( read_path, "/lib/") != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_28_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -840,6 +865,7 @@ const char *items_usr_lib_systemd_;
 const char *items_sos_commands_sar_;
 const char *items_sos_commands_virsh_;
 const char *items_sos_commands_usb_;
+const char *items_lib_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -951,6 +977,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_sos_commands_usb__curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_usb_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_sos_commands_usb__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_lib_ [ MAX_LINE_LENGTH ];
+    char filename_lib__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_lib_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_lib__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
@@ -1006,7 +1036,7 @@ int read_file ( const char *file_name, const char *member, int files )
         /* get item if any and append to object
          * this part should survive through while loop 
          */
-        if ( strstr ( file_name, "boot/grub/" ) != NULL )
+        if ( strstr ( file_name, "/boot/grub/" ) != NULL )
         {
             snprintf ( filename_mcinfo_boot_grub__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_mcinfo_boot_grub_, filename_mcinfo_boot_grub__curr) != 0 )
@@ -1022,7 +1052,7 @@ int read_file ( const char *file_name, const char *member, int files )
              */
             append_item_to_sos_line_obj ( line, "boot/grub/", items_mcinfo_boot_grub_ );
         }
-        else if ( strstr ( file_name, "cmdlog/" ) != NULL )
+        else if ( strstr ( file_name, "/cmdlog/" ) != NULL )
         {
             snprintf ( filename_mcinfo_cmdlog__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_mcinfo_cmdlog_, filename_mcinfo_cmdlog__curr) != 0 )
@@ -1038,68 +1068,68 @@ int read_file ( const char *file_name, const char *member, int files )
              */
             append_item_to_sos_line_obj ( line, "cmdlog/", items_mcinfo_cmdlog_ );
         }
-        else if ( ( strstr ( file_name, "date" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "date", items_date );
-        else if ( ( strstr ( file_name, "lsb-release" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "lsb-release", items_lsb_release );
-        else if ( ( strstr ( file_name, "uname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "uname", items_uname );
-        else if ( ( strstr ( file_name, "hostname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "hostname", items_hostname );
-        else if ( ( strstr ( file_name, "uptime" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "uptime", items_uptime );
-        else if ( strstr ( file_name, "proc/cpuinfo" ) != NULL )
+        else if ( strstr ( file_name, "/proc/cpuinfo" ) != NULL )
             for ( x = 0; x < sosreport_analyzer_cfg->proc_cpuinfo.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/cpuinfo", items_proc_cpuinfo [ x ] );
         else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
-        else if ( ( strstr ( file_name, "dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->dmidecode.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
-        else if ( ( strstr ( file_name, "lsmod" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->lsmod.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lsmod", items_lsmod [ x ] );
-        else if ( ( strstr ( file_name, "lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->lspci.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
-        else if ( ( strstr ( file_name, "sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/devices/udevadm_info_--export-db", items_sos_commands_devices_udevadm_info___export_db [ x ] );
-        else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
-        else if ( ( strstr ( file_name, "installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->installed_rpms.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
-        else if ( ( strstr ( file_name, "df" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->df.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "df", items_df [ x ] );
-        else if ( ( strstr ( file_name, "vgdisplay" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "vgdisplay", items_vgdisplay );
-        else if ( ( strstr ( file_name, "free" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "free", items_free );
-        else if ( ( strstr ( file_name, "ip_addr" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "ip_addr", items_ip_addr );
-        else if ( ( strstr ( file_name, "route" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "route", items_route );
-        else if ( ( strstr ( file_name, "last" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->last.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "last", items_last [ x ] );
-        else if ( ( strstr ( file_name, "ps" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->ps.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "ps", items_ps [ x ] );
-        else if ( ( strstr ( file_name, "lsof" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->lsof.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lsof", items_lsof [ x ] );
-        else if ( ( strstr ( file_name, "netstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->netstat.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "netstat", items_netstat [ x ] );
-        else if ( ( strstr ( file_name, "etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
-        else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
-        else if ( ( strstr ( file_name, "etc/rsyslog.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/rsyslog.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/rsyslog.conf", items_etc_rsyslog_conf );
-        else if ( strstr ( file_name, "etc/sysconfig/network-scripts/ifcfg-" ) != NULL )
+        else if ( strstr ( file_name, "/etc/sysconfig/network-scripts/ifcfg-" ) != NULL )
         {
             snprintf ( filename_etc_sysconfig_network_scripts_ifcfg__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_sysconfig_network_scripts_ifcfg_, filename_etc_sysconfig_network_scripts_ifcfg__curr) != 0 )
@@ -1112,18 +1142,18 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf (filename_etc_sysconfig_network_scripts_ifcfg_, MAX_LINE_LENGTH, "%s", file_name );
             append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
         }
-        else if ( strstr ( file_name, "proc/meminfo" ) != NULL )
+        else if ( strstr ( file_name, "/proc/meminfo" ) != NULL )
             for ( x = 0; x < sosreport_analyzer_cfg->proc_meminfo.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
-        else if ( strstr ( file_name, "proc/interrupts" ) != NULL )
+        else if ( strstr ( file_name, "/proc/interrupts" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/interrupts", items_proc_interrupts );
-        else if ( ( strstr ( file_name, "proc/net/dev" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/proc/net/dev" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
-        else if ( ( strstr ( file_name, "proc/net/sockstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/proc/net/sockstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
-        else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/logrotate.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/logrotate.conf", items_etc_logrotate_conf );
-        else if ( ( strstr ( file_name, "etc/pki/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_pki__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_pki_, filename_etc_pki__curr) != 0 )
@@ -1140,7 +1170,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_pki_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/pki/", items_etc_pki_ );
         }
-        else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/cron.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_cron_d_, filename_etc_cron_d__curr) != 0 )
@@ -1157,9 +1187,9 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_cron_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
         }
-        else if ( strstr ( file_name, "var/log/dmesg" ) != NULL )
+        else if ( strstr ( file_name, "/var/log/dmesg" ) != NULL )
             append_item_to_sos_line_obj ( line, "var/log/dmesg", items_var_log_dmesg );
-        else if ( strstr ( file_name, "var/log/messages" ) != NULL )
+        else if ( strstr ( file_name, "/var/log/messages" ) != NULL )
         {
             snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_messages, filename_var_log_messages_curr) != 0 )
@@ -1173,7 +1203,7 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->var_log_messages.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
         }
-        else if ( strstr ( file_name, "var/log/secure" ) != NULL )
+        else if ( strstr ( file_name, "/var/log/secure" ) != NULL )
         {
             snprintf ( filename_var_log_secure_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_secure, filename_var_log_secure_curr) != 0 )
@@ -1187,7 +1217,7 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->var_log_secure.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/secure", items_var_log_secure [ x ] );
         }
-        else if ( strstr ( file_name, "var/log/audit/" ) != NULL )
+        else if ( strstr ( file_name, "/var/log/audit/" ) != NULL )
         {
             snprintf ( filename_var_log_audit__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_log_audit_, filename_var_log_audit__curr) != 0 )
@@ -1201,10 +1231,10 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->var_log_audit_.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/audit/", items_var_log_audit_ [ x ] );
         }
-        else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
-        else if ( ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf (filename_sos_commands_logs_journalctl___no_pager_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_logs_journalctl___no_pager, filename_sos_commands_logs_journalctl___no_pager_curr) != 0 )
@@ -1218,7 +1248,7 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
         }
-        else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf (filename_sos_commands_networking_ethtool__S_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_networking_ethtool__S, filename_sos_commands_networking_ethtool__S_curr) != 0 )
@@ -1232,7 +1262,7 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
         }
-        else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf (filename_sos_commands_networking_ethtool__i_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_networking_ethtool__i, filename_sos_commands_networking_ethtool__i_curr) != 0 )
@@ -1246,7 +1276,7 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-i", items_sos_commands_networking_ethtool__i [ x ] );
         }
-        else if ( strstr ( file_name, "sos_commands/boot/" ) != NULL )
+        else if ( strstr ( file_name, "/sos_commands/boot/" ) != NULL )
         {
             snprintf ( filename_sos_commands_boot__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_boot_, filename_sos_commands_boot__curr) != 0 )
@@ -1260,7 +1290,7 @@ int read_file ( const char *file_name, const char *member, int files )
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_boot_.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/boot/", items_sos_commands_boot_ [ x ] );
         }
-        else if ( ( strstr ( file_name, "etc/httpd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/httpd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_httpd__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_httpd_, filename_etc_httpd__curr) != 0 )
@@ -1277,7 +1307,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_httpd_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/httpd/", items_etc_httpd_ );
         }
-        else if ( ( strstr ( file_name, "proc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/proc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_proc__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_proc_, filename_proc__curr) != 0 )
@@ -1294,7 +1324,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_proc_ != NULL )
                 append_item_to_sos_line_obj ( line, "proc/", items_proc_ );
         }
-        else if ( ( strstr ( file_name, "var/crash/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/var/crash/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_var_crash__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_var_crash_, filename_var_crash__curr) != 0 )
@@ -1311,7 +1341,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_var_crash_ != NULL )
                 append_item_to_sos_line_obj ( line, "var/crash/", items_var_crash_ );
         }
-        else if ( ( strstr ( file_name, "etc/default/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/default/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_default__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_default_, filename_etc_default__curr) != 0 )
@@ -1328,7 +1358,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_default_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/default/", items_etc_default_ );
         }
-        else if ( ( strstr ( file_name, "etc/logrotate.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/logrotate.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_logrotate_d__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_logrotate_d_, filename_etc_logrotate_d__curr) != 0 )
@@ -1345,7 +1375,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_logrotate_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/logrotate.d/", items_etc_logrotate_d_ );
         }
-        else if ( ( strstr ( file_name, "etc/modprobe.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/modprobe.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_modprobe_d__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_modprobe_d_, filename_etc_modprobe_d__curr) != 0 )
@@ -1362,7 +1392,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_modprobe_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/modprobe.d/", items_etc_modprobe_d_ );
         }
-        else if ( strstr ( file_name, "etc/host" ) != NULL )
+        else if ( strstr ( file_name, "/etc/host" ) != NULL )
         {
             snprintf ( filename_etc_host_curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_host, filename_etc_host_curr) != 0 )
@@ -1375,7 +1405,7 @@ int read_file ( const char *file_name, const char *member, int files )
             snprintf (filename_etc_host, MAX_LINE_LENGTH, "%s", file_name );
             append_item_to_sos_line_obj ( line, "etc/host", items_etc_host );
         }
-        else if ( ( strstr ( file_name, "etc/udev/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/udev/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_udev__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_udev_, filename_etc_udev__curr) != 0 )
@@ -1392,9 +1422,9 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_udev_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/udev/", items_etc_udev_ );
         }
-        else if ( ( strstr ( file_name, "etc/yum.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/yum.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/yum.conf", items_etc_yum_cfg );
-        else if ( ( strstr ( file_name, "etc/yum.repos.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/yum.repos.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_yum_repos_d__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_yum_repos_d_, filename_etc_yum_repos_d__curr) != 0 )
@@ -1411,7 +1441,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_yum_repos_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/yum.repos.d/", items_etc_yum_repos_d_ );
         }
-        else if ( ( strstr ( file_name, "etc/systemd/system/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/systemd/system/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_systemd_system__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_systemd_system_, filename_etc_systemd_system__curr) != 0 )
@@ -1428,7 +1458,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_systemd_system_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/systemd/system/", items_etc_systemd_system_ );
         }
-        else if ( ( strstr ( file_name, "etc/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/etc/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_etc_systemd__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_etc_systemd_, filename_etc_systemd__curr) != 0 )
@@ -1445,7 +1475,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_etc_systemd_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/systemd/", items_etc_systemd_ );
         }
-        else if ( ( strstr ( file_name, "usr/lib/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/usr/lib/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_usr_lib_systemd__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_usr_lib_systemd_, filename_usr_lib_systemd__curr) != 0 )
@@ -1462,7 +1492,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_usr_lib_systemd_ != NULL )
                 append_item_to_sos_line_obj ( line, "usr_lib/systemd/", items_usr_lib_systemd_ );
         }
-        else if ( ( strstr ( file_name, "sos_commands/sar/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/sar/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_sos_commands_sar__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_sar_, filename_sos_commands_sar__curr) != 0 )
@@ -1479,7 +1509,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_sos_commands_sar_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/sar/", items_sos_commands_sar_ );
         }
-        else if ( ( strstr ( file_name, "sos_commands/virsh/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/virsh/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_sos_commands_virsh__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_virsh_, filename_sos_commands_virsh__curr) != 0 )
@@ -1496,7 +1526,7 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_sos_commands_virsh_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/virsh/", items_sos_commands_virsh_ );
         }
-        else if ( ( strstr ( file_name, "sos_commands/usb/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        else if ( ( strstr ( file_name, "/sos_commands/usb/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf ( filename_sos_commands_usb__curr, MAX_LINE_LENGTH, "%s", file_name );
             if ( strcmp ( filename_sos_commands_usb_, filename_sos_commands_usb__curr) != 0 )
@@ -1512,6 +1542,23 @@ int read_file ( const char *file_name, const char *member, int files )
              */
             if ( items_sos_commands_usb_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/usb/", items_sos_commands_usb_ );
+        }
+        else if ( ( strstr ( file_name, "/lib/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_lib__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_lib_, filename_lib__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, blank_line );
+                append_list ( &sos_line_obj, hairline2 );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, blank_line );
+            }
+            snprintf (filename_lib_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
+             */
+            if ( items_lib_ != NULL )
+                append_item_to_sos_line_obj ( line, "lib/", items_lib_ );
         }
         else
             break;
@@ -1566,6 +1613,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->sos_commands_sar_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_virsh_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_usb_.item_num = 0;
+    sosreport_analyzer_cfg->lib_.item_num = 0;
 
     int i = 0;
 
@@ -1694,7 +1742,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/devices/udevadm_info_--export-db */
-    else if ( ( strstr ( file_name, "sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, s );
@@ -1715,7 +1763,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/scsi/lsscsi */
-    else if ( ( strstr ( file_name, "sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, s );
@@ -1876,35 +1924,35 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member etc/kdump.conf */
-    else if ( ( strstr ( file_name, "etc/kdump.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_kdump_conf.member, s );
         items_etc_kdump_conf = token;
     }
     /* member etc/sysctl.conf */
-    else if ( ( strstr ( file_name, "etc/sysctl.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_sysctl_conf.member, s );
         items_etc_sysctl_conf = token;
     }
     /* member etc/rsyslog.conf */
-    else if ( ( strstr ( file_name, "etc/rsyslog.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/rsyslog.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, s );
         items_etc_rsyslog_conf = token;
     }
     /* member etc/sysconfig/network-scripts/ifcfg- */
-    else if ( ( strstr ( file_name, "etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, s );
         items_etc_sysconfig_network_scripts_ifcfg_ = token;
     }
     /* member proc/cpuinfo */
-    else if ( ( strstr ( file_name, "proc/cpuinfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_cpuinfo.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/proc/cpuinfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_cpuinfo.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_cpuinfo.member, s );
@@ -1925,7 +1973,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member proc/meminfo */
-    else if ( ( strstr ( file_name, "proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/proc/meminfo" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_meminfo.member, s );
@@ -1946,56 +1994,56 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member proc/interrupts */
-    else if ( ( strstr ( file_name, "proc/interrupts" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/proc/interrupts" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_interrupts.member, s );
         items_proc_interrupts = token;
     }
     /* member proc/net/dev */
-    else if ( ( strstr ( file_name, "proc/net/dev" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/proc/net/dev" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_net_dev.member, s );
         items_proc_net_dev = token;
     }
     /* member proc/net/sockstat */
-    else if ( ( strstr ( file_name, "proc/net/sockstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/proc/net/sockstat" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat.member, s );
         items_proc_net_sockstat = token;
     }
     /* member etc/logrotate.conf */
-    else if ( ( strstr ( file_name, "etc/logrotate.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/logrotate.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_logrotate_conf.member, s );
         items_etc_logrotate_conf = token;
     }
     /* member etc/pki/ */
-    else if ( ( strstr ( file_name, "etc/pki/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_pki_.member, s );
         items_etc_pki_ = token;
     }
     /* member etc/cron.d/ */
-    else if ( ( strstr ( file_name, "etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/cron.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_cron_d_.member, s );
         items_etc_cron_d_ = token;
     }
     /* member var/log/dmesg */
-    else if ( ( strstr ( file_name, "var/log/dmesg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/var/log/dmesg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->var_log_dmesg.member, s );
         items_var_log_dmesg = token;
     }
     /* member var/log/messages */
-    else if ( ( strstr ( file_name, "var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/var/log/messages" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->var_log_messages.member, s );
@@ -2016,7 +2064,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member var/log/secure */
-    else if ( ( strstr ( file_name, "var/log/secure" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/var/log/secure" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->var_log_secure.member, s );
@@ -2037,7 +2085,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member var/log/audit/ */
-    else if ( ( strstr ( file_name, "var/log/audit/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/var/log/audit/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_audit_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->var_log_audit_.member, s );
@@ -2058,7 +2106,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/kernel/sysctl_-a */
-    else if ( ( strstr ( file_name, "sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, s );
@@ -2079,7 +2127,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/logs/journalctl_--no-pager */
-    else if ( ( strstr ( file_name, "sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, s );
@@ -2100,7 +2148,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/networking/ethtool_-S */
-    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, s );
@@ -2121,7 +2169,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/networking/ethtool_-i */
-    else if ( ( strstr ( file_name, "sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, s );
@@ -2142,7 +2190,7 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member sos_commands/boot/ */
-    else if ( ( strstr ( file_name, "sos_commands/boot/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/boot/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_boot_.member, s );
@@ -2163,116 +2211,123 @@ void set_token_to_item_arr ( const char *file_name )
         }
     }
     /* member etc/httpd/ */
-    else if ( ( strstr ( file_name, "etc/httpd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/httpd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_httpd_.member, s );
         items_etc_httpd_ = token;
     }
     /* member proc/ */
-    else if ( ( strstr ( file_name, "proc/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/proc/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->proc_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->proc_.member, s );
         items_proc_ = token;
     }
     /* member var/crash/ */
-    else if ( ( strstr ( file_name, "var/crash/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_crash_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/var/crash/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_crash_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->var_crash_.member, s );
         items_var_crash_ = token;
     }
     /* member etc/default/ */
-    else if ( ( strstr ( file_name, "etc/default/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/default/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_default_.member, s );
         items_etc_default_ = token;
     }
     /* member etc/logrotate.d/ */
-    else if ( ( strstr ( file_name, "etc/logrotate.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_d_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/logrotate.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_d_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_logrotate_d_.member, s );
         items_etc_logrotate_d_ = token;
     }
     /* member etc/modprobe.d/ */
-    else if ( ( strstr ( file_name, "etc/modprobe.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/modprobe.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_modprobe_d_.member, s );
         items_etc_modprobe_d_ = token;
     }
     /* member etc/host */
-    else if ( ( strstr ( file_name, "etc/host" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_host.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/host" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_host.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_host.member, s );
         items_etc_host = token;
     }
     /* member etc/udev/ */
-    else if ( ( strstr ( file_name, "etc/udev/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_udev_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/udev/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_udev_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_udev_.member, s );
         items_etc_udev_ = token;
     }
     /* member etc/yum.conf */
-    else if ( ( strstr ( file_name, "etc/yum.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_conf.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/yum.conf" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_conf.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_yum_conf.member, s );
         items_etc_yum_cfg = token;
     }
     /* member etc/yum.repos.d/ */
-    else if ( ( strstr ( file_name, "etc/yum.repos.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/yum.repos.d/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, s );
         items_etc_yum_repos_d_ = token;
     }
     /* member etc/systemd/system/ */
-    else if ( ( strstr ( file_name, "etc/systemd/system/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/systemd/system/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_systemd_system_.member, s );
         items_etc_systemd_system_ = token;
     }
     /* member etc/systemd/ */
-    else if ( ( strstr ( file_name, "etc/systemd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/etc/systemd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->etc_systemd_.member, s );
         items_etc_systemd_ = token;
     }
     /* member usr/lib/systemd/ */
-    else if ( ( strstr ( file_name, "usr/lib/systemd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->usr_lib_systemd_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/usr/lib/systemd/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->usr_lib_systemd_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->usr_lib_systemd_.member, s );
         items_usr_lib_systemd_ = token;
     }
     /* member sos_commands/sar/ */
-    else if ( ( strstr ( file_name, "sos_commands/sar/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_sar_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/sar/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_sar_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_sar_.member, s );
         items_sos_commands_sar_ = token;
     }
     /* member sos_commands/virsh/ */
-    else if ( ( strstr ( file_name, "sos_commands/virsh/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_virsh_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/virsh/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_virsh_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_virsh_.member, s );
         items_sos_commands_virsh_ = token;
     }
     /* member sos_commands/usb/ */
-    else if ( ( strstr ( file_name, "sos_commands/usb/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_usb_.member, "" ) != 0 ) )
+    else if ( ( strstr ( file_name, "/sos_commands/usb/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_usb_.member, "" ) != 0 ) )
     {
         /* get the first token */
         token = strtok ( sosreport_analyzer_cfg->sos_commands_usb_.member, s );
         items_sos_commands_usb_ = token;
+    }
+    /* member lib/ */
+    else if ( ( strstr ( file_name, "/lib/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->lib_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->lib_.member, s );
+        items_lib_ = token;
     }
 }
 
@@ -2351,7 +2406,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "usr/lib/systemd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->usr_lib_systemd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/sar/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_sar_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/virsh/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_virsh_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/usb/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_usb_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "sos_commands/usb/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_usb_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "lib/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lib_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -2393,7 +2449,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
-            ( strcmp ( member, "sos_commands/usb/" ) == 0 )
+            ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
+            ( strcmp ( member, "lib/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
@@ -2587,6 +2644,13 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < i_usb; i++ )
                 append_list ( &sos_commands_usb__obj, str_arr_usb [ i ] );
             read_file_from_analyze_dir ( &sos_commands_usb__obj, "sos_commands/usb/" );
+        }
+        if ( strcmp ( member, "lib/" ) == 0 )
+        {
+            i_lib = bubble_sort_object_by_the_string ( &tmp_28_obj, str_arr_lib );
+            for ( i = 0; i < i_lib; i++ )
+                append_list ( &lib__obj, str_arr_lib [ i ] );
+            read_file_from_analyze_dir ( &lib__obj, "lib/" );
         }
     }
 }
@@ -3004,7 +3068,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/usb/" ) == 0 )
+        ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
+        ( strcmp ( member, "lib/" ) == 0 )
     )
     {
         if ( strstr ( line , item ) != NULL )
@@ -3079,6 +3144,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_26_obj ); 
     if ( tmp_27_obj != NULL ) 
         clear_list ( &tmp_27_obj ); 
+    if ( tmp_28_obj != NULL ) 
+        clear_list ( &tmp_28_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3134,4 +3201,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_virsh__obj ); 
     if ( sos_commands_usb__obj != NULL ) 
         clear_list ( &sos_commands_usb__obj ); 
+    if ( lib__obj != NULL ) 
+        clear_list ( &lib__obj ); 
 }

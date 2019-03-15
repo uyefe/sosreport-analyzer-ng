@@ -88,7 +88,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze sos_commands/logs/journalctl_--no-pager files.
   Analyze sos_commands/networking/ethtool_-S files.
   Analyze sos_commands/networking/ethtool_-i files.
-  Echo files under etc/httpd/.
+  Echo files in etc/httpd/.
+  Echo files in sos_commands/lib/.
   Analyze files under proc/.
 
   For mcinfo 
