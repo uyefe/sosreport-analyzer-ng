@@ -155,6 +155,12 @@ struct sosreport_analyzer_config
     config_each etc_yum_conf;
     /* should be all */
     config_each etc_yum_repos_d_;
+    /* should be all */
+    config_each sos_commands_sar_;
+    /* should be all */
+    config_each sos_commands_virsh_;
+    /* should be all */
+    config_each sos_commands_usb_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

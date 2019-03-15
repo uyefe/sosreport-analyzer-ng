@@ -210,6 +210,12 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/httpd/" ) == 0 )
                 strncpy ( cfg->etc_httpd_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/sar/" ) == 0 )
+                strncpy ( cfg->sos_commands_sar_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/virsh/" ) == 0 )
+                strncpy ( cfg->sos_commands_virsh_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/usb/" ) == 0 )
+                strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -365,6 +371,9 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/systemd/", cfg, mcinfo );
         append_sos_header_obj ( "etc/systemd/system/", cfg, mcinfo );
         append_sos_header_obj ( "usr/lib/systemd/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/sar/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/virsh/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
         append_sos_header_obj ( "etc/default/", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
@@ -488,6 +497,12 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_systemd_system_.member );
         else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
             strcat ( str_tmp, cfg->usr_lib_systemd_.member );
+        else if ( strcmp ( member, "sos_commands/sar/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_sar_.member );
+        else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_virsh_.member );
+        else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_usb_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )
