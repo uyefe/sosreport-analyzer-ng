@@ -1,3 +1,5 @@
+1.0.78
+Add member 'lib/' and fix reading full directory for others.
 1.0.77
 Add members 'sos_commands/sar/', 'sos_commands/virsh/' and 'sos_commands/usb/'.
 1.0.76
