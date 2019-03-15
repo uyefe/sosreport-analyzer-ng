@@ -186,6 +186,24 @@ etc/systemd/system/=all
 
 usr/lib/systemd/=all 
 
+## sos_commands/sar/
+##
+## All you can set is 'all'
+
+sos_commands/sar/=all 
+
+## sos_commands/virsh/
+##
+## All you can set is 'all'
+
+sos_commands/virsh/=all 
+
+## sos_commands/usb/
+##
+## All you can set is 'all'
+
+sos_commands/usb/=all 
+
 ## etc/default/
 ##
 ## All you can set is 'all'

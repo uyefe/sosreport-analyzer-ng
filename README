@@ -43,42 +43,47 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze lsmod file.
   Echo files in etc/modprobe.d/.
   Analyze lspci file.
+  Analyze etc/udev/ file.
   Analyze sos_commands/devices/udevadm_info_--export-db file.
   Echo sos_commands/scsi/lsscsi file.
   Analyze installed-rpms file.
   Analyze df file.
   Echo vgdisplay file.
   Echo free file.
-  Echo files etc/host-*.
+  Echo files etc/host*.
   Echo ip_addr file.
   Echo route file.
   Analyze last file.
   Analyze ps file.
   Analyze lsof file.
+  Analyze netstat file.
   Echo files in etc/systemd/.
   Echo files in etc/systemd/system/.
   Echo files in usr/lib/systemd/.
-  Analyze netstat file.
+  Echo files in sos_commands/sar.
+  Echo files in sos_commands/virsh.
+  Echo files in sos_commands/usb.
+  Echo files in etc/default.
   Analyze etc/kdump.conf.
   Analyze etc/sysctl.conf.
   Echo etc/rsyslog.conf.
   Echo etc/yum.conf file.
   Echo files in etc/yum.repos.d/.
   Echo files etc/sysconfig/network-scripts/ifcfg-*.
-  Analyze files in sos_commands/boot/.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
+  Analyze files in sos_commands/boot/.
   Echo proc/net/dev file.
   Echo proc/net/sockstat file.
   Echo etc/logrotate.conf file.
   Echo files in etc/logrotate.d/.
-  Echo files under etc/pki/.
+  Echo files in etc/pki/.
   Echo files in etc/cron.d/.
   Echo var/log/dmesg file.
   Analyze var/log/messages* files.
+  Echo files in var/crash/ if the directory exists.
   Analyze var/log/secure* files.
   Analyze files in var/log/audit/.
-  Echo files in var/crash/ if the directory exists.
   Analyze sos_commands/kernel/sysctl_-a file.
   Analyze sos_commands/logs/journalctl_--no-pager files.
   Analyze sos_commands/networking/ethtool_-S files.
@@ -93,13 +98,14 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   Analyze proc/cpuinfo file.
   Analyze boot/grub/ files.
-  Echo files etc/sysconfig/network-scripts/ifcfg-*.
   Echo files in cmdlog/.
+  Echo etc/host*.
+  Echo files etc/sysconfig/network-scripts/ifcfg-*.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Echo var/log/dmesg file.
   Analyze var/log/messages* files.
-  Analyze files in var/log/audit/.
+  Echo files in var/crash/.
   Analyze files under proc/.
 
 2. sar-analyzer

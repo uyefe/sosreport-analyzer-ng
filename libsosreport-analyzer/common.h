@@ -62,6 +62,9 @@ extern struct line_data *tmp_21_obj;
 extern struct line_data *tmp_22_obj;
 extern struct line_data *tmp_23_obj;
 extern struct line_data *tmp_24_obj;
+extern struct line_data *tmp_25_obj;
+extern struct line_data *tmp_26_obj;
+extern struct line_data *tmp_27_obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct line_data *etc_pki__obj;
@@ -87,6 +90,9 @@ extern struct line_data *etc_yum_repos_d__obj;
 extern struct line_data *etc_systemd_system__obj;
 extern struct line_data *etc_systemd__obj;
 extern struct line_data *usr_lib_systemd__obj;
+extern struct line_data *sos_commands_sar__obj;
+extern struct line_data *sos_commands_virsh__obj;
+extern struct line_data *sos_commands_usb__obj;
 
 /* for sorting array */
 extern int i_cmdlog;
@@ -113,6 +119,9 @@ extern int i_etc_yum_repos_d;
 extern int i_etc_systemd_system;
 extern int i_etc_systemd;
 extern int i_usr_lib_systemd;
+extern int i_sar;
+extern int i_virsh;
+extern int i_usb;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -138,6 +147,9 @@ extern char *str_arr_etc_yum_repos_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_systemd_system [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_systemd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_usr_lib_systemd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_sar [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_virsh [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_usb [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'
