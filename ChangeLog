@@ -1,3 +1,5 @@
+1.0.77
+Add members 'sos_commands/sar/', 'sos_commands/virsh/' and 'sos_commands/usb/'.
 1.0.76
 Fix alignment in usage().
 1.0.75
