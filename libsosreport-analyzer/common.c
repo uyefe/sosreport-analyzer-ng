@@ -254,6 +254,13 @@ struct line_data lib__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc__obj */
+struct line_data etc__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -450,6 +457,13 @@ struct line_data tmp_28_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_29_obj */
+struct line_data tmp_29_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -483,6 +497,7 @@ struct line_data *tmp_25_obj = &tmp_25_obj_raw;
 struct line_data *tmp_26_obj = &tmp_26_obj_raw;
 struct line_data *tmp_27_obj = &tmp_27_obj_raw;
 struct line_data *tmp_28_obj = &tmp_28_obj_raw;
+struct line_data *tmp_29_obj = &tmp_29_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
@@ -511,6 +526,7 @@ struct line_data *sos_commands_sar__obj = &sos_commands_sar__obj_raw;
 struct line_data *sos_commands_virsh__obj = &sos_commands_virsh__obj_raw;
 struct line_data *sos_commands_usb__obj = &sos_commands_usb__obj_raw;
 struct line_data *lib__obj = &lib__obj_raw;
+struct line_data *etc__obj = &etc__obj_raw;
 
 int i_boot_grub = 0;
 int i_cmdlog = 0;
@@ -540,6 +556,7 @@ int i_sar = 0;
 int i_virsh = 0;
 int i_usb = 0;
 int i_lib = 0;
+int i_etc = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -568,6 +585,7 @@ char *str_arr_sar [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_virsh [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_usb [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_lib [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -637,7 +655,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
     }
     char *str;
     int i = 0;
-
     /* limit of fname_part files to be analyzed */
     int str_arr_valid_size = 0;
 
@@ -668,7 +685,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
                 ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
-                ( strcmp ( member, "lib/" ) == 0 ) ) 
+                ( strcmp ( member, "lib/" ) == 0 ) ||
+                ( strcmp ( member, "etc/" ) == 0 ) ) 
                 &&
                 /* try to read all files in the directory */
                 ( ( recursive == 0 ) || ( recursive == 1 ) )
@@ -689,7 +707,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
                 ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
-                ( strcmp ( member, "lib/" ) == 0 ) )
+                ( strcmp ( member, "lib/" ) == 0 ) ||
+                ( strcmp ( member, "etc/" ) == 0 ) )
                 &&
                 ( recursive == 0 )
                 )
@@ -761,6 +780,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_27_obj, read_path );
                 else if ( ( strstr ( read_path, "/lib/") != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_28_obj, read_path );
+                else if ( ( strstr ( read_path, "/etc/") != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_29_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES )
@@ -866,6 +887,7 @@ const char *items_sos_commands_sar_;
 const char *items_sos_commands_virsh_;
 const char *items_sos_commands_usb_;
 const char *items_lib_;
+const char *items_etc_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -981,6 +1003,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_lib__curr [ MAX_LINE_LENGTH ];
     memset ( filename_lib_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_lib__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_etc_ [ MAX_LINE_LENGTH ];
+    char filename_etc__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_etc_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_etc__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
@@ -1560,6 +1586,23 @@ int read_file ( const char *file_name, const char *member, int files )
             if ( items_lib_ != NULL )
                 append_item_to_sos_line_obj ( line, "lib/", items_lib_ );
         }
+        else if ( ( strstr ( file_name, "/etc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_etc__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_etc_, filename_etc__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, blank_line );
+                append_list ( &sos_line_obj, hairline2 );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, blank_line );
+            }
+            snprintf (filename_etc_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
+             */
+            if ( items_etc_ != NULL )
+                append_item_to_sos_line_obj ( line, "etc/", items_etc_ );
+        }
         else
             break;
         /* strip trailing spaces */
@@ -1614,6 +1657,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->sos_commands_virsh_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_usb_.item_num = 0;
     sosreport_analyzer_cfg->lib_.item_num = 0;
+    sosreport_analyzer_cfg->etc_.item_num = 0;
 
     int i = 0;
 
@@ -2329,6 +2373,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->lib_.member, s );
         items_lib_ = token;
     }
+    /* member etc/ */
+    else if ( ( strstr ( file_name, "/etc/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->etc_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->etc_.member, s );
+        items_etc_ = token;
+    }
 }
 
 void read_file_pre ( const char *member, const char *dir_name )
@@ -2407,7 +2458,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/sar/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_sar_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/virsh/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_virsh_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/usb/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_usb_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "lib/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lib_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "lib/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lib_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -2450,7 +2502,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
-            ( strcmp ( member, "lib/" ) == 0 )
+            ( strcmp ( member, "lib/" ) == 0 ) ||
+            ( strcmp ( member, "etc/" ) == 0 )
            )
             read_analyze_dir ( member, get_dirname ( str_tmp3 ), 0 );
         else
@@ -2651,6 +2704,13 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < i_lib; i++ )
                 append_list ( &lib__obj, str_arr_lib [ i ] );
             read_file_from_analyze_dir ( &lib__obj, "lib/" );
+        }
+        if ( strcmp ( member, "etc/" ) == 0 )
+        {
+            i_etc = bubble_sort_object_by_the_string ( &tmp_29_obj, str_arr_etc );
+            for ( i = 0; i < i_etc; i++ )
+                append_list ( &etc__obj, str_arr_etc [ i ] );
+            read_file_from_analyze_dir ( &etc__obj, "etc/" );
         }
     }
 }
@@ -3069,7 +3129,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
-        ( strcmp ( member, "lib/" ) == 0 )
+        ( strcmp ( member, "lib/" ) == 0 ) ||
+        ( strcmp ( member, "etc/" ) == 0 )
     )
     {
         if ( strstr ( line , item ) != NULL )
@@ -3146,6 +3207,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_27_obj ); 
     if ( tmp_28_obj != NULL ) 
         clear_list ( &tmp_28_obj ); 
+    if ( tmp_29_obj != NULL ) 
+        clear_list ( &tmp_29_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3203,4 +3266,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_usb__obj ); 
     if ( lib__obj != NULL ) 
         clear_list ( &lib__obj ); 
+    if ( etc__obj != NULL ) 
+        clear_list ( &etc__obj ); 
 }

@@ -68,6 +68,12 @@ var/log/dmesg=all
 
 var/log/messages=error WARNING dump_stack bnx2x tg3
 
+## etc/ 
+##
+## All you can set is 'all'
+
+etc/=all
+
 ## proc/ 
 ##
 ## You can set arbitrary item-name including 'all' up to 12

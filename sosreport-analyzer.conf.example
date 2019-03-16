@@ -369,6 +369,12 @@ etc/httpd/=all
 
 lib/=all 
 
+## etc/
+##
+## All you can set is 'all'
+
+etc/=all 
+
 ## proc/ 
 ##
 ## You can set arbitrary item-name including 'all' up to 12
