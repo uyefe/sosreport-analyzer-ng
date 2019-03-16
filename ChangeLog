@@ -1,3 +1,5 @@
+1.0.79
+Add member 'etc/' which reads directory fully.
 1.0.78
 Add member 'lib/' and fix reading full directory for others.
 1.0.77
