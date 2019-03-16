@@ -163,6 +163,8 @@ struct sosreport_analyzer_config
     config_each sos_commands_usb_;
     /* should be all */
     config_each lib_;
+    /* should be all */
+    config_each etc_;
 };
 
 /*  This is a pointer to the global configuration, it should be available
