@@ -1,3 +1,5 @@
+1.0.82
+Exclude already echoed lines in member 'var/'.
 1.0.81
 Fix member ordering in RADME.
 1.0.80
