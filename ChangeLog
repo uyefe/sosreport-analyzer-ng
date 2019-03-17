@@ -1,3 +1,5 @@
+1.0.80
+Fix default functionality and let user decide reading every directory with config file settings.
 1.0.79
 Add member 'etc/' which reads directory fully.
 1.0.78
