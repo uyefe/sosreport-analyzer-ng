@@ -757,7 +757,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( ( strcmp ( member, "proc/" ) == 0 ) && ( ( strstr ( str, "flush" ) != NULL ) || ( strstr ( str, "kallsyms" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "var/" ) == 0 ) && ( strstr ( str, "journal" ) != NULL ) ) || 
                 ( ( strcmp ( member, "var/") == 0 ) && ( strstr ( str, "messages" ) != NULL ) ) ||
-                ( ( strcmp ( member, "var/") == 0 ) && ( strstr ( str, "sa" ) != NULL ) ) || 
+                ( ( strcmp ( member, "var/") == 0 ) && ( ( strstr ( str, "sa" ) != NULL ) || ( strstr ( str, "crash" ) != NULL ) ) ) || 
                 ( ( strcmp ( member, "var/") == 0 ) && ( strstr ( str, "nova" ) != NULL ) ) )
                 continue;
 
