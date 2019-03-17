@@ -91,6 +91,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in etc/httpd/.
   Echo files in lib/.
   Echo files in etc/.
+  Echo files in sos_commands/.
+  Echo files in dev/.
+  Echo files in usr/.
+  Echo files in var/.
   Analyze files under proc/.
 
   For mcinfo 
@@ -103,12 +107,13 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in cmdlog/.
   Echo etc/host*.
   Echo files etc/sysconfig/network-scripts/ifcfg-*.
+  Echo files in etc/.
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Echo var/log/dmesg file.
   Analyze var/log/messages* files.
   Echo files in var/crash/.
-  Echo files in etc/.
+  Echo files in var/.
   Analyze files under proc/.
 
 2. sar-analyzer
