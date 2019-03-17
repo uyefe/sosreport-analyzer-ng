@@ -110,15 +110,17 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->proc_interrupts.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/" ) == 0 )
             strncpy ( cfg->etc_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/" ) == 0 )
+            strncpy ( cfg->var_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/" ) == 0 )
             strncpy ( cfg->proc_.member, line, MAX_LINE_LENGTH - 1 );
 
         if ( mcinfo == 1 )
         {
-          if ( strcmp ( keyword, "boot/grub/" ) == 0 )
-            strncpy ( cfg->mcinfo_boot_grub_.member, line, MAX_LINE_LENGTH - 1 );
-          else if ( strcmp ( keyword, "cmdlog/" ) == 0 )
-            strncpy ( cfg->mcinfo_cmdlog_.member, line, MAX_LINE_LENGTH - 1 );
+            if ( strcmp ( keyword, "boot/grub/" ) == 0 )
+                strncpy ( cfg->mcinfo_boot_grub_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "cmdlog/" ) == 0 )
+                strncpy ( cfg->mcinfo_cmdlog_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else if ( mcinfo == 0 )
         {
@@ -220,6 +222,12 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lib/" ) == 0 )
                 strncpy ( cfg->lib_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
+                strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "dev/" ) == 0 )
+                strncpy ( cfg->dev_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "usr/" ) == 0 )
+                strncpy ( cfg->usr_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -337,9 +345,9 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "proc/cpuinfo", cfg, mcinfo );
         append_sos_header_obj ( "boot/grub/", cfg, mcinfo );
         append_sos_header_obj ( "cmdlog/", cfg, mcinfo );
-        //append_sos_header_obj ( "etc/host", cfg, mcinfo );
+        append_sos_header_obj ( "etc/host", cfg, mcinfo );
+        append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
         append_sos_header_obj ( "etc/", cfg, mcinfo );
-        //append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
@@ -407,7 +415,11 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
         append_sos_header_obj ( "lib/", cfg, mcinfo );
         append_sos_header_obj ( "etc/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/", cfg, mcinfo );
+        append_sos_header_obj ( "dev/", cfg, mcinfo );
+        append_sos_header_obj ( "usr/", cfg, mcinfo );
     }
+    append_sos_header_obj ( "var/", cfg, mcinfo );
     append_sos_header_obj ( "proc/", cfg, mcinfo );
     append_list ( &sos_header_obj, "--------" );
 }
@@ -437,6 +449,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->var_crash_.member );
     else if ( strcmp ( member, "etc/" ) == 0 )
         strcat ( str_tmp, cfg->etc_.member );
+    else if ( strcmp ( member, "var/" ) == 0 )
+        strcat ( str_tmp, cfg->var_.member );
     else if ( strcmp ( member, "proc/" ) == 0 )
         strcat ( str_tmp, cfg->proc_.member );
 
@@ -550,6 +564,12 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_httpd_.member );
         else if ( strcmp ( member, "lib/" ) == 0 )
             strcat ( str_tmp, cfg->lib_.member );
+        else if ( strcmp ( member, "sos_commands/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_.member );
+        else if ( strcmp ( member, "dev/" ) == 0 )
+            strcat ( str_tmp, cfg->dev_.member );
+        else if ( strcmp ( member, "usr/" ) == 0 )
+            strcat ( str_tmp, cfg->usr_.member );
     }
     append_list ( &sos_header_obj, str_tmp );
 }

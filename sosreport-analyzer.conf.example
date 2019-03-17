@@ -373,14 +373,38 @@ lib/=all
 ##
 ## All you can set is 'all'
 
-etc/=all 
+etc/=skip 
+
+## sos_commands/
+##
+## All you can set is 'all'
+
+sos_commands/=skip
+
+## dev/
+##
+## All you can set is 'all'
+
+dev/=skip
+
+## usr/
+##
+## All you can set is 'all'
+
+usr/=skip 
+
+## var/
+##
+## All you can set is 'all'
+
+var/=skip 
 
 ## proc/ 
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. proc/=all
 
-proc/=all
+proc/=skip
 
 ## var/crash/ 
 ##
