@@ -64,7 +64,7 @@ dmidecode=bios memory Smart Firmware firmware
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 
-lsmod=Module kvm video 
+lsmod=Module kvm video
 
 ## etc/modprobe.d/
 ##
@@ -82,7 +82,7 @@ lspci=00: 01: 02: 03: 04: 05: 06: 07: 08: 09: 7f 80 driver modules
 ##
 ## All you can set is 'all'
 
-sos_commands/scsi/lsscsi=all 
+sos_commands/scsi/lsscsi=all
 
 ## devices/udevadm_info_--export-db=<item> ...
 ##
@@ -94,7 +94,7 @@ sos_commands/devices/udevadm_info_--export-db=all
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 
-installed-rpms=kernel 
+installed-rpms=kernel
 
 ## etc/udev/ 
 ##
@@ -106,7 +106,7 @@ etc/udev/=all
 ##
 ## You can set arbitrary item-name including 'all' up to 2
 
-df=/dev 
+df=/dev
 
 ## vgdisplay
 ##
@@ -130,7 +130,7 @@ ip_addr=all
 ##
 ## All you can set is 'all'
 
-route=all 
+route=all
 
 ## last
 ##
@@ -146,93 +146,93 @@ last=all
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. ps=java 
 
-ps=all 
+ps=all
 
 ## lsof 
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. lsof=bash 
 
-lsof=bash 
+lsof=all
 
 ## netstat 
 ##
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. netstat=TIME_WAIT 
 
-netstat=TIME_WAIT 
+netstat=TIME_WAIT
 
 ## etc/host
 ##
 ## All you can set is 'all'
 
-etc/host=all 
+etc/host=all
 
 ## etc/systemd/
 ##
 ## All you can set is 'all'
 
-etc/systemd/=all 
+etc/systemd/=all
 
 ## etc/systemd/system/
 ##
 ## All you can set is 'all'
 
-etc/systemd/system/=all 
+etc/systemd/system/=all
 
 ## usr/lib/systemd/
 ##
 ## All you can set is 'all'
 
-usr/lib/systemd/=all 
+usr/lib/systemd/=all
 
 ## sos_commands/sar/
 ##
 ## All you can set is 'all'
 
-sos_commands/sar/=all 
+sos_commands/sar/=all
 
 ## sos_commands/virsh/
 ##
 ## All you can set is 'all'
 
-sos_commands/virsh/=all 
+sos_commands/virsh/=skip
 
 ## sos_commands/usb/
 ##
 ## All you can set is 'all'
 
-sos_commands/usb/=all 
+sos_commands/usb/=all
 
 ## etc/default/
 ##
 ## All you can set is 'all'
 
-etc/default/=all 
+etc/default/=all
 
 ## etc/kdump.conf 
 ##
 ## All you can set is 'all'
 
-etc/kdump.conf=all 
+etc/kdump.conf=all
 
 ## etc/sysctl.conf 
 ##
 ## All you can set is 'all'
 
-etc/sysctl.conf=all 
+etc/sysctl.conf=all
 
 ## etc/rsyslog.conf 
 ##
 ## All you can set is 'all'
 
-etc/rsyslog.conf=all 
+etc/rsyslog.conf=all
 
 ## etc/yum.conf 
 ##
 ## All you can set is 'all'
 
-etc/yum.conf=all 
+etc/yum.conf=all
 
 ## etc/yum.repos.d/
 ##
@@ -327,7 +327,7 @@ var/log/dmesg=all
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. var/log/messages=error 
 
-var/log/messages=error WARNING dump_stack bnx2x tg3
+var/log/messages=error WARNING dump_stack bnx2x tg3 [<ffff Trace hung blocked
 
 ## sos_commands/sysctl_-a 
 ##
@@ -341,7 +341,7 @@ sos_commands/kernel/sysctl_-a=panic
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. sos_commands/logs/journalctl_--no-pager=kdump 
 
-sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack bnx2x tg3
+sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack bnx2x tg3 [<ffff Trace hung blocked
 
 ## sos_commands/networking/ethtool_-S
 ##
@@ -361,19 +361,19 @@ sos_commands/networking/ethtool_-i=all
 ##
 ## All you can set is 'all'
 
-etc/httpd/=all
+etc/httpd/=skip
 
 ## lib/
 ##
 ## All you can set is 'all'
 
-lib/=all 
+lib/=all
 
 ## etc/
 ##
 ## All you can set is 'all'
 
-etc/=skip 
+etc/=skip
 
 ## sos_commands/
 ##
@@ -391,13 +391,13 @@ dev/=skip
 ##
 ## All you can set is 'all'
 
-usr/=skip 
+usr/=skip
 
 ## var/
 ##
 ## All you can set is 'all'
 
-var/=skip 
+var/=skip
 
 ## proc/ 
 ##

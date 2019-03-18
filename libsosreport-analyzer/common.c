@@ -747,15 +747,20 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
              * journal... is a big file, so...
              * cil or hll... is selinux stuff and human can't read, so...
              * messages* should be read by other member , so...
-             * others have big one...
+             * others have big one, compressed or selinux modules.
+             * in proc/ there are some files which have only write permissions and couldn't be read.
              */
             if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, "cil" ) != NULL ) || ( strstr ( str, "hll" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".bin" ) != NULL ) || ( strstr ( str, ".kern" ) != NULL ) ) ) ||
-                ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".db " ) != NULL ) || ( strstr ( str, "policy." ) != NULL ) ) ) ||
+                ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".db" ) != NULL ) || ( strstr ( str, "policy." ) != NULL ) ) ) ||
+                ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, "lang_ext" ) != NULL ) || ( strstr ( str, ".pp" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "proc/" ) == 0 ) && ( ( strstr ( str, "register" ) != NULL ) || ( strstr ( str, "compact_memory" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "proc/" ) == 0 ) && ( ( strstr ( str, "flush" ) != NULL ) || ( strstr ( str, "kallsyms" ) != NULL ) ) ) ||
-                ( ( strcmp ( member, "var/" ) == 0 ) && ( strstr ( str, "journal" ) != NULL ) ) || 
+                ( ( strcmp ( member, "proc/" ) == 0 ) && ( ( strstr ( str, "purge" ) != NULL ) || ( strstr ( str, "rebase" ) != NULL ) ) )||
+                ( ( strcmp ( member, "var/log/messages" ) == 0 ) && ( strstr ( str, ".gz" ) != NULL ) ) || 
+                ( ( strcmp ( member, "var/log/secure" ) == 0 ) && ( strstr ( str, ".gz" ) != NULL ) ) || 
+                ( ( strcmp ( member, "var/" ) == 0 ) && (  strstr ( str, "journal" ) != NULL ) ) || 
                 ( ( strcmp ( member, "var/") == 0 ) && ( strstr ( str, "messages" ) != NULL ) ) ||
                 ( ( strcmp ( member, "var/") == 0 ) && ( ( strstr ( str, "sa" ) != NULL ) || ( strstr ( str, "crash" ) != NULL ) ) ) || 
                 ( ( strcmp ( member, "var/") == 0 ) && ( strstr ( str, "nova" ) != NULL ) ) )
