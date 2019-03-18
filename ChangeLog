@@ -1,3 +1,5 @@
+1.0.83
+Fix not to analyze unproper file type.
 1.0.82
 Exclude already echoed lines in member 'var/'.
 1.0.81
