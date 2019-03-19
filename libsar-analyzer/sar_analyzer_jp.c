@@ -156,6 +156,7 @@ int set_token_column ( int file_number, char *line, const char *item_name_for_co
     char *token = ""; /* line would be set into this variable in while loop */
     char buff [ 50 ];
     int i = 0, ii = 0;
+    int PM = 0;
     /* initialize the string array (this is needed) */
     for ( ii = 0; ii < MAX_DATE_STRINGS; ii++ )
     {
@@ -414,7 +415,10 @@ int set_token_column ( int file_number, char *line, const char *item_name_for_co
         token = strtok ( NULL, s );
         i++;
     }
-    return ( 0 );
+    if ( PM == 1 )
+        return ( 1 );
+    else
+        return ( 0 );
 }
 
 double check_time_value ( double initial_val, double horizontal_notch, int count, char *time_value )
@@ -507,7 +511,62 @@ double check_time_value ( double initial_val, double horizontal_notch, int count
     return ( initial_val + horizontal_notch * z );
 }
 
-int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION, const char *time_span )
+static void set_pm_to_abs_time ( char *time_value )
+{
+    if ( ( time_value [ 0 ] == '0' ) &&
+         ( 
+           ( time_value  [ 1 ] == '1' ) ||
+           ( time_value  [ 1 ] == '2' ) ||
+           ( time_value  [ 1 ] == '3' ) ||
+           ( time_value  [ 1 ] == '4' ) ||
+           ( time_value  [ 1 ] == '5' ) ||
+           ( time_value  [ 1 ] == '6' ) ||
+           ( time_value  [ 1 ] == '7' )
+         )
+       )
+    {
+        time_value [ 0 ] = '1';
+        if ( time_value [ 1 ] == '1' )
+            time_value [ 1 ] = '3';
+        else if ( time_value [ 1 ] == '2' )
+            time_value [ 1 ] = '4';
+        else if ( time_value [ 1 ] == '3' )
+            time_value [ 1 ] = '5';
+        else if ( time_value [ 1 ] == '4' )
+            time_value [ 1 ] = '6';
+        else if ( time_value [ 1 ] == '5' )
+            time_value [ 1 ] = '7';
+        else if ( time_value [ 1 ] == '6' )
+            time_value [ 1 ] = '8';
+        else if ( time_value [ 1 ] == '7' )
+            time_value [ 1 ] = '9';
+    }
+    else if ( ( time_value [ 0 ] == '0' ) &&
+              (
+                ( time_value  [ 1 ] == '8' ) ||
+                ( time_value  [ 1 ] == '9' )
+              )
+            )
+    {
+        time_value [ 0 ] = '2';
+        if ( time_value [ 1 ] == '8' )
+            time_value [ 1 ] = '0';
+        else if ( time_value [ 1 ] == '9' )
+            time_value [ 1 ] = '1';
+    }
+    else if ( ( time_value [ 0 ] == '1' ) && ( time_value [ 1 ] == '0' ) )
+    {
+        time_value [ 0 ] = '2';
+        time_value [ 1 ] = '2';
+    }
+    else if ( ( time_value [ 0 ] == '1' ) && ( time_value [ 1 ] == '1' ) )
+    {
+        time_value [ 0 ] = '2';
+        time_value [ 1 ] = '3';
+    }
+}
+
+int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION, const char *time_span, int PM )
 {
     char this_date_all [ MAX_DATE_STRINGS ];
     memset ( this_date_all, '\0', MAX_DATE_STRINGS ); 
@@ -534,6 +593,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     token = strtok ( *line, s );
     /* this should be the first token, which is time value, so, copying time value to variable for future use */
     strncpy ( time_value, token, 19 );
+    /* converting am-pm style to abs style */ 
+    if ( PM == 1 )
+        set_pm_to_abs_time ( time_value );
     if ( time_span != NULL )
         time_span_checked = check_time_value_is_in_time_span (time_span,time_value );
     i++;
@@ -5381,14 +5443,15 @@ void draw_graph_to_ps ( const char *item, const char *element, int file_number, 
 
 int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ONLY, const char *time_span )
 {
+    int PM = 0;
     /* for analyzing all data */
     if ( SAR_OPTION == 'Z' )
     {
-
+        if ( ( strstr ( *line, "PM" ) != NULL ) || ( strstr ( *line, "午後" ) != NULL ) ) 
+            PM = 1;
         /* testing */
         char *str_tmp = "";
         str_tmp = *line;
-
         if ( strstr ( *line, "Linux" ) || strstr ( *line, "LINUX" ) )
         {
             append_list ( &line_all_obj, str_tmp );
@@ -5415,7 +5478,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "cpu", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "cpu", 0, SAR_OPTION );
             CHECK_CPU_EACH = 1; /* this means to analyze cpus specifically */
             CHK_Z = _CPU; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
@@ -5425,7 +5488,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "proc", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "proc", 0, SAR_OPTION );
             CHK_Z = _TASKS; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"pswpin/s" ) != NULL )
@@ -5434,7 +5497,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "pswpin/s", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "pswpin/s", 0, SAR_OPTION );
             CHK_Z = _PSWAP; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"pgpgin/s" ) != NULL )
@@ -5443,7 +5506,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "fault", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "fault", 0, SAR_OPTION );
             CHK_Z = _PAGING; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"bread/s" ) != NULL )
@@ -5452,7 +5515,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "bread/s", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "bread/s", 0, SAR_OPTION );
             CHK_Z = _IO_TRANSFER_RATE; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"kbmemfree" ) != NULL )
@@ -5461,7 +5524,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "kbmemfree", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "kbmemfree", 0, SAR_OPTION );
             CHK_Z = _MEMORY; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"kbswpfree" ) != NULL )
@@ -5470,7 +5533,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "kbswpfree", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "kbswpfree", 0, SAR_OPTION );
             CHK_Z = _SWPUSED; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"dentunusd" ) != NULL )
@@ -5479,7 +5542,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "dentunusd", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "dentunusd", 0, SAR_OPTION );
             CHK_Z = _KERNEL_TABLE; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( strstr ( *line,"runq-sz" ) != NULL )
@@ -5488,7 +5551,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "runq", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "runq", 0, SAR_OPTION );
             CHK_Z = _LDAVG; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( ( ( strstr ( *line, "Average" ) == 0 ) || ( strstr ( *line, "平均値" ) == 0 ) )  && ( strstr ( *line, "DEV" ) != NULL ) )
@@ -5497,7 +5560,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "DEV", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "DEV", 0, SAR_OPTION );
             CHK_Z = _BLOCK_DEVICE; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( ( ( strstr ( *line, "Average" ) == 0 ) || ( strstr ( *line, "平均値" ) == 0 ) ) && ( strstr ( *line,"rxpck/s" ) != NULL ) ) 
@@ -5506,7 +5569,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "rxpck", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "rxpck", 0, SAR_OPTION );
             CHK_Z = _NETWORK; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         else if ( ( ( strstr ( *line, "Average" ) == 0 ) || ( strstr ( *line, "平均値" ) == 0 ) ) && ( strstr ( *line,"rxerr/s" ) != NULL ) ) 
@@ -5515,7 +5578,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_all_obj, str_tmp );
 
             /* calls set_token_column(), call set_token_items() in appropriate manner */
-            set_token_column ( file_number, *line, "rxerr", 0, SAR_OPTION );
+            PM = set_token_column ( file_number, *line, "rxerr", 0, SAR_OPTION );
             CHK_Z = _NETWORK_ERROR; /* this means, skip this clause on next loop, it's enough to set set_token_column() one time */
         }
         /* end -- first, we are setting column number of interests */
@@ -5537,7 +5600,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 CHK_CORES_N = 0;
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
-                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span );
+                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span, PM );
                 /* as counted cpu as paragraph, if it's up to it, stop echoeing lines */
                 if ( CHECK_CPU_EACH == get_cpu_as_paragraph ( ) )
                 {
@@ -5559,7 +5622,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                     append_list ( &line_all_obj, str_tmp );
 
                 set_core_numbers ( CHK_CORES_N );
-                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span );
+                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span, PM );
 
                 if ( CHK_CORES_N == MAX_CORE_NUMBERS )
                     CHK_Z &= ~ ( 1 << 0 );  /* this means, skip this clause on next loop */
@@ -5574,7 +5637,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "proc", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "proc", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _PSWAP )
@@ -5586,7 +5649,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _PAGING )
@@ -5598,7 +5661,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "fault", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "fault", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _IO_TRANSFER_RATE )
@@ -5610,7 +5673,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _MEMORY )
@@ -5622,7 +5685,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _SWPUSED )
@@ -5634,7 +5697,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _KERNEL_TABLE )
@@ -5646,7 +5709,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         else if ( CHK_Z == _LDAVG )
@@ -5658,7 +5721,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "runq", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "runq", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         /* for devices (DEV) setting values to arrays
@@ -5673,7 +5736,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION, time_span );
+                set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION, time_span, PM );
             }
         }
         /* for devices (NET rxpck/s) setting values to arrays
@@ -5688,7 +5751,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span );
+                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span, PM );
             }
         }
         else if ( CHK_Z == _NETWORK_ERROR )
@@ -5700,7 +5763,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( MESSAGE_ONLY == 0 )
                     append_list ( &line_all_obj, str_tmp );
 
-                set_token_items ( file_number, line, "rxerr", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                set_token_items ( file_number, line, "rxerr", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
             }
         }
         /* end -- THIS IS THE MAIN FEATURE OF THIS PROGRAM */
@@ -5726,6 +5789,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
         }
         else
         {
+            int PM = 0;
             char *str_tmp = "";
             str_tmp = *line;
 
@@ -5756,7 +5820,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                     append_list ( &line_obj, str_tmp );
                     if ( strstr ( *line, "CPU" ) != NULL )
                         /* calls set_token_column(), call set_token_items() in appropriate manner */
-                        set_token_column ( file_number, *line, "cpu", 0, SAR_OPTION );
+                        PM = set_token_column ( file_number, *line, "cpu", 0, SAR_OPTION );
                     SHOW_AVG = 2; /* this means to analyze cpus specifically */
                     CHK_A |= ( 1 << 0 ); /* this means, skip this clause on next loop */
                 }
@@ -6078,7 +6142,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
             if ( ( ( strstr ( *line, "Average" ) ) || ( strstr ( *line, "平均値" ) ) ) &&  !strstr ( *line, "CPU" ) && ( SHOW_AVG == 2 ) && ( CHK_CORES_N <= MAX_CORE_NUMBERS ) )
             {
                 append_list ( &line_obj, str_tmp );
-                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span ); /* setting each cpu values to the object */
+                set_token_items ( file_number, line, "cpu" , CHK_CORES_N, SAR_OPTION, time_span, PM ); /* setting each cpu values to the object */
                 if ( CHK_CORES_N == MAX_CORE_NUMBERS )
                     SHOW_AVG = 0;
                 set_core_numbers ( CHK_CORES_N );
@@ -6092,7 +6156,7 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 if ( strstr ( *line, "dev") != 0 )
                 {
                     append_list ( &line_obj, str_tmp );
-                    set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION, time_span );
+                    set_token_items ( file_number, line, "DEV" , -999, SAR_OPTION, time_span, PM );
                 }
             }
             /* for devices (NET rxpck/s) setting values to arrays
@@ -6101,12 +6165,12 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
             else if ( ( ( strstr ( *line, "Average" ) ) || ( strstr ( *line, "平均値" ) ) ) &&  !strstr ( *line, "rxpck" ) && ( SHOW_AVG == 4 ) )
             {
                 append_list ( &line_obj, str_tmp );
-                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span );
+                set_token_items ( file_number, line, "rxpck" , -999, SAR_OPTION, time_span, PM );
             }
             else if ( ( ( strstr ( *line, "Average" ) ) || ( strstr ( *line, "平均値" ) ) ) &&  !strstr ( *line, "rxerr" ) && ( SHOW_AVG == 5 ) )
             {
                 append_list ( &line_obj, str_tmp );
-                set_token_items ( file_number, line, "rxerr" , -999, SAR_OPTION, time_span );
+                set_token_items ( file_number, line, "rxerr" , -999, SAR_OPTION, time_span, PM );
             }
 
             /* Call set_token_items() here
@@ -6117,42 +6181,42 @@ int get_word_line ( int file_number, char **line, int SAR_OPTION, int MESSAGE_ON
                 append_list ( &line_obj, str_tmp );
                 if ( ( ( CHK_A >> 1 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "fault", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "fault", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 1 );
                 }
                 if ( ( ( CHK_A >> 3 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "bread/s", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 3 );
                 }
                 if ( ( ( CHK_A >> 7 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "runq", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "runq", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 7 );
                 }
                 if ( ( ( CHK_A >> 8 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "kbmemfree", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 8 );
                 }
                 if ( ( ( CHK_A >> 9 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "kbswpfree", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 9 );
                 }
                 if ( ( ( CHK_A >> 10 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "dentunusd", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 10 );
                 }
                 if ( ( ( CHK_A >> 11 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "pswpin/s", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 11 );
                 }
                 if ( ( ( CHK_A >> 12 ) & 1 ) )
                 {
-                    set_token_items ( file_number, line, "proc", -999, SAR_OPTION, time_span ); /* setting utility arguments to meaningless value */
+                    set_token_items ( file_number, line, "proc", -999, SAR_OPTION, time_span, PM ); /* setting utility arguments to meaningless value */
                     CHK_A &= ~ ( 1 << 12 );
                 }
             }

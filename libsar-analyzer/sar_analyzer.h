@@ -1457,6 +1457,12 @@ struct line_data *ps_restart_obj [ MAX_ANALYZE_FILES ] = { &ps_memory_commit_obj
 void initialize_check_int ( void );
 
 /* 
+ *  This function converts am-pm style to abs style.
+ *
+ */
+static void set_pm_to_abs_time ( char *time_value );
+
+/* 
  *  This function checks column number and sets needed member to the struct. 
  *  Members are used to read item data by 'set_token_items()'. 
  *
@@ -1477,7 +1483,7 @@ int set_token_column ( int file_number, char *line, const char *item_name_for_co
  *  Calls : setters and getters
  *
  */
-int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION, const char *time_span );
+int set_token_items ( int file_number, char **line, const char *item_name, int utility, int SAR_OPTION, const char *time_span, int PM );
 
 /* 
  *  This function checks if item string is inclued in a single line.
