@@ -1,3 +1,5 @@
+1.0.84
+Fix am-pm style to abs style in sar-analyzer feature.
 1.0.83
 Fix not to analyze unproper file type.
 1.0.82

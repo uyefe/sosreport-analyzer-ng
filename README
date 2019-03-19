@@ -128,6 +128,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Show highest spike value in given time-span to a file with a report.
   Show possible thrashing.
   Show network down.
+  am-pm style is converted to abs style in the report.
   Generate graphs as postscript files.
 
   When the file sanity check fails, program stops echoing the reason.
@@ -145,6 +146,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   example:
   $ LC_ALL=C sar -f /var/log/sa/sa01 -A -t > ./sar01
+
+  or in Japanese environment, just do this.
+
+  $ sar -f /var/log/sa/sa01 -A -t > ./sar01
 
   how to remove ^@
 
