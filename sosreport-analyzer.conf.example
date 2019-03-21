@@ -357,6 +357,12 @@ sos_commands/networking/ethtool_-S=all
 
 sos_commands/networking/ethtool_-i=all
 
+## sos_commands/networking/
+##
+## All you can set is 'all'
+
+sos_commands/networking/=all
+
 ## etc/httpd/
 ##
 ## All you can set is 'all'
@@ -374,12 +380,6 @@ lib/=all
 ## All you can set is 'all'
 
 etc/=skip
-
-## sos_commands/
-##
-## All you can set is 'all'
-
-sos_commands/=skip
 
 ## dev/
 ##
@@ -405,6 +405,12 @@ var/=skip
 ## ex. proc/=all
 
 proc/=skip
+
+## sos_commands/
+##
+## All you can set is 'all'
+
+sos_commands/=skip
 
 ## var/crash/ 
 ##

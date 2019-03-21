@@ -126,6 +126,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_31_obj );
     init_list ( &tmp_32_obj );
     init_list ( &tmp_33_obj );
+    init_list ( &tmp_34_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -156,10 +157,11 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_usb__obj );
     init_list ( &lib__obj );
     init_list ( &etc__obj );
-    init_list ( &sos_commands__obj );
+    init_list ( &sos_commands_networking_obj );
     init_list ( &dev__obj );
     init_list ( &usr__obj );
     init_list ( &var__obj );
+    init_list ( &sos_commands_obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -387,10 +389,11 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-i", dir_name );
+            read_file_pre ( "sos_commands/networking/", dir_name );
+            read_file_pre ( "sos_commands/", dir_name );
             read_file_pre ( "etc/httpd/", dir_name );
             read_file_pre ( "lib/", dir_name );
             read_file_pre ( "etc/", dir_name );
-            read_file_pre ( "sos_commands/", dir_name );
             read_file_pre ( "dev/", dir_name );
             read_file_pre ( "usr/", dir_name );
             read_file_pre ( "var/", dir_name );
@@ -412,8 +415,9 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_logs_journalctl___no_pager_obj, hairline );
             append_list ( &sos_commands_networking_ethtool__S_obj, hairline );
             append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
+            append_list ( &sos_commands_networking_obj, hairline );
+            append_list ( &sos_commands_obj, hairline );
             append_list ( &etc_httpd__obj, hairline );
-            append_list ( &proc__obj, hairline );
             append_list ( &etc_udev__obj, hairline );
             append_list ( &etc_yum_repos_d__obj, hairline );
             append_list ( &etc_systemd__obj, hairline );
@@ -424,10 +428,10 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_usb__obj, hairline );
             append_list ( &lib__obj, hairline );
             append_list ( &etc__obj, hairline );
-            append_list ( &sos_commands__obj, hairline );
             append_list ( &dev__obj, hairline );
             append_list ( &usr__obj, hairline );
             append_list ( &var__obj, hairline );
+            append_list ( &proc__obj, hairline );
         }
     }
 
@@ -496,10 +500,11 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );
+            file_write_list ( &sos_commands_networking_obj, fp_w );
+            file_write_list ( &sos_commands_obj, fp_w );
             file_write_list ( &etc_httpd__obj, fp_w );
             file_write_list ( &lib__obj, fp_w );
             file_write_list ( &etc__obj, fp_w );
-            file_write_list ( &sos_commands__obj, fp_w );
             file_write_list ( &dev__obj, fp_w );
             file_write_list ( &usr__obj, fp_w );
             file_write_list ( &var__obj, fp_w );
@@ -525,6 +530,7 @@ int main ( int argc, char *argv [ ] )
     }
 
     /* for sar-analyzer stuff */
+    printf("analyzing sar files.\n");
     int SAR_OPTION = 'Z';
     int REPORT = 0;
     int MESSAGE_ONLY = 1;
@@ -653,10 +659,10 @@ int main ( int argc, char *argv [ ] )
     }
     if ( sar_only == 0 )
     {
-        printf("Please check result file ./%s\n\n",sos_file_write);
-        printf("You can try reading all files under dev/, etc/, usr/, var/ and proc/ setting 'all' in conf file.\n");
-        printf("Note that when you done that, it'll take many minutes to be finished depending cpu power.\n\n");
-        printf("Also check sar result file ./%s\n",sar_file_write);
+        printf("Please check result file ./%s\n",sos_file_write);
+        printf("Also check sar result file ./%s\n\n",sar_file_write);
+        printf("You can try reading all files which is set 'skip' by setting 'all' in conf file.\n");
+        printf("Note that when you done that, it'll take many minutes to be finished depending on cpu power.\n\n");
     }
 
     if ( sar_only == 0 )
