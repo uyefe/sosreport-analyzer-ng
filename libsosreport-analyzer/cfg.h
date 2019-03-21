@@ -166,13 +166,15 @@ struct sosreport_analyzer_config
     /* should be all */
     config_each etc_;
     /* should be all */
-    config_each sos_commands_;
+    config_each sos_commands_networking_;
     /* should be all */
     config_each dev_;
     /* should be all */
     config_each usr_;
     /* should be all */
     config_each var_;
+    /* should be all */
+    config_each sos_commands_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

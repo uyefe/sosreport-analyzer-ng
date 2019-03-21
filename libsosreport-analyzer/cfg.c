@@ -86,7 +86,7 @@ char *get_token ( char **line, char *buf, size_t buflen )
 int set_member_to_struct ( const char *keyword, char *line, struct sosreport_analyzer_config *cfg, int mcinfo )
 {
     if ( strstr ( line, "skip" ) != NULL )
-            printf("skip file '%s'.\n",keyword);
+            printf("skip member '%s'.\n",keyword);
     else
     {
         /* common stuff for both mcinfo and sosreport */
@@ -222,12 +222,14 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lib/" ) == 0 )
                 strncpy ( cfg->lib_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
-                strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/networking/" ) == 0 )
+                strncpy ( cfg->sos_commands_networking_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "dev/" ) == 0 )
                 strncpy ( cfg->dev_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "usr/" ) == 0 )
                 strncpy ( cfg->usr_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
+                strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -412,12 +414,13 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
         append_sos_header_obj ( "lib/", cfg, mcinfo );
         append_sos_header_obj ( "etc/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/", cfg, mcinfo );
         append_sos_header_obj ( "dev/", cfg, mcinfo );
         append_sos_header_obj ( "usr/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/", cfg, mcinfo );
     }
     append_sos_header_obj ( "var/", cfg, mcinfo );
     append_sos_header_obj ( "proc/", cfg, mcinfo );
@@ -564,12 +567,14 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_httpd_.member );
         else if ( strcmp ( member, "lib/" ) == 0 )
             strcat ( str_tmp, cfg->lib_.member );
-        else if ( strcmp ( member, "sos_commands/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_.member );
+        else if ( strcmp ( member, "sos_commands/networking/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_networking_.member );
         else if ( strcmp ( member, "dev/" ) == 0 )
             strcat ( str_tmp, cfg->dev_.member );
         else if ( strcmp ( member, "usr/" ) == 0 )
             strcat ( str_tmp, cfg->usr_.member );
+        else if ( strcmp ( member, "sos_commands/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_.member );
     }
     append_list ( &sos_header_obj, str_tmp );
 }
