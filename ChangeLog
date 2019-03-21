@@ -1,3 +1,7 @@
+1.0.85
+Fixed to analyze up to 500 files from 50, also to add member
+'sos_commands/networking'.
+Also fixed to show running state, i.e. 'what i am doing' stuff when executed.
 1.0.84
 Fix am-pm style to abs style in sar-analyzer feature.
 1.0.83
