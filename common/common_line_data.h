@@ -28,7 +28,8 @@
 #ifndef SOSREPORT_ANALYZER_COMMON_LINE_DATA_H
 #define SOSREPORT_ANALYZER_COMMON_LINE_DATA_H
 
-#define MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR  500 
+/* --max-stackframe=2007048 / 4096 = 489, so... */
+#define MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR 488
 
 /* the maximum line length in the sar file */
 #define MAX_LINE_LENGTH  4096 
