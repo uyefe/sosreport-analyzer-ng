@@ -1,3 +1,5 @@
+1.0.86
+Fixed to analyze up to 488 files from 500 in one member.
 1.0.85
 Fixed to analyze up to 500 files from 50, also to add member
 'sos_commands/networking'.
