@@ -72,6 +72,7 @@ extern struct line_data *tmp_31_obj;
 extern struct line_data *tmp_32_obj;
 extern struct line_data *tmp_33_obj;
 extern struct line_data *tmp_34_obj;
+extern struct line_data *tmp_35_obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct line_data *etc_pki__obj;
@@ -107,6 +108,7 @@ extern struct line_data *dev__obj;
 extern struct line_data *usr__obj;
 extern struct line_data *var__obj;
 extern struct line_data *sos_commands_obj;
+extern struct line_data *var_spool_cron__obj;
 
 /* for sorting array */
 extern int i_cmdlog;
@@ -143,6 +145,7 @@ extern int i_dev;
 extern int i_usr;
 extern int i_var;
 extern int i_sos_commands;
+extern int i_var_spool_cron;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -178,6 +181,7 @@ extern char *str_arr_dev [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_usr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_var [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_var_spool_cron [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'

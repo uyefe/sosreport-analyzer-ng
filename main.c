@@ -127,6 +127,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_32_obj );
     init_list ( &tmp_33_obj );
     init_list ( &tmp_34_obj );
+    init_list ( &tmp_35_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -162,6 +163,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &usr__obj );
     init_list ( &var__obj );
     init_list ( &sos_commands_obj );
+    init_list ( &var_spool_cron__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -310,6 +312,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
+            read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "var/spool/cron/", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
             read_file_pre ( "var/crash/", dir_name );
             read_file_pre ( "etc/", dir_name );
@@ -323,6 +327,8 @@ int main ( int argc, char *argv [ ] )
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
             append_list ( &mcinfo_cmdlog__obj, hairline );
             append_list ( &etc_host_obj, hairline );
+            append_list ( &etc_cron_d__obj, hairline );
+            append_list ( &var_spool_cron__obj, hairline );
             append_list ( &var_log_messages_obj, hairline );
             append_list ( &var_crash__obj, hairline );
             append_list ( &proc__obj, hairline );
@@ -380,6 +386,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/logrotate.d/", dir_name );
             read_file_pre ( "etc/pki/", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "var/spool/cron/", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
             read_file_pre ( "var/log/secure", dir_name );
@@ -432,6 +439,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &usr__obj, hairline );
             append_list ( &var__obj, hairline );
             append_list ( &proc__obj, hairline );
+            append_list ( &var_spool_cron__obj, hairline );
         }
     }
 
@@ -466,6 +474,8 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_host_obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &mcinfo_cmdlog__obj, fp_w );
+            file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &var_spool_cron__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
             file_write_list ( &var_crash__obj, fp_w );
@@ -482,6 +492,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_udev__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &var_spool_cron__obj, fp_w );
             file_write_list ( &etc_systemd__obj, fp_w );
             file_write_list ( &etc_systemd_system__obj, fp_w );
             file_write_list ( &usr_lib_systemd__obj, fp_w );

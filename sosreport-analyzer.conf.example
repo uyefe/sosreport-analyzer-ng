@@ -302,6 +302,12 @@ etc/pki/=all
 
 etc/cron.d/=all
 
+## var/spool/cron/
+##
+## All you can set is 'all'
+
+var/spool/cron/=all
+
 ## var/log/secure
 ##
 ## You can set arbitrary item-name including 'all' up to 12

@@ -289,6 +289,13 @@ struct line_data var__obj_raw =
         NULL /* next pointer */
     };
 
+/* var_spool_cron__obj */
+struct line_data var_spool_cron__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* sos_commands_obj */
 struct line_data sos_commands_obj_raw =
     {
@@ -534,6 +541,13 @@ struct line_data tmp_34_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_35_obj */
+struct line_data tmp_35_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -573,6 +587,7 @@ struct line_data *tmp_31_obj = &tmp_31_obj_raw;
 struct line_data *tmp_32_obj = &tmp_32_obj_raw;
 struct line_data *tmp_33_obj = &tmp_33_obj_raw;
 struct line_data *tmp_34_obj = &tmp_34_obj_raw;
+struct line_data *tmp_35_obj = &tmp_35_obj_raw;
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
 struct line_data *etc_pki__obj = &etc_pki__obj_raw;
@@ -607,6 +622,7 @@ struct line_data *dev__obj = &dev__obj_raw;
 struct line_data *usr__obj = &usr__obj_raw;
 struct line_data *var__obj = &var__obj_raw;
 struct line_data *sos_commands_obj = &sos_commands_obj_raw;
+struct line_data *var_spool_cron__obj = &var_spool_cron__obj_raw;
 
 int i_boot_grub = 0;
 int i_cmdlog = 0;
@@ -642,6 +658,7 @@ int i_dev = 0;
 int i_usr = 0;
 int i_var = 0;
 int i_sos_commands = 0;
+int i_var_spool_cron = 0;
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -676,6 +693,7 @@ char *str_arr_dev [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_usr [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_var_spool_cron [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -914,6 +932,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_33_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/") != 0 )
                     append_list ( &tmp_34_obj, read_path );
+                else if ( strstr ( read_path, "/var/spool/cron/") != 0 )
+                    append_list ( &tmp_35_obj, read_path );
                 i++; /* needed here */
                 str_arr_valid_size++;
                 if ( str_arr_valid_size == MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR )
@@ -1025,6 +1045,7 @@ const char *items_dev_;
 const char *items_usr_;
 const char *items_var_;
 const char *items_sos_commands_;
+const char *items_var_spool_cron_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
@@ -1164,6 +1185,10 @@ int read_file ( const char *file_name, const char *member, int files )
     char filename_sos_commands__curr [ MAX_LINE_LENGTH ];
     memset ( filename_sos_commands_, '\0', MAX_LINE_LENGTH ); 
     memset ( filename_sos_commands__curr, '\0', MAX_LINE_LENGTH ); 
+    char filename_var_spool_cron_ [ MAX_LINE_LENGTH ];
+    char filename_var_spool_cron__curr [ MAX_LINE_LENGTH ];
+    memset ( filename_var_spool_cron_, '\0', MAX_LINE_LENGTH ); 
+    memset ( filename_var_spool_cron__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
@@ -1369,6 +1394,23 @@ int read_file ( const char *file_name, const char *member, int files )
              */
             if ( items_etc_cron_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
+        }
+        else if ( ( strstr ( file_name, "/var/spool/cron/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+            snprintf ( filename_var_spool_cron__curr, MAX_LINE_LENGTH, "%s", file_name );
+            if ( strcmp ( filename_var_spool_cron_, filename_var_spool_cron__curr) != 0 )
+            {
+                append_list ( &sos_line_obj, blank_line );
+                append_list ( &sos_line_obj, hairline2 );
+                append_list ( &sos_line_obj, (char *)file_name );
+                append_list ( &sos_line_obj, blank_line );
+            }
+            snprintf (filename_var_spool_cron_, MAX_LINE_LENGTH, "%s", file_name );
+            /* unlike others like 'messages' which have same name should be applied in the
+             * directory, here, we don't need 'for loop' because item is 'all' here. 
+             */
+            if ( items_var_spool_cron_ != NULL )
+                append_item_to_sos_line_obj ( line, "var/spool/cron/", items_var_spool_cron_ );
         }
         else if ( strstr ( file_name, "/var/log/dmesg" ) != NULL )
             append_item_to_sos_line_obj ( line, "var/log/dmesg", items_var_log_dmesg );
@@ -1905,6 +1947,7 @@ void set_token_to_item_arr ( const char *file_name )
     sosreport_analyzer_cfg->usr_.item_num = 0;
     sosreport_analyzer_cfg->var_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_.item_num = 0;
+    sosreport_analyzer_cfg->var_spool_cron_.item_num = 0;
 
     int i = 0;
 
@@ -2326,6 +2369,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( sosreport_analyzer_cfg->etc_cron_d_.member, s );
         items_etc_cron_d_ = token;
     }
+    /* member var/spool/cron/ */
+    else if ( ( strstr ( file_name, "/var/spool/cron/" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_spool_cron_.member, "" ) != 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( sosreport_analyzer_cfg->var_spool_cron_.member, s );
+        items_var_spool_cron_ = token;
+    }
     /* member var/log/dmesg */
     else if ( ( strstr ( file_name, "/var/log/dmesg" ) != NULL ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) )
     {
@@ -2715,6 +2765,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pki/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/spool/cron/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_spool_cron_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/dmesg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_dmesg.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/messages") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_messages.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/log/secure") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_log_secure.member, "" ) != 0 ) ) ||
@@ -2766,6 +2817,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
             ( strcmp ( member, "etc/pki/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+            ( strcmp ( member, "var/spool/cron/" ) == 0 ) ||
             ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
             ( strcmp ( member, "var/log/messages" ) == 0 ) ||
             ( strcmp ( member, "var/log/secure" ) == 0 ) ||
@@ -2811,236 +2863,243 @@ void read_file_pre ( const char *member, const char *dir_name )
                 append_list ( &mcinfo_boot_grub__obj, str_arr_boot_grub [ i ] );
             read_file_from_analyze_dir ( &mcinfo_boot_grub__obj, "boot/grub/" );
         }
-        if ( strcmp ( member, "cmdlog/" ) == 0 )
+        else if ( strcmp ( member, "cmdlog/" ) == 0 )
         {
             i_cmdlog = bubble_sort_object_by_the_string ( &tmp_2_obj, str_arr_cmdlog );
             for ( i = 0; i < i_cmdlog; i++ )
                 append_list ( &mcinfo_cmdlog__obj, str_arr_cmdlog [ i ] );
             read_file_from_analyze_dir ( &mcinfo_cmdlog__obj, "cmdlog/" );
         }
-        if ( strcmp ( member, "etc/pki/" ) == 0 )
+        else if ( strcmp ( member, "etc/pki/" ) == 0 )
         {
             i_pki = bubble_sort_object_by_the_string ( &tmp_3_obj, str_arr_pki );
             for ( i = 0; i < i_pki; i++ )
                 append_list ( &etc_pki__obj, str_arr_pki [ i ] );
             read_file_from_analyze_dir ( &etc_pki__obj, "etc/pki/" );
         }
-        if ( strcmp ( member, "etc/cron.d/" ) == 0 )
+        else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
         {
             i_cron = bubble_sort_object_by_the_string ( &tmp_4_obj, str_arr_cron );
             for ( i = 0; i < i_cron; i++ )
                 append_list ( &etc_cron_d__obj, str_arr_cron [ i ] );
             read_file_from_analyze_dir ( &etc_cron_d__obj, "etc/cron.d/" );
         }
-        if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
+        else if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         {
             i_ifcfg = bubble_sort_object_by_the_string ( &tmp_5_obj, str_arr_ifcfg );
             for ( i = 0; i < i_ifcfg; i++ )
                 append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, str_arr_ifcfg [ i ] );
             read_file_from_analyze_dir ( &etc_sysconfig_network_scripts_ifcfg__obj, "etc/sysconfig/network-scripts/ifcfg-" );
         }
-        if ( strcmp ( member, "var/log/messages" ) == 0 )
+        else if ( strcmp ( member, "var/log/messages" ) == 0 )
         {
             i_var_log_messages = bubble_sort_object_by_the_string ( &tmp_6_obj, str_arr_var_log_messages );
             for ( i = 0; i < i_var_log_messages; i++ )
                 append_list ( &var_log_messages_obj, str_arr_var_log_messages [ i ] );
             read_file_from_analyze_dir ( &var_log_messages_obj, "var/log/messages" );
         }
-        if ( strcmp ( member, "var/log/secure" ) == 0 )
+        else if ( strcmp ( member, "var/log/secure" ) == 0 )
         {
             i_var_log_secure = bubble_sort_object_by_the_string ( &tmp_7_obj, str_arr_var_log_secure );
             for ( i = 0; i < i_var_log_secure; i++ )
                 append_list ( &var_log_secure_obj, str_arr_var_log_secure [ i ] );
             read_file_from_analyze_dir ( &var_log_secure_obj, "var/log/secure" );
         }
-        if ( strcmp ( member, "var/log/audit/" ) == 0 )
+        else if ( strcmp ( member, "var/log/audit/" ) == 0 )
         {
             i_var_log_audit = bubble_sort_object_by_the_string ( &tmp_8_obj, str_arr_var_log_audit );
             for ( i = 0; i < i_var_log_audit; i++ )
                 append_list ( &var_log_audit__obj, str_arr_var_log_audit [ i ] );
             read_file_from_analyze_dir ( &var_log_audit__obj, "var/log/audit/" );
         }
-        if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
         {
             i_logs_journalctl = bubble_sort_object_by_the_string ( &tmp_9_obj, str_arr_logs_journalctl );
             for ( i = 0; i < i_logs_journalctl; i++ )
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, str_arr_logs_journalctl [ i ] );
             read_file_from_analyze_dir ( &sos_commands_logs_journalctl___no_pager_obj, "sos_commands/logs/journalctl_--no-pager" );
         }
-        if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
         {
             i_ethtool_S = bubble_sort_object_by_the_string ( &tmp_10_obj, str_arr_ethtool_S );
             for ( i = 0; i < i_ethtool_S; i++ )
                 append_list ( &sos_commands_networking_ethtool__S_obj, str_arr_ethtool_S [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__S_obj, "sos_commands/networking/ethtool_-S" );
         }
-        if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
         {
             i_ethtool_i = bubble_sort_object_by_the_string ( &tmp_11_obj, str_arr_ethtool_i );
             for ( i = 0; i < i_ethtool_i; i++ )
                 append_list ( &sos_commands_networking_ethtool__i_obj, str_arr_ethtool_i [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_ethtool__i_obj, "sos_commands/networking/ethtool_-i" );
         }
-        if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
         {
             i_boot = bubble_sort_object_by_the_string ( &tmp_12_obj, str_arr_boot );
             for ( i = 0; i < i_boot; i++ )
                 append_list ( &sos_commands_boot__obj, str_arr_boot [ i ] );
             read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
         }
-        if ( strcmp ( member, "etc/httpd/" ) == 0 )
+        else if ( strcmp ( member, "etc/httpd/" ) == 0 )
         {
             i_httpd = bubble_sort_object_by_the_string ( &tmp_13_obj, str_arr_etc_httpd );
             for ( i = 0; i < i_httpd; i++ )
                 append_list ( &etc_httpd__obj, str_arr_etc_httpd [ i ] );
             read_file_from_analyze_dir ( &etc_httpd__obj, "etc/httpd/" );
         }
-        if ( strcmp ( member, "proc/" ) == 0 )
+        else if ( strcmp ( member, "proc/" ) == 0 )
         {
             i_proc = bubble_sort_object_by_the_string ( &tmp_14_obj, str_arr_proc );
             for ( i = 0; i < i_proc; i++ )
                 append_list ( &proc__obj, str_arr_proc [ i ] );
             read_file_from_analyze_dir ( &proc__obj, "proc/" );
         }
-        if ( strcmp ( member, "var/crash/" ) == 0 )
+        else if ( strcmp ( member, "var/crash/" ) == 0 )
         {
             i_var_crash = bubble_sort_object_by_the_string ( &tmp_15_obj, str_arr_var_crash );
             for ( i = 0; i < i_var_crash; i++ )
                 append_list ( &var_crash__obj, str_arr_var_crash [ i ] );
             read_file_from_analyze_dir ( &var_crash__obj, "var/crash/" );
         }
-        if ( strcmp ( member, "etc/default/" ) == 0 )
+        else if ( strcmp ( member, "etc/default/" ) == 0 )
         {
             i_etc_default = bubble_sort_object_by_the_string ( &tmp_16_obj, str_arr_etc_default );
             for ( i = 0; i < i_etc_default; i++ )
                 append_list ( &etc_default__obj, str_arr_etc_default [ i ] );
             read_file_from_analyze_dir ( &etc_default__obj, "etc/default/" );
         }
-        if ( strcmp ( member, "etc/logrotate.d/" ) == 0 )
+        else if ( strcmp ( member, "etc/logrotate.d/" ) == 0 )
         {
             i_etc_logrotate_d = bubble_sort_object_by_the_string ( &tmp_17_obj, str_arr_etc_logrotate_d );
             for ( i = 0; i < i_etc_logrotate_d; i++ )
                 append_list ( &etc_logrotate_d__obj, str_arr_etc_logrotate_d [ i ] );
             read_file_from_analyze_dir ( &etc_logrotate_d__obj, "etc/logrotate.d/" );
         }
-        if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
+        else if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
         {
             i_etc_modprobe_d = bubble_sort_object_by_the_string ( &tmp_18_obj, str_arr_etc_modprobe_d );
             for ( i = 0; i < i_etc_modprobe_d; i++ )
                 append_list ( &etc_modprobe_d__obj, str_arr_etc_modprobe_d [ i ] );
             read_file_from_analyze_dir ( &etc_modprobe_d__obj, "etc/modprobe.d/" );
         }
-        if ( strcmp ( member, "etc/host" ) == 0 )
+        else if ( strcmp ( member, "etc/host" ) == 0 )
         {
             i_etc_host = bubble_sort_object_by_the_string ( &tmp_19_obj, str_arr_etc_host );
             for ( i = 0; i < i_etc_host; i++ )
                 append_list ( &etc_host_obj, str_arr_etc_host [ i ] );
             read_file_from_analyze_dir ( &etc_host_obj, "etc/host" );
         }
-        if ( strcmp ( member, "etc/udev/" ) == 0 )
+        else if ( strcmp ( member, "etc/udev/" ) == 0 )
         {
             i_etc_udev = bubble_sort_object_by_the_string ( &tmp_20_obj, str_arr_etc_udev );
             for ( i = 0; i < i_etc_udev; i++ )
                 append_list ( &etc_udev__obj, str_arr_etc_udev [ i ] );
             read_file_from_analyze_dir ( &etc_udev__obj, "etc/udev/" );
         }
-        if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
+        else if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
         {
             i_etc_yum_repos_d = bubble_sort_object_by_the_string ( &tmp_21_obj, str_arr_etc_yum_repos_d );
             for ( i = 0; i < i_etc_yum_repos_d; i++ )
                 append_list ( &etc_yum_repos_d__obj, str_arr_etc_yum_repos_d [ i ] );
             read_file_from_analyze_dir ( &etc_yum_repos_d__obj, "etc/yum.repos.d/" );
         }
-        if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
+        else if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
         {
             i_etc_systemd_system = bubble_sort_object_by_the_string ( &tmp_22_obj, str_arr_etc_systemd_system );
             for ( i = 0; i < i_etc_systemd_system; i++ )
                 append_list ( &etc_systemd_system__obj, str_arr_etc_systemd_system [ i ] );
             read_file_from_analyze_dir ( &etc_systemd_system__obj, "etc/systemd/system/" );
         }
-        if ( strcmp ( member, "etc/systemd/" ) == 0 )
+        else if ( strcmp ( member, "etc/systemd/" ) == 0 )
         {
             i_etc_systemd = bubble_sort_object_by_the_string ( &tmp_23_obj, str_arr_etc_systemd );
             for ( i = 0; i < i_etc_systemd; i++ )
                 append_list ( &etc_systemd__obj, str_arr_etc_systemd [ i ] );
             read_file_from_analyze_dir ( &etc_systemd__obj, "etc/systemd/" );
         }
-        if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
+        else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
         {
             i_usr_lib_systemd = bubble_sort_object_by_the_string ( &tmp_24_obj, str_arr_usr_lib_systemd );
             for ( i = 0; i < i_usr_lib_systemd; i++ )
                 append_list ( &usr_lib_systemd__obj, str_arr_usr_lib_systemd [ i ] );
             read_file_from_analyze_dir ( &usr_lib_systemd__obj, "usr/lib/systemd/" );
         }
-        if ( strcmp ( member, "sos_commands/sar/" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/sar/" ) == 0 )
         {
             i_sar = bubble_sort_object_by_the_string ( &tmp_25_obj, str_arr_sar );
             for ( i = 0; i < i_sar; i++ )
                 append_list ( &sos_commands_sar__obj, str_arr_sar [ i ] );
             read_file_from_analyze_dir ( &sos_commands_sar__obj, "sos_commands/sar/" );
         }
-        if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
         {
             i_virsh = bubble_sort_object_by_the_string ( &tmp_26_obj, str_arr_virsh );
             for ( i = 0; i < i_virsh; i++ )
                 append_list ( &sos_commands_virsh__obj, str_arr_virsh [ i ] );
             read_file_from_analyze_dir ( &sos_commands_virsh__obj, "sos_commands/virsh/" );
         }
-        if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
         {
             i_usb = bubble_sort_object_by_the_string ( &tmp_27_obj, str_arr_usb );
             for ( i = 0; i < i_usb; i++ )
                 append_list ( &sos_commands_usb__obj, str_arr_usb [ i ] );
             read_file_from_analyze_dir ( &sos_commands_usb__obj, "sos_commands/usb/" );
         }
-        if ( strcmp ( member, "lib/" ) == 0 )
+        else if ( strcmp ( member, "lib/" ) == 0 )
         {
             i_lib = bubble_sort_object_by_the_string ( &tmp_28_obj, str_arr_lib );
             for ( i = 0; i < i_lib; i++ )
                 append_list ( &lib__obj, str_arr_lib [ i ] );
             read_file_from_analyze_dir ( &lib__obj, "lib/" );
         }
-        if ( strcmp ( member, "etc/" ) == 0 )
+        else if ( strcmp ( member, "etc/" ) == 0 )
         {
             i_etc = bubble_sort_object_by_the_string ( &tmp_29_obj, str_arr_etc );
             for ( i = 0; i < i_etc; i++ )
                 append_list ( &etc__obj, str_arr_etc [ i ] );
             read_file_from_analyze_dir ( &etc__obj, "etc/" );
         }
-        if ( strcmp ( member, "sos_commands/networking/" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/networking/" ) == 0 )
         {
             i_sos_commands_networking = bubble_sort_object_by_the_string ( &tmp_30_obj, str_arr_sos_commands_networking );
             for ( i = 0; i < i_sos_commands_networking; i++ )
                 append_list ( &sos_commands_networking_obj, str_arr_sos_commands_networking [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking_obj, "sos_commands/networking/" );
         }
-        if ( strcmp ( member, "dev/" ) == 0 )
+        else if ( strcmp ( member, "dev/" ) == 0 )
         {
             i_dev = bubble_sort_object_by_the_string ( &tmp_31_obj, str_arr_dev );
             for ( i = 0; i < i_dev; i++ )
                 append_list ( &dev__obj, str_arr_dev [ i ] );
             read_file_from_analyze_dir ( &dev__obj, "dev/" );
         }
-        if ( strcmp ( member, "usr/" ) == 0 )
+        else if ( strcmp ( member, "usr/" ) == 0 )
         {
             i_usr = bubble_sort_object_by_the_string ( &tmp_32_obj, str_arr_usr );
             for ( i = 0; i < i_usr; i++ )
                 append_list ( &usr__obj, str_arr_usr [ i ] );
             read_file_from_analyze_dir ( &usr__obj, "usr/" );
         }
-        if ( strcmp ( member, "var/" ) == 0 )
+        else if ( strcmp ( member, "var/" ) == 0 )
         {
             i_var = bubble_sort_object_by_the_string ( &tmp_33_obj, str_arr_var );
             for ( i = 0; i < i_var; i++ )
                 append_list ( &var__obj, str_arr_var [ i ] );
             read_file_from_analyze_dir ( &var__obj, "var/" );
         }
-        if ( strcmp ( member, "sos_commands/" ) == 0 )
+        else if ( strcmp ( member, "sos_commands/" ) == 0 )
         {
             i_sos_commands = bubble_sort_object_by_the_string ( &tmp_34_obj, str_arr_sos_commands );
             for ( i = 0; i < i_sos_commands; i++ )
                 append_list ( &sos_commands_obj, str_arr_sos_commands [ i ] );
             read_file_from_analyze_dir ( &sos_commands_obj, "sos_commands/" );
+        }
+        else if ( strcmp ( member, "var/spool/cron/" ) == 0 )
+        {
+            i_var_spool_cron = bubble_sort_object_by_the_string ( &tmp_35_obj, str_arr_var_spool_cron );
+            for ( i = 0; i < i_var_spool_cron; i++ )
+                append_list ( &var_spool_cron__obj, str_arr_var_spool_cron [ i ] );
+            read_file_from_analyze_dir ( &var_spool_cron__obj, "var/spool/cron/" );
         }
     }
 }
@@ -3434,6 +3493,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
         ( strcmp ( member, "etc/pki/" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+        ( strcmp ( member, "var/spool/cron/" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
         ( strcmp ( member, "var/log/secure" ) == 0 ) ||
@@ -3554,6 +3614,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_33_obj ); 
     if ( tmp_34_obj != NULL ) 
         clear_list ( &tmp_34_obj ); 
+    if ( tmp_35_obj != NULL ) 
+        clear_list ( &tmp_35_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3623,4 +3685,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &var__obj ); 
     if ( sos_commands_obj != NULL ) 
         clear_list ( &sos_commands_obj ); 
+    if ( var_spool_cron__obj != NULL ) 
+        clear_list ( &var_spool_cron__obj ); 
 }

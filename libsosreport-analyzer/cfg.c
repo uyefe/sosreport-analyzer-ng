@@ -100,6 +100,10 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->etc_modprobe_d_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/dmesg" ) == 0 )
             strncpy ( cfg->var_log_dmesg.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
+            strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/spool/cron/" ) == 0 )
+            strncpy ( cfg->var_spool_cron_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
             strncpy ( cfg->var_log_messages.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/crash/" ) == 0 )
@@ -196,8 +200,6 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_logrotate_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/pki/" ) == 0 )
                 strncpy ( cfg->etc_pki_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
-                strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/secure" ) == 0 )
                 strncpy ( cfg->var_log_secure.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/audit/" ) == 0 )
@@ -353,6 +355,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
+        append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
     }
@@ -405,6 +409,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/logrotate.d/", cfg, mcinfo );
         append_sos_header_obj ( "etc/pki/", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
+        append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
         append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
@@ -446,6 +451,10 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->proc_interrupts.member );
     else if ( strcmp ( member, "var/log/dmesg" ) == 0 )
         strcat ( str_tmp, cfg->var_log_dmesg.member );
+    else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
+        strcat ( str_tmp, cfg->etc_cron_d_.member );
+    else if ( strcmp ( member, "var/spool/cron/" ) == 0 )
+        strcat ( str_tmp, cfg->var_spool_cron_.member );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
         strcat ( str_tmp, cfg->var_log_messages.member );
     else if ( strcmp ( member, "var/crash/" ) == 0 )
@@ -457,7 +466,7 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     else if ( strcmp ( member, "proc/" ) == 0 )
         strcat ( str_tmp, cfg->proc_.member );
 
-    /* mcinfo only and sosreport only ones */
+    /* mcinfo only */
     if ( mcinfo == 1 )
     {
         if ( strcmp ( member, "boot/grub/" ) == 0 )
@@ -465,6 +474,7 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         else if ( strcmp ( member, "cmdlog/" ) == 0 )
             strcat ( str_tmp, cfg->mcinfo_cmdlog_.member );
     }
+    /* sosreport only */
     else if ( mcinfo == 0 )
     {
         if ( strcmp ( member, "date" ) == 0 )
@@ -547,8 +557,6 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_logrotate_d_.member );
         else if ( strcmp ( member, "etc/pki/" ) == 0 )
             strcat ( str_tmp, cfg->etc_pki_.member );
-        else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_cron_d_.member );
         else if ( strcmp ( member, "var/log/secure" ) == 0 )
             strcat ( str_tmp, cfg->var_log_secure.member );
         else if ( strcmp ( member, "var/log/audit/" ) == 0 )
