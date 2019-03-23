@@ -79,6 +79,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in etc/logrotate.d/.
   Echo files in etc/pki/.
   Echo files in etc/cron.d/.
+  Echo files in var/spool/cron/.
   Echo var/log/dmesg file.
   Analyze var/log/messages* files.
   Echo files in var/crash/ if the directory exists.
@@ -112,6 +113,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Echo var/log/dmesg file.
+  Echo files in etc/cron.d/.
+  Echo files in var/spool/cron/.
   Analyze var/log/messages* files.
   Echo files in var/crash/.
   Echo files in var/ except messages*, journal*, sa*, nova* crash*.
