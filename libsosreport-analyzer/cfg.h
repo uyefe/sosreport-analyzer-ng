@@ -175,6 +175,8 @@ struct sosreport_analyzer_config
     config_each var_;
     /* should be all */
     config_each sos_commands_;
+    /* should be all */
+    config_each var_spool_cron_;
 };
 
 /*  This is a pointer to the global configuration, it should be available
