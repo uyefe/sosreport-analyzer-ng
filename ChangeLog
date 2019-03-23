@@ -1,3 +1,5 @@
+1.0.87
+Add member 'var/spool/cron/'.
 1.0.86
 Fixed to analyze up to 488 files from 500 in one member.
 1.0.85
