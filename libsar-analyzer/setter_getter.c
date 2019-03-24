@@ -388,6 +388,31 @@ int set_cpu_spike_val_each_file ( int x, double var, int y, const char *element,
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->cpus_spike_each_file.cpu_usr_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "sys", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->cpus_spike_each_file.cpu_sys_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "iowait", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->cpus_spike_each_file.cpu_iowait_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "idle", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->cpus_spike_each_file.cpu_idle_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -424,6 +449,23 @@ int set_tasks_spike_val_each_file ( int x, double var, const char *element, cons
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+//printf("proc_lowest:x:%d\n",x);
+//printf("proc_lowest:var:%f\n",var);
+            sar_analyzer_spike_obj->tasks_spike_each_file.proc_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->tasks_spike_each_file.cswch_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -455,6 +497,21 @@ int set_pswap_spike_val_each_file ( int x, double var, const char *element, cons
         else if ( strcmp ( "pswpout", element ) == 0 )
         {
             sar_analyzer_spike_obj->pswaps_spike_each_file.pswpout_highest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pswaps_spike_each_file.pswpin_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pswpout", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pswaps_spike_each_file.pswpout_lowest_val_each_file [ x ] = var;
             return EXIT_SUCCESS;
         }
         else
@@ -526,6 +583,36 @@ int set_paging_spike_val_each_file ( int x, double var, const char *element, con
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pagings_spike_each_file.pgpgin_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pagings_spike_each_file.pgpgout_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "fault", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pagings_spike_each_file.fault_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "majflt", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pagings_spike_each_file.majflt_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "vmeff", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->pagings_spike_each_file.vmeff_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -572,6 +659,26 @@ int set_io_transfer_rate_spike_val_each_file ( int x, double var, const char *el
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.tps_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bread", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.bread_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.bwrtn_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -608,6 +715,21 @@ int set_memory_double_spike_val_each_file ( int x, double var, const char *eleme
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->memories_spike_each_file.memused_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "commit", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->memories_spike_each_file.commit_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -634,6 +756,16 @@ int set_memory_int_spike_val_each_file ( int x, int var, const char *element, co
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "kbcommit", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->memories_spike_each_file.kbcommit_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -648,6 +780,11 @@ int set_swpused_spike_val_each_file ( int x, double var, const char *analyze_ite
     else if ( strcmp ( "highest", analyze_item ) == 0 )
     {
         sar_analyzer_spike_obj->swaps_spike_each_file.swpused_highest_val_each_file [ x ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        sar_analyzer_spike_obj->swaps_spike_each_file.swpused_lowest_val_each_file [ x ] = var;
         return EXIT_SUCCESS;
     }
     else
@@ -696,6 +833,26 @@ int set_kernel_table_spike_val_each_file ( int x,  double var, const char *eleme
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->kernel_tables_spike_each_file.dentunusd_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "file", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->kernel_tables_spike_each_file.file_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "inode", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->kernel_tables_spike_each_file.inode_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -727,6 +884,21 @@ int set_ldavg_int_spike_val_each_file ( int x,  int var, const char *element, co
         else if ( strcmp ( "plist_sz", element ) == 0 )
         {
             sar_analyzer_spike_obj->ldavgs_spike_each_file.plist_sz_highest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->ldavgs_spike_each_file.runq_sz_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->ldavgs_spike_each_file.plist_sz_lowest_val_each_file [ x ] = var;
             return EXIT_SUCCESS;
         }
         else
@@ -778,6 +950,26 @@ int set_ldavg_double_spike_val_each_file ( int x,  double var, const char *eleme
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "ldavg_one", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->ldavgs_spike_each_file.ldavg_one_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->ldavgs_spike_each_file.ldavg_five_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->ldavgs_spike_each_file.ldavg_15_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -814,9 +1006,211 @@ int set_block_device_spike_val_each_file ( int x,  double var, int y, const char
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->block_devices_spike_each_file.areqsz_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "util", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->block_devices_spike_each_file.util_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
+
+int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txpck_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txkb_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txerr_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_spike_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txpck_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txkb_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txerr_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txpck_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txkb_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txerr_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "down", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxpck_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txpck_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxkb_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txkb_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxerr_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txerr_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            sar_analyzer_spike_obj->networks_spike_each_file.txdrop_down_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
 
 /* -- time-span spike val each file -- */
 
@@ -872,6 +1266,31 @@ int set_cpu_time_span_spike_val_each_file ( int x, double var, int y, const char
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_usr_time_span_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "sys", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_sys_time_span_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "iowait", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_iowait_time_span_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "idle", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_idle_time_span_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -908,6 +1327,21 @@ int set_tasks_time_span_spike_val_each_file ( int x, double var, const char *ele
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -939,6 +1373,21 @@ int set_pswap_time_span_spike_val_each_file ( int x, double var, const char *ele
         else if ( strcmp ( "pswpout", element ) == 0 )
         {
             sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpout_time_span_highest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpin_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pswpout", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpout_time_span_lowest_val_each_file [ x ] = var;
             return EXIT_SUCCESS;
         }
         else
@@ -1010,6 +1459,36 @@ int set_paging_time_span_spike_val_each_file ( int x, double var, const char *el
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.pgpgin_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.pgpgout_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "fault", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.fault_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "majflt", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.majflt_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "vmeff", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.vmeff_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -1056,6 +1535,26 @@ int set_io_transfer_rate_time_span_spike_val_each_file ( int x, double var, cons
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.tps_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bread", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.bread_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -1092,6 +1591,21 @@ int set_memory_double_time_span_spike_val_each_file ( int x, double var, const c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->memories_time_span_spike_each_file.memused_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "commit", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->memories_time_span_spike_each_file.commit_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -1118,6 +1632,16 @@ int set_memory_int_time_span_spike_val_each_file ( int x, int var, const char *e
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "kbcommit", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->memories_time_span_spike_each_file.kbcommit_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -1132,6 +1656,11 @@ int set_swpused_time_span_spike_val_each_file ( int x, double var, const char *a
     else if ( strcmp ( "highest", analyze_item ) == 0 )
     {
         sar_analyzer_time_span_spike_obj->swaps_time_span_spike_each_file.swpused_time_span_highest_val_each_file [ x ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        sar_analyzer_time_span_spike_obj->swaps_time_span_spike_each_file.swpused_time_span_lowest_val_each_file [ x ] = var;
         return EXIT_SUCCESS;
     }
     else
@@ -1180,6 +1709,26 @@ int set_kernel_table_time_span_spike_val_each_file ( int x,  double var, const c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.dentunusd_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "file", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.file_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "inode", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.inode_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -1211,6 +1760,21 @@ int set_ldavg_int_time_span_spike_val_each_file ( int x,  int var, const char *e
         else if ( strcmp ( "plist_sz", element ) == 0 )
         {
             sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.plist_sz_time_span_highest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.runq_sz_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.plist_sz_time_span_lowest_val_each_file [ x ] = var;
             return EXIT_SUCCESS;
         }
         else
@@ -1262,6 +1826,26 @@ int set_ldavg_double_time_span_spike_val_each_file ( int x,  double var, const c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "ldavg_one", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.ldavg_one_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.ldavg_five_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.ldavg_15_time_span_lowest_val_each_file [ x ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -1293,6 +1877,21 @@ int set_block_device_time_span_spike_val_each_file ( int x,  double var, int y, 
         else if ( strcmp ( "util", element ) == 0 )
         {
             sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.util_time_span_highest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.areqsz_time_span_lowest_val_each_file [ x ] [ y ] = var;
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "util", element ) == 0 )
+        {
+            sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.util_time_span_lowest_val_each_file [ x ] [ y ] = var;
             return EXIT_SUCCESS;
         }
         else
@@ -1515,6 +2114,52 @@ int set_block_device_former_val_each_file ( int x,  double var, int y, const cha
     else if ( strcmp ( "util", element ) == 0 )
     {
         sar_analyzer_spike_obj->block_devices_spike_each_file.util_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
+int set_network_former_val_each_file ( int x,  double var, int y, const char *element )
+{
+    if ( strcmp ( "rxpck", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.rxpck_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "txpck", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.txpck_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "rxkb", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.rxkb_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "txkb", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.txkb_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "rxerr", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.rxerr_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "txerr", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.txerr_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "rxdrop", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_former_val_each_file [ x ] [ y ] = var;
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "txdrop", element ) == 0 )
+    {
+        sar_analyzer_spike_obj->networks_spike_each_file.txdrop_former_val_each_file [ x ] [ y ] = var;
         return EXIT_SUCCESS;
     }
     else
@@ -2304,6 +2949,31 @@ int set_cpu_spike_date_each_file ( int x, const char *date_string, int y, const 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_usr_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "sys", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_sys_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "iowait", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_iowait_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "idle", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_idle_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2340,6 +3010,21 @@ int set_tasks_spike_date_each_file ( int x, const char *date_string, const char 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_tasks_spike_each_file.proc_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_tasks_spike_each_file.cswch_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2371,6 +3056,21 @@ int set_pswap_spike_date_each_file ( int x, const char *date_string, const char 
         else if ( strcmp ( "pswpout", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpin_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pswpout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -2442,6 +3142,36 @@ int set_paging_spike_date_each_file ( int x, const char *date_string, const char
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgin_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgout_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "fault", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.fault_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "majflt", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.majflt_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "vmeff", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.vmeff_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2483,6 +3213,26 @@ int set_io_transfer_rate_spike_date_each_file ( int x, const char *date_string, 
         else if ( strcmp ( "bwrtn", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.tps_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bread", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bread_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -2534,6 +3284,26 @@ int set_memory_spike_date_each_file ( int x, const char *date_string, const char
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_memories_spike_each_file.memused_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_memories_spike_each_file.kbcommit_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "commit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_memories_spike_each_file.commit_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2548,6 +3318,11 @@ int set_swpused_spike_date_each_file ( int x, const char *date_string, const cha
     else if ( strcmp ( "highest", analyze_item ) == 0 )
     {
         strncpy ( sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        strncpy ( sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
         return EXIT_SUCCESS;
     }
     else
@@ -2591,6 +3366,26 @@ int set_kernel_table_spike_date_each_file ( int x, const char *date_string, cons
         else if ( strcmp ( "inode", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.dentunusd_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "file", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.file_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "inode", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -2662,6 +3457,36 @@ int set_ldavg_spike_date_each_file ( int x, const char *date_string, const char 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.runq_sz_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.plist_sz_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_one_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_five_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_15_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2698,9 +3523,211 @@ int set_block_device_spike_date_each_file ( int x, const char *date_string, int 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_block_devices_spike_each_file.areqsz_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "util", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
+
+int set_network_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_spike_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "down", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_down_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
 
 /* -- time-span spike date each file -- */
 
@@ -2756,6 +3783,31 @@ int set_cpu_time_span_spike_date_each_file ( int x, const char *date_string, int
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "sys", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "iowait", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "idle", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2792,6 +3844,21 @@ int set_tasks_time_span_spike_date_each_file ( int x, const char *date_string, c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2823,6 +3890,21 @@ int set_pswap_time_span_spike_date_each_file ( int x, const char *date_string, c
         else if ( strcmp ( "pswpout", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpin_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pswpout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -2894,6 +3976,36 @@ int set_paging_time_span_spike_date_each_file ( int x, const char *date_string, 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgin_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgout_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "fault", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.fault_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "majflt", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.majflt_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "vmeff", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.vmeff_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -2935,6 +4047,26 @@ int set_io_transfer_rate_time_span_spike_date_each_file ( int x, const char *dat
         else if ( strcmp ( "bwrtn", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.tps_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bread", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bread_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -2986,6 +4118,26 @@ int set_memory_time_span_spike_date_each_file ( int x, const char *date_string, 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.memused_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.kbcommit_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "commit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.commit_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3000,6 +4152,11 @@ int set_swpused_time_span_spike_date_each_file ( int x, const char *date_string,
     else if ( strcmp ( "highest", analyze_item ) == 0 )
     {
         strncpy ( sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        strncpy ( sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
         return EXIT_SUCCESS;
     }
     else
@@ -3043,6 +4200,26 @@ int set_kernel_table_time_span_spike_date_each_file ( int x, const char *date_st
         else if ( strcmp ( "inode", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_highest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.dentunusd_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "file", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.file_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "inode", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3114,6 +4291,36 @@ int set_ldavg_time_span_spike_date_each_file ( int x, const char *date_string, c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.runq_sz_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.plist_sz_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_one_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_five_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_15_time_span_lowest_date_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3145,6 +4352,21 @@ int set_block_device_time_span_spike_date_each_file ( int x, const char *date_st
         else if ( strcmp ( "util", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_highest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.areqsz_time_span_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "util", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_lowest_date_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3208,6 +4430,31 @@ int set_cpu_spike_time_each_file ( int x, const char *date_string, int y, const 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_usr_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "sys", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_sys_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "iowait", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_iowait_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "idle", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_idle_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3244,6 +4491,21 @@ int set_tasks_spike_time_each_file ( int x, const char *date_string, const char 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_tasks_spike_each_file.proc_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_tasks_spike_each_file.cswch_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3275,6 +4537,21 @@ int set_pswap_spike_time_each_file ( int x, const char *date_string, const char 
         else if ( strcmp ( "pswpout", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpin_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pswpout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3346,6 +4623,36 @@ int set_paging_spike_time_each_file ( int x, const char *date_string, const char
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgin_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgout_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "fault", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.fault_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "majflt", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.majflt_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "vmeff", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_pagings_spike_each_file.vmeff_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3387,6 +4694,26 @@ int set_io_transfer_rate_spike_time_each_file ( int x, const char *date_string, 
         else if ( strcmp ( "bwrtn", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.tps_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bread", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bread_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3438,6 +4765,26 @@ int set_memory_spike_time_each_file ( int x, const char *date_string, const char
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_memories_spike_each_file.memused_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_memories_spike_each_file.kbcommit_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "commit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_memories_spike_each_file.commit_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3452,6 +4799,11 @@ int set_swpused_spike_time_each_file ( int x, const char *date_string, const cha
     else if ( strcmp ( "highest", analyze_item ) == 0 )
     {
         strncpy ( sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        strncpy ( sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
         return EXIT_SUCCESS;
     }
     else
@@ -3495,6 +4847,26 @@ int set_kernel_table_spike_time_each_file ( int x, const char *date_string, cons
         else if ( strcmp ( "inode", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.dentunusd_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "file", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.file_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "inode", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3566,6 +4938,36 @@ int set_ldavg_spike_time_each_file ( int x, const char *date_string, const char 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.runq_sz_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.plist_sz_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_one_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_five_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_15_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3597,6 +4999,207 @@ int set_block_device_spike_time_each_file ( int x, const char *date_string, int 
         else if ( strcmp ( "util", element ) == 0 )
         {
             strncpy ( sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_block_devices_spike_each_file.areqsz_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "util", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else
+        return EXIT_FAILURE;
+}
+
+int set_network_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item )
+{
+    if ( strcmp ( "spike", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_spike_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "highest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "down", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txpck", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txkb", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txerr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "txdrop", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_down_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3660,6 +5263,31 @@ int set_cpu_time_span_spike_time_each_file ( int x, const char *date_string, int
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "sys", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "iowait", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "idle", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3696,6 +5324,21 @@ int set_tasks_time_span_spike_time_each_file ( int x, const char *date_string, c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "cswch", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3727,6 +5370,21 @@ int set_pswap_time_span_spike_time_each_file ( int x, const char *date_string, c
         else if ( strcmp ( "pswpout", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpin_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pswpout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3798,6 +5456,36 @@ int set_paging_time_span_spike_time_each_file ( int x, const char *date_string, 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgin_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgout_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "fault", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.fault_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "majflt", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.majflt_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "vmeff", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.vmeff_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3839,6 +5527,26 @@ int set_io_transfer_rate_time_span_spike_time_each_file ( int x, const char *dat
         else if ( strcmp ( "bwrtn", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.tps_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bread", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bread_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -3890,6 +5598,26 @@ int set_memory_time_span_spike_time_each_file ( int x, const char *date_string, 
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.memused_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.kbcommit_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "commit", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.commit_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -3904,6 +5632,11 @@ int set_swpused_time_span_spike_time_each_file ( int x, const char *date_string,
     else if ( strcmp ( "highest", analyze_item ) == 0 )
     {
         strncpy ( sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+        return EXIT_SUCCESS;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        strncpy ( sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
         return EXIT_SUCCESS;
     }
     else
@@ -3947,6 +5680,26 @@ int set_kernel_table_time_span_spike_time_each_file ( int x, const char *date_st
         else if ( strcmp ( "inode", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_highest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.dentunusd_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "file", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.file_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "inode", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -4018,6 +5771,36 @@ int set_ldavg_time_span_spike_time_each_file ( int x, const char *date_string, c
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.runq_sz_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.plist_sz_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_one_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_five_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_15_time_span_lowest_time_each_file [ x ] , date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -4049,6 +5832,21 @@ int set_block_device_time_span_spike_time_each_file ( int x, const char *date_st
         else if ( strcmp ( "util", element ) == 0 )
         {
             strncpy ( sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_highest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.areqsz_time_span_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
+            return EXIT_SUCCESS;
+        }
+        else if ( strcmp ( "util", element ) == 0 )
+        {
+            strncpy ( sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_lowest_time_each_file [ x ] [ y ], date_string, MAX_DATE_STRINGS );
             return EXIT_SUCCESS;
         }
         else
@@ -5835,6 +7633,19 @@ double get_cpu_spike_val_each_file ( int x, int y, const char *element, const ch
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_spike_obj->cpus_spike_each_file.cpu_usr_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_spike_obj->cpus_spike_each_file.cpu_sys_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_spike_obj->cpus_spike_each_file.cpu_iowait_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_spike_obj->cpus_spike_each_file.cpu_idle_lowest_val_each_file [ x ] [ y ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -5859,6 +7670,15 @@ double get_tasks_spike_val_each_file ( int x, const char *element, const char *a
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_spike_obj->tasks_spike_each_file.proc_lowest_val_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_spike_obj->tasks_spike_each_file.cswch_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -5880,6 +7700,15 @@ double get_pswap_spike_val_each_file ( int x, const char *element, const char *a
             return sar_analyzer_spike_obj->pswaps_spike_each_file.pswpin_highest_val_each_file [ x ];
         else if ( strcmp ( "pswpout", element ) == 0 )
             return sar_analyzer_spike_obj->pswaps_spike_each_file.pswpout_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+            return sar_analyzer_spike_obj->pswaps_spike_each_file.pswpin_lowest_val_each_file [ x ];
+        else if ( strcmp ( "pswpout", element ) == 0 )
+            return sar_analyzer_spike_obj->pswaps_spike_each_file.pswpout_lowest_val_each_file [ x ];
         else
             return EXIT_FAILURE;
     }
@@ -5919,6 +7748,21 @@ double get_paging_spike_val_each_file ( int x, const char *element, const char *
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+            return sar_analyzer_spike_obj->pagings_spike_each_file.pgpgin_lowest_val_each_file [ x ];
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+            return sar_analyzer_spike_obj->pagings_spike_each_file.pgpgout_lowest_val_each_file [ x ];
+        else if ( strcmp ( "fault", element ) == 0 )
+            return sar_analyzer_spike_obj->pagings_spike_each_file.fault_lowest_val_each_file [ x ];
+        else if ( strcmp ( "majflt", element ) == 0 )
+            return sar_analyzer_spike_obj->pagings_spike_each_file.majflt_lowest_val_each_file [ x ];
+        else if ( strcmp ( "vmeff", element ) == 0 )
+            return sar_analyzer_spike_obj->pagings_spike_each_file.vmeff_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -5944,6 +7788,17 @@ double get_io_transfer_rate_spike_val_each_file ( int x, const char *element, co
             return sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.bread_highest_val_each_file [ x ];
         else if ( strcmp ( "bwrtn", element ) == 0 )
             return sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.bwrtn_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+            return sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.tps_lowest_val_each_file [ x ];
+        else if ( strcmp ( "bread", element ) == 0 )
+            return sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.bread_lowest_val_each_file [ x ];
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+            return sar_analyzer_spike_obj->io_transfer_rates_spike_each_file.bwrtn_lowest_val_each_file [ x ];
         else
             return EXIT_FAILURE;
     }
@@ -5975,6 +7830,17 @@ double get_memory_spike_val_each_file ( int x, const char *element, const char *
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+            return sar_analyzer_spike_obj->memories_spike_each_file.memused_lowest_val_each_file [ x ];
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+            return sar_analyzer_spike_obj->memories_spike_each_file.kbcommit_lowest_val_each_file [ x ];
+        else if ( strcmp ( "commit", element ) == 0 )
+            return sar_analyzer_spike_obj->memories_spike_each_file.commit_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -5985,6 +7851,8 @@ double get_swpused_spike_val_each_file ( int x, const char *analyze_item )
         return sar_analyzer_spike_obj->swaps_spike_each_file.swpused_spike_val_each_file [ x ];
     else if ( strcmp ( "highest", analyze_item ) == 0 )
         return sar_analyzer_spike_obj->swaps_spike_each_file.swpused_highest_val_each_file [ x ];
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+        return sar_analyzer_spike_obj->swaps_spike_each_file.swpused_lowest_val_each_file [ x ];
     else
         return EXIT_FAILURE;
 }
@@ -6010,6 +7878,17 @@ int get_kernel_table_spike_val_each_file ( int x, const char *element, const cha
             return sar_analyzer_spike_obj->kernel_tables_spike_each_file.file_highest_val_each_file [ x ];
         else if ( strcmp ( "inode", element ) == 0 )
             return sar_analyzer_spike_obj->kernel_tables_spike_each_file.inode_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+            return sar_analyzer_spike_obj->kernel_tables_spike_each_file.dentunusd_lowest_val_each_file [ x ];
+        else if ( strcmp ( "file", element ) == 0 )
+            return sar_analyzer_spike_obj->kernel_tables_spike_each_file.file_lowest_val_each_file [ x ];
+        else if ( strcmp ( "inode", element ) == 0 )
+            return sar_analyzer_spike_obj->kernel_tables_spike_each_file.inode_lowest_val_each_file [ x ];
         else
             return EXIT_FAILURE;
     }
@@ -6049,6 +7928,21 @@ double get_ldavg_spike_val_each_file ( int x, const char *element, const char *a
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+            return sar_analyzer_spike_obj->ldavgs_spike_each_file.runq_sz_lowest_val_each_file [ x ];
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+            return sar_analyzer_spike_obj->ldavgs_spike_each_file.plist_sz_lowest_val_each_file [ x ];
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+            return sar_analyzer_spike_obj->ldavgs_spike_each_file.ldavg_one_lowest_val_each_file [ x ];
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+            return sar_analyzer_spike_obj->ldavgs_spike_each_file.ldavg_five_lowest_val_each_file [ x ];
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+            return sar_analyzer_spike_obj->ldavgs_spike_each_file.ldavg_15_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -6070,6 +7964,15 @@ double get_block_device_spike_val_each_file ( int x, int y, const char *element,
             return sar_analyzer_spike_obj->block_devices_spike_each_file.areqsz_highest_val_each_file [ x ] [ y ];
         else if ( strcmp ( "util", element ) == 0 )
             return sar_analyzer_spike_obj->block_devices_spike_each_file.util_highest_val_each_file [ x ] [ y ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+            return sar_analyzer_spike_obj->block_devices_spike_each_file.areqsz_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "util", element ) == 0 )
+            return sar_analyzer_spike_obj->block_devices_spike_each_file.util_lowest_val_each_file [ x ] [ y ];
         else
             return EXIT_FAILURE;
     }
@@ -6118,6 +8021,27 @@ double get_network_spike_val_each_file ( int x, int y, const char *element, cons
             return sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_highest_val_each_file [ x ] [ y ];
         else if ( strcmp ( "txdrop", element ) == 0 )
             return sar_analyzer_spike_obj->networks_spike_each_file.txdrop_highest_val_each_file [ x ] [ y ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.rxpck_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "txpck", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.txpck_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxkb", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.rxkb_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "txkb", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.txkb_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxerr", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.rxerr_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "txerr", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.txerr_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.rxdrop_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "txdrop", element ) == 0 )
+            return sar_analyzer_spike_obj->networks_spike_each_file.txdrop_lowest_val_each_file [ x ] [ y ];
         else
             return EXIT_FAILURE;
     }
@@ -6176,6 +8100,19 @@ double get_cpu_time_span_spike_val_each_file ( int x, int y, const char *element
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_usr_time_span_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_sys_time_span_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_iowait_time_span_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->cpus_time_span_spike_each_file.cpu_idle_time_span_lowest_val_each_file [ x ] [ y ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -6200,6 +8137,15 @@ double get_tasks_time_span_spike_val_each_file ( int x, const char *element, con
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.proc_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->tasks_time_span_spike_each_file.cswch_time_span_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -6221,6 +8167,15 @@ double get_pswap_time_span_spike_val_each_file ( int x, const char *element, con
             return sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpin_time_span_highest_val_each_file [ x ];
         else if ( strcmp ( "pswpout", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpout_time_span_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpin_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "pswpout", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pswaps_time_span_spike_each_file.pswpout_time_span_lowest_val_each_file [ x ];
         else
             return EXIT_FAILURE;
     }
@@ -6260,6 +8215,21 @@ double get_paging_time_span_spike_val_each_file ( int x, const char *element, co
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.pgpgin_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.pgpgout_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "fault", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.fault_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "majflt", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.majflt_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "vmeff", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->pagings_time_span_spike_each_file.vmeff_time_span_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -6285,6 +8255,17 @@ double get_io_transfer_rate_time_span_spike_val_each_file ( int x, const char *e
             return sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.bread_time_span_highest_val_each_file [ x ];
         else if ( strcmp ( "bwrtn", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.tps_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "bread", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.bread_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_lowest_val_each_file [ x ];
         else
             return EXIT_FAILURE;
     }
@@ -6316,6 +8297,17 @@ double get_memory_time_span_spike_val_each_file ( int x, const char *element, co
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->memories_time_span_spike_each_file.memused_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->memories_time_span_spike_each_file.kbcommit_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "commit", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->memories_time_span_spike_each_file.commit_time_span_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -6326,6 +8318,8 @@ double get_swpused_time_span_spike_val_each_file ( int x, const char *analyze_it
         return sar_analyzer_time_span_spike_obj->swaps_time_span_spike_each_file.swpused_time_span_spike_val_each_file [ x ];
     else if ( strcmp ( "highest", analyze_item ) == 0 )
         return sar_analyzer_time_span_spike_obj->swaps_time_span_spike_each_file.swpused_time_span_highest_val_each_file [ x ];
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+        return sar_analyzer_time_span_spike_obj->swaps_time_span_spike_each_file.swpused_time_span_lowest_val_each_file [ x ];
     else
         return EXIT_FAILURE;
 }
@@ -6351,6 +8345,17 @@ int get_kernel_table_time_span_spike_val_each_file ( int x, const char *element,
             return sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.file_time_span_highest_val_each_file [ x ];
         else if ( strcmp ( "inode", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.inode_time_span_highest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.dentunusd_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "file", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.file_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "inode", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->kernel_tables_time_span_spike_each_file.inode_time_span_lowest_val_each_file [ x ];
         else
             return EXIT_FAILURE;
     }
@@ -6390,6 +8395,21 @@ double get_ldavg_time_span_spike_val_each_file ( int x, const char *element, con
         else
             return EXIT_FAILURE;
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.runq_sz_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.plist_sz_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.ldavg_one_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.ldavg_five_time_span_lowest_val_each_file [ x ];
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->ldavgs_time_span_spike_each_file.ldavg_15_time_span_lowest_val_each_file [ x ];
+        else
+            return EXIT_FAILURE;
+    }
     else
         return EXIT_FAILURE;
 }
@@ -6411,6 +8431,15 @@ double get_block_device_time_span_spike_val_each_file ( int x, int y, const char
             return sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.areqsz_time_span_highest_val_each_file [ x ] [ y ];
         else if ( strcmp ( "util", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.util_time_span_highest_val_each_file [ x ] [ y ];
+        else
+            return EXIT_FAILURE;
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.areqsz_time_span_lowest_val_each_file [ x ] [ y ];
+        else if ( strcmp ( "util", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->block_devices_time_span_spike_each_file.util_time_span_lowest_val_each_file [ x ] [ y ];
         else
             return EXIT_FAILURE;
     }
@@ -10340,6 +12369,19 @@ const char *get_cpu_spike_date_each_file ( int x, int y, const char *element, co
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_usr_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_sys_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_iowait_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_idle_lowest_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10364,6 +12406,15 @@ const char *get_tasks_spike_date_each_file ( int x, const char *element, const c
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_spike_obj->date_tasks_spike_each_file.proc_lowest_date_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_spike_obj->date_tasks_spike_each_file.cswch_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10385,6 +12436,15 @@ const char *get_pswap_spike_date_each_file ( int x, const char *element, const c
             return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpin_highest_date_each_file [ x ];
         else if ( strcmp ( "pswpout", element ) == 0 )
             return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpin_lowest_date_each_file [ x ];
+        else if ( strcmp ( "pswpout", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_lowest_date_each_file [ x ];
         else
             return "error";
     }
@@ -10424,6 +12484,21 @@ const char *get_paging_spike_date_each_file ( int x, const char *element, const 
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgin_lowest_date_each_file [ x ];
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgout_lowest_date_each_file [ x ];
+        else if ( strcmp ( "fault", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.fault_lowest_date_each_file [ x ];
+        else if ( strcmp ( "majflt", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.majflt_lowest_date_each_file [ x ];
+        else if ( strcmp ( "vmeff", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.vmeff_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10449,6 +12524,17 @@ const char *get_io_transfer_rate_spike_date_each_file ( int x, const char *eleme
             return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bread_highest_date_each_file [ x ];
         else if ( strcmp ( "bwrtn", element ) == 0 )
             return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+            return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.tps_lowest_date_each_file [ x ];
+        else if ( strcmp ( "bread", element ) == 0 )
+            return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bread_lowest_date_each_file [ x ];
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+            return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_lowest_date_each_file [ x ];
         else
             return "error";
     }
@@ -10480,6 +12566,17 @@ const char *get_memory_spike_date_each_file ( int x, const char *element, const 
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+            return sar_analyzer_spike_obj->date_memories_spike_each_file.memused_lowest_date_each_file [ x ];
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+            return sar_analyzer_spike_obj->date_memories_spike_each_file.kbcommit_lowest_date_each_file [ x ];
+        else if ( strcmp ( "commit", element ) == 0 )
+            return sar_analyzer_spike_obj->date_memories_spike_each_file.commit_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10490,6 +12587,8 @@ const char *get_swpused_spike_date_each_file ( int x, const char *analyze_item )
         return sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_spike_date_each_file [ x ];
     else if ( strcmp ( "highest", analyze_item ) == 0 )
         return sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_highest_date_each_file [ x ];
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+        return sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_lowest_date_each_file [ x ];
     else
         return "error";
 }
@@ -10515,6 +12614,17 @@ const char *get_kernel_table_spike_date_each_file ( int x, const char *element, 
             return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.file_highest_date_each_file [ x ];
         else if ( strcmp ( "inode", element ) == 0 )
             return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+            return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.dentunusd_lowest_date_each_file [ x ];
+        else if ( strcmp ( "file", element ) == 0 )
+            return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.file_lowest_date_each_file [ x ];
+        else if ( strcmp ( "inode", element ) == 0 )
+            return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_lowest_date_each_file [ x ];
         else
             return "error";
     }
@@ -10554,6 +12664,21 @@ const char *get_ldavg_spike_date_each_file ( int x, const char *element, const c
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.runq_sz_lowest_date_each_file [ x ];
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.plist_sz_lowest_date_each_file [ x ];
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_one_lowest_date_each_file [ x ];
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_five_lowest_date_each_file [ x ];
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_15_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10575,6 +12700,15 @@ const char *get_block_device_spike_date_each_file ( int x, int y, const char *el
             return sar_analyzer_spike_obj->date_block_devices_spike_each_file.areqsz_highest_date_each_file [ x ] [ y ];
         else if ( strcmp ( "util", element ) == 0 )
             return sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_highest_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+            return sar_analyzer_spike_obj->date_block_devices_spike_each_file.areqsz_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "util", element ) == 0 )
+            return sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_lowest_date_each_file [ x ] [ y ];
         else
             return "error";
     }
@@ -10623,6 +12757,27 @@ const char *get_network_spike_date_each_file ( int x, int y, const char *element
             return sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_highest_date_each_file [ x ] [ y ];
         else if ( strcmp ( "txdrop", element ) == 0 )
             return sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_highest_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "txpck", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxkb", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "txkb", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxerr", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "txerr", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "txdrop", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_lowest_date_each_file [ x ] [ y ];
         else
             return "error";
     }
@@ -10681,6 +12836,19 @@ const char *get_cpu_time_span_spike_date_each_file ( int x, int y, const char *e
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_lowest_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10705,6 +12873,15 @@ const char *get_tasks_time_span_spike_date_each_file ( int x, const char *elemen
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10726,6 +12903,15 @@ const char *get_pswap_time_span_spike_date_each_file ( int x, const char *elemen
             return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpin_time_span_highest_date_each_file [ x ];
         else if ( strcmp ( "pswpout", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpin_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "pswpout", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_lowest_date_each_file [ x ];
         else
             return "error";
     }
@@ -10765,6 +12951,21 @@ const char *get_paging_time_span_spike_date_each_file ( int x, const char *eleme
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgin_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgout_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "fault", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.fault_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "majflt", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.majflt_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "vmeff", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.vmeff_time_span_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10790,6 +12991,17 @@ const char *get_io_transfer_rate_time_span_spike_date_each_file ( int x, const c
             return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bread_time_span_highest_date_each_file [ x ];
         else if ( strcmp ( "bwrtn", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.tps_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "bread", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bread_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_lowest_date_each_file [ x ];
         else
             return "error";
     }
@@ -10821,6 +13033,17 @@ const char *get_memory_time_span_spike_date_each_file ( int x, const char *eleme
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.memused_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.kbcommit_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "commit", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.commit_time_span_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10831,6 +13054,8 @@ const char *get_swpused_time_span_spike_date_each_file ( int x, const char *anal
         return sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_spike_date_each_file [ x ];
     else if ( strcmp ( "highest", analyze_item ) == 0 )
         return sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_highest_date_each_file [ x ];
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+        return sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_lowest_date_each_file [ x ];
     else
         return "error";
 }
@@ -10856,6 +13081,17 @@ const char *get_kernel_table_time_span_spike_date_each_file ( int x, const char 
             return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.file_time_span_highest_date_each_file [ x ];
         else if ( strcmp ( "inode", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_highest_date_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.dentunusd_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "file", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.file_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "inode", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_lowest_date_each_file [ x ];
         else
             return "error";
     }
@@ -10895,6 +13131,21 @@ const char *get_ldavg_time_span_spike_date_each_file ( int x, const char *elemen
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.runq_sz_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.plist_sz_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_one_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_five_time_span_lowest_date_each_file [ x ];
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_15_time_span_lowest_date_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10916,6 +13167,15 @@ const char *get_block_device_time_span_spike_date_each_file ( int x, int y, cons
             return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.areqsz_time_span_highest_date_each_file [ x ] [ y ];
         else if ( strcmp ( "util", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_highest_date_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.areqsz_time_span_lowest_date_each_file [ x ] [ y ];
+        else if ( strcmp ( "util", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_lowest_date_each_file [ x ] [ y ];
         else
             return "error";
     }
@@ -10953,6 +13213,19 @@ const char *get_cpu_spike_time_each_file ( int x, int y, const char *element, co
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_usr_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_sys_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_iowait_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_spike_obj->date_cpus_spike_each_file.cpu_idle_lowest_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10977,6 +13250,15 @@ const char *get_tasks_spike_time_each_file ( int x, const char *element, const c
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_spike_obj->date_tasks_spike_each_file.proc_lowest_time_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_spike_obj->date_tasks_spike_each_file.cswch_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -10998,6 +13280,15 @@ const char *get_pswap_spike_time_each_file ( int x, const char *element, const c
             return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpin_highest_time_each_file [ x ];
         else if ( strcmp ( "pswpout", element ) == 0 )
             return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_highest_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpin_lowest_time_each_file [ x ];
+        else if ( strcmp ( "pswpout", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pswaps_spike_each_file.pswpout_lowest_time_each_file [ x ];
         else
             return "error";
     }
@@ -11037,6 +13328,21 @@ const char *get_paging_spike_time_each_file ( int x, const char *element, const 
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgin_lowest_time_each_file [ x ];
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.pgpgout_lowest_time_each_file [ x ];
+        else if ( strcmp ( "fault", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.fault_lowest_time_each_file [ x ];
+        else if ( strcmp ( "majflt", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.majflt_lowest_time_each_file [ x ];
+        else if ( strcmp ( "vmeff", element ) == 0 )
+            return sar_analyzer_spike_obj->date_pagings_spike_each_file.vmeff_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11062,6 +13368,17 @@ const char *get_io_transfer_rate_spike_time_each_file ( int x, const char *eleme
             return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bread_highest_time_each_file [ x ];
         else if ( strcmp ( "bwrtn", element ) == 0 )
             return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_highest_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+            return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.tps_lowest_time_each_file [ x ];
+        else if ( strcmp ( "bread", element ) == 0 )
+            return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bread_lowest_time_each_file [ x ];
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+            return sar_analyzer_spike_obj->date_io_transfer_rates_spike_each_file.bwrtn_lowest_time_each_file [ x ];
         else
             return "error";
     }
@@ -11093,6 +13410,17 @@ const char *get_memory_spike_time_each_file ( int x, const char *element, const 
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+            return sar_analyzer_spike_obj->date_memories_spike_each_file.memused_lowest_time_each_file [ x ];
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+            return sar_analyzer_spike_obj->date_memories_spike_each_file.kbcommit_lowest_time_each_file [ x ];
+        else if ( strcmp ( "commit", element ) == 0 )
+            return sar_analyzer_spike_obj->date_memories_spike_each_file.commit_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11103,6 +13431,8 @@ const char *get_swpused_spike_time_each_file ( int x, const char *analyze_item )
         return sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_spike_time_each_file [ x ];
     else if ( strcmp ( "highest", analyze_item ) == 0 )
         return sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_highest_time_each_file [ x ];
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+        return sar_analyzer_spike_obj->date_swaps_spike_each_file.swpused_lowest_time_each_file [ x ];
     else
         return "error";
 }
@@ -11128,6 +13458,17 @@ const char *get_kernel_table_spike_time_each_file ( int x, const char *element, 
             return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.file_highest_time_each_file [ x ];
         else if ( strcmp ( "inode", element ) == 0 )
             return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_highest_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+            return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.dentunusd_lowest_time_each_file [ x ];
+        else if ( strcmp ( "file", element ) == 0 )
+            return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.file_lowest_time_each_file [ x ];
+        else if ( strcmp ( "inode", element ) == 0 )
+            return sar_analyzer_spike_obj->date_kernel_tables_spike_each_file.inode_lowest_time_each_file [ x ];
         else
             return "error";
     }
@@ -11167,6 +13508,21 @@ const char *get_ldavg_spike_time_each_file ( int x, const char *element, const c
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.runq_sz_lowest_time_each_file [ x ];
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.plist_sz_lowest_time_each_file [ x ];
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_one_lowest_time_each_file [ x ];
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_five_lowest_time_each_file [ x ];
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+            return sar_analyzer_spike_obj->date_ldavgs_spike_each_file.ldavg_15_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11188,6 +13544,15 @@ const char *get_block_device_spike_time_each_file ( int x, int y, const char *el
             return sar_analyzer_spike_obj->date_block_devices_spike_each_file.areqsz_highest_time_each_file [ x ] [ y ];
         else if ( strcmp ( "util", element ) == 0 )
             return sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_highest_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+            return sar_analyzer_spike_obj->date_block_devices_spike_each_file.areqsz_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "util", element ) == 0 )
+            return sar_analyzer_spike_obj->date_block_devices_spike_each_file.util_lowest_time_each_file [ x ] [ y ];
         else
             return "error";
     }
@@ -11236,6 +13601,27 @@ const char *get_network_spike_time_each_file ( int x, int y, const char *element
             return sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_highest_time_each_file [ x ] [ y ];
         else if ( strcmp ( "txdrop", element ) == 0 )
             return sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_highest_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "rxpck", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxpck_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "txpck", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txpck_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxkb", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxkb_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "txkb", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txkb_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxerr", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxerr_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "txerr", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txerr_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "rxdrop", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.rxdrop_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "txdrop", element ) == 0 )
+            return sar_analyzer_spike_obj->date_networks_spike_each_file.txdrop_lowest_time_each_file [ x ] [ y ];
         else
             return "error";
     }
@@ -11294,6 +13680,19 @@ const char *get_cpu_time_span_spike_time_each_file ( int x, int y, const char *e
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "usr", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_usr_time_span_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "sys", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_sys_time_span_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "iowait", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_iowait_time_span_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "idle", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_cpus_time_span_spike_each_file.cpu_idle_time_span_lowest_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11318,6 +13717,15 @@ const char *get_tasks_time_span_spike_time_each_file ( int x, const char *elemen
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "proc", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.proc_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "cswch", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_tasks_time_span_spike_each_file.cswch_time_span_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11339,6 +13747,15 @@ const char *get_pswap_time_span_spike_time_each_file ( int x, const char *elemen
             return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpin_time_span_highest_time_each_file [ x ];
         else if ( strcmp ( "pswpout", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_highest_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pswpin", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpin_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "pswpout", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pswaps_time_span_spike_each_file.pswpout_time_span_lowest_time_each_file [ x ];
         else
             return "error";
     }
@@ -11378,6 +13795,21 @@ const char *get_paging_time_span_spike_time_each_file ( int x, const char *eleme
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "pgpgin", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgin_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "pgpgout", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.pgpgout_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "fault", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.fault_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "majflt", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.majflt_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "vmeff", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_pagings_time_span_spike_each_file.vmeff_time_span_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11403,6 +13835,17 @@ const char *get_io_transfer_rate_time_span_spike_time_each_file ( int x, const c
             return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bread_time_span_highest_time_each_file [ x ];
         else if ( strcmp ( "bwrtn", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_highest_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "tps", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.tps_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "bread", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bread_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "bwrtn", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_io_transfer_rates_time_span_spike_each_file.bwrtn_time_span_lowest_time_each_file [ x ];
         else
             return "error";
     }
@@ -11434,6 +13877,17 @@ const char *get_memory_time_span_spike_time_each_file ( int x, const char *eleme
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "memused", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.memused_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "kbcommit", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.kbcommit_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "commit", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_memories_time_span_spike_each_file.commit_time_span_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11444,6 +13898,8 @@ const char *get_swpused_time_span_spike_time_each_file ( int x, const char *anal
         return sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_spike_time_each_file [ x ];
     else if ( strcmp ( "highest", analyze_item ) == 0 )
         return sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_highest_time_each_file [ x ];
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+        return sar_analyzer_time_span_spike_obj->date_swaps_time_span_spike_each_file.swpused_time_span_lowest_time_each_file [ x ];
     else
         return "error";
 }
@@ -11469,6 +13925,17 @@ const char *get_kernel_table_time_span_spike_time_each_file ( int x, const char 
             return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.file_time_span_highest_time_each_file [ x ];
         else if ( strcmp ( "inode", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_highest_time_each_file [ x ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "dentunusd", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.dentunusd_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "file", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.file_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "inode", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_kernel_tables_time_span_spike_each_file.inode_time_span_lowest_time_each_file [ x ];
         else
             return "error";
     }
@@ -11508,6 +13975,21 @@ const char *get_ldavg_time_span_spike_time_each_file ( int x, const char *elemen
         else
             return "error";
     }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "runq_sz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.runq_sz_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "plist_sz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.plist_sz_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "ldavg_one", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_one_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "ldavg_five", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_five_time_span_lowest_time_each_file [ x ];
+        else if ( strcmp ( "ldavg_15", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_ldavgs_time_span_spike_each_file.ldavg_15_time_span_lowest_time_each_file [ x ];
+        else
+            return "error";
+    }
     else
         return "error";
 }
@@ -11529,6 +14011,15 @@ const char *get_block_device_time_span_spike_time_each_file ( int x, int y, cons
             return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.areqsz_time_span_highest_time_each_file [ x ] [ y ];
         else if ( strcmp ( "util", element ) == 0 )
             return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_highest_time_each_file [ x ] [ y ];
+        else
+            return "error";
+    }
+    else if ( strcmp ( "lowest", analyze_item ) == 0 )
+    {
+        if ( strcmp ( "areqsz", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.areqsz_time_span_lowest_time_each_file [ x ] [ y ];
+        else if ( strcmp ( "util", element ) == 0 )
+            return sar_analyzer_time_span_spike_obj->date_block_devices_time_span_spike_each_file.util_time_span_lowest_time_each_file [ x ] [ y ];
         else
             return "error";
     }

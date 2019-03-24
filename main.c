@@ -298,6 +298,7 @@ int main ( int argc, char *argv [ ] )
 
     char *hairline = "----";
 
+    printf("\nNotice: You can set 'skip' to the member in the conf file when there is no such directory.\n\n");
     if ( sar_only != 1 )
     {
         /* this is the actual order which each member will be written to a file */

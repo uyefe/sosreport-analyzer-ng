@@ -585,8 +585,10 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
     double t = 0, h = 0, l = 0; /* means this value, highest value, lowest value */
     double h0 = 0, h1 = 0, h2 = 0, h3 = 0, h4 = 0, l0 = 0, l1 = 0, l2 = 0, l3 = 0, l4 = 0; /* highest value, lowest value for Z option */
     double s0 = 0, s1 = 0, s2 = 0, s3 = 0, s4 = 0, f0 = 0, f1 = 0, f2 = 0, f3 = 0, f4 = 0; /* spike value, former value for Z option */
-    double ss0 = 0, ss1 = 0, ss2 = 0, ss3 = 0, ss4 = 0, ff0 = 0, ff1 = 0, ff2 = 0, ff3 = 0, ff4 = 0, hh0 = 0, hh1 = 0, hh2 = 0, hh3 = 0, hh4 = 0; /* spike each file value for Z option */
-    double t_ss0 = 0, t_ss1 = 0, t_ss2 = 0, t_ss3 = 0, t_ss4 = 0, t_ff0 = 0, t_ff1 = 0, t_ff2 = 0, t_ff3 = 0, t_ff4 = 0, t_hh0 = 0, t_hh1 = 0, t_hh2 = 0, t_hh3 = 0, t_hh4 = 0; /* time-span spike each file value for Z option */
+    double ss0 = 0, ss1 = 0, ss2 = 0, ss3 = 0, ss4 = 0, ff0 = 0, ff1 = 0, ff2 = 0, ff3 = 0, ff4 = 0; /* spike each file value for Z option */
+    double hh0 = 0, hh1 = 0, hh2 = 0, hh3 = 0, hh4 = 0, ll0 = 0, ll1 = 0, ll2 = 0, ll3 = 0, ll4 = 0; /* spike each file value for Z option */
+    double t_ss0 = 0, t_ss1 = 0, t_ss2 = 0, t_ss3 = 0, t_ss4 = 0, t_ff0 = 0, t_ff1 = 0, t_ff2 = 0, t_ff3 = 0, t_ff4 = 0; /* time-span spike each file value for Z option */
+    double t_hh0 = 0, t_hh1 = 0, t_hh2 = 0, t_hh3 = 0, t_hh4 = 0, t_ll0 = 0, t_ll1 = 0, t_ll2 = 0, t_ll3 = 0, t_ll4 = 0; /* time-span spike each file value for Z option */
     int time_span_checked = 0;
 
     /* get the first token */
@@ -692,11 +694,15 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             ff0 = get_cpu_former_val_each_file ( file_number, utility, "usr" );
             ff1 = get_cpu_former_val_each_file ( file_number, utility, "sys" );
             ff2 = get_cpu_former_val_each_file ( file_number, utility, "iowait" );
-            ff3 = get_cpu_former_val_each_file ( file_number, utility, "sys" );
+            ff3 = get_cpu_former_val_each_file ( file_number, utility, "idle" );
             hh0 = get_cpu_spike_val_each_file ( file_number, utility, "usr", "highest" );
             hh1 = get_cpu_spike_val_each_file ( file_number, utility, "sys", "highest" );
             hh2 = get_cpu_spike_val_each_file ( file_number, utility, "iowait", "highest" );
-            hh3 = get_cpu_spike_val_each_file ( file_number, utility, "sys", "highest" );
+            hh3 = get_cpu_spike_val_each_file ( file_number, utility, "idle", "highest" );
+            ll0 = get_cpu_spike_val_each_file ( file_number, utility, "usr", "lowest" );
+            ll1 = get_cpu_spike_val_each_file ( file_number, utility, "sys", "lowest" );
+            ll2 = get_cpu_spike_val_each_file ( file_number, utility, "iowait", "lowest" );
+            ll3 = get_cpu_spike_val_each_file ( file_number, utility, "idle", "lowest" );
             t_ss0 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "usr", "spike" );
             t_ss1 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "spike" );
             t_ss2 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "iowait", "spike" );
@@ -704,11 +710,15 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             t_ff0 = get_cpu_time_span_former_val_each_file ( file_number, utility, "usr" );
             t_ff1 = get_cpu_time_span_former_val_each_file ( file_number, utility, "sys" );
             t_ff2 = get_cpu_time_span_former_val_each_file ( file_number, utility, "iowait" );
-            t_ff3 = get_cpu_time_span_former_val_each_file ( file_number, utility, "sys" );
+            t_ff3 = get_cpu_time_span_former_val_each_file ( file_number, utility, "idle" );
             t_hh0 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "usr", "highest" );
             t_hh1 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "highest" );
             t_hh2 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "iowait", "highest" );
-            t_hh3 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "highest" );
+            t_hh3 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "idle", "highest" );
+            t_ll0 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "usr", "lowest" );
+            t_ll1 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "sys", "lowest" );
+            t_ll2 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "iowait", "lowest" );
+            t_ll3 = get_cpu_time_span_spike_val_each_file ( file_number, utility, "idle", "lowest" );
 
             /* CPU All and %usr, set the value to struct, us intends 'usr' or 'user'
              * utility is used for core number here 
@@ -750,6 +760,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
                     }
+                    if ( t < ll0 )
+                    {
+                        set_cpu_spike_val_each_file ( file_number, t, utility, "usr", "lowest" );
+                        set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "usr", "lowest" );
+                        set_cpu_spike_time_each_file ( file_number, time_value, utility, "usr", "lowest" );
+                    }
                     set_cpu_former_val_each_file ( file_number, t, utility, "usr" );
                     if ( time_span_checked == 1 )
                     {
@@ -764,6 +780,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "usr", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "highest" );
                             set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "highest" );
+                        }
+                        if ( t < t_ll0 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "usr", "lowest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "usr", "lowest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "usr", "lowest" );
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "usr" );
                     }
@@ -872,6 +894,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
                     }
+                    if ( t < ll1 )
+                    {
+                        set_cpu_spike_val_each_file ( file_number, t, utility, "sys", "lowest" );
+                        set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "sys", "lowest" );
+                        set_cpu_spike_time_each_file ( file_number, time_value, utility, "sys", "lowest" );
+                    }
                     set_cpu_former_val_each_file ( file_number, t, utility, "sys" );
                     if ( time_span_checked == 1 )
                     {
@@ -886,6 +914,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "sys", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "highest" );
                             set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "highest" );
+                        }
+                        if ( t < t_ll1 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "sys", "lowest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "sys", "lowest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "sys", "lowest" );
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "sys" );
                     }
@@ -979,6 +1013,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
                     }
+                    if ( t < ll2 )
+                    {
+                        set_cpu_spike_val_each_file ( file_number, t, utility, "iowait", "lowest" );
+                        set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "lowest" );
+                        set_cpu_spike_time_each_file ( file_number, time_value, utility, "iowait", "lowest" );
+                    }
                     set_cpu_former_val_each_file ( file_number, t, utility, "iowait" );
                     if ( time_span_checked == 1 )
                     {
@@ -993,6 +1033,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "iowait", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "highest" );
                             set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "highest" );
+                        }
+                        if ( t < t_ll2 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "iowait", "lowest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "iowait", "lowest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "iowait", "lowest" );
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "iowait" );
                     }
@@ -1086,6 +1132,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
                         set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
                     }
+                    if ( t < ll3 )
+                    {
+                        set_cpu_spike_val_each_file ( file_number, t, utility, "idle", "lowest" );
+                        set_cpu_spike_date_each_file ( file_number, this_date_all, utility, "idle", "lowest" );
+                        set_cpu_spike_time_each_file ( file_number, time_value, utility, "idle", "lowest" );
+                    }
                     set_cpu_former_val_each_file ( file_number, t, utility, "idle" );
                     if ( time_span_checked == 1 )
                     {
@@ -1100,6 +1152,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "idle", "highest" );
                             set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "highest" );
                             set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "highest" );
+                        }
+                        if ( t < t_ll3 )
+                        {
+                            set_cpu_time_span_spike_val_each_file ( file_number, t, utility, "idle", "lowest" );
+                            set_cpu_time_span_spike_date_each_file ( file_number, this_date_all, utility, "idle", "lowest" );
+                            set_cpu_time_span_spike_time_each_file ( file_number, time_value, utility, "idle", "lowest" );
                         }
                         set_cpu_time_span_former_val_each_file ( file_number, t, utility, "idle" );
                     }
@@ -1174,12 +1232,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             ff1 = get_tasks_former_val_each_file ( file_number, "cswch" );
             hh0 = get_tasks_spike_val_each_file ( file_number, "proc", "highest" );
             hh1 = get_tasks_spike_val_each_file ( file_number, "cswch", "highest" );
+            ll0 = get_tasks_spike_val_each_file ( file_number, "proc", "lowest" );
+            ll1 = get_tasks_spike_val_each_file ( file_number, "cswch", "lowest" );
             t_ss0 = get_tasks_time_span_spike_val_each_file ( file_number, "proc", "spike" );
             t_ss1 = get_tasks_time_span_spike_val_each_file ( file_number, "cswch", "spike" );
             t_ff0 = get_tasks_time_span_former_val_each_file ( file_number, "proc" );
             t_ff1 = get_tasks_time_span_former_val_each_file ( file_number, "cswch" );
             t_hh0 = get_tasks_time_span_spike_val_each_file ( file_number, "proc", "highest" );
             t_hh1 = get_tasks_time_span_spike_val_each_file ( file_number, "cswch", "highest" );
+            t_ll0 = get_tasks_time_span_spike_val_each_file ( file_number, "proc", "lowest" );
+            t_ll1 = get_tasks_time_span_spike_val_each_file ( file_number, "cswch", "lowest" );
 
             /* proc, set the value to struct */
             if ( i == get_column_tasks ( "proc" ) )
@@ -1218,6 +1280,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "proc", "highest" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "proc", "highest" );
                     }
+                    if ( t < ll0 )
+                    {
+                        set_tasks_spike_val_each_file ( file_number, t, "proc", "lowest" );
+                        set_tasks_spike_date_each_file ( file_number, this_date_all, "proc", "lowest" );
+                        set_tasks_spike_time_each_file ( file_number, time_value, "proc", "lowest" );
+                    }
                     set_tasks_former_val_each_file ( file_number, t, "proc" );
                     if ( time_span_checked == 1 )
                     {
@@ -1232,6 +1300,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_tasks_time_span_spike_val_each_file ( file_number, t, "proc", "highest" );
                             set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "proc", "highest" );
                             set_tasks_time_span_spike_time_each_file ( file_number, time_value, "proc", "highest" );
+                        }
+                        if ( t < t_ll0 )
+                        {
+                            set_tasks_time_span_spike_val_each_file ( file_number, t, "proc", "lowest" );
+                            set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "proc", "lowest" );
+                            set_tasks_time_span_spike_time_each_file ( file_number, time_value, "proc", "lowest" );
                         }
                         set_tasks_time_span_former_val_each_file ( file_number, t, "proc" );
                     }
@@ -1335,6 +1409,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_tasks_spike_date_each_file ( file_number, this_date_all, "cswch", "highest" );
                         set_tasks_spike_time_each_file ( file_number, time_value, "cswch", "highest" );
                     }
+                    if ( t < ll1 )
+                    {
+                        set_tasks_spike_val_each_file ( file_number, t, "cswch", "lowest" );
+                        set_tasks_spike_date_each_file ( file_number, this_date_all, "cswch", "lowest" );
+                        set_tasks_spike_time_each_file ( file_number, time_value, "cswch", "lowest" );
+                    }
                     set_tasks_former_val_each_file ( file_number, t, "cswch" );
                     if ( time_span_checked == 1 )
                     {
@@ -1349,6 +1429,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_tasks_time_span_spike_val_each_file ( file_number, t, "cswch", "highest" );
                             set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "cswch", "highest" );
                             set_tasks_time_span_spike_time_each_file ( file_number, time_value, "cswch", "highest" );
+                        }
+                        if ( t < t_ll1 )
+                        {
+                            set_tasks_time_span_spike_val_each_file ( file_number, t, "cswch", "lowest" );
+                            set_tasks_time_span_spike_date_each_file ( file_number, this_date_all, "cswch", "lowest" );
+                            set_tasks_time_span_spike_time_each_file ( file_number, time_value, "cswch", "lowest" );
                         }
                         set_tasks_time_span_former_val_each_file ( file_number, t, "cswch" );
                     }
@@ -1420,12 +1506,16 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             ff1 = get_pswap_former_val_each_file ( file_number, "pswpout" );
             hh0 = get_pswap_spike_val_each_file ( file_number, "pswpin", "highest" );
             hh1 = get_pswap_spike_val_each_file ( file_number, "pswpout", "highest" );
+            ll0 = get_pswap_spike_val_each_file ( file_number, "pswpin", "lowest" );
+            ll1 = get_pswap_spike_val_each_file ( file_number, "pswpout", "lowest" );
             t_ss0 = get_pswap_time_span_spike_val_each_file ( file_number, "pswpin", "spike" );
             t_ss1 = get_pswap_time_span_spike_val_each_file ( file_number, "pswpout", "spike" );
             t_ff0 = get_pswap_time_span_former_val_each_file ( file_number, "pswpin" );
             t_ff1 = get_pswap_time_span_former_val_each_file ( file_number, "pswpout" );
             t_hh0 = get_pswap_time_span_spike_val_each_file ( file_number, "pswpin", "highest" );
             t_hh1 = get_pswap_time_span_spike_val_each_file ( file_number, "pswpout", "highest" );
+            t_ll0 = get_pswap_time_span_spike_val_each_file ( file_number, "pswpin", "lowest" );
+            t_ll1 = get_pswap_time_span_spike_val_each_file ( file_number, "pswpout", "lowest" );
 
             /* pswpin, set the value to struct */
             if ( i == get_column_pswap ( "pswpin" ) )
@@ -1464,6 +1554,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_pswap_spike_date_each_file ( file_number, this_date_all, "pswpin", "highest" );
                         set_pswap_spike_time_each_file ( file_number, time_value, "pswpin", "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_pswap_spike_val_each_file ( file_number, t, "pswpin", "lowest" );
+                        set_pswap_spike_date_each_file ( file_number, this_date_all, "pswpin", "lowest" );
+                        set_pswap_spike_time_each_file ( file_number, time_value, "pswpin", "lowest" );
+                    }
                     set_pswap_former_val_each_file ( file_number, t, "pswpin" );
                     if ( time_span_checked == 1 )
                     {
@@ -1478,6 +1574,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_pswap_time_span_spike_val_each_file ( file_number, t, "pswpin", "highest" );
                             set_pswap_time_span_spike_date_each_file ( file_number, this_date_all, "pswpin", "highest" );
                             set_pswap_time_span_spike_time_each_file ( file_number, time_value, "pswpin", "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_pswap_time_span_spike_val_each_file ( file_number, t, "pswpin", "lowest" );
+                            set_pswap_time_span_spike_date_each_file ( file_number, this_date_all, "pswpin", "lowest" );
+                            set_pswap_time_span_spike_time_each_file ( file_number, time_value, "pswpin", "lowest" );
                         }
                         set_pswap_time_span_former_val_each_file ( file_number, t, "pswpin" );
                     }
@@ -1581,6 +1683,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_pswap_spike_date_each_file ( file_number, this_date_all, "pswpout", "highest" );
                         set_pswap_spike_time_each_file ( file_number, time_value, "pswpout", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_pswap_spike_val_each_file ( file_number, t, "pswpout", "lowest" );
+                        set_pswap_spike_date_each_file ( file_number, this_date_all, "pswpout", "lowest" );
+                        set_pswap_spike_time_each_file ( file_number, time_value, "pswpout", "lowest" );
+                    }
                     set_pswap_former_val_each_file ( file_number, t, "pswpout" );
                     if ( time_span_checked == 1 )
                     {
@@ -1595,6 +1703,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_pswap_time_span_spike_val_each_file ( file_number, t, "pswpout", "highest" );
                             set_pswap_time_span_spike_date_each_file ( file_number, this_date_all, "pswpout", "highest" );
                             set_pswap_time_span_spike_time_each_file ( file_number, time_value, "pswpout", "highest" );
+                        }
+                        if ( t  < t_ll1 )
+                        {
+                            set_pswap_time_span_spike_val_each_file ( file_number, t, "pswpout", "lowest" );
+                            set_pswap_time_span_spike_date_each_file ( file_number, this_date_all, "pswpout", "lowest" );
+                            set_pswap_time_span_spike_time_each_file ( file_number, time_value, "pswpout", "lowest" );
                         }
                         set_pswap_time_span_former_val_each_file ( file_number, t, "pswpout" );
                     }
@@ -1687,6 +1801,11 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh2 = get_paging_spike_val_each_file ( file_number, "fault", "highest" );
             hh3 = get_paging_spike_val_each_file ( file_number, "majflt", "highest" );
             hh4 = get_paging_spike_val_each_file ( file_number, "vmeff", "highest" );
+            ll0 = get_paging_spike_val_each_file ( file_number, "pgpgin", "lowest" );
+            ll1 = get_paging_spike_val_each_file ( file_number, "pgpgout", "lowest" );
+            ll2 = get_paging_spike_val_each_file ( file_number, "fault", "lowest" );
+            ll3 = get_paging_spike_val_each_file ( file_number, "majflt", "lowest" );
+            ll4 = get_paging_spike_val_each_file ( file_number, "vmeff", "lowest" );
             t_ss0 = get_paging_time_span_spike_val_each_file ( file_number, "pgpgin", "spike" );
             t_ss1 = get_paging_time_span_spike_val_each_file ( file_number, "pgpgout", "spike" );
             t_ss2 = get_paging_time_span_spike_val_each_file ( file_number, "fault", "spike" );
@@ -1702,6 +1821,11 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             t_hh2 = get_paging_time_span_spike_val_each_file ( file_number, "fault", "highest" );
             t_hh3 = get_paging_time_span_spike_val_each_file ( file_number, "majflt", "highest" );
             t_hh4 = get_paging_spike_val_each_file ( file_number, "vmeff", "highest" );
+            t_ll0 = get_paging_time_span_spike_val_each_file ( file_number, "pgpgin", "lowest" );
+            t_ll1 = get_paging_time_span_spike_val_each_file ( file_number, "pgpgout", "lowest" );
+            t_ll2 = get_paging_time_span_spike_val_each_file ( file_number, "fault", "lowest" );
+            t_ll3 = get_paging_time_span_spike_val_each_file ( file_number, "majflt", "lowest" );
+            t_ll4 = get_paging_spike_val_each_file ( file_number, "vmeff", "lowest" );
 
             /* pgpgin, set the value to struct */
             if ( i == get_column_paging ( "pgpgin" ) )
@@ -1740,6 +1864,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_paging_spike_date_each_file ( file_number, this_date_all, "pgpgin", "highest" );
                         set_paging_spike_time_each_file ( file_number, time_value, "pgpgin", "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_paging_spike_val_each_file ( file_number, t, "pgpgin", "lowest" );
+                        set_paging_spike_date_each_file ( file_number, this_date_all, "pgpgin", "lowest" );
+                        set_paging_spike_time_each_file ( file_number, time_value, "pgpgin", "lowest" );
+                    }
                     set_paging_former_val_each_file ( file_number, t, "pgpgin" );
                     if ( time_span_checked == 1 )
                     {
@@ -1754,6 +1884,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_paging_time_span_spike_val_each_file ( file_number, t, "pgpgin", "highest" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "pgpgin", "highest" );
                             set_paging_time_span_spike_time_each_file ( file_number, time_value, "pgpgin", "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_paging_time_span_spike_val_each_file ( file_number, t, "pgpgin", "lowest" );
+                            set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "pgpgin", "lowest" );
+                            set_paging_time_span_spike_time_each_file ( file_number, time_value, "pgpgin", "lowest" );
                         }
                         set_paging_time_span_former_val_each_file ( file_number, t, "pgpgin" );
                     }
@@ -1857,6 +1993,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_paging_spike_date_each_file ( file_number, this_date_all, "pgpgout", "highest" );
                         set_paging_spike_time_each_file ( file_number, time_value, "pgpgout", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_paging_spike_val_each_file ( file_number, t, "pgpgout", "lowest" );
+                        set_paging_spike_date_each_file ( file_number, this_date_all, "pgpgout", "lowest" );
+                        set_paging_spike_time_each_file ( file_number, time_value, "pgpgout", "lowest" );
+                    }
                     set_paging_former_val_each_file ( file_number, t, "pgpgout" );
                     if ( time_span_checked == 1 )
                     {
@@ -1871,6 +2013,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_paging_time_span_spike_val_each_file ( file_number, t, "pgpgout", "highest" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "pgpgout", "highest" );
                             set_paging_time_span_spike_time_each_file ( file_number, time_value, "pgpgout", "highest" );
+                        }
+                        if ( t  < t_ll1 )
+                        {
+                            set_paging_time_span_spike_val_each_file ( file_number, t, "pgpgout", "lowest" );
+                            set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "pgpgout", "lowest" );
+                            set_paging_time_span_spike_time_each_file ( file_number, time_value, "pgpgout", "lowest" );
                         }
                         set_paging_time_span_former_val_each_file ( file_number, t, "pgpgout" );
                     }
@@ -1961,6 +2109,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_paging_spike_date_each_file ( file_number, this_date_all, "fault", "highest" );
                         set_paging_spike_time_each_file ( file_number, time_value, "fault", "highest" );
                     }
+                    if ( t  < ll2 )
+                    {
+                        set_paging_spike_val_each_file ( file_number, t, "fault", "lowest" );
+                        set_paging_spike_date_each_file ( file_number, this_date_all, "fault", "lowest" );
+                        set_paging_spike_time_each_file ( file_number, time_value, "fault", "lowest" );
+                    }
                     set_paging_former_val_each_file ( file_number, t, "fault" );
                     if ( time_span_checked == 1 )
                     {
@@ -1975,6 +2129,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_paging_time_span_spike_val_each_file ( file_number, t, "fault", "highest" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "fault", "highest" );
                             set_paging_time_span_spike_time_each_file ( file_number, time_value, "fault", "highest" );
+                        }
+                        if ( t  < t_ll2 )
+                        {
+                            set_paging_time_span_spike_val_each_file ( file_number, t, "fault", "lowest" );
+                            set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "fault", "lowest" );
+                            set_paging_time_span_spike_time_each_file ( file_number, time_value, "fault", "lowest" );
                         }
                         set_paging_time_span_former_val_each_file ( file_number, t, "fault" );
                     }
@@ -2065,6 +2225,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_paging_spike_date_each_file ( file_number, this_date_all, "majflt", "highest" );
                         set_paging_spike_time_each_file ( file_number, time_value, "majflt", "highest" );
                     }
+                    if ( t  < ll3 )
+                    {
+                        set_paging_spike_val_each_file ( file_number, t, "majflt", "lowest" );
+                        set_paging_spike_date_each_file ( file_number, this_date_all, "majflt", "lowest" );
+                        set_paging_spike_time_each_file ( file_number, time_value, "majflt", "lowest" );
+                    }
                     set_paging_former_val_each_file ( file_number, t, "majflt" );
                     if ( time_span_checked == 1 )
                     {
@@ -2079,6 +2245,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_paging_time_span_spike_val_each_file ( file_number, t, "majflt", "highest" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "majflt", "highest" );
                             set_paging_time_span_spike_time_each_file ( file_number, time_value, "majflt", "highest" );
+                        }
+                        if ( t  < t_ll3 )
+                        {
+                            set_paging_time_span_spike_val_each_file ( file_number, t, "majflt", "lowest" );
+                            set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "majflt", "lowest" );
+                            set_paging_time_span_spike_time_each_file ( file_number, time_value, "majflt", "lowest" );
                         }
                         set_paging_time_span_former_val_each_file ( file_number, t, "majflt" );
                     }
@@ -2169,6 +2341,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_paging_spike_date_each_file ( file_number, this_date_all, "vmeff", "highest" );
                         set_paging_spike_time_each_file ( file_number, time_value, "vmeff", "highest" );
                     }
+                    if ( t  < ll4 )
+                    {
+                        set_paging_spike_val_each_file ( file_number, t, "vmeff", "lowest" );
+                        set_paging_spike_date_each_file ( file_number, this_date_all, "vmeff", "lowest" );
+                        set_paging_spike_time_each_file ( file_number, time_value, "vmeff", "lowest" );
+                    }
                     set_paging_former_val_each_file ( file_number, t, "vmeff" );
                     if ( time_span_checked == 1 )
                     {
@@ -2183,6 +2361,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_paging_time_span_spike_val_each_file ( file_number, t, "vmeff", "highest" );
                             set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "vmeff", "highest" );
                             set_paging_time_span_spike_time_each_file ( file_number, time_value, "vmeff", "highest" );
+                        }
+                        if ( t  < t_ll4 )
+                        {
+                            set_paging_time_span_spike_val_each_file ( file_number, t, "vmeff", "lowest" );
+                            set_paging_time_span_spike_date_each_file ( file_number, this_date_all, "vmeff", "lowest" );
+                            set_paging_time_span_spike_time_each_file ( file_number, time_value, "vmeff", "lowest" );
                         }
                         set_paging_time_span_former_val_each_file ( file_number, t, "vmeff" );
                     }
@@ -2262,6 +2446,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh0 = get_io_transfer_rate_spike_val_each_file ( file_number, "tps", "highest" );
             hh1 = get_io_transfer_rate_spike_val_each_file ( file_number, "bread", "highest" );
             hh2 = get_io_transfer_rate_spike_val_each_file ( file_number, "bwrtn", "highest" );
+            ll0 = get_io_transfer_rate_spike_val_each_file ( file_number, "tps", "lowest" );
+            ll1 = get_io_transfer_rate_spike_val_each_file ( file_number, "bread", "lowest" );
+            ll2 = get_io_transfer_rate_spike_val_each_file ( file_number, "bwrtn", "lowest" );
             t_ss0 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "tps", "spike" );
             t_ss1 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "bread", "spike" );
             t_ss2 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "bwrtn", "spike" );
@@ -2271,6 +2458,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             t_hh0 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "tps", "highest" );
             t_hh1 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "bread", "highest" );
             t_hh2 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "bwrtn", "highest" );
+            t_ll0 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "tps", "lowest" );
+            t_ll1 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "bread", "lowest" );
+            t_ll2 = get_io_transfer_rate_time_span_spike_val_each_file ( file_number, "bwrtn", "lowest" );
 
            /* tps, set the value to struct */
            if ( i == get_column_io_transfer_rate ( "tps" ) )
@@ -2309,6 +2499,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "tps", "highest" );
                         set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "tps", "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_io_transfer_rate_spike_val_each_file ( file_number, t, "tps", "lowest" );
+                        set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "tps", "lowest" );
+                        set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "tps", "lowest" );
+                    }
                     set_io_transfer_rate_former_val_each_file ( file_number, t, "tps" );
                     if ( time_span_checked == 1 )
                     {
@@ -2323,6 +2519,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t, "tps", "highest" );
                             set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "tps", "highest" );
                             set_io_transfer_rate_time_span_spike_time_each_file ( file_number, time_value, "tps", "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t, "tps", "lowest" );
+                            set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "tps", "lowest" );
+                            set_io_transfer_rate_time_span_spike_time_each_file ( file_number, time_value, "tps", "lowest" );
                         }
                         set_io_transfer_rate_time_span_former_val_each_file ( file_number, t, "tps" );
                     }
@@ -2426,6 +2628,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "bread", "highest" );
                         set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "bread", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_io_transfer_rate_spike_val_each_file ( file_number, t, "bread", "lowest" );
+                        set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "bread", "lowest" );
+                        set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "bread", "lowest" );
+                    }
                     set_io_transfer_rate_former_val_each_file ( file_number, t, "bread" );
                     if ( time_span_checked == 1 )
                     {
@@ -2440,6 +2648,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t, "bread", "highest" );
                             set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "bread", "highest" );
                             set_io_transfer_rate_time_span_spike_time_each_file ( file_number, time_value, "bread", "highest" );
+                        }
+                        if ( t  < t_ll1 )
+                        {
+                            set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t, "bread", "lowest" );
+                            set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "bread", "lowest" );
+                            set_io_transfer_rate_time_span_spike_time_each_file ( file_number, time_value, "bread", "lowest" );
                         }
                         set_io_transfer_rate_time_span_former_val_each_file ( file_number, t, "bread" );
                     }
@@ -2530,6 +2744,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "bwrtn", "highest" );
                         set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "bwrtn", "highest" );
                     }
+                    if ( t  < ll2 )
+                    {
+                        set_io_transfer_rate_spike_val_each_file ( file_number, t, "bwrtn", "lowest" );
+                        set_io_transfer_rate_spike_date_each_file ( file_number, this_date_all, "bwrtn", "lowest" );
+                        set_io_transfer_rate_spike_time_each_file ( file_number, time_value, "bwrtn", "lowest" );
+                    }
                     set_io_transfer_rate_former_val_each_file ( file_number, t, "bwrtn" );
                     if ( time_span_checked == 1 )
                     {
@@ -2544,6 +2764,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t, "bwrtn", "highest" );
                             set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "bwrtn", "highest" );
                             set_io_transfer_rate_time_span_spike_time_each_file ( file_number, time_value, "bwrtn", "highest" );
+                        }
+                        if ( t  < t_ll2 )
+                        {
+                            set_io_transfer_rate_time_span_spike_val_each_file ( file_number, t, "bwrtn", "lowest" );
+                            set_io_transfer_rate_time_span_spike_date_each_file ( file_number, this_date_all, "bwrtn", "lowest" );
+                            set_io_transfer_rate_time_span_spike_time_each_file ( file_number, time_value, "bwrtn", "lowest" );
                         }
                         set_io_transfer_rate_time_span_former_val_each_file ( file_number, t, "bwrtn" );
                     }
@@ -2622,6 +2848,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh0 = get_memory_spike_val_each_file ( file_number, "memused", "highest" );
             hh1 = get_memory_spike_val_each_file ( file_number, "kbcommit", "highest" );
             hh2 = get_memory_spike_val_each_file ( file_number, "commit", "highest" );
+            ll0 = get_memory_spike_val_each_file ( file_number, "memused", "lowest" );
+            ll1 = get_memory_spike_val_each_file ( file_number, "kbcommit", "lowest" );
+            ll2 = get_memory_spike_val_each_file ( file_number, "commit", "lowest" );
             t_ss0 = get_memory_time_span_spike_val_each_file ( file_number, "memused", "spike" );
             t_ss1 = get_memory_time_span_spike_val_each_file ( file_number, "kbcommit", "spike" );
             t_ss2 = get_memory_time_span_spike_val_each_file ( file_number, "commit", "spike" );
@@ -2631,6 +2860,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             t_hh0 = get_memory_time_span_spike_val_each_file ( file_number, "memused", "highest" );
             t_hh1 = get_memory_time_span_spike_val_each_file ( file_number, "kbcommit", "highest" );
             t_hh2 = get_memory_time_span_spike_val_each_file ( file_number, "commit", "highest" );
+            t_ll0 = get_memory_time_span_spike_val_each_file ( file_number, "memused", "lowest" );
+            t_ll1 = get_memory_time_span_spike_val_each_file ( file_number, "kbcommit", "lowest" );
+            t_ll2 = get_memory_time_span_spike_val_each_file ( file_number, "commit", "lowest" );
 
             /* memused, set the value to struct */
             if ( i == get_column_memory ( "memused" ) )
@@ -2670,6 +2902,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_memory_spike_date_each_file ( file_number, this_date_all, "memused", "highest" );
                         set_memory_spike_time_each_file ( file_number, time_value, "memused", "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_memory_double_spike_val_each_file ( file_number, t, "memused", "lowest" );
+                        set_memory_spike_date_each_file ( file_number, this_date_all, "memused", "lowest" );
+                        set_memory_spike_time_each_file ( file_number, time_value, "memused", "lowest" );
+                    }
                     set_memory_double_former_val_each_file ( file_number, t, "memused" );
                     if ( time_span_checked == 1 )
                     {
@@ -2684,6 +2922,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_memory_double_time_span_spike_val_each_file ( file_number, t, "memused", "highest" );
                             set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "memused", "highest" );
                             set_memory_time_span_spike_time_each_file ( file_number, time_value, "memused", "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_memory_double_time_span_spike_val_each_file ( file_number, t, "memused", "lowest" );
+                            set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "memused", "lowest" );
+                            set_memory_time_span_spike_time_each_file ( file_number, time_value, "memused", "lowest" );
                         }
                         set_memory_double_time_span_former_val_each_file ( file_number, t, "memused" );
                     }
@@ -2787,6 +3031,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_memory_spike_date_each_file ( file_number, this_date_all, "kbcommit", "highest" );
                         set_memory_spike_time_each_file ( file_number, time_value, "kbcommit", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_memory_int_spike_val_each_file ( file_number, t, "kbcommit", "lowest" );
+                        set_memory_spike_date_each_file ( file_number, this_date_all, "kbcommit", "lowest" );
+                        set_memory_spike_time_each_file ( file_number, time_value, "kbcommit", "lowest" );
+                    }
                     set_memory_int_former_val_each_file ( file_number, t, "kbcommit" );
                     if ( time_span_checked == 1 )
                     {
@@ -2801,6 +3051,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_memory_int_time_span_spike_val_each_file ( file_number, t, "kbcommit", "highest" );
                             set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "kbcommit", "highest" );
                             set_memory_time_span_spike_time_each_file ( file_number, time_value, "kbcommit", "highest" );
+                        }
+                        if ( t  < t_ll1 )
+                        {
+                            set_memory_int_time_span_spike_val_each_file ( file_number, t, "kbcommit", "lowest" );
+                            set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "kbcommit", "lowest" );
+                            set_memory_time_span_spike_time_each_file ( file_number, time_value, "kbcommit", "lowest" );
                         }
                         set_memory_int_time_span_former_val_each_file ( file_number, t, "kbcommit" );
                     }
@@ -2891,6 +3147,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_memory_spike_date_each_file ( file_number, this_date_all, "commit", "highest" );
                         set_memory_spike_time_each_file ( file_number, time_value, "commit", "highest" );
                     }
+                    if ( t  < ll2 )
+                    {
+                        set_memory_double_spike_val_each_file ( file_number, t, "commit", "lowest" );
+                        set_memory_spike_date_each_file ( file_number, this_date_all, "commit", "lowest" );
+                        set_memory_spike_time_each_file ( file_number, time_value, "commit", "lowest" );
+                    }
                     set_memory_double_former_val_each_file ( file_number, t, "commit" );
                     if ( time_span_checked == 1 )
                     {
@@ -2905,6 +3167,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_memory_double_time_span_spike_val_each_file ( file_number, t, "commit", "highest" );
                             set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "commit", "highest" );
                             set_memory_time_span_spike_time_each_file ( file_number, time_value, "commit", "highest" );
+                        }
+                        if ( t  < t_ll2 )
+                        {
+                            set_memory_double_time_span_spike_val_each_file ( file_number, t, "commit", "lowest" );
+                            set_memory_time_span_spike_date_each_file ( file_number, this_date_all, "commit", "lowest" );
+                            set_memory_time_span_spike_time_each_file ( file_number, time_value, "commit", "lowest" );
                         }
                         set_memory_double_time_span_former_val_each_file ( file_number, t, "commit" );
                     }
@@ -2969,9 +3237,11 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             ss0 = get_swpused_spike_val_each_file ( file_number, "spike" );
             ff0 = get_swpused_former_val_each_file ( file_number );
             hh0 = get_swpused_spike_val_each_file ( file_number, "highest" );
+            ll0 = get_swpused_spike_val_each_file ( file_number, "lowest" );
             t_ss0 = get_swpused_time_span_spike_val_each_file ( file_number, "spike" );
             t_ff0 = get_swpused_time_span_former_val_each_file ( file_number );
             t_hh0 = get_swpused_time_span_spike_val_each_file ( file_number, "highest" );
+            t_ll0 = get_swpused_time_span_spike_val_each_file ( file_number, "lowest" );
 
             /* swpused, set the value to struct */
             if ( i == get_column_swpused ( ) )
@@ -3010,6 +3280,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_swpused_spike_date_each_file ( file_number, this_date_all, "highest" );
                         set_swpused_spike_time_each_file ( file_number, time_value, "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_swpused_spike_val_each_file ( file_number, t, "lowest" );
+                        set_swpused_spike_date_each_file ( file_number, this_date_all, "lowest" );
+                        set_swpused_spike_time_each_file ( file_number, time_value, "lowest" );
+                    }
                     set_swpused_former_val_each_file ( file_number, t );
                     if ( time_span_checked == 1 )
                     {
@@ -3024,6 +3300,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_swpused_time_span_spike_val_each_file ( file_number, t, "highest" );
                             set_swpused_time_span_spike_date_each_file ( file_number, this_date_all, "highest" );
                             set_swpused_time_span_spike_time_each_file ( file_number, time_value, "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_swpused_time_span_spike_val_each_file ( file_number, t, "lowest" );
+                            set_swpused_time_span_spike_date_each_file ( file_number, this_date_all, "lowest" );
+                            set_swpused_time_span_spike_time_each_file ( file_number, time_value, "lowest" );
                         }
                         set_swpused_time_span_former_val_each_file ( file_number, t );
                     }
@@ -3082,6 +3364,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh0 = get_kernel_table_spike_val_each_file ( file_number, "dentunusd", "highest" );
             hh1 = get_kernel_table_spike_val_each_file ( file_number, "file", "highest" );
             hh2 = get_kernel_table_spike_val_each_file ( file_number, "inode", "highest" );
+            ll0 = get_kernel_table_spike_val_each_file ( file_number, "dentunusd", "lowest" );
+            ll1 = get_kernel_table_spike_val_each_file ( file_number, "file", "lowest" );
+            ll2 = get_kernel_table_spike_val_each_file ( file_number, "inode", "lowest" );
             t_ss0 = get_kernel_table_time_span_spike_val_each_file ( file_number, "dentunusd", "spike" );
             t_ss1 = get_kernel_table_time_span_spike_val_each_file ( file_number, "file", "spike" );
             t_ss2 = get_kernel_table_time_span_spike_val_each_file ( file_number, "inode", "spike" );
@@ -3091,6 +3376,9 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             t_hh0 = get_kernel_table_time_span_spike_val_each_file ( file_number, "dentunusd", "highest" );
             t_hh1 = get_kernel_table_time_span_spike_val_each_file ( file_number, "file", "highest" );
             t_hh2 = get_kernel_table_time_span_spike_val_each_file ( file_number, "inode", "highest" );
+            t_ll0 = get_kernel_table_time_span_spike_val_each_file ( file_number, "dentunusd", "lowest" );
+            t_ll1 = get_kernel_table_time_span_spike_val_each_file ( file_number, "file", "lowest" );
+            t_ll2 = get_kernel_table_time_span_spike_val_each_file ( file_number, "inode", "lowest" );
 
             /* dentunusd, set the value to struct */
             if ( i == get_column_kernel_table ( "dentunusd") )
@@ -3129,6 +3417,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_kernel_table_spike_date_each_file ( file_number, this_date_all, "dentunusd", "highest" );
                         set_kernel_table_spike_time_each_file ( file_number, time_value, "dentunusd", "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_kernel_table_spike_val_each_file ( file_number, t, "dentunusd", "lowest" );
+                        set_kernel_table_spike_date_each_file ( file_number, this_date_all, "dentunusd", "lowest" );
+                        set_kernel_table_spike_time_each_file ( file_number, time_value, "dentunusd", "lowest" );
+                    }
                     set_kernel_table_former_val_each_file ( file_number, t, "dentunusd" );
                     if ( time_span_checked == 1 )
                     {
@@ -3143,6 +3437,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_kernel_table_time_span_spike_val_each_file ( file_number, t, "dentunusd", "highest" );
                             set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "dentunusd", "highest" );
                             set_kernel_table_time_span_spike_time_each_file ( file_number, time_value, "dentunusd", "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_kernel_table_time_span_spike_val_each_file ( file_number, t, "dentunusd", "lowest" );
+                            set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "dentunusd", "lowest" );
+                            set_kernel_table_time_span_spike_time_each_file ( file_number, time_value, "dentunusd", "lowest" );
                         }
                         set_kernel_table_time_span_former_val_each_file ( file_number, t, "dentunusd" );
                     }
@@ -3246,6 +3546,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_kernel_table_spike_date_each_file ( file_number, this_date_all, "file", "highest" );
                         set_kernel_table_spike_time_each_file ( file_number, time_value, "file", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_kernel_table_spike_val_each_file ( file_number, t, "file", "lowest" );
+                        set_kernel_table_spike_date_each_file ( file_number, this_date_all, "file", "lowest" );
+                        set_kernel_table_spike_time_each_file ( file_number, time_value, "file", "lowest" );
+                    }
                     set_kernel_table_former_val_each_file ( file_number, t, "file" );
                     if ( time_span_checked == 1 )
                     {
@@ -3260,6 +3566,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_kernel_table_time_span_spike_val_each_file ( file_number, t, "file", "highest" );
                             set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "file", "highest" );
                             set_kernel_table_time_span_spike_time_each_file ( file_number, time_value, "file", "highest" );
+                        }
+                        if ( t  < ll1 )
+                        {
+                            set_kernel_table_time_span_spike_val_each_file ( file_number, t, "file", "lowest" );
+                            set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "file", "lowest" );
+                            set_kernel_table_time_span_spike_time_each_file ( file_number, time_value, "file", "lowest" );
                         }
                         set_kernel_table_time_span_former_val_each_file ( file_number, t, "file" );
                     }
@@ -3350,6 +3662,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_kernel_table_spike_date_each_file ( file_number, this_date_all, "inode", "highest" );
                         set_kernel_table_spike_time_each_file ( file_number, time_value, "inode", "highest" );
                     }
+                    if ( t  < ll2 )
+                    {
+                        set_kernel_table_spike_val_each_file ( file_number, t, "inode", "lowest" );
+                        set_kernel_table_spike_date_each_file ( file_number, this_date_all, "inode", "lowest" );
+                        set_kernel_table_spike_time_each_file ( file_number, time_value, "inode", "lowest" );
+                    }
                     set_kernel_table_former_val_each_file ( file_number, t, "inode" );
                     if ( time_span_checked == 1 )
                     {
@@ -3364,6 +3682,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_kernel_table_time_span_spike_val_each_file ( file_number, t, "inode", "highest" );
                             set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "inode", "highest" );
                             set_kernel_table_time_span_spike_time_each_file ( file_number, time_value, "inode", "highest" );
+                        }
+                        if ( t  < t_ll2 )
+                        {
+                            set_kernel_table_time_span_spike_val_each_file ( file_number, t, "inode", "lowest" );
+                            set_kernel_table_time_span_spike_date_each_file ( file_number, this_date_all, "inode", "lowest" );
+                            set_kernel_table_time_span_spike_time_each_file ( file_number, time_value, "inode", "lowest" );
                         }
                         set_kernel_table_time_span_former_val_each_file ( file_number, t, "inode" );
                     }
@@ -3457,6 +3781,11 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh2 = get_ldavg_spike_val_each_file ( file_number, "ldavg_one", "highest" );
             hh3 = get_ldavg_spike_val_each_file ( file_number, "ldavg_five", "highest" );
             hh4 = get_ldavg_spike_val_each_file ( file_number, "ldavg_15", "highest" );
+            ll0 = get_ldavg_spike_val_each_file ( file_number, "runq_sz", "lowest" );
+            ll1 = get_ldavg_spike_val_each_file ( file_number, "plist_sz", "lowest" );
+            ll2 = get_ldavg_spike_val_each_file ( file_number, "ldavg_one", "lowest" );
+            ll3 = get_ldavg_spike_val_each_file ( file_number, "ldavg_five", "lowest" );
+            ll4 = get_ldavg_spike_val_each_file ( file_number, "ldavg_15", "highest" );
             t_ss0 = get_ldavg_time_span_spike_val_each_file ( file_number, "runq_sz", "spike" );
             t_ss1 = get_ldavg_time_span_spike_val_each_file ( file_number, "plist_sz", "spike" );
             t_ss2 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_one", "spike" );
@@ -3472,6 +3801,11 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             t_hh2 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_one", "highest" );
             t_hh3 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_five", "highest" );
             t_hh4 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_15", "highest" );
+            t_ll0 = get_ldavg_time_span_spike_val_each_file ( file_number, "runq_sz", "lowest" );
+            t_ll1 = get_ldavg_time_span_spike_val_each_file ( file_number, "plist_sz", "lowest" );
+            t_ll2 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_one", "lowest" );
+            t_ll3 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_five", "lowest" );
+            t_ll4 = get_ldavg_time_span_spike_val_each_file ( file_number, "ldavg_15", "lowest" );
 
 
             /* runq_sz, set the value to struct */
@@ -3511,6 +3845,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "runq_sz", "highest" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "runq_sz", "highest" );
                     }
+                    if ( t  < ll0 )
+                    {
+                        set_ldavg_int_spike_val_each_file ( file_number, t, "runq_sz", "lowest" );
+                        set_ldavg_spike_date_each_file ( file_number, this_date_all, "runq_sz", "lowest" );
+                        set_ldavg_spike_time_each_file ( file_number, time_value, "runq_sz", "lowest" );
+                    }
                     set_ldavg_int_former_val_each_file ( file_number, t, "runq_sz" );
                     if ( time_span_checked == 1 )
                     {
@@ -3525,6 +3865,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_ldavg_int_time_span_spike_val_each_file ( file_number, t, "runq_sz", "highest" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "runq_sz", "highest" );
                             set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "runq_sz", "highest" );
+                        }
+                        if ( t  < t_ll0 )
+                        {
+                            set_ldavg_int_time_span_spike_val_each_file ( file_number, t, "runq_sz", "lowest" );
+                            set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "runq_sz", "lowest" );
+                            set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "runq_sz", "lowest" );
                         }
                         set_ldavg_int_time_span_former_val_each_file ( file_number, t, "runq_sz" );
                     }
@@ -3629,6 +3975,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "plist_sz", "highest" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "plist_sz", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_ldavg_int_spike_val_each_file ( file_number, t, "plist_sz", "lowest" );
+                        set_ldavg_spike_date_each_file ( file_number, this_date_all, "plist_sz", "lowest" );
+                        set_ldavg_spike_time_each_file ( file_number, time_value, "plist_sz", "lowest" );
+                    }
                     set_ldavg_int_former_val_each_file ( file_number, t, "plist_sz" );
                     if ( time_span_checked == 1 )
                     {
@@ -3643,6 +3995,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_ldavg_int_time_span_spike_val_each_file ( file_number, t, "plist_sz", "highest" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "plist_sz", "highest" );
                             set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "plist_sz", "highest" );
+                        }
+                        if ( t  < t_ll1 )
+                        {
+                            set_ldavg_int_time_span_spike_val_each_file ( file_number, t, "plist_sz", "lowest" );
+                            set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "plist_sz", "lowest" );
+                            set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "plist_sz", "lowest" );
                         }
                         set_ldavg_int_time_span_former_val_each_file ( file_number, t, "plist_sz" );
                     }
@@ -3734,6 +4092,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_one", "highest" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_one", "highest" );
                     }
+                    if ( t  < ll2 )
+                    {
+                        set_ldavg_double_spike_val_each_file ( file_number, t, "ldavg_one", "lowest" );
+                        set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_one", "lowest" );
+                        set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_one", "lowest" );
+                    }
                     set_ldavg_double_former_val_each_file ( file_number, t, "ldavg_one" );
                     if ( time_span_checked == 1 )
                     {
@@ -3748,6 +4112,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_ldavg_double_time_span_spike_val_each_file ( file_number, t, "ldavg_one", "highest" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_one", "highest" );
                             set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "ldavg_one", "highest" );
+                        }
+                        if ( t  < t_hh2 )
+                        {
+                            set_ldavg_double_time_span_spike_val_each_file ( file_number, t, "ldavg_one", "lowest" );
+                            set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_one", "lowest" );
+                            set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "ldavg_one", "lowest" );
                         }
                         set_ldavg_double_time_span_former_val_each_file ( file_number, t, "ldavg_one" );
                     }
@@ -3838,6 +4208,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_five", "highest" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_five", "highest" );
                     }
+                    if ( t  < ll3 )
+                    {
+                        set_ldavg_double_spike_val_each_file ( file_number, t, "ldavg_five", "lowest" );
+                        set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_five", "lowest" );
+                        set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_five", "lowest" );
+                    }
                     set_ldavg_double_former_val_each_file ( file_number, t, "ldavg_five" );
                     if ( time_span_checked == 1 )
                     {
@@ -3852,6 +4228,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_ldavg_double_time_span_spike_val_each_file ( file_number, t, "ldavg_five", "highest" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_five", "highest" );
                             set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "ldavg_five", "highest" );
+                        }
+                        if ( t  < t_ll3 )
+                        {
+                            set_ldavg_double_time_span_spike_val_each_file ( file_number, t, "ldavg_five", "lowest" );
+                            set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_five", "lowest" );
+                            set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "ldavg_five", "lowest" );
                         }
                         set_ldavg_double_time_span_former_val_each_file ( file_number, t, "ldavg_five" );
                     }
@@ -3942,6 +4324,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_15", "highest" );
                         set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_15", "highest" );
                     }
+                    if ( t  < ll4 )
+                    {
+                        set_ldavg_double_spike_val_each_file ( file_number, t, "ldavg_15", "lowest" );
+                        set_ldavg_spike_date_each_file ( file_number, this_date_all, "ldavg_15", "lowest" );
+                        set_ldavg_spike_time_each_file ( file_number, time_value, "ldavg_15", "lowest" );
+                    }
                     set_ldavg_double_former_val_each_file ( file_number, t, "ldavg_15" );
                     if ( time_span_checked == 1 )
                     {
@@ -3956,6 +4344,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                             set_ldavg_double_time_span_spike_val_each_file ( file_number, t, "ldavg_15", "highest" );
                             set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_15", "highest" );
                             set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "ldavg_15", "highest" );
+                        }
+                        if ( t  < t_ll4 )
+                        {
+                            set_ldavg_double_time_span_spike_val_each_file ( file_number, t, "ldavg_15", "lowest" );
+                            set_ldavg_time_span_spike_date_each_file ( file_number, this_date_all, "ldavg_15", "lowest" );
+                            set_ldavg_time_span_spike_time_each_file ( file_number, time_value, "ldavg_15", "lowest" );
                         }
                         set_ldavg_double_time_span_former_val_each_file ( file_number, t, "ldavg_15" );
                     }
@@ -4027,6 +4421,8 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             ff1 = get_block_device_former_val_each_file ( file_number, utility, "util" );
             hh0 = get_block_device_spike_val_each_file ( file_number, utility, "areqsz", "highest" );
             hh1 = get_block_device_spike_val_each_file ( file_number, utility, "util", "highest" );
+            ll0 = get_block_device_spike_val_each_file ( file_number, utility, "areqsz", "lowest" );
+            ll1 = get_block_device_spike_val_each_file ( file_number, utility, "util", "lowest" );
 
            /* areq-sz, set the value to struct */
            if ( i == get_column_block_device ( "areqsz" ) )
@@ -4064,6 +4460,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_block_device_spike_val_each_file ( file_number, t, utility, "areqsz", "highest" );
                         set_block_device_spike_date_each_file ( file_number, this_date_all, utility, "areqsz", "highest" );
                         set_block_device_spike_time_each_file ( file_number, time_value, utility, "areqsz", "highest" );
+                    }
+                    if ( t  < ll0 )
+                    {
+                        set_block_device_spike_val_each_file ( file_number, t, utility, "areqsz", "lowest" );
+                        set_block_device_spike_date_each_file ( file_number, this_date_all, utility, "areqsz", "lowest" );
+                        set_block_device_spike_time_each_file ( file_number, time_value, utility, "areqsz", "lowest" );
                     }
                     set_block_device_former_val_each_file ( file_number, t, utility, "areqsz" );
                     if ( h0 < t ) 
@@ -4133,6 +4535,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_block_device_spike_date_each_file ( file_number, this_date_all, utility, "util", "highest" );
                         set_block_device_spike_time_each_file ( file_number, time_value, utility, "util", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_block_device_spike_val_each_file ( file_number, t, utility, "util", "lowest" );
+                        set_block_device_spike_date_each_file ( file_number, this_date_all, utility, "util", "lowest" );
+                        set_block_device_spike_time_each_file ( file_number, time_value, utility, "util", "lowest" );
+                    }
                     set_block_device_former_val_each_file ( file_number, t, utility, "util" );
                     if ( h1 < t ) 
                     {
@@ -4196,6 +4604,10 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh1 = get_network_spike_val_each_file ( file_number, utility, "txpck", "highest" );
             hh2 = get_network_spike_val_each_file ( file_number, utility, "rxkb", "highest" );
             hh3 = get_network_spike_val_each_file ( file_number, utility, "txkb", "highest" );
+            ll0 = get_network_spike_val_each_file ( file_number, utility, "rxpck", "lowest" );
+            ll1 = get_network_spike_val_each_file ( file_number, utility, "txpck", "lowest" );
+            ll2 = get_network_spike_val_each_file ( file_number, utility, "rxkb", "lowest" );
+            ll3 = get_network_spike_val_each_file ( file_number, utility, "txkb", "lowest" );
 
             /* rxpck, set the value to struct */
             if ( i == get_column_network ( "rxpck" ) )
@@ -4233,6 +4645,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_val_each_file ( file_number, t, utility, "rxpck", "highest" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxpck", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxpck", "highest" );
+                    }
+                    if ( t  < ll0 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "rxpck", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxpck", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "rxpck", "lowest" );
                     }
                     if ( ( t  == 0 ) && ( ff0 > 0 ) )
                     {
@@ -4308,6 +4726,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txpck", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txpck", "highest" );
                     }
+                    if ( t  < ll1 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "txpck", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "txpck", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "txpck", "lowest" );
+                    }
                     if ( ( t  == 0 ) && ( ff1 > 0 ) )
                     {
                         set_network_spike_val_each_file ( file_number, t, utility, "txpck", "down" );
@@ -4381,6 +4805,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_val_each_file ( file_number, t, utility, "rxkb", "highest" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxkb", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxkb", "highest" );
+                    }
+                    if ( t  < ll2 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "rxkb", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxkb", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "rxkb", "lowest" );
                     }
                     if ( ( t  == 0 ) && ( ff2 > 0 ) )
                     {
@@ -4456,6 +4886,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txkb", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txkb", "highest" );
                     }
+                    if ( t  < ll3 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t , utility, "txkb", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "txkb", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "txkb", "lowest" );
+                    }
                     if ( ( t  == 0 ) && ( ff3 > 0 ) )
                     {
                         set_network_spike_val_each_file ( file_number, t , utility, "txkb", "down" );
@@ -4525,6 +4961,10 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
             hh1 = get_network_spike_val_each_file ( file_number, utility, "txerr", "highest" );
             hh2 = get_network_spike_val_each_file ( file_number, utility, "rxdrop", "highest" );
             hh3 = get_network_spike_val_each_file ( file_number, utility, "txdrop", "highest" );
+            ll0 = get_network_spike_val_each_file ( file_number, utility, "rxerr", "lowest" );
+            ll1 = get_network_spike_val_each_file ( file_number, utility, "txerr", "lowest" );
+            ll2 = get_network_spike_val_each_file ( file_number, utility, "rxdrop", "lowest" );
+            ll3 = get_network_spike_val_each_file ( file_number, utility, "txdrop", "lowest" );
 
             /* rxerr, set the value to struct */
             if ( i == get_column_network ( "rxerr") )
@@ -4563,7 +5003,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxerr", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxerr", "highest" );
                     }
-                    set_network_former_val_each_file ( file_number, t, utility, "rxerr" );
+                    if ( t  < ll0 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "rxerr", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxerr", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "rxerr", "lowest" );
+                    }
                     if ( h0 < t ) 
                     {
                         set_network_highest_val ( t, utility, "rxerr" );
@@ -4630,6 +5075,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_val_each_file ( file_number, t, utility, "txerr", "highest" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txerr", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txerr", "highest" );
+                    }
+                    if ( t  < ll1 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "txerr", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "txerr", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "txerr", "lowest" );
                     }
                     set_network_former_val_each_file ( file_number, t, utility, "txerr" );
                     if ( h1 < t ) 
@@ -4699,6 +5150,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxdrop", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "rxdrop", "highest" );
                     }
+                    if ( t  < ll2 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "rxdrop", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "rxdrop", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "rxdrop", "lowest" );
+                    }
                     set_network_former_val_each_file ( file_number, t, utility, "rxdrop" );
                     if ( h2 < t ) 
                     {
@@ -4766,6 +5223,12 @@ int set_token_items ( int file_number, char **line, const char *item_name, int u
                         set_network_spike_val_each_file ( file_number, t, utility, "txdrop", "highest" );
                         set_network_spike_date_each_file ( file_number, this_date_all, utility, "txdrop", "highest" );
                         set_network_spike_time_each_file ( file_number, time_value, utility, "txdrop", "highest" );
+                    }
+                    if ( t  < ll3 )
+                    {
+                        set_network_spike_val_each_file ( file_number, t, utility, "txdrop", "lowest" );
+                        set_network_spike_date_each_file ( file_number, this_date_all, utility, "txdrop", "lowest" );
+                        set_network_spike_time_each_file ( file_number, time_value, utility, "txdrop", "lowest" );
                     }
                     set_network_former_val_each_file ( file_number, t, utility, "txdrop" );
                     if ( h3 < t ) 

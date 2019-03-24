@@ -113,6 +113,97 @@ int set_ldavg_double_lowest_val ( double var, const char *element );
 int set_block_device_lowest_val ( double var, int x, const char *element );
 int set_network_lowest_val ( double var, int x, const char *element );
 
+/* spike val each file */
+int set_cpu_spike_val_each_file ( int x, double var, int y, const char *element, const char *analyze_item );
+int set_tasks_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_pswap_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_paging_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_io_transfer_rate_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_memory_double_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_memory_int_spike_val_each_file ( int x, int var, const char *element, const char *analyze_item );
+int set_swpused_spike_val_each_file ( int x, double var, const char *analyze_item );
+int set_kernel_table_spike_val_each_file ( int x,  double var, const char *element, const char *analyze_item );
+int set_ldavg_int_spike_val_each_file ( int x,  int var, const char *element, const char *analyze_item );
+int set_ldavg_double_spike_val_each_file ( int x,  double var, const char *element, const char *analyze_item );
+int set_block_device_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
+int set_network_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
+
+/* spike val time-span each file */
+int set_cpu_time_span_spike_val_each_file ( int x, double var, int y, const char *element, const char *analyze_item );
+int set_tasks_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_pswap_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_paging_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_io_transfer_rate_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_memory_double_time_span_spike_val_each_file ( int x, double var, const char *element, const char *analyze_item );
+int set_memory_int_time_span_spike_val_each_file ( int x, int var, const char *element, const char *analyze_item );
+int set_swpused_time_span_spike_val_each_file ( int x, double var, const char *analyze_item );
+int set_kernel_table_time_span_spike_val_each_file ( int x,  double var, const char *element, const char *analyze_item );
+int set_ldavg_int_time_span_spike_val_each_file ( int x,  int var, const char *element, const char *analyze_item );
+int set_ldavg_double_time_span_spike_val_each_file ( int x,  double var, const char *element, const char *analyze_item );
+int set_block_device_time_span_spike_val_each_file ( int x,  double var, int y, const char *element, const char *analyze_item );
+
+/* former val each file */
+int set_cpu_former_val_each_file ( int x, double var, int y, const char *element );
+int set_tasks_former_val_each_file ( int x, double var, const char *element );
+int set_pswap_former_val_each_file ( int x, double var, const char *element );
+int set_paging_former_val_each_file ( int x, double var, const char *element );
+int set_io_transfer_rate_former_val_each_file ( int x, double var, const char *element );
+int set_memory_double_former_val_each_file ( int x, double var, const char *element );
+int set_memory_int_former_val_each_file ( int x, int var, const char *element );
+int set_swpused_former_val_each_file ( int x, double var );
+int set_kernel_table_former_val_each_file ( int x,  double var, const char *element );
+int set_ldavg_int_former_val_each_file ( int x,  int var, const char *element );
+int set_ldavg_double_former_val_each_file ( int x,  double var, const char *element );
+int set_block_device_former_val_each_file ( int x,  double var, int y, const char *element );
+
+/* -- time-span former val each file -- */
+int set_cpu_time_span_former_val_each_file ( int x, double var, int y, const char *element );
+int set_tasks_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_pswap_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_paging_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_io_transfer_rate_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_memory_double_time_span_former_val_each_file ( int x, double var, const char *element );
+int set_memory_int_time_span_former_val_each_file ( int x, int var, const char *element );
+int set_swpused_time_span_former_val_each_file ( int x, double var );
+int set_kernel_table_time_span_former_val_each_file ( int x,  double var, const char *element );
+int set_ldavg_int_time_span_former_val_each_file ( int x,  int var, const char *element );
+int set_ldavg_double_time_span_former_val_each_file ( int x,  double var, const char *element );
+int set_block_device_time_span_former_val_each_file ( int x,  double var, int y, const char *element );
+
+/* spike date each file */
+int set_cpu_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_tasks_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_pswap_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_paging_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_io_transfer_rate_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_memory_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_memory_int_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_memory_double_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_swpused_spike_date_each_file ( int x, const char *date_string, const char *analyze_item );
+int set_kernel_table_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_ldavg_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_ldavg_int_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_ldavg_double_spike_date_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_block_device_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_network_spike_date_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+
+/* spike time each file */
+int set_cpu_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_tasks_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_pswap_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_paging_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_io_transfer_rate_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_memory_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_memory_int_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_memory_double_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_swpused_spike_time_each_file ( int x, const char *date_string, const char *analyze_item );
+int set_kernel_table_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_ldavg_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_ldavg_int_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+//int set_ldavg_double_spike_time_each_file ( int x, const char *date_string, const char *element, const char *analyze_item );
+int set_block_device_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+int set_network_spike_time_each_file ( int x, const char *date_string, int y, const char *element, const char *analyze_item );
+
 /* cpu as paragraph */
 void set_cpu_as_paragraph ( int x );
 

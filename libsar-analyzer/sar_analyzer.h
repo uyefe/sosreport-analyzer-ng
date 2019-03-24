@@ -411,67 +411,78 @@ struct sar_analyzer_data_spike_each_file sar_analyzer_spike_obj_raw =
         {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        {100.00}, {100.00}, {100.00}, {100.00}, /* lowest */
         }},
         /* task_data_spike_each_file */
         {
         {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, /* highest */
+        {999999.00}, {9999999.00}, /* lowest */
         },
         /* pswap_data_spike_each_file */
         {
         {0}, {0}, /* spike */
         {0}, {0}, /* former */
         {0}, {0}, /* highest */
+        {999999}, {999999}, /* lowest */
         },
         /* paging_data_spike_each_file */
         {
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, /* lowest */
         },
         /* io_transfer_rate_data_spike_each_file */
         {
         {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, {999999.00}, /* lowest */
         },
         /* memory_data_spike_each_file */
         {
         {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, {999999.00}, /* lowest */
         },
         /* swap_data_spike_each_file */
         {
         {0.00}, /* spike */
         {0.00}, /* former */
         {0.00}, /* highest */
+        {999999.00}, /* lowest */
         },
         /* kernel_table_data_spike_each_file */
         {
         {0}, {0}, {0}, /* spike */
         {0}, {0}, {0}, /* former */
         {0}, {0}, {0}, /* highest */
+        {999999}, {999999}, {999999}, /* lowest */
         },
         /* ldavg_data_spike_each_file */
         {
         {0},{0},{0.00},{0.00},{0.00}, /* spike */
         {0},{0},{0.00},{0.00},{0.00}, /* former */
         {0},{0},{0.00},{0.00},{0.00}, /* highest */
+        {999999},{999999},{999999.00},{999999.00},{999999.00}, /* lowest */
         },
         /* block_device_data_spike_each_file */
         {{
         {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, /* lowest */
         }},
         /* network_data_spike_each_file */
         {{
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
-        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* down */
+        {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, /* lowest */
+        //{0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* down */
         }},
 
         /* cpu_date_spike_each_file */
@@ -480,16 +491,20 @@ struct sar_analyzer_data_spike_each_file sar_analyzer_spike_obj_raw =
         {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, /* highest time */
+        {""}, {""}, {""}, {""}, /* lowest date */
+        {""}, {""}, {""}, {""}, /* lowest time */
         }},
         /* task_date_spike_each_file */
         {
         {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* pswap_date_spike_each_file */
         {
         {""}, {""}, {""}, {""}, /* pswap date and time */
         {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* paging_date_spike_each_file */
         {
@@ -497,26 +512,32 @@ struct sar_analyzer_data_spike_each_file sar_analyzer_spike_obj_raw =
         {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, /* highest time */
+        {""}, {""}, {""}, {""}, /* lowest date */
+        {""}, {""}, {""}, {""}, /* lowest time */
         },
         /* io_transfer_rate_date_spike_each_file  */
         {
         {""}, {""}, {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* memory_date_spike_each_file */
         {
         {""}, {""}, {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* swap_date_spike_each_file */
         {
         {""}, {""}, /* spike date and time */
         {""}, {""}, /* highest date and time */
+        {""}, {""}, /* lowest date and time */
         },
         /* kernel_table_date_spike_each_file */
         {
         {""}, {""}, {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* ldavg_date_spike_each_file */
         {
@@ -524,11 +545,14 @@ struct sar_analyzer_data_spike_each_file sar_analyzer_spike_obj_raw =
         {""}, {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, {""}, /* highest time */
+        {""}, {""}, {""}, {""}, {""}, /* lowest date */
+        {""}, {""}, {""}, {""}, {""}, /* lowest time */
         },
         /* block_device_date_spike_each_file */
         {{
         {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, /* lowest date and time */
         }},
         /* network_date_spike_each_file */
         {{
@@ -536,6 +560,8 @@ struct sar_analyzer_data_spike_each_file sar_analyzer_spike_obj_raw =
         {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* highest time */
+        //{""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date */
+        //{""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* lowest time */
         /*{"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"}, {"1970-01-01"},*/ /* down date */
         /*{"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"}, {"00:00:00"},*/ /* down time */
         }},
@@ -553,67 +579,77 @@ struct sar_analyzer_data_time_span_spike_each_file sar_analyzer_time_span_spike_
         {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        {100.00}, {100.00}, {100.00}, {100.00}, /* lowest */
         }},
         /* task_data_time_span_spike_each_file */
         {
         {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, /* lowest */
         },
         /* pswap_data_time_span_spike_each_file */
         {
         {0}, {0}, /* spike */
         {0}, {0}, /* former */
         {0}, {0}, /* highest */
+        {999999}, {999999}, /* lowest */
         },
         /* paging_data_time_span_spike_each_file */
         {
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, /* lowest */
         },
         /* io_transfer_rate_data_time_span_spike_each_file */
         {
         {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, {999999.00}, /* lowest */
         },
         /* memory_data_time_span_spike_each_file */
         {
         {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, {999999.00}, /* lowest */
         },
         /* swap_data_time_span_spike_each_file */
         {
         {0.00}, /* spike */
         {0.00}, /* former */
         {0.00}, /* highest */
+        {999999.00}, /* lowest */
         },
         /* kernel_table_data_time_span_spike_each_file */
         {
         {0}, {0}, {0}, /* spike */
         {0}, {0}, {0}, /* former */
         {0}, {0}, {0}, /* highest */
+        {999999}, {999999}, {999999}, /* lowest */
         },
         /* ldavg_data_time_span_spike_each_file */
         {
         {0},{0},{0.00},{0.00},{0.00}, /* spike */
         {0},{0},{0.00},{0.00},{0.00}, /* former */
         {0},{0},{0.00},{0.00},{0.00}, /* highest */
+        {999999},{999999},{999999.00},{999999.00},{999999.00}, /* lowest */
         },
         /* block_device_data_time_span_spike_each_file */
         {{
         {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, /* highest */
+        {999999.00}, {999999.00}, /* lowest */
         }},
         /* network_data_time_span_spike_each_file */
         {{
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* spike */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* former */
         {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* highest */
-        {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, {0.00}, /* down */
+        {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, {999999.00}, /* lowest */
         }},
 
         /* cpu_date_time_span_spike_each_file */
@@ -622,16 +658,20 @@ struct sar_analyzer_data_time_span_spike_each_file sar_analyzer_time_span_spike_
         {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, /* highest time */
+        {""}, {""}, {""}, {""}, /* lowest date */
+        {""}, {""}, {""}, {""}, /* lowest time */
         }},
         /* task_date_time_span_spike_each_file */
         {
         {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* pswap_date_time_span_spike_each_file */
         {
         {""}, {""}, {""}, {""}, /* pswap date and time */
         {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* paging_date_time_span_spike_each_file */
         {
@@ -639,26 +679,32 @@ struct sar_analyzer_data_time_span_spike_each_file sar_analyzer_time_span_spike_
         {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, /* highest time */
+        {""}, {""}, {""}, {""}, /* lowest date */
+        {""}, {""}, {""}, {""}, /* lowest time */
         },
         /* io_transfer_rate_date_time_span_spike_each_file  */
         {
         {""}, {""}, {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* memory_date_time_span_spike_each_file */
         {
         {""}, {""}, {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* swap_date_time_span_spike_each_file */
         {
         {""}, {""}, /* spike date and time */
         {""}, {""}, /* highest date and time */
+        {""}, {""}, /* lowest date and time */
         },
         /* kernel_table_date_time_span_spike_each_file */
         {
         {""}, {""}, {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date and time */
         },
         /* ldavg_date_time_span_spike_each_file */
         {
@@ -666,11 +712,14 @@ struct sar_analyzer_data_time_span_spike_each_file sar_analyzer_time_span_spike_
         {""}, {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, {""}, /* highest time */
+        {""}, {""}, {""}, {""}, {""}, /* lowest date */
+        {""}, {""}, {""}, {""}, {""}, /* lowest time */
         },
         /* block_device_date_time_span_spike_each_file */
         {{
         {""}, {""}, {""}, {""}, /* spike date and time */
         {""}, {""}, {""}, {""}, /* highest date and time */
+        {""}, {""}, {""}, {""}, /* lowest date and time */
         }},
         /* network_date_time_span_spike_each_file */
         {{
@@ -678,6 +727,8 @@ struct sar_analyzer_data_time_span_spike_each_file sar_analyzer_time_span_spike_
         {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* spike time */
         {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* highest date */
         {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* highest time */
+        //{""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* lowest date */
+        //{""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, /* lowest time */
         }},
     };
 

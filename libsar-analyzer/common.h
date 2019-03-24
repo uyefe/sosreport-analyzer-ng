@@ -303,6 +303,15 @@ typedef struct
     char cpu_iowait_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char cpu_idle_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
+    char cpu_usr_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_usr_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
 } cpu_date_spike_each_file;
 
 typedef struct
@@ -324,6 +333,15 @@ typedef struct
     char cpu_sys_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char cpu_iowait_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char cpu_idle_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+    char cpu_usr_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_usr_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_sys_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_iowait_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char cpu_idle_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
 } cpu_date_time_span_spike_each_file;
 
@@ -356,6 +374,11 @@ typedef struct
     char proc_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char cswch_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char proc_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char cswch_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char proc_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char cswch_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } task_date_spike_each_file;
 
 typedef struct
@@ -369,6 +392,11 @@ typedef struct
     char cswch_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char proc_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char cswch_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char proc_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char cswch_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char proc_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char cswch_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } task_date_time_span_spike_each_file;
 
@@ -401,6 +429,11 @@ typedef struct
     char pswpin_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char pswpout_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char pswpin_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpin_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } pswap_date_spike_each_file;
 
 typedef struct
@@ -414,6 +447,11 @@ typedef struct
     char pswpout_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char pswpin_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char pswpout_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char pswpin_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpin_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pswpout_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } pswap_date_time_span_spike_each_file;
 
@@ -470,6 +508,17 @@ typedef struct
     char majflt_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char vmeff_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char pgpgin_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgin_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } paging_date_spike_each_file;
 
 typedef struct
@@ -495,6 +544,17 @@ typedef struct
     char fault_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char majflt_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char vmeff_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char pgpgin_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgin_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char pgpgout_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char fault_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char majflt_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char vmeff_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } paging_date_time_span_spike_each_file;
 
@@ -535,6 +595,13 @@ typedef struct
     char bread_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char bwrtn_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char tps_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char tps_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } io_transfer_rate_date_spike_each_file;
 
 typedef struct
@@ -552,6 +619,13 @@ typedef struct
     char tps_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char bread_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char bwrtn_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char tps_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char tps_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bread_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char bwrtn_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } io_transfer_rate_date_time_span_spike_each_file;
 
@@ -592,6 +666,13 @@ typedef struct
     char kbcommit_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char commit_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char memused_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char commit_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char memused_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char commit_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } memory_date_spike_each_file;
 
 typedef struct
@@ -609,6 +690,13 @@ typedef struct
     char memused_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char kbcommit_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char commit_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char memused_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ]  [ MAX_DATE_STRINGS ];
+    char commit_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char memused_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char kbcommit_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char commit_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } memory_date_time_span_spike_each_file;
 
@@ -632,6 +720,9 @@ typedef struct
     char swpused_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char swpused_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char swpused_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char swpused_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } swap_date_spike_each_file;
 
 typedef struct
@@ -641,6 +732,9 @@ typedef struct
 
     char swpused_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char swpused_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char swpused_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char swpused_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } swap_date_time_span_spike_each_file;
 
@@ -681,6 +775,13 @@ typedef struct
     char file_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char inode_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char dentunusd_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char dentunusd_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } kernel_table_date_spike_each_file;
 
 typedef struct
@@ -698,6 +799,13 @@ typedef struct
     char dentunusd_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char file_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char inode_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char dentunusd_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char dentunusd_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char file_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char inode_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } kernel_table_date_time_span_spike_each_file;
 
@@ -754,6 +862,17 @@ typedef struct
     char ldavg_five_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char ldavg_15_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
+    char runq_sz_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char runq_sz_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
 } ldavg_date_spike_each_file;
 
 typedef struct
@@ -779,6 +898,17 @@ typedef struct
     char ldavg_one_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char ldavg_five_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
     char ldavg_15_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+
+    char runq_sz_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char runq_sz_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char plist_sz_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_one_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_five_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
+    char ldavg_15_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_DATE_STRINGS ];
 
 } ldavg_date_time_span_spike_each_file;
 
@@ -811,6 +941,11 @@ typedef struct
     char areqsz_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char util_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
+    char areqsz_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char areqsz_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
 } block_device_date_spike_each_file;
 
 typedef struct
@@ -824,6 +959,11 @@ typedef struct
     char util_time_span_highest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char areqsz_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char util_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
+    char areqsz_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char areqsz_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char util_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
 } block_device_date_time_span_spike_each_file;
 
@@ -904,6 +1044,23 @@ typedef struct
     char rxdrop_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char txdrop_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
+    char rxpck_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxpck_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
     char rxpck_down_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char txpck_down_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char rxkb_down_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
@@ -959,6 +1116,23 @@ typedef struct
     char rxdrop_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
     char txdrop_time_span_highest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
 
+    char rxpck_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_time_span_lowest_date_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxpck_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txpck_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxkb_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txkb_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxerr_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txerr_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char rxdrop_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+    char txdrop_time_span_lowest_time_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ] [ MAX_DATE_STRINGS ];
+
 } network_date_time_span_spike_each_file;
 
 /*  -------------------- end Date Structures Types-------------------- */
@@ -999,6 +1173,11 @@ typedef struct
     double cpu_iowait_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
     double cpu_idle_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
 
+    double cpu_usr_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_sys_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_iowait_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_idle_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+
 } cpu_data_spike_each_file;
 
 typedef struct
@@ -1017,6 +1196,11 @@ typedef struct
     double cpu_sys_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
     double cpu_iowait_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
     double cpu_idle_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+
+    double cpu_usr_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_sys_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_iowait_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
+    double cpu_idle_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_CORE_NUMBERS + 1 ];
 
 } cpu_data_time_span_spike_each_file;
 
@@ -1044,6 +1228,9 @@ typedef struct
     double proc_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double cswch_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double proc_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double cswch_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } task_data_spike_each_file;
 
 typedef struct
@@ -1056,6 +1243,9 @@ typedef struct
 
     double proc_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double cswch_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double proc_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double cswch_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } task_data_time_span_spike_each_file;
 
@@ -1083,6 +1273,9 @@ typedef struct
     double pswpin_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double pswpout_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double pswpin_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pswpout_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } pswap_data_spike_each_file;
 
 typedef struct
@@ -1095,6 +1288,9 @@ typedef struct
 
     double pswpin_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double pswpout_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double pswpin_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pswpout_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } pswap_data_time_span_spike_each_file;
 
@@ -1137,6 +1333,12 @@ typedef struct
     double majflt_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double vmeff_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double pgpgin_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pgpgout_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double fault_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double majflt_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double vmeff_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } paging_data_spike_each_file;
 
 typedef struct
@@ -1158,6 +1360,12 @@ typedef struct
     double fault_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double majflt_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double vmeff_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double pgpgin_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double pgpgout_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double fault_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double majflt_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double vmeff_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } paging_data_time_span_spike_each_file;
 
@@ -1190,6 +1398,10 @@ typedef struct
     double bread_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double bwrtn_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double tps_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bread_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bwrtn_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } io_transfer_rate_data_spike_each_file;
 
 typedef struct
@@ -1205,6 +1417,10 @@ typedef struct
     double tps_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double bread_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double bwrtn_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double tps_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bread_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double bwrtn_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } io_transfer_rate_data_time_span_spike_each_file;
 
@@ -1237,6 +1453,10 @@ typedef struct
     int kbcommit_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double commit_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double memused_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int kbcommit_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double commit_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } memory_data_spike_each_file;
 
 typedef struct
@@ -1252,6 +1472,10 @@ typedef struct
     double memused_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     int kbcommit_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double commit_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double memused_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int kbcommit_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double commit_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } memory_data_time_span_spike_each_file;
 
@@ -1274,6 +1498,8 @@ typedef struct
 
     double swpused_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double swpused_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } swap_data_spike_each_file;
 
 typedef struct
@@ -1283,6 +1509,8 @@ typedef struct
     double swpused_time_span_former_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
     double swpused_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double swpused_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } swap_data_time_span_spike_each_file;
 
@@ -1315,6 +1543,10 @@ typedef struct
     int file_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     int inode_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    int dentunusd_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int file_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int inode_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } kernel_table_data_spike_each_file;
 
 typedef struct
@@ -1330,6 +1562,10 @@ typedef struct
     int dentunusd_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     int file_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     int inode_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    int dentunusd_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int file_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    int inode_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } kernel_table_data_time_span_spike_each_file;
 
@@ -1372,6 +1608,12 @@ typedef struct
     double ldavg_five_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double ldavg_15_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
+    double runq_sz_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double plist_sz_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_one_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_five_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_15_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
 } ldavg_data_spike_each_file;
 
 typedef struct
@@ -1393,6 +1635,12 @@ typedef struct
     double ldavg_one_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double ldavg_five_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
     double ldavg_15_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+
+    double runq_sz_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double plist_sz_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_one_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_five_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
+    double ldavg_15_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ];
 
 } ldavg_data_time_span_spike_each_file;
 
@@ -1420,6 +1668,9 @@ typedef struct
     double areqsz_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
     double util_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
 
+    double areqsz_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+    double util_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+
 } block_device_data_spike_each_file;
 
 typedef struct
@@ -1432,6 +1683,9 @@ typedef struct
 
     double areqsz_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
     double util_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+
+    double areqsz_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
+    double util_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_BLOCK_DEVICE_NUMBERS + 1 ];
 
 } block_device_data_time_span_spike_each_file;
 
@@ -1489,6 +1743,15 @@ typedef struct
     double rxdrop_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
     double txdrop_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
 
+    double rxpck_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txpck_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxkb_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txkb_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxerr_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txerr_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxdrop_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txdrop_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+
     double rxpck_down_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
     double txpck_down_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
     double rxkb_down_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
@@ -1528,6 +1791,15 @@ typedef struct
     double txerr_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
     double rxdrop_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
     double txdrop_time_span_highest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+
+    double rxpck_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txpck_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxkb_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txkb_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxerr_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txerr_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double rxdrop_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
+    double txdrop_time_span_lowest_val_each_file [ MAX_ANALYZE_FILES + 1 ] [ MAX_NETWORK_DEVICE_NUMBERS + 1 ];
 
 } network_data_time_span_spike_each_file;
 
