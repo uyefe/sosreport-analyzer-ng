@@ -120,6 +120,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in var/ except messages*, journal*, sa*, nova* crash*.
   Analyze files under proc/.
 
+  Note that members in the same directory, upper ones will be analyzed and those are omitted for the rest. 
+
 2. sar-analyzer
 
   Presently, it gives -ZM option to usual sar-analyzer functionality.
@@ -127,9 +129,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   There are seven features.
 
   Show highest and lowest average value to a file with a report.
-  Show highest spike value to a file with a report.
-  Show highest value in given time-span to a file with a report.
-  Show highest spike value in given time-span to a file with a report.
+  Show spike, highest and lowest value to a file with a report.
+  Show spike, highest and lowest value in given time-span to a file with a report.
   Show possible thrashing.
   Show network down.
   am-pm style is converted to abs style in the report.

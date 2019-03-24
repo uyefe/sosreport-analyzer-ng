@@ -1,3 +1,5 @@
+1.0.88
+Add 'Lowest' for every file analyzing for sar-analyzer feature.
 1.0.87
 Add member 'var/spool/cron/'.
 1.0.86
