@@ -188,6 +188,22 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%idle'         for CPU %s is %8.2f (%s %s)",
                     s, get_cpu_spike_val_each_file ( j, i, "idle", "highest" ), get_cpu_spike_date_each_file ( j, i, "idle", "highest" ), get_cpu_spike_time_each_file ( j, i, "idle", "highest" ) );
                 append_list ( &report_cpu_spike_obj [ i ], str_tmp );
+
+                append_list ( &report_cpu_spike_obj [ i ], "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%usr(%%user)'   for CPU %s is %8.2f (%s %s)",
+                    s, get_cpu_spike_val_each_file ( j, i, "usr", "lowest" ), get_cpu_spike_date_each_file ( j, i, "usr", "lowest" ), get_cpu_spike_time_each_file ( j, i, "usr", "lowest" ) );
+                append_list ( &report_cpu_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%sys(%%system)' for CPU %s is %8.2f (%s %s)",
+                    s, get_cpu_spike_val_each_file ( j, i, "sys", "lowest" ), get_cpu_spike_date_each_file ( j, i, "sys", "lowest" ), get_cpu_spike_time_each_file ( j, i, "sys", "lowest" ) );
+                append_list ( &report_cpu_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%iowait'       for CPU %s is %8.2f (%s %s)",
+                    s, get_cpu_spike_val_each_file ( j, i, "iowait", "lowest" ), get_cpu_spike_date_each_file ( j, i, "iowait", "lowest" ), get_cpu_spike_time_each_file ( j, i, "iowait", "lowest" ) );
+                append_list ( &report_cpu_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%idle'         for CPU %s is %8.2f (%s %s)",
+                    s, get_cpu_spike_val_each_file ( j, i, "idle", "lowest" ), get_cpu_spike_date_each_file ( j, i, "idle", "lowest" ), get_cpu_spike_time_each_file ( j, i, "idle", "lowest" ) );
+                append_list ( &report_cpu_spike_obj [ i ], str_tmp );
+
                 /* for time-span option */
                 if ( time_span != NULL )
                 {
@@ -218,6 +234,21 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                     append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
                     snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Highest value of '%%idle'         for CPU %s is %8.2f (%s %s)", time_span,
                         s, get_cpu_time_span_spike_val_each_file ( j, i, "idle", "highest" ), get_cpu_time_span_spike_date_each_file ( j, i, "idle", "highest" ), get_cpu_time_span_spike_time_each_file ( j, i, "idle", "highest" ) );
+                    append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
+
+                    append_list ( &report_cpu_time_span_spike_obj [ i ], "" );
+
+                    snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Lowest  value of '%%usr(%%user)'   for CPU %s is %8.2f (%s %s)", time_span,
+                        s, get_cpu_time_span_spike_val_each_file ( j, i, "usr", "lowest" ), get_cpu_time_span_spike_date_each_file ( j, i, "usr", "lowest" ), get_cpu_time_span_spike_time_each_file ( j, i, "usr", "lowest" ) );
+                    append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
+                    snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Lowest  value of '%%sys(%%system)' for CPU %s is %8.2f (%s %s)", time_span,
+                        s, get_cpu_time_span_spike_val_each_file ( j, i, "sys", "lowest" ), get_cpu_time_span_spike_date_each_file ( j, i, "sys", "lowest" ), get_cpu_time_span_spike_time_each_file ( j, i, "sys", "lowest" ) );
+                    append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
+                    snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Lowest  value of '%%iowait'       for CPU %s is %8.2f (%s %s)", time_span,
+                        s, get_cpu_time_span_spike_val_each_file ( j, i, "iowait", "lowest" ), get_cpu_time_span_spike_date_each_file ( j, i, "iowait", "lowest" ), get_cpu_time_span_spike_time_each_file ( j, i, "iowait", "lowest" ) );
+                    append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
+                    snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Lowest  value of '%%idle'         for CPU %s is %8.2f (%s %s)", time_span,
+                        s, get_cpu_time_span_spike_val_each_file ( j, i, "idle", "lowest" ), get_cpu_time_span_spike_date_each_file ( j, i, "idle", "lowest" ), get_cpu_time_span_spike_time_each_file ( j, i, "idle", "lowest" ) );
                     append_list ( &report_cpu_time_span_spike_obj [ i ], str_tmp );
                 }
             }
@@ -298,6 +329,14 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 get_tasks_spike_val_each_file ( j, "cswch", "highest" ), get_tasks_spike_date_each_file ( j, "cswch", "highest" ), get_tasks_spike_time_each_file ( j, "cswch", "highest" ) );
             append_list ( &report_tasks_spike_obj, str_tmp );
 
+            append_list ( &report_tasks_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'proc/s'  is %13.2f (%s %s)",
+                get_tasks_spike_val_each_file ( j, "proc", "lowest" ), get_tasks_spike_date_each_file ( j, "proc", "lowest" ), get_tasks_spike_time_each_file ( j, "proc", "lowest" ) );
+            append_list ( &report_tasks_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'cswch/s' is %13.2f (%s %s)",
+                get_tasks_spike_val_each_file ( j, "cswch", "lowest" ), get_tasks_spike_date_each_file ( j, "cswch", "lowest" ), get_tasks_spike_time_each_file ( j, "cswch", "lowest" ) );
+            append_list ( &report_tasks_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -316,6 +355,15 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_tasks_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Highest value of 'cswch/s' is %13.2f (%s %s)", time_span,
                     get_tasks_time_span_spike_val_each_file ( j, "cswch", "highest" ), get_tasks_time_span_spike_date_each_file ( j, "cswch", "highest" ), get_tasks_time_span_spike_time_each_file ( j, "cswch", "highest" ) );
+                append_list ( &report_tasks_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_tasks_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Lowest  value of 'proc/s'  is %13.2f (%s %s)", time_span,
+                    get_tasks_time_span_spike_val_each_file ( j, "proc", "lowest" ), get_tasks_time_span_spike_date_each_file ( j, "proc", "lowest" ), get_tasks_time_span_spike_time_each_file ( j, "proc", "lowest" ) );
+                append_list ( &report_tasks_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  %s Lowest  value of 'cswch/s' is %13.2f (%s %s)", time_span,
+                    get_tasks_time_span_spike_val_each_file ( j, "cswch", "lowest" ), get_tasks_time_span_spike_date_each_file ( j, "cswch", "lowest" ), get_tasks_time_span_spike_time_each_file ( j, "cswch", "lowest" ) );
                 append_list ( &report_tasks_time_span_spike_obj, str_tmp );
             }
         }
@@ -388,6 +436,15 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'pswpout/s'  is %13.2f (%s %s)",
                 get_pswap_spike_val_each_file ( j, "pswpout", "highest" ), get_pswap_spike_date_each_file ( j, "pswpout", "highest" ), get_pswap_spike_time_each_file ( j, "pswpout", "highest" ) );
             append_list ( &report_pswap_spike_obj, str_tmp );
+
+            append_list ( &report_pswap_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'pswpin/s'   is %13.2f (%s %s)",
+                get_pswap_spike_val_each_file ( j, "pswpin", "lowest" ), get_pswap_spike_date_each_file ( j, "pswpin", "lowest" ), get_pswap_spike_time_each_file ( j, "pswpin", "lowest" ) );
+            append_list ( &report_pswap_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'pswpout/s'  is %13.2f (%s %s)",
+                get_pswap_spike_val_each_file ( j, "pswpout", "lowest" ), get_pswap_spike_date_each_file ( j, "pswpout", "lowest" ), get_pswap_spike_time_each_file ( j, "pswpout", "lowest" ) );
+            append_list ( &report_pswap_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -405,6 +462,15 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_pswap_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'pswpout/s'  is %13.2f (%s %s)", time_span,
                     get_pswap_time_span_spike_val_each_file ( j, "pswpout", "highest" ), get_pswap_time_span_spike_date_each_file ( j, "pswpout", "highest" ), get_pswap_time_span_spike_time_each_file ( j, "pswpout", "highest" ) );
+                append_list ( &report_pswap_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_pswap_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'pswpin/s'   is %13.2f (%s %s)", time_span,
+                    get_pswap_time_span_spike_val_each_file ( j, "pswpin", "lowest" ), get_pswap_time_span_spike_date_each_file ( j, "pswpin", "lowest" ), get_pswap_time_span_spike_time_each_file ( j, "pswpin", "lowest" ) );
+                append_list ( &report_pswap_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'pswpout/s'  is %13.2f (%s %s)", time_span,
+                    get_pswap_time_span_spike_val_each_file ( j, "pswpout", "lowest" ), get_pswap_time_span_spike_date_each_file ( j, "pswpout", "lowest" ), get_pswap_time_span_spike_time_each_file ( j, "pswpout", "lowest" ) );
                 append_list ( &report_pswap_time_span_spike_obj, str_tmp );
             }
         }
@@ -538,6 +604,24 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%vmeff/s'  is %13.2f (%s %s)",
                 get_paging_spike_val_each_file ( j, "vmeff", "highest" ), get_paging_spike_date_each_file ( j, "vmeff", "highest" ), get_paging_spike_time_each_file ( j, "vmeff", "highest" ) );
             append_list ( &report_paging_spike_obj, str_tmp );
+
+            append_list ( &report_paging_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'pgpgin/s'  is %13.2f (%s %s)",
+                get_paging_spike_val_each_file ( j, "pgpgin", "lowest" ), get_paging_spike_date_each_file ( j, "pgpgin", "lowest" ), get_paging_spike_time_each_file ( j, "pgpgin", "lowest" ) );
+            append_list ( &report_paging_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'pgpgout/s' is %13.2f (%s %s)",
+                get_paging_spike_val_each_file ( j, "pgpgout", "lowest" ), get_paging_spike_date_each_file ( j, "pgpgout", "lowest" ), get_paging_spike_time_each_file ( j, "pgpgout", "lowest" ) );
+            append_list ( &report_paging_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'fault/s'   is %13.2f (%s %s)",
+                get_paging_spike_val_each_file ( j, "fault", "lowest" ), get_paging_spike_date_each_file ( j, "fault", "lowest" ), get_paging_spike_time_each_file ( j, "fault", "lowest" ) );
+            append_list ( &report_paging_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'majflt/s'  is %13.2f (%s %s)",
+                get_paging_spike_val_each_file ( j, "majflt", "lowest" ), get_paging_spike_date_each_file ( j, "majflt", "lowest" ), get_paging_spike_time_each_file ( j, "majflt", "lowest" ) );
+            append_list ( &report_paging_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%vmeff/s'  is %13.2f (%s %s)",
+                get_paging_spike_val_each_file ( j, "vmeff", "lowest" ), get_paging_spike_date_each_file ( j, "vmeff", "lowest" ), get_paging_spike_time_each_file ( j, "vmeff", "lowest" ) );
+            append_list ( &report_paging_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -573,6 +657,24 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_paging_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%vmeff/s'  is %13.2f (%s %s)", time_span,
                 get_paging_time_span_spike_val_each_file ( j, "vmeff", "highest" ), get_paging_time_span_spike_date_each_file ( j, "vmeff", "highest" ), get_paging_time_span_spike_time_each_file ( j, "vmeff", "highest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_paging_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'pgpgin/s'  is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "pgpgin", "lowest" ), get_paging_time_span_spike_date_each_file ( j, "pgpgin", "lowest" ), get_paging_time_span_spike_time_each_file ( j, "pgpgin", "lowest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'pgpgout/s' is %13.2f (%s %s)",time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "pgpgout", "lowest" ), get_paging_time_span_spike_date_each_file ( j, "pgpgout", "lowest" ), get_paging_time_span_spike_time_each_file ( j, "pgpgout", "lowest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'fault/s'   is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "fault", "lowest" ), get_paging_time_span_spike_date_each_file ( j, "fault", "lowest" ), get_paging_time_span_spike_time_each_file ( j, "fault", "lowest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'majflt/s'  is %13.2f (%s %s)", time_span,
+                    get_paging_time_span_spike_val_each_file ( j, "majflt", "lowest" ), get_paging_time_span_spike_date_each_file ( j, "majflt", "lowest" ), get_paging_time_span_spike_time_each_file ( j, "majflt", "lowest" ) );
+                append_list ( &report_paging_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of '%%vmeff/s'  is %13.2f (%s %s)", time_span,
+                get_paging_time_span_spike_val_each_file ( j, "vmeff", "lowest" ), get_paging_time_span_spike_date_each_file ( j, "vmeff", "lowest" ), get_paging_time_span_spike_time_each_file ( j, "vmeff", "lowest" ) );
                 append_list ( &report_paging_time_span_spike_obj, str_tmp );
             }
         }
@@ -667,6 +769,18 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'bwrtn/s' is %13.2f (%s %s)",
                 get_io_transfer_rate_spike_val_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_spike_date_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_spike_time_each_file ( j, "bwrtn", "highest" ) );
             append_list ( &report_io_transfer_rate_spike_obj, str_tmp );
+
+            append_list ( &report_io_transfer_rate_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'tps'     is %13.2f (%s %s)",
+                get_io_transfer_rate_spike_val_each_file ( j, "tps", "lowest" ), get_io_transfer_rate_spike_date_each_file ( j, "tps", "lowest" ), get_io_transfer_rate_spike_time_each_file ( j, "tps", "lowest" ) );
+            append_list ( &report_io_transfer_rate_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'bread/s' is %13.2f (%s %s)",
+                get_io_transfer_rate_spike_val_each_file ( j, "bread", "lowest" ), get_io_transfer_rate_spike_date_each_file ( j, "bread", "lowest" ), get_io_transfer_rate_spike_time_each_file ( j, "bread", "lowest" ) );
+            append_list ( &report_io_transfer_rate_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'bwrtn/s' is %13.2f (%s %s)",
+                get_io_transfer_rate_spike_val_each_file ( j, "bwrtn", "lowest" ), get_io_transfer_rate_spike_date_each_file ( j, "bwrtn", "lowest" ), get_io_transfer_rate_spike_time_each_file ( j, "bwrtn", "lowest" ) );
+            append_list ( &report_io_transfer_rate_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -690,6 +804,18 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'bwrtn/s' is %13.2f (%s %s)", time_span,
                     get_io_transfer_rate_time_span_spike_val_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bwrtn", "highest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bwrtn", "highest" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'tps'     is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "tps", "lowest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "tps", "lowest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "tps", "lowest" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'bread/s' is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "bread", "lowest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bread", "lowest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bread", "lowest" ) );
+                append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'bwrtn/s' is %13.2f (%s %s)", time_span,
+                    get_io_transfer_rate_time_span_spike_val_each_file ( j, "bwrtn", "lowest" ), get_io_transfer_rate_time_span_spike_date_each_file ( j, "bwrtn", "lowest" ), get_io_transfer_rate_time_span_spike_time_each_file ( j, "bwrtn", "lowest" ) );
                 append_list ( &report_io_transfer_rate_time_span_spike_obj, str_tmp );
             }
         }
@@ -786,6 +912,18 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%commit'  is %13.2f (%s %s)",
                 get_memory_spike_val_each_file ( j, "commit", "highest" ), get_memory_spike_date_each_file ( j, "commit", "highest" ), get_memory_spike_time_each_file ( j, "commit", "highest" ) );
             append_list ( &report_memory_spike_obj, str_tmp );
+
+            append_list ( &report_memory_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%memused' is %13.2f (%s %s)",
+                get_memory_spike_val_each_file ( j, "memused", "lowest" ), get_memory_spike_date_each_file ( j, "memused", "lowest" ), get_memory_spike_time_each_file ( j, "memused", "lowest" ) );
+            append_list ( &report_memory_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'kbcommit' is %13d (%s %s)",
+                (int)get_memory_spike_val_each_file ( j, "kbcommit", "lowest" ), get_memory_spike_date_each_file ( j, "kbcommit", "lowest" ), get_memory_spike_time_each_file ( j, "kbcommit", "lowest" ) );
+            append_list ( &report_memory_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%commit'  is %13.2f (%s %s)",
+                get_memory_spike_val_each_file ( j, "commit", "lowest" ), get_memory_spike_date_each_file ( j, "commit", "lowest" ), get_memory_spike_time_each_file ( j, "commit", "lowest" ) );
+            append_list ( &report_memory_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -809,6 +947,18 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_memory_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%commit'  is %13.2f (%s %s)", time_span,
                     get_memory_time_span_spike_val_each_file ( j, "commit", "highest" ), get_memory_time_span_spike_date_each_file ( j, "commit", "highest" ), get_memory_time_span_spike_time_each_file ( j, "commit", "highest" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_memory_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of '%%memused' is %13.2f (%s %s)", time_span,
+                    get_memory_time_span_spike_val_each_file ( j, "memused", "lowest" ), get_memory_time_span_spike_date_each_file ( j, "memused", "lowest" ), get_memory_time_span_spike_time_each_file ( j, "memused", "lowest" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'kbcommit' is %13d (%s %s)", time_span,
+                    (int)get_memory_time_span_spike_val_each_file ( j, "kbcommit", "lowest" ), get_memory_time_span_spike_date_each_file ( j, "kbcommit", "lowest" ), get_memory_time_span_spike_time_each_file ( j, "kbcommit", "lowest" ) );
+                append_list ( &report_memory_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of '%%commit'  is %13.2f (%s %s)", time_span,
+                    get_memory_time_span_spike_val_each_file ( j, "commit", "lowest" ), get_memory_time_span_spike_date_each_file ( j, "commit", "lowest" ), get_memory_time_span_spike_time_each_file ( j, "commit", "lowest" ) );
                 append_list ( &report_memory_time_span_spike_obj, str_tmp );
             }
         }
@@ -859,6 +1009,12 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%swpused'  is %13.2f (%s %s)",
                 get_swpused_spike_val_each_file ( j, "highest" ), get_swpused_spike_date_each_file ( j, "highest" ), get_swpused_spike_time_each_file ( j, "highest" ) );
             append_list ( &report_swpused_spike_obj, str_tmp );
+
+            append_list ( &report_swpused_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%swpused'  is %13.2f (%s %s)",
+                get_swpused_spike_val_each_file ( j, "lowest" ), get_swpused_spike_date_each_file ( j, "lowest" ), get_swpused_spike_time_each_file ( j, "lowest" ) );
+            append_list ( &report_swpused_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -870,6 +1026,12 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
 
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of '%%swpused'  is %13.2f (%s %s)", time_span,
                     get_swpused_time_span_spike_val_each_file ( j, "highest" ), get_swpused_time_span_spike_date_each_file ( j, "highest" ), get_swpused_time_span_spike_time_each_file ( j, "highest" ) );
+                append_list ( &report_swpused_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_swpused_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of '%%swpused'  is %13.2f (%s %s)", time_span,
+                    get_swpused_time_span_spike_val_each_file ( j, "lowest" ), get_swpused_time_span_spike_date_each_file ( j, "lowest" ), get_swpused_time_span_spike_time_each_file ( j, "lowest" ) );
                 append_list ( &report_swpused_time_span_spike_obj, str_tmp );
             }
         }
@@ -959,6 +1121,18 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'inode-nr'   is %13d (%s %s)",
                 get_kernel_table_spike_val_each_file ( j, "inode", "highest" ), get_kernel_table_spike_date_each_file ( j, "inode", "highest" ), get_kernel_table_spike_time_each_file ( j, "inode", "highest" ) );
             append_list ( &report_kernel_table_spike_obj, str_tmp );
+
+            append_list ( &report_kernel_table_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'dentunusd'  is %13d (%s %s)",
+                get_kernel_table_spike_val_each_file ( j, "dentunusd", "lowest" ), get_kernel_table_spike_date_each_file ( j, "dentunusd", "lowest" ), get_kernel_table_spike_time_each_file ( j, "dentunusd", "lowest" ) );
+            append_list ( &report_kernel_table_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'file-nr'    is %13d (%s %s)",
+                get_kernel_table_spike_val_each_file ( j, "file", "lowest" ), get_kernel_table_spike_date_each_file ( j, "file", "lowest" ), get_kernel_table_spike_time_each_file ( j, "file", "lowest" ) );
+            append_list ( &report_kernel_table_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'inode-nr'   is %13d (%s %s)",
+                get_kernel_table_spike_val_each_file ( j, "inode", "lowest" ), get_kernel_table_spike_date_each_file ( j, "inode", "lowest" ), get_kernel_table_spike_time_each_file ( j, "inode", "lowest" ) );
+            append_list ( &report_kernel_table_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -982,6 +1156,18 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'inode-nr'   is %13d (%s %s)", time_span,
                     get_kernel_table_time_span_spike_val_each_file ( j, "inode", "highest" ), get_kernel_table_time_span_spike_date_each_file ( j, "inode", "highest" ), get_kernel_table_time_span_spike_time_each_file ( j, "inode", "highest" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_kernel_table_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'dentunusd'  is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "dentunusd", "lowest" ), get_kernel_table_time_span_spike_date_each_file ( j, "dentunusd", "lowest" ), get_kernel_table_time_span_spike_time_each_file ( j, "dentunusd", "lowest" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'file-nr'    is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "file", "lowest" ), get_kernel_table_time_span_spike_date_each_file ( j, "file", "lowest" ), get_kernel_table_time_span_spike_time_each_file ( j, "file", "lowest" ) );
+                append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'inode-nr'   is %13d (%s %s)", time_span,
+                    get_kernel_table_time_span_spike_val_each_file ( j, "inode", "lowest" ), get_kernel_table_time_span_spike_date_each_file ( j, "inode", "lowest" ), get_kernel_table_time_span_spike_time_each_file ( j, "inode", "lowest" ) );
                 append_list ( &report_kernel_table_time_span_spike_obj, str_tmp );
             }
         }
@@ -1116,6 +1302,24 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
             snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'ldavg-15' is %13.2f (%s %s)",
                 get_ldavg_spike_val_each_file ( j, "ldavg_15", "highest" ), get_ldavg_spike_date_each_file ( j, "ldavg_15", "highest" ), get_ldavg_spike_time_each_file ( j, "ldavg_15", "highest" ) );
             append_list ( &report_ldavg_spike_obj, str_tmp );
+
+            append_list ( &report_ldavg_spike_obj, "" );
+
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'runq-sz'  is %13d (%s %s)",
+                (int)get_ldavg_spike_val_each_file ( j, "runq_sz", "lowest" ), get_ldavg_spike_date_each_file ( j, "runq_sz", "lowest" ), get_ldavg_spike_time_each_file ( j, "runq_sz", "lowest" ) );
+            append_list ( &report_ldavg_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'plist-sz' is %13d (%s %s)",
+                (int)get_ldavg_spike_val_each_file ( j, "plist_sz", "lowest" ), get_ldavg_spike_date_each_file ( j, "plist_sz", "lowest" ), get_ldavg_spike_time_each_file ( j, "plist_sz", "lowest" ) );
+            append_list ( &report_ldavg_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'ldavg-1'  is %13.2f (%s %s)",
+                get_ldavg_spike_val_each_file ( j, "ldavg_one", "lowest" ), get_ldavg_spike_date_each_file ( j, "ldavg_one", "lowest" ), get_ldavg_spike_time_each_file ( j, "ldavg_one", "lowest" ) );
+            append_list ( &report_ldavg_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'ldavg-5'  is %13.2f (%s %s)",
+                get_ldavg_spike_val_each_file ( j, "ldavg_five", "lowest" ), get_ldavg_spike_date_each_file ( j, "ldavg_five", "lowest" ), get_ldavg_spike_time_each_file ( j, "ldavg_five", "lowest" ) );
+            append_list ( &report_ldavg_spike_obj, str_tmp );
+            snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'ldavg-15' is %13.2f (%s %s)",
+                get_ldavg_spike_val_each_file ( j, "ldavg_15", "lowest" ), get_ldavg_spike_date_each_file ( j, "ldavg_15", "lowest" ), get_ldavg_spike_time_each_file ( j, "ldavg_15", "lowest" ) );
+            append_list ( &report_ldavg_spike_obj, str_tmp );
             /* for time-span option */
             if ( time_span != NULL )
             {
@@ -1151,6 +1355,24 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Highest value of 'ldavg-15' is %13.2f (%s %s)", time_span,
                     get_ldavg_time_span_spike_val_each_file ( j, "ldavg_15", "highest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_15", "highest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_15", "highest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+
+                append_list ( &report_ldavg_time_span_spike_obj, "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'runq-sz'  is %13d (%s %s)", time_span,
+                    (int)get_ldavg_time_span_spike_val_each_file ( j, "runq_sz", "lowest" ), get_ldavg_time_span_spike_date_each_file ( j, "runq_sz", "lowest" ), get_ldavg_time_span_spike_time_each_file ( j, "runq_sz", "lowest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'plist-sz' is %13d (%s %s)", time_span,
+                    (int)get_ldavg_time_span_spike_val_each_file ( j, "plist_sz", "lowest" ), get_ldavg_time_span_spike_date_each_file ( j, "plist_sz", "lowest" ), get_ldavg_time_span_spike_time_each_file ( j, "plist_sz", "lowest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'ldavg-1'  is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_one", "lowest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_one", "lowest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_one", "lowest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'ldavg-5'  is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_five", "lowest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_five", "lowest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_five", "lowest" ) );
+                append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, " %s Lowest  value of 'ldavg-15' is %13.2f (%s %s)", time_span,
+                    get_ldavg_time_span_spike_val_each_file ( j, "ldavg_15", "lowest" ), get_ldavg_time_span_spike_date_each_file ( j, "ldavg_15", "lowest" ), get_ldavg_time_span_spike_time_each_file ( j, "ldavg_15", "lowest" ) );
                 append_list ( &report_ldavg_time_span_spike_obj, str_tmp );
             }
         }
@@ -1290,6 +1512,15 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_block_device_spike_obj [ i ], str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of '%%util'   of %s is%s%13.2f (%s %s)"
                     , get_block_device_names ( i ), ss, get_block_device_spike_val_each_file ( j, i, "util", "highest" ), get_block_device_spike_date_each_file ( j, i, "util", "highest" ), get_block_device_spike_time_each_file ( j, i, "util", "highest" ) );
+                append_list ( &report_block_device_spike_obj [ i ], str_tmp );
+
+                append_list ( &report_block_device_spike_obj [ i ], "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'areq-sz' of %s is%s%13.2f (%s %s)"
+                    , get_block_device_names ( i ), ss, get_block_device_spike_val_each_file ( j, i, "areqsz", "lowest" ), get_block_device_spike_date_each_file ( j, i, "areqsz", "lowest" ), get_block_device_spike_time_each_file ( j, i, "areqsz", "lowest" ) );
+                append_list ( &report_block_device_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of '%%util'   of %s is%s%13.2f (%s %s)"
+                    , get_block_device_names ( i ), ss, get_block_device_spike_val_each_file ( j, i, "util", "lowest" ), get_block_device_spike_date_each_file ( j, i, "util", "lowest" ), get_block_device_spike_time_each_file ( j, i, "util", "lowest" ) );
                 append_list ( &report_block_device_spike_obj [ i ], str_tmp );
             }
         }
@@ -1475,6 +1706,21 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'txkB/s'  of %s is%s%13.2f (%s %s)"
                     , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txkb", "highest" ), get_network_spike_date_each_file ( j, i, "txkb", "highest" ), get_network_spike_time_each_file ( j, i, "txkb", "highest" ) );
                 append_list ( &report_network_spike_obj [ i ], str_tmp );
+
+                append_list ( &report_network_spike_obj [ i ], "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'rxpck/s' of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxpck", "lowest" ), get_network_spike_date_each_file ( j, i, "rxpck", "lowest" ), get_network_spike_time_each_file ( j, i, "rxpck", "lowest" ) );
+                append_list ( &report_network_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'txpck/s' of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txpck", "lowest" ), get_network_spike_date_each_file ( j, i, "txpck", "lowest" ), get_network_spike_time_each_file ( j, i, "txpck", "lowest" ) );
+                append_list ( &report_network_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'rxkB/s'  of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxkb", "lowest" ), get_network_spike_date_each_file ( j, i, "rxkb", "lowest" ), get_network_spike_time_each_file ( j, i, "rxkb", "lowest" ) );
+                append_list ( &report_network_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'txkB/s'  of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txkb", "lowest" ), get_network_spike_date_each_file ( j, i, "txkb", "lowest" ), get_network_spike_time_each_file ( j, i, "txkb", "lowest" ) );
+                append_list ( &report_network_spike_obj [ i ], str_tmp );
             }
         }
         append_list ( &report_network_explanation_obj, "--------" );
@@ -1639,16 +1885,31 @@ int make_report ( int SAR_OPTION, int REPORT, int files_n, const char *time_span
                 append_list ( &report_network_error_spike_obj [ i ], "" );
 
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'rxerr/s'  of %s is%s%13.2f (%s %s)"
-                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxerr", "highest" ), get_network_spike_date_each_file ( j, i, "rxerr", "spike" ), get_network_spike_time_each_file ( j, i, "rxerr", "highest" ) );
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxerr", "highest" ), get_network_spike_date_each_file ( j, i, "rxerr", "highest" ), get_network_spike_time_each_file ( j, i, "rxerr", "highest" ) );
                 append_list ( &report_network_error_spike_obj [ i ], str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'txerr/s'  of %s is%s%13.2f (%s %s)"
-                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txerr", "highest" ), get_network_spike_date_each_file ( j, i, "txerr", "spike" ), get_network_spike_time_each_file ( j, i, "txerr", "highest" ) );
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txerr", "highest" ), get_network_spike_date_each_file ( j, i, "txerr", "highest" ), get_network_spike_time_each_file ( j, i, "txerr", "highest" ) );
                 append_list ( &report_network_error_spike_obj [ i ], str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'rxdrop/s' of %s is%s%13.2f (%s %s)"
-                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxdrop", "highest" ), get_network_spike_date_each_file ( j, i, "rxdrop", "spike" ), get_network_spike_time_each_file ( j, i, "rxdrop", "highest" ) );
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxdrop", "highest" ), get_network_spike_date_each_file ( j, i, "rxdrop", "highest" ), get_network_spike_time_each_file ( j, i, "rxdrop", "highest" ) );
                 append_list ( &report_network_error_spike_obj [ i ], str_tmp );
                 snprintf ( str_tmp, MAX_LINE_LENGTH, "  Highest value of 'txdrop/s' of %s is%s%13.2f (%s %s)"
-                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txdrop", "highest" ), get_network_spike_date_each_file ( j, i, "txdrop", "spike" ), get_network_spike_time_each_file ( j, i, "txdrop", "highest" ) );
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txdrop", "highest" ), get_network_spike_date_each_file ( j, i, "txdrop", "highest" ), get_network_spike_time_each_file ( j, i, "txdrop", "highest" ) );
+                append_list ( &report_network_error_spike_obj [ i ], str_tmp );
+
+                append_list ( &report_network_error_spike_obj [ i ], "" );
+
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'rxerr/s'  of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxerr", "lowest" ), get_network_spike_date_each_file ( j, i, "rxerr", "lowest" ), get_network_spike_time_each_file ( j, i, "rxerr", "lowest" ) );
+                append_list ( &report_network_error_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'txerr/s'  of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txerr", "lowest" ), get_network_spike_date_each_file ( j, i, "txerr", "lowest" ), get_network_spike_time_each_file ( j, i, "txerr", "lowest" ) );
+                append_list ( &report_network_error_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'rxdrop/s' of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "rxdrop", "lowest" ), get_network_spike_date_each_file ( j, i, "rxdrop", "lowest" ), get_network_spike_time_each_file ( j, i, "rxdrop", "lowest" ) );
+                append_list ( &report_network_error_spike_obj [ i ], str_tmp );
+                snprintf ( str_tmp, MAX_LINE_LENGTH, "  Lowest  value of 'txdrop/s' of %s is%s%13.2f (%s %s)"
+                    , get_network_device_names ( i ), ss, get_network_spike_val_each_file ( j, i, "txdrop", "lowest" ), get_network_spike_date_each_file ( j, i, "txdrop", "lowest" ), get_network_spike_time_each_file ( j, i, "txdrop", "lowest" ) );
                 append_list ( &report_network_error_spike_obj [ i ], str_tmp );
             }
         }
