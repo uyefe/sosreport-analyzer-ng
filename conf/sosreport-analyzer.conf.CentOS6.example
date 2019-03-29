@@ -1,0 +1,436 @@
+# This is the configuration file for the sosreport-analyzer.
+# 
+# If you have installed this program before, new version will not override.
+#
+# Please check /usr/share/sosreport-analyzer/sosreport-analyzer.conf.CentOS7.example, and
+# copy it as /etc/sosreport-analyzer.conf.
+#
+# You can use file /usr/share/sosreport-analyzer/sosreport-analyzer.conf.CentOS6.example
+# for CentOS6.
+#
+########
+# This file contains CentOS6.example contents. If you are analyzing CentOS7, please use CentOS7.example.
+########
+#
+# 'all' echos every line in the file.
+# In some items, you can set any item-name. 
+# Sometimes, certain files are not made by sosreport.
+# sosreport-analyzer will stop to analyze when file does not exist.
+# In such cases, you can skip the file, setting item-name to 'skip'.
+# ex. lsb-release=skip
+
+## date
+##
+## All you can set is 'all'
+
+date=all
+
+## lsb-release
+##
+## All you can set is 'all'
+
+lsb-release=all
+
+## uname 
+##
+## All you can set is 'all'
+
+uname=all
+
+## hostname
+##
+## All you can set is 'all'
+
+hostname=all
+
+## uptime
+##
+## All you can set is 'all'
+
+uptime=all
+
+## proc/cpuinfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/cpuinfo=
+
+proc/cpuinfo=vendor_id model flags
+
+## root/anaconda-ks.cfg 
+##
+## All you can set is 'all'
+
+root/anaconda-ks.cfg=all
+
+## dmidecode=<item> ...
+##
+## Presently, you can set these item-name, 'bios', 'memory' or 'all'
+
+dmidecode=bios memory Smart Firmware firmware
+
+## lsmod=<item> ...
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. lsmod=Module kvm video
+
+lsmod=all
+
+## etc/modprobe.d/
+##
+## All you can set is 'all'
+
+etc/modprobe.d/=all
+
+## lspci=<item> ...
+##
+## You can set arbitrary item-name including 'all' up to 20
+
+lspci=00: 01: 02: 03: 04: 05: 06: 07: 08: 09: 7f 80 driver modules
+
+## sos_commands/scsi/lsscsi 
+##
+## All you can set is 'all'
+
+sos_commands/scsi/lsscsi=skip
+
+## devices/udevadm_info_--export-db=<item> ...
+##
+## You can set arbitrary item-name including 'all' up to 12
+
+sos_commands/devices/udevadm_info_--export-db=skip
+
+## installed-rpms=<item> ...
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. installed-rpms=kernel
+
+installed-rpms=all
+
+## etc/udev/ 
+##
+## All you can set is 'all'
+
+etc/udev/=all
+
+## df=<item> ...
+##
+## You can set arbitrary item-name including 'all' up to 2
+
+df=/dev
+
+## vgdisplay
+##
+## All you can set is 'all'
+
+vgdisplay=all
+
+## free
+##
+## All you can set is 'all'
+
+free=all
+
+## ip_addr 
+##
+## All you can set is 'all'
+
+ip_addr=all
+
+## route 
+##
+## All you can set is 'all'
+
+route=all
+
+## last
+##
+## You can set 'username' including 'all' up to 12
+## example1 - last=fujiwara
+## example2 - last=fujiwara root
+## example3 - last=all
+
+last=skip
+
+## ps 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. ps=java 
+
+ps=all
+
+## lsof 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. lsof=bash 
+
+lsof=all
+
+## netstat 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. netstat=TIME_WAIT 
+
+netstat=TIME_WAIT
+
+## etc/host
+##
+## All you can set is 'all'
+
+etc/host=all
+
+## etc/systemd/
+##
+## All you can set is 'all'
+
+etc/systemd/=skip
+
+## etc/systemd/system/
+##
+## All you can set is 'all'
+
+etc/systemd/system/=skip
+
+## usr/lib/systemd/
+##
+## All you can set is 'all'
+
+usr/lib/systemd/=skip
+
+## sos_commands/sar/
+##
+## All you can set is 'all'
+
+sos_commands/sar/=all
+
+## sos_commands/virsh/
+##
+## All you can set is 'all'
+
+sos_commands/virsh/=skip
+
+## sos_commands/usb/
+##
+## All you can set is 'all'
+
+sos_commands/usb/=skip
+
+## etc/default/
+##
+## All you can set is 'all'
+
+etc/default/=skip
+
+## etc/kdump.conf 
+##
+## All you can set is 'all'
+
+etc/kdump.conf=all
+
+## etc/sysctl.conf 
+##
+## All you can set is 'all'
+
+etc/sysctl.conf=all
+
+## etc/rsyslog.conf 
+##
+## All you can set is 'all'
+
+etc/rsyslog.conf=all
+
+## etc/yum.conf 
+##
+## All you can set is 'all'
+
+etc/yum.conf=all
+
+## etc/yum.repos.d/
+##
+## All you can set is 'all'
+
+etc/yum.repos.d/=all
+
+## etc/sysconfig/network-scripts/ifcfg-
+##
+## All you can set is 'all'
+
+etc/sysconfig/network-scripts/ifcfg-=all
+
+## sos_commands/boot/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands/boot/=all
+
+sos_commands/boot/=skip
+
+## proc/meminfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/meminfo=HugePage Hugepages
+
+proc/meminfo=all
+
+## proc/net/dev
+##
+## All you can set is 'all'
+
+proc/net/dev=all
+
+## proc/net/sockstat
+##
+## All you can set is 'all'
+
+proc/net/sockstat=all
+
+## proc/interrupts
+##
+## All you can set is 'all'
+
+proc/interrupts=all
+
+## etc/logrotate.conf
+##
+## All you can set is 'all'
+
+etc/logrotate.conf=all
+
+## etc/logrotate.d/
+##
+## All you can set is 'all'
+
+etc/logrotate.d/=all
+
+## etc/pki/
+##
+## All you can set is 'all'
+
+etc/pki/=all
+
+## etc/cron.d/
+##
+## All you can set is 'all'
+
+etc/cron.d/=all
+
+## var/spool/cron/
+##
+## All you can set is 'all'
+
+var/spool/cron/=all
+
+## var/log/secure
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. var/log/secure=su:session failure 
+
+var/log/secure=su:session failure
+
+## var/log/audit/
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. var/log/audit/=denied 
+
+var/log/audit/=denied
+
+## var/log/dmesg 
+##
+## All you can set is 'all'
+
+var/log/dmesg=all
+
+## var/log/messages 
+##
+## You can set arbitrary item-name including 'all' up to 20
+## ex. var/log/messages=error 
+
+var/log/messages=error WARNING dump_stack bnx2x tg3 [<ffff Trace hung blocked nfs NFS rpc RPC stat
+
+## sos_commands/sysctl_-a 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands/kernel/sysctl_-a=panic 
+
+sos_commands/kernel/sysctl_-a=panic
+
+## sos_commands/logs/journalctl_--no-pager
+##
+## You can set arbitrary item-name including 'all' up to 20
+## ex. sos_commands/logs/journalctl_--no-pager=kdump 
+
+sos_commands/logs/journalctl_--no-pager=skip
+
+## sos_commands/networking/ethtool_-S
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands/networking/ethtool_-S=error 
+
+sos_commands/networking/ethtool_-S=all
+
+## sos_commands/networking/ethtool_-i
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands/networking/ethtool_-i=firmware 
+
+sos_commands/networking/ethtool_-i=all
+
+## sos_commands/networking/
+##
+## All you can set is 'all'
+
+sos_commands/networking/=all
+
+## etc/httpd/
+##
+## All you can set is 'all'
+
+etc/httpd/=skip
+
+## lib/
+##
+## All you can set is 'all'
+
+lib/=all
+
+## etc/
+##
+## All you can set is 'all'
+
+etc/=skip
+
+## dev/
+##
+## All you can set is 'all'
+
+dev/=skip
+
+## usr/
+##
+## All you can set is 'all'
+
+usr/=skip
+
+## var/
+##
+## All you can set is 'all'
+
+var/=skip
+
+## proc/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/=all
+
+proc/=skip
+
+## sos_commands/
+##
+## All you can set is 'all'
+
+sos_commands/=skip
+
+## var/crash/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. var/crash/=all
+
+var/crash/=all

@@ -50,10 +50,16 @@ install-sosreport_analyzer_data:
 	@if [ -f $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH) ]; then \
             $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.example; \
             $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer-mcinfo.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer-mcinfo.conf.example; \
+            $(INSTALL) -m 644 $(srcdir)/conf/sosreport-analyzer.conf.CentOS7.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.CentOS7.example; \
+            $(INSTALL) -m 644 $(srcdir)/conf/sosreport-analyzer.conf.CentOS6.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.CentOS6.example; \
+            $(INSTALL) -m 644 $(srcdir)/conf/sosreport-analyzer-mcinfo.conf.AXS6.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer-mcinfo.conf.AXS6.example; \
 	else \
             $(MKDIR_P) $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH); \
             $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.example; \
             $(INSTALL) -m 644 $(srcdir)/sosreport-analyzer-mcinfo.conf.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer-mcinfo.conf.example; \
+            $(INSTALL) -m 644 $(srcdir)/conf/sosreport-analyzer.conf.CentOS7.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.CentOS7.example; \
+            $(INSTALL) -m 644 $(srcdir)/conf/sosreport-analyzer.conf.CentOS6.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer.conf.CentOS6.example; \
+            $(INSTALL) -m 644 $(srcdir)/conf/sosreport-analyzer-mcinfo.conf.AXS6.example $(DESTDIR)$(SOSREPORT_ANALYZER_DATA_PATH)/sosreport-analyzer-mcinfo.conf.AXS6.example; \
 	fi
 
 uninstall-sosreport_analyzer_data:

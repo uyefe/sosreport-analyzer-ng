@@ -1,0 +1,102 @@
+# This is the configuration file for the sosreport-analyzer.
+#
+# If you have installed this program before, new version will not override.
+#
+# Please check /usr/share/sosreport-analyzer/sosreport-analyzer-mcinfo.conf.AXS6.example, and
+# copy it as /etc/sosreport-analyzer-mcinfo.conf.
+#
+#
+# 'all' echos every line in the file.
+# In some items, you can set any item-name. 
+# Sometimes, certain files are not made by sosreport.
+# sosreport-analyzer will stop to analyze when file does not exist.
+# In such cases, you can skip the file, setting item-name to 'skip'.
+# ex. var/log/messages=skip
+
+## boot/grub/
+##
+## All you can set is 'all'
+
+boot/grub/=all
+
+## proc/cpuinfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/cpuinfo=vendor_id model flags
+
+proc/cpuinfo=vendor_id model flags
+
+## etc/sysconfig/network-scripts/ifcfg-
+##
+## All you can set is 'all'
+
+etc/sysconfig/network-scripts/ifcfg-=all
+
+## mcinfo_cmdlog/
+##
+## All you can set is 'all'
+
+cmdlog/=all
+
+## etc/host
+##
+## All you can set is 'all'
+
+etc/host=all 
+
+## proc/meminfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/meminfo=HugePage Hugepages
+
+proc/meminfo=all
+
+## proc/interrupts
+##
+## All you can set is 'all'
+
+proc/interrupts=all
+
+## etc/cron.d/
+##
+## All you can set is 'all'
+
+etc/cron.d/=all
+
+## var/spool/cron/
+##
+## All you can set is 'all'
+
+var/spool/cron/=all
+
+## var/log/dmesg 
+##
+## All you can set is 'all'
+
+var/log/dmesg=all
+
+## var/log/messages 
+##
+## You can set arbitrary item-name including 'all' up to 20
+## ex. var/log/messages=error 
+
+var/log/messages=error WARNING dump_stack bnx2x tg3 [<ffff Trace hung blocked nfs NFS rpc RPC stat
+
+## etc/ 
+##
+## All you can set is 'all'
+
+etc/=skip
+
+## var/ 
+##
+## All you can set is 'all'
+
+var/=skip
+
+## proc/ 
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/=all
+
+proc/=skip
