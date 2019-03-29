@@ -1014,11 +1014,11 @@ const char *items_etc_logrotate_conf;
 const char *items_etc_pki_;
 const char *items_etc_cron_d_;
 const char *items_var_log_dmesg;
-const char *items_var_log_messages [ 12 ];
+const char *items_var_log_messages [ 20 ];
 const char *items_var_log_secure [ 12 ];
 const char *items_var_log_audit_ [ 12 ];
 const char *items_sos_commands_kernel_sysctl__a [ 12 ];
-const char *items_sos_commands_logs_journalctl___no_pager [ 12 ];
+const char *items_sos_commands_logs_journalctl___no_pager [ 20 ];
 const char *items_sos_commands_networking_ethtool__S [ 12 ];
 const char *items_sos_commands_networking_ethtool__i [ 12 ];
 const char *items_sos_commands_boot_ [ 12 ];
@@ -2392,9 +2392,9 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->var_log_messages.item_num > arr_max12 )
+            if ( sosreport_analyzer_cfg->var_log_messages.item_num > arr_max20 )
             {
-                printf("can't set items over %d for var/log/messages\n",arr_max12);
+                printf("can't set items over %d for var/log/messages\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
@@ -2476,9 +2476,9 @@ void set_token_to_item_arr ( const char *file_name )
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num > arr_max12 )
+            if ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num > arr_max20 )
             {
-                printf("can't set items over %d for sos_commands/logs/journalctl_--no-pager\n",arr_max12);
+                printf("can't set items over %d for sos_commands/logs/journalctl_--no-pager\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
                 exit ( EXIT_FAILURE );
             }
