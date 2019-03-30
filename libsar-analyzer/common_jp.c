@@ -1085,7 +1085,7 @@ int create_sar_analyzer_obj ( )
         for ( i = 0; i <= MAX_CORE_NUMBERS; i++ )
         {
             set_cpu_spike_val_each_file ( x, 0.00, i, "usr", "spike" );
-            set_cpu_spike_date_each_file ( x, "", i, "usr", "spik" );
+            set_cpu_spike_date_each_file ( x, "", i, "usr", "spike" );
             set_cpu_spike_time_each_file ( x, "", i, "usr", "spike" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "usr", "highest" );
             set_cpu_spike_date_each_file ( x, "", i, "usr", "highest" );
@@ -1094,7 +1094,7 @@ int create_sar_analyzer_obj ( )
             set_cpu_spike_date_each_file ( x, "", i, "usr", "lowest" );
             set_cpu_spike_time_each_file ( x, "", i, "usr", "lowest" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "sys", "spike" );
-            set_cpu_spike_date_each_file ( x, "", i, "sys", "spik" );
+            set_cpu_spike_date_each_file ( x, "", i, "sys", "spike" );
             set_cpu_spike_time_each_file ( x, "", i, "sys", "spike" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "sys", "highest" );
             set_cpu_spike_date_each_file ( x, "", i, "sys", "highest" );
@@ -1103,7 +1103,7 @@ int create_sar_analyzer_obj ( )
             set_cpu_spike_date_each_file ( x, "", i, "sys", "lowest" );
             set_cpu_spike_time_each_file ( x, "", i, "sys", "lowest" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "iowait", "spike" );
-            set_cpu_spike_date_each_file ( x, "", i, "iowait", "spik" );
+            set_cpu_spike_date_each_file ( x, "", i, "iowait", "spike" );
             set_cpu_spike_time_each_file ( x, "", i, "iowait", "spike" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "iowait", "highest" );
             set_cpu_spike_date_each_file ( x, "", i, "iowait", "highest" );
@@ -1112,7 +1112,7 @@ int create_sar_analyzer_obj ( )
             set_cpu_spike_date_each_file ( x, "", i, "iowait", "lowest" );
             set_cpu_spike_time_each_file ( x, "", i, "iowait", "lowest" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "idle", "spike" );
-            set_cpu_spike_date_each_file ( x, "", i, "idle", "spik" );
+            set_cpu_spike_date_each_file ( x, "", i, "idle", "spike" );
             set_cpu_spike_time_each_file ( x, "", i, "idle", "spike" );
             set_cpu_spike_val_each_file ( x, 0.00, i, "idle", "highest" );
             set_cpu_spike_date_each_file ( x, "", i, "idle", "highest" );
@@ -1120,6 +1120,41 @@ int create_sar_analyzer_obj ( )
             set_cpu_spike_val_each_file ( x, 100.00, i, "idle", "lowest" );
             set_cpu_spike_date_each_file ( x, "", i, "idle", "lowest" );
             set_cpu_spike_time_each_file ( x, "", i, "idle", "lowest" );
+
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "usr", "spike" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "usr", "spike" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "usr", "spike" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "usr", "highest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "usr", "highest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "usr", "highest" );
+            set_cpu_time_span_spike_val_each_file ( x, 100.00, i, "usr", "lowest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "usr", "lowest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "usr", "lowest" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "sys", "spike" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "sys", "spike" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "sys", "spike" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "sys", "highest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "sys", "highest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "sys", "highest" );
+            set_cpu_time_span_spike_val_each_file ( x, 100.00, i, "sys", "lowest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "sys", "lowest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "sys", "lowest" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "iowait", "spike" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "iowait", "spike" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "iowait", "spike" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "iowait", "highest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "iowait", "highest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "iowait", "highest" );
+            set_cpu_time_span_spike_val_each_file ( x, 100.00, i, "iowait", "lowest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "iowait", "lowest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "iowait", "lowest" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "idle", "spike" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "idle", "spike" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "idle", "spike" );
+            set_cpu_time_span_spike_val_each_file ( x, 0.00, i, "idle", "highest" );
+            set_cpu_time_span_spike_date_each_file ( x, "", i, "idle", "highest" );
+            set_cpu_time_span_spike_time_each_file ( x, "", i, "idle", "highest" );
+            set_cpu_time_span_spike_val_each_file ( x, 100.00, i, "idle", "lowest" );
         }
         set_tasks_spike_val_each_file ( x, 0.00, "proc", "spike" );
         set_tasks_spike_date_each_file ( x, "", "proc", "spike" );
@@ -1140,6 +1175,25 @@ int create_sar_analyzer_obj ( )
         set_tasks_spike_date_each_file ( x, "", "cswch", "lowest" );
         set_tasks_spike_time_each_file ( x, "", "cswch", "lowest" );
 
+        set_tasks_time_span_spike_val_each_file ( x, 0.00, "proc", "spike" );
+        set_tasks_time_span_spike_date_each_file ( x, "", "proc", "spike" );
+        set_tasks_time_span_spike_time_each_file ( x, "", "proc", "spike" );
+        set_tasks_time_span_spike_val_each_file ( x, 0.00, "proc", "highest" );
+        set_tasks_time_span_spike_date_each_file ( x, "", "proc", "highest" );
+        set_tasks_time_span_spike_time_each_file ( x, "", "proc", "highest" );
+        set_tasks_time_span_spike_val_each_file ( x, 1999999.00, "proc", "lowest" );
+        set_tasks_time_span_spike_date_each_file ( x, "", "proc", "lowest" );
+        set_tasks_time_span_spike_time_each_file ( x, "", "proc", "lowest" );
+        set_tasks_time_span_spike_val_each_file ( x, 0.00, "cswch", "spike" );
+        set_tasks_time_span_spike_date_each_file ( x, "", "cswch", "spike" );
+        set_tasks_time_span_spike_time_each_file ( x, "", "cswch", "spike" );
+        set_tasks_time_span_spike_val_each_file ( x, 0.00, "cswch", "highest" );
+        set_tasks_time_span_spike_date_each_file ( x, "", "cswch", "highest" );
+        set_tasks_time_span_spike_time_each_file ( x, "", "cswch", "highest" );
+        set_tasks_time_span_spike_val_each_file ( x, 19999999.00, "cswch", "lowest" );
+        set_tasks_time_span_spike_date_each_file ( x, "", "cswch", "lowest" );
+        set_tasks_time_span_spike_time_each_file ( x, "", "cswch", "lowest" );
+
         set_pswap_spike_val_each_file ( x, 0.00, "pswpin", "spike" );
         set_pswap_spike_date_each_file ( x, "", "pswpin", "spike" );
         set_pswap_spike_time_each_file ( x, "", "pswpin", "spike" );
@@ -1158,6 +1212,25 @@ int create_sar_analyzer_obj ( )
         set_pswap_spike_val_each_file ( x, 9999999.00, "pswpout", "lowest" );
         set_pswap_spike_date_each_file ( x, "", "pswpout", "lowest" );
         set_pswap_spike_time_each_file ( x, "", "pswpout", "lowest" );
+
+        set_pswap_time_span_spike_val_each_file ( x, 0.00, "pswpin", "spike" );
+        set_pswap_time_span_spike_date_each_file ( x, "", "pswpin", "spike" );
+        set_pswap_time_span_spike_time_each_file ( x, "", "pswpin", "spike" );
+        set_pswap_time_span_spike_val_each_file ( x, 0.00, "pswpin", "highest" );
+        set_pswap_time_span_spike_date_each_file ( x, "", "pswpin", "highest" );
+        set_pswap_time_span_spike_time_each_file ( x, "", "pswpin", "highest" );
+        set_pswap_time_span_spike_val_each_file ( x, 9999999.00, "pswpin", "lowest" );
+        set_pswap_time_span_spike_date_each_file ( x, "", "pswpin", "lowest" );
+        set_pswap_time_span_spike_time_each_file ( x, "", "pswpin", "lowest" );
+        set_pswap_time_span_spike_val_each_file ( x, 0.00, "pswpout", "spike" );
+        set_pswap_time_span_spike_date_each_file ( x, "", "pswpout", "spike" );
+        set_pswap_time_span_spike_time_each_file ( x, "", "pswpout", "spike" );
+        set_pswap_time_span_spike_val_each_file ( x, 0.00, "pswpout", "highest" );
+        set_pswap_time_span_spike_date_each_file ( x, "", "pswpout", "highest" );
+        set_pswap_time_span_spike_time_each_file ( x, "", "pswpout", "highest" );
+        set_pswap_time_span_spike_val_each_file ( x, 9999999.00, "pswpout", "lowest" );
+        set_pswap_time_span_spike_date_each_file ( x, "", "pswpout", "lowest" );
+        set_pswap_time_span_spike_time_each_file ( x, "", "pswpout", "lowest" );
 
         set_paging_spike_val_each_file ( x, 0.00, "pgpgin", "spike" );
         set_paging_spike_date_each_file ( x, "", "pgpgin", "spike" );
@@ -1205,6 +1278,52 @@ int create_sar_analyzer_obj ( )
         set_paging_spike_date_each_file ( x, "", "vmeff", "lowest" );
         set_paging_spike_time_each_file ( x, "", "vmeff", "lowest" );
 
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "pgpgin", "spike" );
+        set_paging_time_span_spike_date_each_file ( x, "", "pgpgin", "spike" );
+        set_paging_time_span_spike_time_each_file ( x, "", "pgpgin", "spike" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "pgpgin", "highest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "pgpgin", "highest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "pgpgin", "highest" );
+        set_paging_time_span_spike_val_each_file ( x, 9999999.00, "pgpgin", "lowest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "pgpgin", "lowest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "pgpgin", "lowest" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "pgpgout", "spike" );
+        set_paging_time_span_spike_date_each_file ( x, "", "pgpgout", "spike" );
+        set_paging_time_span_spike_time_each_file ( x, "", "pgpgout", "spike" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "pgpgout", "highest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "pgpgout", "highest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "pgpgout", "highest" );
+        set_paging_time_span_spike_val_each_file ( x, 9999999.00, "pgpgout", "lowest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "pgpgout", "lowest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "pgpgout", "lowest" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "fault", "spike" );
+        set_paging_time_span_spike_date_each_file ( x, "", "fault", "spike" );
+        set_paging_time_span_spike_time_each_file ( x, "", "fault", "spike" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "fault", "highest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "fault", "highest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "fault", "highest" );
+        set_paging_time_span_spike_val_each_file ( x, 19999999.00, "fault", "lowest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "fault", "lowest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "fault", "lowest" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "majflt", "spike" );
+        set_paging_time_span_spike_date_each_file ( x, "", "majflt", "spike" );
+        set_paging_time_span_spike_time_each_file ( x, "", "majflt", "spike" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "majflt", "highest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "majflt", "highest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "majflt", "highest" );
+        set_paging_time_span_spike_val_each_file ( x, 19999999.00, "majflt", "lowest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "majflt", "lowest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "majflt", "lowest" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "vmeff", "spike" );
+        set_paging_time_span_spike_date_each_file ( x, "", "vmeff", "spike" );
+        set_paging_time_span_spike_time_each_file ( x, "", "vmeff", "spike" );
+        set_paging_time_span_spike_val_each_file ( x, 0.00, "vmeff", "highest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "vmeff", "highest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "vmeff", "highest" );
+        set_paging_time_span_spike_val_each_file ( x, 100.00, "vmeff", "lowest" );
+        set_paging_time_span_spike_date_each_file ( x, "", "vmeff", "lowest" );
+        set_paging_time_span_spike_time_each_file ( x, "", "vmeff", "lowest" );
+
         set_io_transfer_rate_spike_val_each_file ( x, 0.00, "tps", "spike" );
         set_io_transfer_rate_spike_date_each_file ( x, "", "tps", "spike" );
         set_io_transfer_rate_spike_time_each_file ( x, "", "tps", "spike" );
@@ -1233,6 +1352,34 @@ int create_sar_analyzer_obj ( )
         set_io_transfer_rate_spike_date_each_file ( x, "", "bwrtn", "lowest" );
         set_io_transfer_rate_spike_time_each_file ( x, "", "bwrtn", "lowest" );
 
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 0.00, "tps", "spike" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "tps", "spike" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "tps", "spike" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 0.00, "tps", "highest" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "tps", "highest" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "tps", "highest" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 9999999.00, "tps", "lowest" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "tps", "lowest" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "tps", "lowest" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 0.00, "bread", "spike" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "bread", "spike" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "bread", "spike" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 0.00, "bread", "highest" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "bread", "highest" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "bread", "highest" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 9999999.00, "bread", "lowest" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "bread", "lowest" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "bread", "lowest" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 0.00, "bwrtn", "spike" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "bwrtn", "spike" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "bwrtn", "spike" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 0.00, "bwrtn", "highest" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "bwrtn", "highest" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "bwrtn", "highest" );
+        set_io_transfer_rate_time_span_spike_val_each_file ( x, 9999999.00, "bwrtn", "lowest" );
+        set_io_transfer_rate_time_span_spike_date_each_file ( x, "", "bwrtn", "lowest" );
+        set_io_transfer_rate_time_span_spike_time_each_file ( x, "", "bwrtn", "lowest" );
+
         set_memory_double_spike_val_each_file ( x, 0.00, "memused", "spike" );
         set_memory_spike_date_each_file ( x, "", "memused", "spike" );
         set_memory_spike_time_each_file ( x, "", "memused", "spike" );
@@ -1252,6 +1399,25 @@ int create_sar_analyzer_obj ( )
         set_memory_spike_date_each_file ( x, "", "commit", "lowest" );
         set_memory_spike_time_each_file ( x, "", "commit", "lowest" );
 
+        set_memory_double_time_span_spike_val_each_file ( x, 0.00, "memused", "spike" );
+        set_memory_time_span_spike_date_each_file ( x, "", "memused", "spike" );
+        set_memory_time_span_spike_time_each_file ( x, "", "memused", "spike" );
+        set_memory_double_time_span_spike_val_each_file ( x, 0.00, "memused", "highest" );
+        set_memory_time_span_spike_date_each_file ( x, "", "memused", "highest" );
+        set_memory_time_span_spike_time_each_file ( x, "", "memused", "highest" );
+        set_memory_double_time_span_spike_val_each_file ( x, 100.00, "memused", "lowest" );
+        set_memory_time_span_spike_date_each_file ( x, "", "memused", "lowest" );
+        set_memory_time_span_spike_time_each_file ( x, "", "memused", "lowest" );
+        set_memory_double_time_span_spike_val_each_file ( x, 0.00, "commit", "spike" );
+        set_memory_time_span_spike_date_each_file ( x, "", "commit", "spike" );
+        set_memory_time_span_spike_time_each_file ( x, "", "commit", "spike" );
+        set_memory_double_time_span_spike_val_each_file ( x, 0.00, "commit", "highest" );
+        set_memory_time_span_spike_date_each_file ( x, "", "commit", "highest" );
+        set_memory_time_span_spike_time_each_file ( x, "", "commit", "highest" );
+        set_memory_double_time_span_spike_val_each_file ( x, 100.00, "commit", "lowest" );
+        set_memory_time_span_spike_date_each_file ( x, "", "commit", "lowest" );
+        set_memory_time_span_spike_time_each_file ( x, "", "commit", "lowest" );
+
         set_memory_int_spike_val_each_file ( x, 0.00, "kbcommit", "spike" );
         set_memory_spike_date_each_file ( x, "", "kbcommit", "spike" );
         set_memory_spike_time_each_file ( x, "", "kbcommit", "spike" );
@@ -1262,6 +1428,16 @@ int create_sar_analyzer_obj ( )
         set_memory_spike_date_each_file ( x, "", "kbcommit", "lowest" );
         set_memory_spike_time_each_file ( x, "", "kbcommit", "lowest" );
 
+        set_memory_int_time_span_spike_val_each_file ( x, 0.00, "kbcommit", "spike" );
+        set_memory_time_span_spike_date_each_file ( x, "", "kbcommit", "spike" );
+        set_memory_time_span_spike_time_each_file ( x, "", "kbcommit", "spike" );
+        set_memory_int_time_span_spike_val_each_file ( x, 0.00, "kbcommit", "highest" );
+        set_memory_time_span_spike_date_each_file ( x, "", "kbcommit", "highest" );
+        set_memory_time_span_spike_time_each_file ( x, "", "kbcommit", "highest" );
+        set_memory_int_time_span_spike_val_each_file ( x, 199999999.00, "kbcommit", "lowest" );
+        set_memory_time_span_spike_date_each_file ( x, "", "kbcommit", "lowest" );
+        set_memory_time_span_spike_time_each_file ( x, "", "kbcommit", "lowest" );
+
         set_swpused_spike_val_each_file ( x, 0.00, "spike" );
         set_swpused_spike_date_each_file ( x, "", "spike" );
         set_swpused_spike_time_each_file ( x, "", "spike" );
@@ -1271,6 +1447,16 @@ int create_sar_analyzer_obj ( )
         set_swpused_spike_val_each_file ( x, 100.00, "lowest" );
         set_swpused_spike_date_each_file ( x, "", "lowest" );
         set_swpused_spike_time_each_file ( x, "", "lowest" );
+
+        set_swpused_time_span_spike_val_each_file ( x, 0.00, "spike" );
+        set_swpused_time_span_spike_date_each_file ( x, "", "spike" );
+        set_swpused_time_span_spike_time_each_file ( x, "", "spike" );
+        set_swpused_time_span_spike_val_each_file ( x, 0.00, "highest" );
+        set_swpused_time_span_spike_date_each_file ( x, "", "highest" );
+        set_swpused_time_span_spike_time_each_file ( x, "", "highest" );
+        set_swpused_time_span_spike_val_each_file ( x, 100.00, "lowest" );
+        set_swpused_time_span_spike_date_each_file ( x, "", "lowest" );
+        set_swpused_time_span_spike_time_each_file ( x, "", "lowest" );
 
         set_kernel_table_spike_val_each_file ( x, 0.00, "dentunusd", "spike" );
         set_kernel_table_spike_date_each_file ( x, "", "dentunusd", "spike" );
@@ -1300,6 +1486,34 @@ int create_sar_analyzer_obj ( )
         set_kernel_table_spike_date_each_file ( x, "", "inode", "lowest" );
         set_kernel_table_spike_time_each_file ( x, "", "inode", "lowest" );
 
+        set_kernel_table_time_span_spike_val_each_file ( x, 0.00, "dentunusd", "spike" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "dentunusd", "spike" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "dentunusd", "spike" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 0.00, "dentunusd", "highest" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "dentunusd", "highest" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "dentunusd", "highest" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 9999999.00, "dentunusd", "lowest" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "dentunusd", "lowest" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "dentunusd", "lowest" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 0.00, "file", "spike" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "file", "spike" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "file", "spike" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 0.00, "file", "highest" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "file", "highest" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "file", "highest" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 9999999.00, "file", "lowest" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "file", "lowest" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "file", "lowest" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 0.00, "inode", "spike" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "inode", "spike" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "inode", "spike" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 0.00, "inode", "highest" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "inode", "highest" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "inode", "highest" );
+        set_kernel_table_time_span_spike_val_each_file ( x, 9999999.00, "inode", "lowest" );
+        set_kernel_table_time_span_spike_date_each_file ( x, "", "inode", "lowest" );
+        set_kernel_table_time_span_spike_time_each_file ( x, "", "inode", "lowest" );
+
         set_ldavg_int_spike_val_each_file ( x, 0, "runq_sz", "spike" );
         set_ldavg_spike_date_each_file ( x, "", "runq_sz", "spike" );
         set_ldavg_spike_time_each_file ( x, "", "runq_sz", "spike" );
@@ -1318,6 +1532,25 @@ int create_sar_analyzer_obj ( )
         set_ldavg_int_spike_val_each_file ( x, 9999999, "plist_sz", "lowest" );
         set_ldavg_spike_date_each_file ( x, "", "plist_sz", "lowest" );
         set_ldavg_spike_time_each_file ( x, "", "plist_sz", "lowest" );
+
+        set_ldavg_int_time_span_spike_val_each_file ( x, 0, "runq_sz", "spike" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "runq_sz", "spike" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "runq_sz", "spike" );
+        set_ldavg_int_time_span_spike_val_each_file ( x, 0, "runq_sz", "highest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "runq_sz", "highest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "runq_sz", "highest" );
+        set_ldavg_int_time_span_spike_val_each_file ( x, 9999999, "runq_sz", "lowest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "runq_sz", "lowest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "runq_sz", "lowest" );
+        set_ldavg_int_time_span_spike_val_each_file ( x, 0, "plist_sz", "spike" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "plist_sz", "spike" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "plist_sz", "spike" );
+        set_ldavg_int_time_span_spike_val_each_file ( x, 0, "plist_sz", "highest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "plist_sz", "highest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "plist_sz", "highest" );
+        set_ldavg_int_time_span_spike_val_each_file ( x, 9999999, "plist_sz", "lowest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "plist_sz", "lowest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "plist_sz", "lowest" );
 
         set_ldavg_double_spike_val_each_file ( x, 0.00, "ldavg_one", "spike" );
         set_ldavg_spike_date_each_file ( x, "", "ldavg_one", "spike" );
@@ -1347,6 +1580,34 @@ int create_sar_analyzer_obj ( )
         set_ldavg_spike_date_each_file ( x, "", "ldavg_15", "lowest" );
         set_ldavg_spike_time_each_file ( x, "", "ldavg_15", "lowest" );
 
+        set_ldavg_double_time_span_spike_val_each_file ( x, 0.00, "ldavg_one", "spike" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_one", "spike" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_one", "spike" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 0.00, "ldavg_one", "highest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_one", "highest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_one", "highest" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 9999999.00, "ldavg_one", "lowest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_one", "lowest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_one", "lowest" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 0.00, "ldavg_five", "spike" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_five", "spike" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_five", "spike" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 0.00, "ldavg_five", "highest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_five", "highest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_five", "highest" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 9999999.00, "ldavg_five", "lowest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_five", "lowest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_five", "lowest" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 0.00, "ldavg_15", "spike" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_15", "spike" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_15", "spike" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 0.00, "ldavg_15", "highest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_15", "highest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_15", "highest" );
+        set_ldavg_double_time_span_spike_val_each_file ( x, 9999999.00, "ldavg_15", "lowest" );
+        set_ldavg_time_span_spike_date_each_file ( x, "", "ldavg_15", "lowest" );
+        set_ldavg_time_span_spike_time_each_file ( x, "", "ldavg_15", "lowest" );
+
         for ( i = 0; i < MAX_BLOCK_DEVICE_NUMBERS; i++ )
         {
             set_block_device_spike_val_each_file ( x, 0.00, i, "areqsz", "spike" );
@@ -1367,6 +1628,25 @@ int create_sar_analyzer_obj ( )
             set_block_device_spike_val_each_file ( x, 100.00, i, "util", "lowest" );
             set_block_device_spike_date_each_file ( x, "", i, "util", "lowest" );
             set_block_device_spike_time_each_file ( x, "", i, "util", "lowest" );
+
+            set_block_device_time_span_spike_val_each_file ( x, 0.00, i, "areqsz", "spike" );
+            set_block_device_time_span_spike_date_each_file ( x, "", i, "areqsz", "spike" );
+            set_block_device_time_span_spike_time_each_file ( x, "", i, "areqsz", "spike" );
+            set_block_device_time_span_spike_val_each_file ( x, 0.00, i, "areqsz", "highest" );
+            set_block_device_time_span_spike_date_each_file ( x, "", i, "areqsz", "highest" );
+            set_block_device_time_span_spike_time_each_file ( x, "", i, "areqsz", "highest" );
+            set_block_device_time_span_spike_val_each_file ( x, 9999999.00, i, "areqsz", "lowest" );
+            set_block_device_time_span_spike_date_each_file ( x, "", i, "areqsz", "lowest" );
+            set_block_device_time_span_spike_time_each_file ( x, "", i, "areqsz", "lowest" );
+            set_block_device_time_span_spike_val_each_file ( x, 0.00, i, "util", "spike" );
+            set_block_device_time_span_spike_date_each_file ( x, "", i, "util", "spike" );
+            set_block_device_time_span_spike_time_each_file ( x, "", i, "util", "spike" );
+            set_block_device_time_span_spike_val_each_file ( x, 0.00, i, "util", "highest" );
+            set_block_device_time_span_spike_date_each_file ( x, "", i, "util", "highest" );
+            set_block_device_time_span_spike_time_each_file ( x, "", i, "util", "highest" );
+            set_block_device_time_span_spike_val_each_file ( x, 100.00, i, "util", "lowest" );
+            set_block_device_time_span_spike_date_each_file ( x, "", i, "util", "lowest" );
+            set_block_device_time_span_spike_time_each_file ( x, "", i, "util", "lowest" );
         }
 
         for ( i = 0; i < MAX_NETWORK_DEVICE_NUMBERS; i++ )
@@ -1443,11 +1723,91 @@ int create_sar_analyzer_obj ( )
             set_network_spike_val_each_file ( x, 19999999.00, i, "txdrop", "lowest" );
             set_network_spike_date_each_file ( x, "", i, "txdrop", "lowest" );
             set_network_spike_time_each_file ( x, "", i, "txdrop", "lowest" );
+/*
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxpck", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxpck", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxpck", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxpck", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxpck", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxpck", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "rxpck", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxpck", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxpck", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txpck", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txpck", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txpck", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txpck", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txpck", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txpck", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "txpck", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txpck", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txpck", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxkb", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxkb", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxkb", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxkb", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxkb", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxkb", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "rxkb", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxkb", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxkb", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txkb", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txkb", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txkb", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txkb", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txkb", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txkb", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "txkb", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txkb", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txkb", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxerr", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxerr", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxerr", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxerr", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxerr", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxerr", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "rxerr", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxerr", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxerr", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txerr", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txerr", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txerr", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txerr", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txerr", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txerr", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "txerr", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txerr", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txerr", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxdrop", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxdrop", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxdrop", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "rxdrop", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxdrop", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxdrop", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "rxdrop", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "rxdrop", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "rxdrop", "lowest" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txdrop", "spike" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txdrop", "spike" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txdrop", "spike" );
+            set_network_time_span_spike_val_each_file ( x, 0.00, i, "txdrop", "highest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txdrop", "highest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txdrop", "highest" );
+            set_network_time_span_spike_val_each_file ( x, 19999999.00, i, "txdrop", "lowest" );
+            set_network_time_span_spike_date_each_file ( x, "", i, "txdrop", "lowest" );
+            set_network_time_span_spike_time_each_file ( x, "", i, "txdrop", "lowest" );
+*/ 
 
             set_network_former_val_each_file ( x, 0.00, i, "rxerr" );
             set_network_former_val_each_file ( x, 0.00, i, "txerr" );
             set_network_former_val_each_file ( x, 0.00, i, "rxdrop" );
             set_network_former_val_each_file ( x, 0.00, i, "txdrop" );
+/*
+            set_network_time_span_former_val_each_file ( x, 0.00, i, "rxerr" );
+            set_network_time_span_former_val_each_file ( x, 0.00, i, "txerr" );
+            set_network_time_span_former_val_each_file ( x, 0.00, i, "rxdrop" );
+            set_network_time_span_former_val_each_file ( x, 0.00, i, "txdrop" );
+*/
         }
     }
 
