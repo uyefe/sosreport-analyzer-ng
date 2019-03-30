@@ -163,7 +163,7 @@ ps=all
 ## You can set arbitrary item-name including 'all' up to 12
 ## ex. lsof=bash 
 
-lsof=all
+lsof=bash
 
 ## netstat 
 ##

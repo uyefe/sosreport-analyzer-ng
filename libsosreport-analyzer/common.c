@@ -744,10 +744,13 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
 
     if ( dname_full != NULL )
     {
-        /* if open directory fails, exit with error message */
+        /* if open directory fails, exit with error message,
+         * and print that the member should be set to 'skip'.
+         */
         if ( ( dir = opendir ( dname_full ) ) == NULL ) 
         {
             printf("can't open directory (%s): %s\n",dname_full,strerror(errno));
+            printf("You should set 'skip' to %s in conf file.\n",member);
             if ( strcmp ( member, "var/crash/" ) == 0 )
             {
                 var_crash_exists = 0;                
@@ -772,7 +775,9 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
         for ( dp = readdir ( dir ),i = 0; dp != NULL; dp = readdir ( dir ) )
         {
             char full_path_plus_str [ MAX_LINE_LENGTH ];  
+            char filename [ MAX_LINE_LENGTH ];  
             memset ( full_path_plus_str, '\0', sizeof ( full_path_plus_str ) ); 
+            memset ( filename, '\0', sizeof ( filename ) ); 
 
             if ( ( dp->d_type != DT_REG ) && ( dp->d_type != DT_DIR ) )
                 continue;
@@ -786,8 +791,23 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
              * others have big one, compressed or selinux modules.
              * in proc/ there are some files which have only write permissions and couldn't be read.
              * file sos_commands/networking/ethtool_-d* is sometimes too big.
+             *
+             * we should check file with a function and if the file is too big, skip it. 
+             * Now, if file size is over 50Mbytes, skip the file.
              */
+            snprintf (filename, MAX_LINE_LENGTH, "%s%s", dname_full, str );
+            struct stat st;
+            stat(filename, &st);
+            int size = 0;
+            size = st.st_size;
+
+            if ( size > 51200000 )
+            {
+                printf("Skipping %s (size:%d)\n",filename,size);
+                continue;
+            }
             if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) ||
+                ( ( strcmp ( member, "cmdlog/" ) == 0 ) && ( strstr ( str, "verbose" ) != NULL ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, "cil" ) != NULL ) || ( strstr ( str, "hll" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".bin" ) != NULL ) || ( strstr ( str, ".kern" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".db" ) != NULL ) || ( strstr ( str, "policy." ) != NULL ) ) ) ||
