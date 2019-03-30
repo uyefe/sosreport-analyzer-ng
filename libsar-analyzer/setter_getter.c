@@ -453,8 +453,6 @@ int set_tasks_spike_val_each_file ( int x, double var, const char *element, cons
     {
         if ( strcmp ( "proc", element ) == 0 )
         {
-//printf("proc_lowest:x:%d\n",x);
-//printf("proc_lowest:var:%f\n",var);
             sar_analyzer_spike_obj->tasks_spike_each_file.proc_lowest_val_each_file [ x ] = var;
             return EXIT_SUCCESS;
         }
