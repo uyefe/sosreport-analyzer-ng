@@ -1,3 +1,5 @@
+1.0.91
+Fix time-span lowest stuff to appear.
 1.0.90
 Fix to skip file which is over the size 50 Mbytes.
 1.0.89
