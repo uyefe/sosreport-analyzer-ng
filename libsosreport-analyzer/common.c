@@ -801,7 +801,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             int size = 0;
             size = st.st_size;
 
-            if ( size > 51200000 )
+            if ( size > MAX_ANALYZE_FILE_SIZE )
             {
                 printf("Skipping %s (size:%d)\n",filename,size);
                 continue;
@@ -981,6 +981,7 @@ int read_file_from_analyze_dir ( node **obj, const char *member )
             ptr_tmp = ptr_tmp->next;
             continue;
         }
+        printf("Read '%s' \n",ptr_tmp->_line);
         read_file ( ptr_tmp->_line, member, files );
         files ++;
         ptr_tmp = ptr_tmp->next;
@@ -1239,6 +1240,7 @@ int read_file ( const char *file_name, const char *member, int files )
     {
         printf("can't open file (%s): %s\n",file_name,strerror(errno));
         printf("Try set 'skip' to this member in config file.\n");
+        printf("Also, please check lsb-release and use appropriate conf file in /usr/share/sosreport-analyzer.\n");
         free_sosreport_analyzer_obj ( );
         exit ( EXIT_FAILURE );
     }
@@ -1307,30 +1309,44 @@ int read_file ( const char *file_name, const char *member, int files )
         else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "uptime", items_uptime );
         else if ( strstr ( file_name, "/proc/cpuinfo" ) != NULL )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->proc_cpuinfo.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/cpuinfo", items_proc_cpuinfo [ x ] );
+        }
         else if ( ( strstr ( file_name, "root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
         else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->dmidecode.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
+        }
         else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->lsmod.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lsmod", items_lsmod [ x ] );
+        }
         else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->lspci.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
+        }
         else if ( ( strstr ( file_name, "/sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/devices/udevadm_info_--export-db", items_sos_commands_devices_udevadm_info___export_db [ x ] );
+        }
         else if ( ( strstr ( file_name, "/sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
         else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->installed_rpms.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
+        }
         else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->df.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "df", items_df [ x ] );
+        }
         else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "vgdisplay", items_vgdisplay );
         else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -1340,17 +1356,25 @@ int read_file ( const char *file_name, const char *member, int files )
         else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "route", items_route );
         else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->last.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "last", items_last [ x ] );
+        }
         else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->ps.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "ps", items_ps [ x ] );
+        }
         else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->lsof.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "lsof", items_lsof [ x ] );
+        }
         else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->netstat.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "netstat", items_netstat [ x ] );
+        }
         else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
         else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -1371,8 +1395,10 @@ int read_file ( const char *file_name, const char *member, int files )
             append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
         }
         else if ( strstr ( file_name, "/proc/meminfo" ) != NULL )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->proc_meminfo.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
+        }
         else if ( strstr ( file_name, "/proc/interrupts" ) != NULL )
             append_item_to_sos_line_obj ( line, "proc/interrupts", items_proc_interrupts );
         else if ( ( strstr ( file_name, "/proc/net/dev" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -1477,8 +1503,10 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_item_to_sos_line_obj ( line, "var/log/audit/", items_var_log_audit_ [ x ] );
         }
         else if ( ( strstr ( file_name, "/sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
             for ( x = 0; x < sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
+        }
         else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             snprintf (filename_sos_commands_logs_journalctl___no_pager_curr, MAX_LINE_LENGTH, "%s", file_name );
@@ -2748,6 +2776,8 @@ void read_file_pre ( const char *member, const char *dir_name )
     char str_tmp3 [ MAX_LINE_LENGTH ]; 
     memset ( str_tmp3, '\0', MAX_LINE_LENGTH ); 
     int i = 0;
+    char *hairline1 = "####";
+    char *hairline2 = "<<<<";
 
     if (
         ( ( strcmp ( member, "boot/grub/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->mcinfo_boot_grub_.member, "" ) != 0 ) ) ||
@@ -2825,7 +2855,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         snprintf (str_tmp, MAX_LINE_LENGTH, "%s/%s", get_dirname ( str_tmp3 ), member );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
         append_list ( &sos_line_obj, "" );
-        append_list ( &sos_line_obj, "####" );
+        append_list ( &sos_line_obj, hairline1 );
+        append_list ( &sos_line_obj, hairline2 );
         append_list ( &sos_line_obj, str_tmp2 );
         append_list ( &sos_line_obj, result_tmp );
         append_list ( &sos_line_obj, "" );

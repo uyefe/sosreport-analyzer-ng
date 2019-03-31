@@ -67,6 +67,10 @@ static void print_help ( void )
     printf("   For time-span sar analyzing\n\n");
     printf("     ex. $ %s -T 09:00-10:00 -D <path_to_sa_directory>\n\n",app_name);
     printf("   Directory 'sar-analyzer-results' will be made in the current directory with files.\n");
+    printf("\n Note:\n\n");
+    printf("   Use appropriate config file which is stored in /usr/share/sosreport-analyzer\n");
+    printf("   and copy it as '/etc/sosreport-analyzer.conf'.\n");
+    printf("   You can set items to each member in conf file.\n");
     printf("\n");
 }
 
