@@ -83,6 +83,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo var/log/dmesg file.
   Analyze var/log/messages* files.
   Echo files in var/crash/ if the directory exists.
+  Analyze files under sos_commands/abrt/.
   Analyze var/log/secure* files.
   Analyze files in var/log/audit/.
   Analyze sos_commands/kernel/sysctl_-a file.
