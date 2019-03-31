@@ -204,6 +204,10 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->var_log_secure.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "var/log/audit/" ) == 0 )
                 strncpy ( cfg->var_log_audit_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/abrt/" ) == 0 )
+                strncpy ( cfg->sos_commands_abrt_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
+                strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
                 strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -212,8 +216,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_networking_ethtool__S.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-i" ) == 0 )
                 strncpy ( cfg->sos_commands_networking_ethtool__i.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
-                strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/networking/" ) == 0 )
+                strncpy ( cfg->sos_commands_networking_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/httpd/" ) == 0 )
                 strncpy ( cfg->etc_httpd_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/sar/" ) == 0 )
@@ -224,8 +228,6 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lib/" ) == 0 )
                 strncpy ( cfg->lib_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "sos_commands/networking/" ) == 0 )
-                strncpy ( cfg->sos_commands_networking_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "dev/" ) == 0 )
                 strncpy ( cfg->dev_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "usr/" ) == 0 )
@@ -420,6 +422,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/abrt/", cfg, mcinfo );
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
         append_sos_header_obj ( "lib/", cfg, mcinfo );
         append_sos_header_obj ( "etc/", cfg, mcinfo );
@@ -577,6 +580,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->lib_.member );
         else if ( strcmp ( member, "sos_commands/networking/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_networking_.member );
+        else if ( strcmp ( member, "sos_commands/abrt/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_abrt_.member );
         else if ( strcmp ( member, "dev/" ) == 0 )
             strcat ( str_tmp, cfg->dev_.member );
         else if ( strcmp ( member, "usr/" ) == 0 )

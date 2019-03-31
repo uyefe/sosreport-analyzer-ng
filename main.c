@@ -132,6 +132,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_33_obj );
     init_list ( &tmp_34_obj );
     init_list ( &tmp_35_obj );
+    init_list ( &tmp_36_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -162,12 +163,13 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_usb__obj );
     init_list ( &lib__obj );
     init_list ( &etc__obj );
-    init_list ( &sos_commands_networking_obj );
+    init_list ( &sos_commands_networking__obj );
     init_list ( &dev__obj );
     init_list ( &usr__obj );
     init_list ( &var__obj );
     init_list ( &sos_commands_obj );
     init_list ( &var_spool_cron__obj );
+    init_list ( &sos_commands_abrt__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -397,6 +399,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "var/log/secure", dir_name );
             read_file_pre ( "var/log/audit/", dir_name );
             read_file_pre ( "var/crash/", dir_name );
+            read_file_pre ( "sos_commands/abrt/", dir_name );
             read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
             read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
@@ -427,7 +430,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_logs_journalctl___no_pager_obj, hairline );
             append_list ( &sos_commands_networking_ethtool__S_obj, hairline );
             append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
-            append_list ( &sos_commands_networking_obj, hairline );
+            append_list ( &sos_commands_networking__obj, hairline );
             append_list ( &sos_commands_obj, hairline );
             append_list ( &etc_httpd__obj, hairline );
             append_list ( &etc_udev__obj, hairline );
@@ -445,6 +448,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &var__obj, hairline );
             append_list ( &proc__obj, hairline );
             append_list ( &var_spool_cron__obj, hairline );
+            append_list ( &sos_commands_abrt__obj, hairline );
         }
     }
 
@@ -516,7 +520,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );
-            file_write_list ( &sos_commands_networking_obj, fp_w );
+            file_write_list ( &sos_commands_networking__obj, fp_w );
             file_write_list ( &sos_commands_obj, fp_w );
             file_write_list ( &etc_httpd__obj, fp_w );
             file_write_list ( &lib__obj, fp_w );
@@ -525,6 +529,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &usr__obj, fp_w );
             file_write_list ( &var__obj, fp_w );
             file_write_list ( &proc__obj, fp_w );
+            file_write_list ( &sos_commands_abrt__obj, fp_w );
         }
         /* real lines ( this comes all lines analyzed for both ) */
         file_write_list ( &sos_line_obj, fp_w );

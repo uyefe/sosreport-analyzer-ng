@@ -379,6 +379,13 @@ sos_commands/networking/ethtool_-i=all
 
 sos_commands/networking/=all
 
+## sos_commands/abrt/
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands/abrt/=all
+
+sos_commands/abrt/=all
+
 ## etc/httpd/
 ##
 ## All you can set is 'all'

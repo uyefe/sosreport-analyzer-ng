@@ -177,6 +177,8 @@ struct sosreport_analyzer_config
     config_each sos_commands_;
     /* should be all */
     config_each var_spool_cron_;
+    /* allows word delimited by space */
+    config_each sos_commands_abrt_;
 };
 
 /*  This is a pointer to the global configuration, it should be available
