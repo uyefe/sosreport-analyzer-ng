@@ -779,8 +779,10 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             }
             else
             {
-                free_sosreport_analyzer_obj ( );
-                exit ( EXIT_FAILURE );
+                printf("Skip '%s' and go on.\n",member);
+                /* free_sosreport_analyzer_obj ( ); */
+                return ( 0 );
+                /* exit ( EXIT_FAILURE ); */
             }
         }
     }
@@ -1274,8 +1276,10 @@ int read_file ( const char *file_name, const char *member, int files )
         printf("can't open file (%s): %s\n",file_name,strerror(errno));
         printf("Try set 'skip' to this member in config file.\n");
         printf("Also, please check lsb-release and use appropriate conf file in /usr/share/sosreport-analyzer.\n");
-        free_sosreport_analyzer_obj ( );
-        exit ( EXIT_FAILURE );
+        printf("Skip '%s' and go on.\n",member);
+        return ( 0 );
+        /* free_sosreport_analyzer_obj ( ); */
+        /* exit ( EXIT_FAILURE ); */
     }
     /* read file and parse lines */
     while ( fgets ( linebuf, sizeof ( linebuf ), fp ) != NULL )

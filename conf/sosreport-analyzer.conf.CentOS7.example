@@ -5,12 +5,6 @@
 # Please check /usr/share/sosreport-analyzer/sosreport-analyzer.conf.CentOS7.example, and
 # copy it as /etc/sosreport-analyzer.conf.
 #
-# You can use file /usr/share/sosreport-analyzer/sosreport-analyzer.conf.CentOS6.example
-# for CentOS6.
-#
-########
-# This file contains CentOS7.example contents. If you are analyzing CentOS6, please use CentOS6.example.
-########
 #
 # 'all' echos every line in the file.
 # In some items, you can set any item-name. 
@@ -206,7 +200,7 @@ sos_commands/sar/=all
 ##
 ## All you can set is 'all'
 
-sos_commands/virsh/=skip
+sos_commands/virsh/=all
 
 ## sos_commands/usb/
 ##
@@ -390,7 +384,7 @@ sos_commands/abrt/=all
 ##
 ## All you can set is 'all'
 
-etc/httpd/=skip
+etc/httpd/=all
 
 ## lib/
 ##
