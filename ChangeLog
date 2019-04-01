@@ -1,3 +1,5 @@
+1.0.94
+Fix to skip directory which does not exist.
 1.0.93
 Add one member 'sos_commands/abrt/'.
 1.0.92
