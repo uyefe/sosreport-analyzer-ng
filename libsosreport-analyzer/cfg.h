@@ -33,6 +33,7 @@ typedef struct
 {
     char member [ MAX_LINE_LENGTH ];
     int item_num;
+    int file_num;
 
 } config_each;
 

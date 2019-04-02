@@ -113,6 +113,7 @@ extern struct line_data *var_spool_cron__obj;
 extern struct line_data *sos_commands_abrt__obj;
 
 /* for sorting array */
+/*
 extern int i_cmdlog;
 extern int i_boot_grub;
 extern int i_pki;
@@ -149,7 +150,7 @@ extern int i_var;
 extern int i_sos_commands;
 extern int i_var_spool_cron;
 extern int i_sos_commands_abrt;
-
+*/
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
