@@ -1270,6 +1270,11 @@ int read_file ( const char *file_name, const char *member, int files )
          * note that this part is longest match
          *
          */
+        /*
+         * ### FIXME 
+         * Are we ready to pack up these to one function?
+         * 
+         */
         /* ---- mcfinfo only stuff go here ---- */
         if ( strstr ( file_name, "/boot/grub/" ) != NULL )
         {
@@ -1353,7 +1358,7 @@ int read_file ( const char *file_name, const char *member, int files )
         }
         else if ( strstr ( file_name, "/proc/meminfo" ) != NULL )
         {
-            for ( x = 0; x < sosreport_analyzer_cfg->proc_meminfo.item_num ; x++ )
+            for ( x = 0; x < get_item_numbers_of_member ( "proc/meminfo" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
         }
         else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -2001,6 +2006,11 @@ int read_file ( const char *file_name, const char *member, int files )
 
 void set_token_to_item_arr ( const char *file_name )
 {
+    /*
+     * ### FIXME 
+     * Are we ready to pack up these to one function?
+     * 
+     */
     /* initialized item numbers of member here */
     init_item_numbers_of_member ( );
 
@@ -2019,14 +2029,14 @@ void set_token_to_item_arr ( const char *file_name )
     if ( ( strstr ( file_name, "/boot/grub/" ) != NULL ) && ( member_item_exists ( "boot/grub/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->mcinfo_boot_grub_.member, s );
+        token = strtok ( get_items_of_member ( "boot/grub/" ), s );
         items_mcinfo_boot_grub_ = token;
     }
     /* member cmdlog */
     else if ( ( strstr ( file_name, "/cmdlog/" ) != NULL ) && ( member_item_exists ( "cmdlog/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->mcinfo_cmdlog_.member, s );
+        token = strtok ( get_items_of_member ( "cmdlog/" ), s );
         items_mcinfo_cmdlog_ = token;
     }
     /* ---- end mcfinfo only stuff go here ---- */
@@ -2036,19 +2046,19 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( member_item_exists ( "date" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->date.member, s );
+        token = strtok ( get_items_of_member ( "date" ), s );
         items_date = token;
     }
     /* member df */
     else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( member_item_exists ( "df" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->df.member, s );
+        token = strtok ( get_items_of_member ( "df" ), s );
         items_df [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->df.item_num > arr_max2 )
+            if ( get_item_numbers_of_member ( "df" ) > arr_max12 )
             {
                 printf("can't set items over %d for df\n",arr_max2);
                 free_sosreport_analyzer_obj ( );
@@ -2064,12 +2074,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( member_item_exists ( "dmidecode" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->dmidecode.member, s );
+        token = strtok ( get_items_of_member ( "dmidecode" ), s );
         items_dmidecode [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->dmidecode.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "dmidecode" ) > arr_max12 )
             {
                 printf("can't set items over %d for dmidecode\n",arr_max12);
                 exit ( EXIT_FAILURE );
@@ -2084,26 +2094,26 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( member_item_exists ( "free" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->free.member, s );
+        token = strtok ( get_items_of_member ( "free" ), s );
         items_free = token;
     }
     /* member hostname */
     else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( member_item_exists ( "hostname" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->hostname.member, s );
+        token = strtok ( get_items_of_member ( "hostname" ), s );
         items_hostname = token;
     }
     /* member installed-rpms */
     else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( member_item_exists ( "installed-rpms" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->installed_rpms.member, s );
+        token = strtok ( get_items_of_member ( "installed-rpms" ), s );
         items_installed_rpms [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->installed_rpms.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "installed-rpms" ) > arr_max12 )
             {
                 printf("can't set items over %d for installed-rpms\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2119,19 +2129,19 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( member_item_exists ( "ip_addr" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->ip_addr.member, s );
+        token = strtok ( get_items_of_member ( "ip_addr" ), s );
         items_ip_addr = token;
     }
     /* member last */
     else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( member_item_exists ( "last" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->last.member, s );
+        token = strtok ( get_items_of_member ( "last" ), s );
         items_last [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->last.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "last" ) > arr_max12 )
             {
                 printf("can't set items over %d for last\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2147,19 +2157,19 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( member_item_exists ( "lsb-release" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lsb_release.member, s );
+        token = strtok ( get_items_of_member ( "lsb-release" ), s );
         items_lsb_release = token;
     }
     /* member lsmod */
     else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( member_item_exists ( "lsmod" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lsmod.member, s );
+        token = strtok ( get_items_of_member ( "lsmod" ), s );
         items_lsmod [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->lsmod.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "lsmod" ) > arr_max12 )
             {
                 printf("can't set items over %d for lsmod\n",arr_max12);
                 exit ( EXIT_FAILURE );
@@ -2174,12 +2184,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( member_item_exists ( "lsof" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lsof.member, s );
+        token = strtok ( get_items_of_member ( "lsof" ), s );
         items_lsof [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->lsof.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "lsof" ) > arr_max12 )
             {
                 printf("can't set items over %d for lsof\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2195,12 +2205,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( member_item_exists ( "lspci" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lspci.member, s );
+        token = strtok ( get_items_of_member ( "lspci" ), s );
         items_lspci [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->lspci.item_num > arr_max20 )
+            if ( get_item_numbers_of_member ( "lspci" ) > arr_max12 )
             {
                 printf("can't set items over %d for lspci\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
@@ -2216,12 +2226,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( member_item_exists ( "netstat" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->netstat.member, s );
+        token = strtok ( get_items_of_member ( "netstat" ), s );
         items_netstat [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->netstat.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "netstat" ) > arr_max12 )
             {
                 printf("can't set items over %d for netstat\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2237,40 +2247,40 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( member_item_exists ( "uname" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->uname.member, s );
+        token = strtok ( get_items_of_member ( "uname" ), s );
         items_uname = token;
     }
     /* member uptime */
     else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( member_item_exists ( "uptime" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->uptime.member, s );
+        token = strtok ( get_items_of_member ( "uptime" ), s );
         items_uptime = token;
     }
     /* member vgdisplay */
     else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( member_item_exists ( "vgdisplay" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->vgdisplay.member, s );
+        token = strtok ( get_items_of_member ( "vgdisplay" ), s );
         items_vgdisplay = token;
     }
     /* member route */
     else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( member_item_exists ( "route" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->route.member, s );
+        token = strtok ( get_items_of_member ( "route" ), s );
         items_route = token;
     }
     /* member ps */
     else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( member_item_exists ( "ps" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->ps.member, s );
+        token = strtok ( get_items_of_member ( "ps" ), s );
         items_ps [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->ps.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "ps" ) > arr_max12 )
             {
                 printf("can't set items over %d for ps\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2286,61 +2296,61 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/etc/host" ) != NULL ) && ( member_item_exists ( "etc/host" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_host.member, s );
+        token = strtok ( get_items_of_member ( "etc/host" ), s );
         items_etc_host = token;
     }
     /* member etc/kdump.conf */
     else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( member_item_exists ( "etc/kdump.conf" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_kdump_conf.member, s );
+        token = strtok ( get_items_of_member ( "etc/kdump.conf" ), s );
         items_etc_kdump_conf = token;
     }
     /* member etc/logrotate.conf */
     else if ( ( strstr ( file_name, "/etc/logrotate.conf" ) != NULL ) && ( member_item_exists ( "etc/logrotate.conf" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_logrotate_conf.member, s );
+        token = strtok ( get_items_of_member ( "etc/logrotate.conf" ), s );
         items_etc_logrotate_conf = token;
     }
     /* member etc/sysctl.conf */
     else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( member_item_exists ( "etc/sysctl.conf" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_sysctl_conf.member, s );
+        token = strtok ( get_items_of_member ( "etc/sysctl.conf" ), s );
         items_etc_sysctl_conf = token;
     }
     /* member etc/rsyslog.conf */
     else if ( ( strstr ( file_name, "/etc/rsyslog.conf" ) != NULL ) && ( member_item_exists ( "etc/rsyslog.conf" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, s );
+        token = strtok ( get_items_of_member ( "etc/rsyslog.conf" ), s );
         items_etc_rsyslog_conf = token;
     }
     /* member etc/sysconfig/network-scripts/ifcfg- */
     else if ( ( strstr ( file_name, "/etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( member_item_exists ( "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, s );
+        token = strtok ( get_items_of_member ( "etc/sysconfig/network-scripts/ifcfg-" ), s );
         items_etc_sysconfig_network_scripts_ifcfg_ = token;
     }
     /* member etc/yum.conf */
     else if ( ( strstr ( file_name, "/etc/yum.conf" ) != NULL ) && ( member_item_exists ( "etc/yum.conf" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_yum_conf.member, s );
+        token = strtok ( get_items_of_member ( "etc/yum.conf" ), s );
         items_etc_yum_cfg = token;
     }
     /* member proc/cpuinfo */
     else if ( ( strstr ( file_name, "/proc/cpuinfo" ) != NULL ) && ( member_item_exists ( "proc/cpuinfo" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_cpuinfo.member, s );
+        token = strtok ( get_items_of_member ( "proc/cpuinfo" ), s );
         items_proc_cpuinfo [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->proc_cpuinfo.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "proc/cpuinfo" ) > arr_max12 )
             {
                 printf("can't set items over %d for proc/cpuinfo\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2356,12 +2366,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/proc/meminfo" ) != NULL ) && ( member_item_exists ( "proc/meminfo" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_meminfo.member, s );
+        token = strtok ( get_items_of_member ( "proc/meminfo" ), s );
         items_proc_meminfo [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->proc_meminfo.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "proc/meminfo" ) > arr_max12 )
             {
                 printf("can't set items over %d for proc/meminfo\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2377,40 +2387,40 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/proc/interrupts" ) != NULL ) && ( member_item_exists ( "proc/interrupts" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_interrupts.member, s );
+        token = strtok ( get_items_of_member ( "proc/interrupts" ), s );
         items_proc_interrupts = token;
     }
     /* member proc/net/dev */
     else if ( ( strstr ( file_name, "/proc/net/dev" ) != NULL ) && ( member_item_exists ( "proc/net/dev" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_net_dev.member, s );
+        token = strtok ( get_items_of_member ( "proc/net/dev" ), s );
         items_proc_net_dev = token;
     }
     /* member proc/net/sockstat */
     else if ( ( strstr ( file_name, "/proc/net/sockstat" ) != NULL ) && ( member_item_exists ( "proc/net/sockstat" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_net_sockstat.member, s );
+        token = strtok ( get_items_of_member ( "proc/net/sockstat" ), s );
         items_proc_net_sockstat = token;
     }
     /* member root/anaconda-ks.cfg */
     else if ( ( strstr ( file_name, "/root/anaconda-ks.cfg" ) != NULL ) && ( member_item_exists ( "root/anaconda-ks.cfg" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.member, s );
+        token = strtok ( get_items_of_member ( "root/anaconda-ks.cfg" ), s );
         items_root_anaconda_ks_cfg [ 0 ] = token;
     }
     /* member sos_commands/devices/udevadm_info_--export-db */
     else if ( ( strstr ( file_name, "/sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( member_item_exists ( "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/devices/udevadm_info_--export-db" ), s );
         items_sos_commands_devices_udevadm_info___export_db [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "sos_commands/devices/udevadm_info_--export-db" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/devices/udevadm_info_--export-db\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2426,7 +2436,7 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/scsi/lsscsi" ) != NULL ) && ( member_item_exists ( "sos_commands/scsi/lsscsi" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/scsi/lsscsi" ), s );
         items_sos_commands_scsi_lsscsi = token;
     }
     /* ---- end independent files go here ---- */
@@ -2436,70 +2446,72 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/etc/cron.d/" ) != NULL ) && ( member_item_exists ( "etc/cron.d/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_cron_d_.member, s );
+        //token = strtok ( sosreport_analyzer_cfg->etc_cron_d_.member, s );
+        token = strtok ( get_items_of_member ( "etc/cron.d/" ), s );
         items_etc_cron_d_ = token;
     }
     /* member etc/httpd/ */
     else if ( ( strstr ( file_name, "/etc/httpd/" ) != NULL ) && ( member_item_exists ( "etc/httpd/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_httpd_.member, s );
+        //token = strtok ( sosreport_analyzer_cfg->etc_httpd_.member, s );
+        token = strtok ( get_items_of_member ( "etc/httpd/" ), s );
         items_etc_httpd_ = token;
     }
     /* member etc/default/ */
     else if ( ( strstr ( file_name, "/etc/default/" ) != NULL ) && ( member_item_exists ( "etc/default/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_default_.member, s );
+        token = strtok ( get_items_of_member ( "etc/default/" ), s );
         items_etc_default_ = token;
     }
     /* member etc/logrotate.d/ */
     else if ( ( strstr ( file_name, "/etc/logrotate.d/" ) != NULL ) && ( member_item_exists ( "etc/logrotate.d/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_logrotate_d_.member, s );
+        token = strtok ( get_items_of_member ( "etc/logrotate.d/" ), s );
         items_etc_logrotate_d_ = token;
     }
     /* member etc/modprobe.d/ */
     else if ( ( strstr ( file_name, "/etc/modprobe.d/" ) != NULL ) && ( member_item_exists ( "etc/modprobe.d/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_modprobe_d_.member, s );
+        token = strtok ( get_items_of_member ( "etc/modprobe.d/" ), s );
         items_etc_modprobe_d_ = token;
     }
     /* member etc/pki/ */
     else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( member_item_exists ( "etc/pki/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_pki_.member, s );
+        token = strtok ( get_items_of_member ( "etc/pki/" ), s );
         items_etc_pki_ = token;
     }
     /* member etc/udev/ */
     else if ( ( strstr ( file_name, "/etc/udev/" ) != NULL ) && ( member_item_exists ( "etc/udev/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_udev_.member, s );
+        token = strtok ( get_items_of_member ( "etc/udev/" ), s );
         items_etc_udev_ = token;
     }
     /* member etc/systemd/system/ */
     else if ( ( strstr ( file_name, "/etc/systemd/system/" ) != NULL ) && ( member_item_exists ( "etc/systemd/system/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_systemd_system_.member, s );
+        token = strtok ( get_items_of_member ( "etc/systemd/system/" ), s );
         items_etc_systemd_system_ = token;
     }
     /* member etc/systemd/ */
     else if ( ( strstr ( file_name, "/etc/systemd/" ) != NULL ) && ( member_item_exists ( "etc/systemd/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_systemd_.member, s );
+        token = strtok ( get_items_of_member ( "etc/system/" ), s );
         items_etc_systemd_ = token;
     }
     /* member etc/yum.repos.d/ */
     else if ( ( strstr ( file_name, "/etc/yum.repos.d/" ) != NULL ) && ( member_item_exists ( "etc/yum.repos.d/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_yum_repos_d_.member, s );
+        token = strtok ( get_items_of_member ( "etc/yum.repos.d/" ), s );
         items_etc_yum_repos_d_ = token;
     }
     /* ---- end etc go here ---- */
@@ -2509,7 +2521,7 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/usr/lib/systemd/" ) != NULL ) && ( member_item_exists ( "usr/lib/systemd/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->usr_lib_systemd_.member, s );
+        token = strtok ( get_items_of_member ( "usr/lib/systemd/" ), s );
         items_usr_lib_systemd_ = token;
     }
     /* ---- end usr go here ---- */
@@ -2519,12 +2531,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/abrt/" ) != NULL ) && ( member_item_exists ( "sos_commands/abrt/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_abrt_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/abrt/" ), s );
         items_sos_commands_abrt_ [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_abrt_.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "sos_commands/abrt/" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/abrt/\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2540,12 +2552,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/boot/" ) != NULL ) && ( member_item_exists ( "sos_commands/boot/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_boot_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/boot/" ), s );
         items_sos_commands_boot_ [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_boot_.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "sos_commands/boot/" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/boot/\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2561,12 +2573,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/kernel/sysctl_-a" ) != NULL ) && ( member_item_exists ( "sos_commands/kernel/sysctl_-a" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/kernel/sysctl_-a" ), s );
         items_sos_commands_kernel_sysctl__a [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "sos_commands/kernel/sysctl_-a" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/kernel/sysctl_-a\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2582,12 +2594,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( member_item_exists ( "sos_commands/logs/journalctl_--no-pager" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/logs/journalctl_--no-pager" ), s );
         items_sos_commands_logs_journalctl___no_pager [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num > arr_max20 )
+            if ( get_item_numbers_of_member ( "sos_commands/logs/journalctl_--no-pager" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/logs/journalctl_--no-pager\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
@@ -2603,12 +2615,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-S" ) != NULL ) && ( member_item_exists ( "sos_commands/networking/ethtool_-S" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/networking/ethtool_-S" ), s );
         items_sos_commands_networking_ethtool__S [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "sos_commands/networking/ethtool_-S" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/networking/ethtool_-S\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2624,12 +2636,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-i" ) != NULL ) && ( member_item_exists ( "sos_commands/networking/ethtool_-i" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/networking/ethtool_-i" ), s );
         items_sos_commands_networking_ethtool__i [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "sos_commands/networking/ethtool_-i" ) > arr_max12 )
             {
                 printf("can't set items over %d for sos_commands/networking/ethtool_-i\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2645,28 +2657,28 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/sos_commands/networking/" ) != NULL ) && ( member_item_exists ( "sos_commands/networking/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_networking_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/networking/" ), s );
         items_sos_commands_networking_ = token;
     }
     /* member sos_commands/sar/ */
     else if ( ( strstr ( file_name, "/sos_commands/sar/" ) != NULL ) && ( member_item_exists ( "sos_commands/sar/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_sar_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/sar/" ), s );
         items_sos_commands_sar_ = token;
     }
     /* member sos_commands/usb/ */
     else if ( ( strstr ( file_name, "/sos_commands/usb/" ) != NULL ) && ( member_item_exists ( "sos_commands/usb/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_usb_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/usb/" ), s );
         items_sos_commands_usb_ = token;
     }
     /* member sos_commands/virsh/ */
     else if ( ( strstr ( file_name, "/sos_commands/virsh/" ) != NULL ) && ( member_item_exists ( "sos_commands/virsh/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_virsh_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/virsh/" ), s );
         items_sos_commands_virsh_ = token;
     }
     /* ---- end sos_commands go here ---- */
@@ -2676,33 +2688,33 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/var/crash/" ) != NULL ) && ( member_item_exists ( "var/crash/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_crash_.member, s );
+        token = strtok ( get_items_of_member ( "var/crash/" ), s );
         items_var_crash_ = token;
     }
     /* member var/spool/cron/ */
     else if ( ( strstr ( file_name, "/var/spool/cron/" ) != NULL ) && ( member_item_exists ( "var/spool/cron/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_spool_cron_.member, s );
+        token = strtok ( get_items_of_member ( "var/spool/cron/" ), s );
         items_var_spool_cron_ = token;
     }
     /* member var/log/dmesg */
     else if ( ( strstr ( file_name, "/var/log/dmesg" ) != NULL ) && ( member_item_exists ( "var/log/dmesg" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_dmesg.member, s );
+        token = strtok ( get_items_of_member ( "var/log/dmesg" ), s );
         items_var_log_dmesg = token;
     }
     /* member var/log/messages */
     else if ( ( strstr ( file_name, "/var/log/messages" ) != NULL ) && ( member_item_exists ( "var/log/messages" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_messages.member, s );
+        token = strtok ( get_items_of_member ( "var/log/messages" ), s );
         items_var_log_messages [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->var_log_messages.item_num > arr_max20 )
+            if ( get_item_numbers_of_member ( "var/log/messages" ) > arr_max12 )
             {
                 printf("can't set items over %d for var/log/messages\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
@@ -2718,12 +2730,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/var/log/secure" ) != NULL ) && ( member_item_exists ( "var/log/secure" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_secure.member, s );
+        token = strtok ( get_items_of_member ( "var/log/secure" ), s );
         items_var_log_secure [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->var_log_secure.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "var/log/secure" ) > arr_max12 )
             {
                 printf("can't set items over %d for var/log/secure\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2739,12 +2751,12 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/var/log/audit/" ) != NULL ) && ( member_item_exists ( "var/log/audit/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_log_audit_.member, s );
+        token = strtok ( get_items_of_member ( "var/log/audit/" ), s );
         items_var_log_audit_ [ 0 ] = token;
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( sosreport_analyzer_cfg->var_log_audit_.item_num > arr_max12 )
+            if ( get_item_numbers_of_member ( "var/log/audit/" ) > arr_max12 )
             {
                 printf("can't set items over %d for var/log/audit/\n",arr_max12);
                 free_sosreport_analyzer_obj ( );
@@ -2763,49 +2775,49 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/dev/" ) != NULL ) && ( member_item_exists ( "dev/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->dev_.member, s );
+        token = strtok ( get_items_of_member ( "dev/" ), s );
         items_dev_ = token;
     }
     /* member etc/ */
     else if ( ( strstr ( file_name, "/etc/" ) != NULL ) && ( member_item_exists ( "etc/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->etc_.member, s );
+        token = strtok ( get_items_of_member ( "etc/" ), s );
         items_etc_ = token;
     }
     /* member lib/ */
     else if ( ( strstr ( file_name, "/lib/" ) != NULL ) && ( member_item_exists ( "lib/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->lib_.member, s );
+        token = strtok ( get_items_of_member ( "lib/" ), s );
         items_lib_ = token;
     }
     /* member proc/ */
     else if ( ( strstr ( file_name, "/proc/" ) != NULL ) && ( member_item_exists ( "proc/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->proc_.member, s );
+        token = strtok ( get_items_of_member ( "proc/" ), s );
         items_proc_ = token;
     }
     /* member sos_commands/ */
     else if ( ( strstr ( file_name, "/sos_commands/" ) != NULL ) && ( member_item_exists ( "sos_commands/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->sos_commands_.member, s );
+        token = strtok ( get_items_of_member ( "sos_commands/" ), s );
         items_sos_commands_ = token;
     }
     /* member usr/ */
     else if ( ( strstr ( file_name, "/usr/" ) != NULL ) && ( member_item_exists ( "usr/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->usr_.member, s );
+        token = strtok ( get_items_of_member ( "usr/" ), s );
         items_usr_ = token;
     }
     /* member var/ */
     else if ( ( strstr ( file_name, "/var/" ) != NULL ) && ( member_item_exists ( "var/" ) == 0 ) )
     {
         /* get the first token */
-        token = strtok ( sosreport_analyzer_cfg->var_.member, s );
+        token = strtok ( get_items_of_member ( "var/" ), s );
         items_var_ = token;
     }
     /* ---- end read everything stuff go here ---- */

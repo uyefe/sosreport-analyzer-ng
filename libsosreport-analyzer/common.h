@@ -112,45 +112,6 @@ extern struct line_data *sos_commands_obj;
 extern struct line_data *var_spool_cron__obj;
 extern struct line_data *sos_commands_abrt__obj;
 
-/* for sorting array */
-/*
-extern int i_cmdlog;
-extern int i_boot_grub;
-extern int i_pki;
-extern int i_cron;
-extern int i_ifcfg;
-extern int i_var_log_messages;
-extern int i_var_log_secure;
-extern int i_var_log_audit;
-extern int i_logs_journalctl;
-extern int i_ethtool_S;
-extern int i_ethtool_i;
-extern int i_boot;
-extern int i_httpd;
-extern int i_proc;
-extern int i_var_crash;
-extern int i_etc_default;
-extern int i_etc_logrotate_d;
-extern int i_etc_modprobe_d;
-extern int i_etc_host;
-extern int i_etc_udev;
-extern int i_etc_yum_repos_d;
-extern int i_etc_systemd_system;
-extern int i_etc_systemd;
-extern int i_usr_lib_systemd;
-extern int i_sos_commands_sar;
-extern int i_sos_commands_virsh;
-extern int i_sos_commands_usb;
-extern int i_lib;
-extern int i_etc;
-extern int i_sos_commands_networking;
-extern int i_dev;
-extern int i_usr;
-extern int i_var;
-extern int i_sos_commands;
-extern int i_var_spool_cron;
-extern int i_sos_commands_abrt;
-*/
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];

@@ -25,6 +25,20 @@
 #ifndef SOSREPORT_ANALYZER_SETTER_GETTER_H
 #define SOSREPORT_ANALYZER_SETTER_GETTER_H
 
+
+/* 
+ *  Function Name: get_items_of_member ()
+ *
+ *  This function returns items of certain member.
+ *  If nothing exists, returns -1.
+ *
+ *  Caller : 
+ *
+ *  Calls : none
+ *
+ */
+char *get_items_of_member ( const char *member );
+
 /* 
  *  Function Name: get_item_numbers_of_member ()
  *

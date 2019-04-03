@@ -242,6 +242,150 @@ int get_item_numbers_of_member ( const char *member )
         return -1;
 }
 
+char *get_items_of_member ( const char *member )
+{
+    if ( strcmp ( "df", member ) == 0 )
+        return sosreport_analyzer_cfg->df.member;
+    else if ( strcmp ( "date", member ) == 0 )
+        return sosreport_analyzer_cfg->date.member;
+    else if ( strcmp ( "dmidecode", member ) == 0 )
+        return sosreport_analyzer_cfg->dmidecode.member;
+    else if ( strcmp ( "free", member ) == 0 )
+        return sosreport_analyzer_cfg->free.member;
+    else if ( strcmp ( "hostname", member ) == 0 )
+        return sosreport_analyzer_cfg->hostname.member;
+    else if ( strcmp ( "installed-rpms", member ) == 0 )
+        return sosreport_analyzer_cfg->installed_rpms.member;
+    else if ( strcmp ( "ip_addr", member ) == 0 )
+        return sosreport_analyzer_cfg->ip_addr.member;
+    else if ( strcmp ( "last", member ) == 0 )
+        return sosreport_analyzer_cfg->last.member;
+    else if ( strcmp ( "lsb-release", member ) == 0 )
+        return sosreport_analyzer_cfg->lsb_release.member;
+    else if ( strcmp ( "lsmod", member ) == 0 )
+        return sosreport_analyzer_cfg->lsmod.member;
+    else if ( strcmp ( "lsof", member ) == 0 )
+        return sosreport_analyzer_cfg->lsof.member;
+    else if ( strcmp ( "lspci", member ) == 0 )
+        return sosreport_analyzer_cfg->lspci.member;
+    else if ( strcmp ( "ps", member ) == 0 )
+        return sosreport_analyzer_cfg->ps.member;
+    else if ( strcmp ( "route", member ) == 0 )
+        return sosreport_analyzer_cfg->route.member;
+    else if ( strcmp ( "netstat", member ) == 0 )
+        return sosreport_analyzer_cfg->netstat.member;
+    else if ( strcmp ( "uname", member ) == 0 )
+        return sosreport_analyzer_cfg->uname.member;
+    else if ( strcmp ( "uptime", member ) == 0 )
+        return sosreport_analyzer_cfg->uptime.member;
+    else if ( strcmp ( "vgdisplay", member ) == 0 )
+        return sosreport_analyzer_cfg->vgdisplay.member;
+    else if ( strcmp ( "boot/grub/", member ) == 0 )
+        return sosreport_analyzer_cfg->mcinfo_boot_grub_.member;
+    else if ( strcmp ( "cmdlog/", member ) == 0 )
+        return sosreport_analyzer_cfg->mcinfo_cmdlog_.member;
+    else if ( strcmp ( "dev/", member ) == 0 )
+        return sosreport_analyzer_cfg->dev_.member;
+    else if ( strcmp ( "etc/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_.member;
+    else if ( strcmp ( "etc/cron.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_cron_d_.member;
+    else if ( strcmp ( "etc/default/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_default_.member;
+    else if ( strcmp ( "etc/host", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_host.member;
+    else if ( strcmp ( "etc/httpd/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_httpd_.member;
+    else if ( strcmp ( "etc/kdump.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_kdump_conf.member;
+    else if ( strcmp ( "etc/logrotate.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_logrotate_conf.member;
+    else if ( strcmp ( "etc/logrotate.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_logrotate_d_.member;
+    else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_modprobe_d_.member;
+    else if ( strcmp ( "etc/pki/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_pki_.member;
+    else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_rsyslog_conf.member;
+    else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member;
+    else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysctl_conf.member;
+    else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_systemd_system_.member;
+    else if ( strcmp ( "etc/systemd/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_systemd_.member;
+    else if ( strcmp ( "etc/udev/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_udev_.member;
+    else if ( strcmp ( "etc/yum.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_yum_conf.member;
+    else if ( strcmp ( "etc/yum.repos.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_yum_repos_d_.member;
+    else if ( strcmp ( "lib/", member ) == 0 )
+        return sosreport_analyzer_cfg->lib_.member;
+    else if ( strcmp ( "proc/", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_.member;
+    else if ( strcmp ( "proc/cpuinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_cpuinfo.member;
+    else if ( strcmp ( "proc/interrupts", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_interrupts.member;
+    else if ( strcmp ( "proc/meminfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_meminfo.member;
+    else if ( strcmp ( "proc/net/dev", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_net_dev.member;
+    else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_net_sockstat.member;
+    else if ( strcmp ( "root/anaconda-ks.cfg", member ) == 0 )
+        return sosreport_analyzer_cfg->root_anaconda_ks_cfg.member;
+    else if ( strcmp ( "sos_commands/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_.member;
+    else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_abrt_.member;
+    else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_boot_.member;
+    else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member;
+    else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member;
+    else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member;
+    else if ( strcmp ( "sos_commands/networking/ethtool_-S", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member;
+    else if ( strcmp ( "sos_commands/networking/ethtool_-i", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member;
+    else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_networking_.member;
+    else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_sar_.member;
+    else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member;
+    else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_usb_.member;
+    else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_virsh_.member;
+    else if ( strcmp ( "usr/", member ) == 0 )
+        return sosreport_analyzer_cfg->usr_.member;
+    else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
+        return sosreport_analyzer_cfg->usr_lib_systemd_.member;
+    else if ( strcmp ( "var/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_.member;
+    else if ( strcmp ( "var/crash/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_crash_.member;
+    else if ( strcmp ( "var/log/audit/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_audit_.member;
+    else if ( strcmp ( "var/log/dmesg", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_dmesg.member;
+    else if ( strcmp ( "var/log/messages", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_messages.member;
+    else if ( strcmp ( "var/log/secure", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_secure.member;
+    else if ( strcmp ( "var/spool/cron/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_spool_cron_.member;
+    else
+        return "nothing";
+}
+
 int get_file_numbers_of_member ( const char *member )
 {
     if ( strcmp ( "df", member ) == 0 )
