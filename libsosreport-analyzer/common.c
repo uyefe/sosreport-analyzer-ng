@@ -642,6 +642,8 @@ struct line_data *sos_commands_obj = &sos_commands_obj_raw;
 struct line_data *var_spool_cron__obj = &var_spool_cron__obj_raw;
 struct line_data *sos_commands_abrt__obj = &sos_commands_abrt__obj_raw;
 
+/* probably, these should be replaced with file_numbers_of_member */
+
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -844,6 +846,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             /* Here are members of above and has files in the rootdir of itself
              * do read etc/systemd/system/'s rootdir so, no need here
              * do read proc/'s rootdir so, no need here
+             * do read etc/'s rootdir so, no need here
              * do read sos_commands/networking/'s rootdir so, no need here
              */
             if (
@@ -853,7 +856,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
                 ( strcmp ( member, "lib/" ) == 0 ) ||
-                ( strcmp ( member, "etc/" ) == 0 ) || 
                 ( strcmp ( member, "dev/" ) == 0 ) || 
                 ( strcmp ( member, "usr/" ) == 0 ) || 
                 ( strcmp ( member, "var/" ) == 0 ) || 
@@ -931,6 +933,9 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_35_obj, read_path );
 
                 /* reading everything stuff should be the last */
+                /* for etc/'s rootdir */
+                else if ( strstr ( read_path, "/etc/" ) != 0 )
+                    append_list ( &tmp_29_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/" ) != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_29_obj, read_path );
                 else if ( ( strstr ( read_path, "/dev/" ) != 0 ) && ( recursive == 1 ) )
