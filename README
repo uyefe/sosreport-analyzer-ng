@@ -42,6 +42,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze dmidecode file.
   Analyze lsmod file.
   Echo files in etc/modprobe.d/.
+  Echo files in sys/module/.
   Analyze lspci file.
   Analyze etc/udev/ file.
   Analyze sos_commands/devices/udevadm_info_--export-db file.
