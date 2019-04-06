@@ -94,6 +94,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->var_log_messages.item_num = 0;
     sosreport_analyzer_cfg->var_log_secure.item_num = 0;
     sosreport_analyzer_cfg->var_spool_cron_.item_num = 0;
+    sosreport_analyzer_cfg->sys_module_.item_num = 0;
 
     return ( 0 );
 }
@@ -220,6 +221,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_usb_.item_num;
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_virsh_.item_num;
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+        return sosreport_analyzer_cfg->sys_module_.item_num;
     else if ( strcmp ( "usr/", member ) == 0 )
         return sosreport_analyzer_cfg->usr_.item_num;
     else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
@@ -364,6 +367,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_usb_.member;
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_virsh_.member;
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+        return sosreport_analyzer_cfg->sys_module_.member;
     else if ( strcmp ( "usr/", member ) == 0 )
         return sosreport_analyzer_cfg->usr_.member;
     else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
@@ -508,6 +513,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_usb_.file_num;
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_virsh_.file_num;
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+        return sosreport_analyzer_cfg->sys_module_.file_num;
     else if ( strcmp ( "usr/", member ) == 0 )
         return sosreport_analyzer_cfg->usr_.file_num;
     else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
@@ -652,6 +659,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_usb_.item_num = x; 
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_virsh_.item_num = x; 
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+        sosreport_analyzer_cfg->sys_module_.item_num = x; 
     else if ( strcmp ( "usr/", member ) == 0 )
         sosreport_analyzer_cfg->usr_.item_num = x; 
     else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
@@ -796,6 +805,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_usb_.file_num = x; 
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_virsh_.file_num = x; 
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+        sosreport_analyzer_cfg->sys_module_.file_num = x; 
     else if ( strcmp ( "usr/", member ) == 0 )
         sosreport_analyzer_cfg->usr_.file_num = x; 
     else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
@@ -1118,6 +1129,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_virsh_.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sys_module_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "usr/", member ) == 0 )

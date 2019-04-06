@@ -311,6 +311,13 @@ struct line_data sos_commands_abrt__obj_raw =
         NULL /* next pointer */
     };
 
+/* sys_module__obj */
+struct line_data sys_module__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -563,6 +570,13 @@ struct line_data tmp_36_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_37_obj */
+struct line_data tmp_37_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -604,6 +618,7 @@ struct line_data *tmp_33_obj = &tmp_33_obj_raw;
 struct line_data *tmp_34_obj = &tmp_34_obj_raw;
 struct line_data *tmp_35_obj = &tmp_35_obj_raw;
 struct line_data *tmp_36_obj = &tmp_36_obj_raw;
+struct line_data *tmp_37_obj = &tmp_37_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -641,6 +656,7 @@ struct line_data *var__obj = &var__obj_raw;
 struct line_data *sos_commands_obj = &sos_commands_obj_raw;
 struct line_data *var_spool_cron__obj = &var_spool_cron__obj_raw;
 struct line_data *sos_commands_abrt__obj = &sos_commands_abrt__obj_raw;
+struct line_data *sys_module__obj = &sys_module__obj_raw;
 
 /* probably, these should be replaced with file_numbers_of_member */
 
@@ -680,6 +696,7 @@ char *str_arr_var [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_spool_cron [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_abrt [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sys_module [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -767,10 +784,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             memset ( full_path_plus_str, '\0', sizeof ( full_path_plus_str ) ); 
             memset ( filename, '\0', sizeof ( filename ) ); 
 
+            str = dp->d_name;
+
             if ( ( dp->d_type != DT_REG ) && ( dp->d_type != DT_DIR ) )
                 continue;
 
-            str = dp->d_name;
             /*###FIX ME
              * proc/kallsyms is a big file, so...
              * journal... is a big file, so...
@@ -786,16 +804,17 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             snprintf (filename, MAX_LINE_LENGTH, "%s%s", dname_full, str );
             struct stat st;
             stat(filename, &st);
+
+            if ( access ( str, R_OK ) == 0 )
+                continue;
+
             int size = 0;
             size = st.st_size;
 
-            if ( size > MAX_ANALYZE_FILE_SIZE )
-            {
-                printf("Skipping %s (size:%d)\n",filename,size);
+            if ( (  size == 0 ) || ( size > MAX_ANALYZE_FILE_SIZE ) )
                 continue;
-            }
-            if ( ( strcmp ( str, "." ) == 0 ) || ( strcmp ( str, ".." )  == 0 ) ||
-                ( ( strcmp ( member, "cmdlog/" ) == 0 ) && ( strstr ( str, "verbose" ) != NULL ) ) ||
+
+            if ( ( ( strcmp ( member, "cmdlog/" ) == 0 ) && ( strstr ( str, "verbose" ) != NULL ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, "cil" ) != NULL ) || ( strstr ( str, "hll" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".bin" ) != NULL ) || ( strstr ( str, ".kern" ) != NULL ) ) ) ||
                 ( ( strcmp ( member, "etc/" ) == 0 ) && ( ( strstr ( str, ".db" ) != NULL ) || ( strstr ( str, "policy." ) != NULL ) ) ) ||
@@ -829,7 +848,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "dev/" ) == 0 ) || 
                 ( strcmp ( member, "usr/" ) == 0 ) || 
                 ( strcmp ( member, "var/" ) == 0 ) || 
-                ( strcmp ( member, "sos_commands/" ) == 0 ) )
+                ( strcmp ( member, "sos_commands/" ) == 0 ) ||
+                ( strcmp ( member, "sys/module/" ) == 0 ) )
                 &&
                 /* try to read all files in the directory */
                 ( ( recursive == 0 ) || ( recursive == 1 ) )
@@ -859,11 +879,14 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "dev/" ) == 0 ) || 
                 ( strcmp ( member, "usr/" ) == 0 ) || 
                 ( strcmp ( member, "var/" ) == 0 ) || 
-                ( strcmp ( member, "sos_commands/" ) == 0 ) )
+                ( strcmp ( member, "sos_commands/" ) == 0 ) ||
+                ( strcmp ( member, "sys/module/" ) == 0 ) )
                 &&
                 ( recursive == 0 )
                 )
                 continue;
+
+
             /*
              *  find files with name fname_part 
              */
@@ -889,6 +912,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_17_obj, read_path );
                 else if ( strstr ( read_path, "/etc/modprobe.d/" ) != 0 )
                     append_list ( &tmp_18_obj, read_path );
+                else if ( ( strstr ( read_path, "/sys/module/" ) != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_37_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/pki/" ) != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_3_obj, read_path );
                 else if ( strstr ( read_path, "/etc/sysconfig/network-scripts/ifcfg-" ) != 0 )
@@ -1067,153 +1092,10 @@ const char *items_var_;
 const char *items_sos_commands_;
 const char *items_var_spool_cron_;
 const char *items_sos_commands_abrt_ [ 12 ];
+const char *items_sys_module_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
-    char filename_mcinfo_boot_grub_ [ MAX_LINE_LENGTH ];
-    char filename_mcinfo_boot_grub__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_mcinfo_boot_grub_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_mcinfo_boot_grub__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_mcinfo_cmdlog_ [ MAX_LINE_LENGTH ];
-    char filename_mcinfo_cmdlog__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_mcinfo_cmdlog_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_mcinfo_cmdlog__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_pki_ [ MAX_LINE_LENGTH ];
-    char filename_etc_pki__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_pki_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_pki__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_cron_d_ [ MAX_LINE_LENGTH ];
-    char filename_etc_cron_d__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_cron_d_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_cron_d__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_sysconfig_network_scripts_ifcfg_ [ MAX_LINE_LENGTH ];
-    char filename_etc_sysconfig_network_scripts_ifcfg__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_sysconfig_network_scripts_ifcfg_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_sysconfig_network_scripts_ifcfg__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_var_log_messages [ MAX_LINE_LENGTH ];
-    char filename_var_log_messages_curr [ MAX_LINE_LENGTH ];
-    memset ( filename_var_log_messages, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_var_log_messages_curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_var_log_secure [ MAX_LINE_LENGTH ];
-    char filename_var_log_secure_curr [ MAX_LINE_LENGTH ];
-    memset ( filename_var_log_secure, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_var_log_secure_curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_var_log_audit_ [ MAX_LINE_LENGTH ];
-    char filename_var_log_audit__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_var_log_audit_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_var_log_audit__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_var_crash_ [ MAX_LINE_LENGTH ];
-    char filename_var_crash__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_var_crash_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_var_crash__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_logs_journalctl___no_pager [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_logs_journalctl___no_pager_curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_logs_journalctl___no_pager, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_logs_journalctl___no_pager_curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_networking_ethtool__S [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_networking_ethtool__S_curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_networking_ethtool__S, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_networking_ethtool__S_curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_networking_ethtool__i [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_networking_ethtool__i_curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_networking_ethtool__i, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_networking_ethtool__i_curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_boot_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_boot__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_boot_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_boot__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_httpd_ [ MAX_LINE_LENGTH ];
-    char filename_etc_httpd__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_httpd_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_httpd__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_proc_ [ MAX_LINE_LENGTH ];
-    char filename_proc__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_proc_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_proc__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_default_ [ MAX_LINE_LENGTH ];
-    char filename_etc_default__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_default_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_default__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_logrotate_d_ [ MAX_LINE_LENGTH ];
-    char filename_etc_logrotate_d__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_logrotate_d_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_logrotate_d__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_modprobe_d_ [ MAX_LINE_LENGTH ];
-    char filename_etc_modprobe_d__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_modprobe_d_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_modprobe_d__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_host [ MAX_LINE_LENGTH ];
-    char filename_etc_host_curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_host, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_host_curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_udev_ [ MAX_LINE_LENGTH ];
-    char filename_etc_udev__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_udev_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_udev__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_yum_repos_d_ [ MAX_LINE_LENGTH ];
-    char filename_etc_yum_repos_d__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_yum_repos_d_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_yum_repos_d__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_systemd_system_ [ MAX_LINE_LENGTH ];
-    char filename_etc_systemd_system__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_systemd_system_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_systemd_system__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_systemd_ [ MAX_LINE_LENGTH ];
-    char filename_etc_systemd__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_systemd_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc_systemd__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_usr_lib_systemd_ [ MAX_LINE_LENGTH ];
-    char filename_usr_lib_systemd__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_usr_lib_systemd_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_usr_lib_systemd__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_sar_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_sar__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_sar_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_sar__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_virsh_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_virsh__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_virsh_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_virsh__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_usb_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_usb__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_usb_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_usb__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_lib_ [ MAX_LINE_LENGTH ];
-    char filename_lib__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_lib_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_lib__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_etc_ [ MAX_LINE_LENGTH ];
-    char filename_etc__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_etc_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_etc__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_networking_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_networking__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_networking_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_networking__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_dev_ [ MAX_LINE_LENGTH ];
-    char filename_dev__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_dev_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_dev__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_usr_ [ MAX_LINE_LENGTH ];
-    char filename_usr__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_usr_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_usr__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_var_ [ MAX_LINE_LENGTH ];
-    char filename_var__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_var_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_var__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_var_spool_cron_ [ MAX_LINE_LENGTH ];
-    char filename_var_spool_cron__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_var_spool_cron_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_var_spool_cron__curr, '\0', MAX_LINE_LENGTH ); 
-    char filename_sos_commands_abrt_ [ MAX_LINE_LENGTH ];
-    char filename_sos_commands_abrt__curr [ MAX_LINE_LENGTH ];
-    memset ( filename_sos_commands_abrt_, '\0', MAX_LINE_LENGTH ); 
-    memset ( filename_sos_commands_abrt__curr, '\0', MAX_LINE_LENGTH ); 
 
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
@@ -1239,7 +1121,7 @@ int read_file ( const char *file_name, const char *member, int files )
     if ( files == 0)
         set_token_to_item_arr ( file_name );
 
-    /* open sosreport config file */
+    /* open file */
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
     {
         printf("can't open file (%s): %s\n",file_name,strerror(errno));
@@ -1250,6 +1132,54 @@ int read_file ( const char *file_name, const char *member, int files )
         /* free_sosreport_analyzer_obj ( ); */
         /* exit ( EXIT_FAILURE ); */
     }
+
+
+    if (
+        ( strcmp ( member, "boot/grub/" ) == 0 ) ||
+        ( strcmp ( member, "cmdlog/" ) == 0 ) ||
+        ( strcmp ( member, "etc/host" ) == 0 ) ||
+        ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
+        ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/default/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/httpd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sys/module/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/udev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/yum.repos.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/systemd/system/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/systemd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( strcmp ( member, "sos_commands/abrt/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+        ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networking/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/sar/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/usb/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/crash/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( strcmp ( member, "var/log/audit/" ) == 0 ) ||
+        ( strcmp ( member, "var/log/messages" ) == 0 ) ||
+        ( strcmp ( member, "var/log/secure" ) == 0 ) ||
+        ( ( strcmp ( member, "var/spool/cron/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "dev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "etc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "lib/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "proc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "sos_commands/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "usr/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( file_name, "var/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+    )
+    {
+        append_list ( &sos_line_obj, blank_line );
+        append_list ( &sos_line_obj, hairline2 );
+        append_list ( &sos_line_obj, (char *)file_name );
+        append_list ( &sos_line_obj, blank_line );
+    }
+
     /* read file and parse lines */
     while ( fgets ( linebuf, sizeof ( linebuf ), fp ) != NULL )
     {
@@ -1282,37 +1212,11 @@ int read_file ( const char *file_name, const char *member, int files )
          */
         /* ---- mcfinfo only stuff go here ---- */
         if ( strstr ( file_name, "/boot/grub/" ) != NULL )
-        {
-            snprintf ( filename_mcinfo_boot_grub__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_mcinfo_boot_grub_, filename_mcinfo_boot_grub__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_mcinfo_boot_grub_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             append_item_to_sos_line_obj ( line, "boot/grub/", items_mcinfo_boot_grub_ );
-        }
         else if ( strstr ( file_name, "/cmdlog/" ) != NULL )
-        {
-            snprintf ( filename_mcinfo_cmdlog__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_mcinfo_cmdlog_, filename_mcinfo_cmdlog__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_mcinfo_cmdlog_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             append_item_to_sos_line_obj ( line, "cmdlog/", items_mcinfo_cmdlog_ );
-        }
         /* ---- end mcfinfo only stuff go here ---- */
         /* ---- independent files go here ---- */
         else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -1330,18 +1234,7 @@ int read_file ( const char *file_name, const char *member, int files )
                 append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
         }
         else if ( strstr ( file_name, "/etc/host" ) != NULL )
-        {
-            snprintf ( filename_etc_host_curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_host, filename_etc_host_curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_host, MAX_LINE_LENGTH, "%s", file_name );
             append_item_to_sos_line_obj ( line, "etc/host", items_etc_host );
-        }
         else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
         else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
@@ -1349,18 +1242,7 @@ int read_file ( const char *file_name, const char *member, int files )
         else if ( ( strstr ( file_name, "/etc/rsyslog.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
             append_item_to_sos_line_obj ( line, "etc/rsyslog.conf", items_etc_rsyslog_conf );
         else if ( strstr ( file_name, "/etc/sysconfig/network-scripts/ifcfg-" ) != NULL )
-        {
-            snprintf ( filename_etc_sysconfig_network_scripts_ifcfg__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_sysconfig_network_scripts_ifcfg_, filename_etc_sysconfig_network_scripts_ifcfg__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_sysconfig_network_scripts_ifcfg_, MAX_LINE_LENGTH, "%s", file_name );
             append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
-        }
         else if ( strstr ( file_name, "/proc/meminfo" ) != NULL )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "proc/meminfo" ) ; x++ )
@@ -1452,120 +1334,49 @@ int read_file ( const char *file_name, const char *member, int files )
         /* ---- etc go here ---- */
         else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_pki__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_pki_, filename_etc_pki__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_pki_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_pki_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/pki/", items_etc_pki_ );
         }
         else if ( ( strstr ( file_name, "/etc/cron.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_cron_d__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_cron_d_, filename_etc_cron_d__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_cron_d_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_cron_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
         }
         else if ( ( strstr ( file_name, "/etc/default/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_default__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_default_, filename_etc_default__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_default_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_default_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/default/", items_etc_default_ );
         }
         else if ( ( strstr ( file_name, "/etc/httpd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_httpd__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_httpd_, filename_etc_httpd__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_httpd_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_httpd_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/httpd/", items_etc_httpd_ );
         }
         else if ( ( strstr ( file_name, "/etc/logrotate.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_logrotate_d__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_logrotate_d_, filename_etc_logrotate_d__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_logrotate_d_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_logrotate_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/logrotate.d/", items_etc_logrotate_d_ );
         }
         else if ( ( strstr ( file_name, "/etc/modprobe.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_modprobe_d__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_modprobe_d_, filename_etc_modprobe_d__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_modprobe_d_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_modprobe_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/modprobe.d/", items_etc_modprobe_d_ );
         }
+        else if ( ( strstr ( file_name, "/sys/module/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        {
+             /* we don't need 'for loop' because item is 'all' here. */
+            if ( items_sys_module_ != NULL )
+                append_item_to_sos_line_obj ( line, "sys/module/", items_sys_module_ );
+        }
         else if ( ( strstr ( file_name, "/etc/udev/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_udev__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_udev_, filename_etc_udev__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_udev_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_udev_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/udev/", items_etc_udev_ );
         }
@@ -1573,52 +1384,19 @@ int read_file ( const char *file_name, const char *member, int files )
             append_item_to_sos_line_obj ( line, "etc/yum.conf", items_etc_yum_cfg );
         else if ( ( strstr ( file_name, "/etc/yum.repos.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_yum_repos_d__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_yum_repos_d_, filename_etc_yum_repos_d__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_yum_repos_d_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_yum_repos_d_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/yum.repos.d/", items_etc_yum_repos_d_ );
         }
         else if ( ( strstr ( file_name, "/etc/systemd/system/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_systemd_system__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_systemd_system_, filename_etc_systemd_system__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_systemd_system_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_systemd_system_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/systemd/system/", items_etc_systemd_system_ );
         }
         else if ( ( strstr ( file_name, "/etc/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc_systemd__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_systemd_, filename_etc_systemd__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_systemd_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_systemd_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/systemd/", items_etc_systemd_ );
         }
@@ -1626,30 +1404,12 @@ int read_file ( const char *file_name, const char *member, int files )
         /* ---- sos_commands go here ---- */
         else if ( strstr ( file_name, "/sos_commands/abrt/" ) != NULL )
         {
-            snprintf ( filename_sos_commands_abrt__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_abrt_, filename_sos_commands_abrt__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_abrt_, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/abrt/" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/abrt/", items_sos_commands_abrt_ [ x ] );
         }
         else if ( strstr ( file_name, "/sos_commands/boot/" ) != NULL )
         {
-            snprintf ( filename_sos_commands_boot__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_boot_, filename_sos_commands_boot__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_boot_, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/boot/" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/boot/", items_sos_commands_boot_ [ x ] );
@@ -1662,114 +1422,43 @@ int read_file ( const char *file_name, const char *member, int files )
         }
         else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf (filename_sos_commands_logs_journalctl___no_pager_curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_logs_journalctl___no_pager, filename_sos_commands_logs_journalctl___no_pager_curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf ( filename_sos_commands_logs_journalctl___no_pager, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/logs/journalctl_--no-pager" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
         }
         else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf (filename_sos_commands_networking_ethtool__S_curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_networking_ethtool__S, filename_sos_commands_networking_ethtool__S_curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf ( filename_sos_commands_networking_ethtool__S, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/networking/ethtool_-S" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
         }
         else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf (filename_sos_commands_networking_ethtool__i_curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_networking_ethtool__i, filename_sos_commands_networking_ethtool__i_curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf ( filename_sos_commands_networking_ethtool__i, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/networking/ethtool_-i" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-i", items_sos_commands_networking_ethtool__i [ x ] );
         }
         else if ( ( strstr ( file_name, "/sos_commands/networking/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_sos_commands_networking__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_networking_, filename_sos_commands_networking__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_networking_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_sos_commands_networking_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/networking/", items_sos_commands_networking_ );
         }
         else if ( ( strstr ( file_name, "/sos_commands/sar/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_sos_commands_sar__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_sar_, filename_sos_commands_sar__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_sar_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_sos_commands_sar_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/sar/", items_sos_commands_sar_ );
         }
         else if ( ( strstr ( file_name, "/sos_commands/usb/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_sos_commands_usb__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_usb_, filename_sos_commands_usb__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_usb_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_sos_commands_usb_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/usb/", items_sos_commands_usb_ );
         }
         else if ( ( strstr ( file_name, "/sos_commands/virsh/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_sos_commands_virsh__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_virsh_, filename_sos_commands_virsh__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_virsh_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_sos_commands_virsh_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/virsh/", items_sos_commands_virsh_ );
         }
@@ -1777,18 +1466,7 @@ int read_file ( const char *file_name, const char *member, int files )
         /* ---- usr go here ---- */
         else if ( ( strstr ( file_name, "/usr/lib/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_usr_lib_systemd__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_usr_lib_systemd_, filename_usr_lib_systemd__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_usr_lib_systemd_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_usr_lib_systemd_ != NULL )
                 append_item_to_sos_line_obj ( line, "usr_lib/systemd/", items_usr_lib_systemd_ );
         }
@@ -1796,32 +1474,12 @@ int read_file ( const char *file_name, const char *member, int files )
         /* ---- var go here ---- */
         else if ( ( strstr ( file_name, "/var/crash/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_var_crash__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_var_crash_, filename_var_crash__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_var_crash_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_var_crash_ != NULL )
                 append_item_to_sos_line_obj ( line, "var/crash/", items_var_crash_ );
         }
         else if ( strstr ( file_name, "/var/log/audit/" ) != NULL )
         {
-            snprintf ( filename_var_log_audit__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_var_log_audit_, filename_var_log_audit__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_var_log_audit_, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "var/log/audit/" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/audit/", items_var_log_audit_ [ x ] );
@@ -1830,48 +1488,19 @@ int read_file ( const char *file_name, const char *member, int files )
             append_item_to_sos_line_obj ( line, "var/log/dmesg", items_var_log_dmesg );
         else if ( strstr ( file_name, "/var/log/messages" ) != NULL )
         {
-            snprintf ( filename_var_log_messages_curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_var_log_messages, filename_var_log_messages_curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_var_log_messages, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "var/log/messages" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
         }
         else if ( strstr ( file_name, "/var/log/secure" ) != NULL )
         {
-            snprintf ( filename_var_log_secure_curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_var_log_secure, filename_var_log_secure_curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_var_log_secure, MAX_LINE_LENGTH, "%s", file_name );
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "var/log/secure" ) ; x++ )
                 append_item_to_sos_line_obj ( line, "var/log/secure", items_var_log_secure [ x ] );
         }
         else if ( ( strstr ( file_name, "/var/spool/cron/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_var_spool_cron__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_var_spool_cron_, filename_var_spool_cron__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_var_spool_cron_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_var_spool_cron_ != NULL )
                 append_item_to_sos_line_obj ( line, "var/spool/cron/", items_var_spool_cron_ );
         }
@@ -1879,120 +1508,43 @@ int read_file ( const char *file_name, const char *member, int files )
         /* ---- read everything stuff should go here ---- */
         else if ( ( strstr ( file_name, "/dev/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_dev__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_dev_, filename_dev__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_dev_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_dev_ != NULL )
                 append_item_to_sos_line_obj ( line, "dev/", items_dev_ );
         }
         else if ( ( strstr ( file_name, "/etc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_etc__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_etc_, filename_etc__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_etc_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_etc_ != NULL )
                 append_item_to_sos_line_obj ( line, "etc/", items_etc_ );
         }
         else if ( ( strstr ( file_name, "/lib/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_lib__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_lib_, filename_lib__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_lib_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_lib_ != NULL )
                 append_item_to_sos_line_obj ( line, "lib/", items_lib_ );
         }
         else if ( ( strstr ( file_name, "/proc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_proc__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_proc_, filename_proc__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_proc_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_proc_ != NULL )
                 append_item_to_sos_line_obj ( line, "proc/", items_proc_ );
         }
         else if ( ( strstr ( file_name, "/sos_commands/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_sos_commands__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_sos_commands_, filename_sos_commands__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_sos_commands_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_sos_commands_ != NULL )
                 append_item_to_sos_line_obj ( line, "sos_commands/", items_sos_commands_ );
         }
         else if ( ( strstr ( file_name, "/usr/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_usr__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_usr_, filename_usr__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_usr_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_usr_ != NULL )
                 append_item_to_sos_line_obj ( line, "usr/", items_usr_ );
         }
         else if ( ( strstr ( file_name, "/var/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
-            snprintf ( filename_var__curr, MAX_LINE_LENGTH, "%s", file_name );
-            if ( strcmp ( filename_var_, filename_var__curr) != 0 )
-            {
-                append_list ( &sos_line_obj, blank_line );
-                append_list ( &sos_line_obj, hairline2 );
-                append_list ( &sos_line_obj, (char *)file_name );
-                append_list ( &sos_line_obj, blank_line );
-            }
-            snprintf (filename_var_, MAX_LINE_LENGTH, "%s", file_name );
-            /* unlike others like 'messages' which have same name should be applied in the
-             * directory, here, we don't need 'for loop' because item is 'all' here. 
-             */
+             /* we don't need 'for loop' because item is 'all' here. */
             if ( items_var_ != NULL )
                 append_item_to_sos_line_obj ( line, "var/", items_var_ );
         }
@@ -2484,6 +2036,13 @@ void set_token_to_item_arr ( const char *file_name )
         token = strtok ( get_items_of_member ( "etc/modprobe.d/" ), s );
         items_etc_modprobe_d_ = token;
     }
+    /* member sys/module/ */
+    else if ( ( strstr ( file_name, "/sys/module/" ) != NULL ) && ( member_item_exists ( "sys/module/" ) == 0 ) )
+    {
+        /* get the first token */
+        token = strtok ( get_items_of_member ( "sys/module/" ), s );
+        items_sys_module_ = token;
+    }
     /* member etc/pki/ */
     else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( member_item_exists ( "etc/pki/" ) == 0 ) )
     {
@@ -2914,7 +2473,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "usr/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->usr_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/abrt/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_abrt_.member, "" ) != 0 ) )
+        ( ( strcmp ( member, "sos_commands/abrt/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_abrt_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sys/module/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sys_module_.member, "" ) != 0 ) )
     )
     {
         search_list ( &sos_header_obj, member, result_tmp_pre );
@@ -2966,7 +2526,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "usr/" ) == 0 ) ||
             ( strcmp ( member, "var/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/" ) == 0 ) ||
-            ( strcmp ( member, "sos_commands/abrt/" ) == 0 )
+            ( strcmp ( member, "sos_commands/abrt/" ) == 0 ) ||
+            ( strcmp ( member, "sys/module/" ) == 0 )
            )
         {
             printf("analyze member '%s'\n",member);
@@ -3142,6 +2703,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_34_obj, str_arr_sos_commands ); i ++ )
                 append_list ( &sos_commands_obj, str_arr_sos_commands [ i ] );
             read_file_from_analyze_dir ( &sos_commands_obj, "sos_commands/" );
+        }
+        else if ( strcmp ( member, "sys/module/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_37_obj, str_arr_sys_module ); i ++ )
+                append_list ( &sys_module__obj, str_arr_sys_module [ i ] );
+            read_file_from_analyze_dir ( &sys_module__obj, "sys/module/" );
         }
         else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
         {
@@ -3600,6 +3167,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/default/" ) == 0 ) ||
         ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+        ( strcmp ( member, "sys/module/" ) == 0 ) ||
         ( strcmp ( member, "etc/host" ) == 0 ) ||
         ( strcmp ( member, "etc/udev/" ) == 0 ) ||
         ( strcmp ( member, "etc/yum.repos.d/" ) == 0 ) ||
@@ -3709,6 +3277,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_35_obj ); 
     if ( tmp_36_obj != NULL ) 
         clear_list ( &tmp_36_obj ); 
+    if ( tmp_37_obj != NULL ) 
+        clear_list ( &tmp_37_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3782,4 +3352,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &var_spool_cron__obj ); 
     if ( sos_commands_abrt__obj != NULL ) 
         clear_list ( &sos_commands_abrt__obj ); 
+    if ( sys_module__obj != NULL ) 
+        clear_list ( &sys_module__obj ); 
 }

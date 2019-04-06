@@ -75,6 +75,12 @@ lsmod=all
 
 etc/modprobe.d/=all
 
+## sys/module/
+##
+## All you can set is 'all'
+
+sys/module/=all
+
 ## lspci=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 20

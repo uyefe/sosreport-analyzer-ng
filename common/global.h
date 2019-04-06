@@ -40,7 +40,7 @@
 #define MAX_ANALYZE_FILES 31 
 
 /* the maximum size of analyze file */
-#define MAX_ANALYZE_FILE_SIZE 51200000
+#define MAX_ANALYZE_FILE_SIZE 5242880 
 
 /*
  * reverse_the_string()
