@@ -234,6 +234,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->usr_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
                 strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sys/module/" ) == 0 )
+                strncpy ( cfg->sys_module_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -374,6 +376,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "dmidecode", cfg, mcinfo );
         append_sos_header_obj ( "lsmod", cfg, mcinfo );
         append_sos_header_obj ( "etc/modprobe.d/", cfg, mcinfo );
+        append_sos_header_obj ( "sys/module/", cfg, mcinfo );
         append_sos_header_obj ( "lspci", cfg, mcinfo );
         append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
@@ -498,6 +501,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->lsmod.member );
         else if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_modprobe_d_.member );
+        else if ( strcmp ( member, "sys/module/" ) == 0 )
+            strcat ( str_tmp, cfg->sys_module_.member );
         else if ( strcmp ( member, "lspci" ) == 0 )
             strcat ( str_tmp, cfg->lspci.member );
         else if ( strcmp ( member, "etc/udev/" ) == 0 )
