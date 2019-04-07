@@ -26,14 +26,28 @@
 /* the maximum line length in the configuration file */
 #define MAX_LINE_LENGTH    4096
 
+/* the maximum item numbers in the configuration file */
+#define MAX_ITEM_NUMBERS   20 
+
+/* the maximum item strings in the configuration file */
+#define MAX_ITEM_STRINGS   30 
+
 /* the delimiters of tokens */
 #define TOKEN_DELIM "="
+
+/* 20 items each 30 bytes */
+typedef struct
+{
+    char item_name  [ MAX_ITEM_NUMBERS ] [ MAX_ITEM_STRINGS + 1 ];
+
+} item_arr;
 
 typedef struct
 {
     char member [ MAX_LINE_LENGTH ];
     int item_num;
     int file_num;
+    item_arr item_names;
 
 } config_each;
 

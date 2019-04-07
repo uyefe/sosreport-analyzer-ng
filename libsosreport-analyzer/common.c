@@ -658,8 +658,7 @@ struct line_data *var_spool_cron__obj = &var_spool_cron__obj_raw;
 struct line_data *sos_commands_abrt__obj = &sos_commands_abrt__obj_raw;
 struct line_data *sys_module__obj = &sys_module__obj_raw;
 
-/* probably, these should be replaced with file_numbers_of_member */
-
+/* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -859,7 +858,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 {
                     snprintf (full_path_plus_str, MAX_LINE_LENGTH, "%s%s/", dname_full, str );
                     /* call myself and read files in the directory */
-                    printf("Reding files in the directory '%s'\n",full_path_plus_str);
+                    printf("Reading files in the directory '%s'\n",full_path_plus_str);
                     read_analyze_dir ( member, full_path_plus_str, 1 );
                 }
             }
@@ -918,6 +917,9 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_3_obj, read_path );
                 else if ( strstr ( read_path, "/etc/sysconfig/network-scripts/ifcfg-" ) != 0 )
                     append_list ( &tmp_5_obj, read_path );
+                /* for etc/systemd/system/'s rootdir */
+                else if ( strstr ( read_path, "/etc/systemd/system/" ) != 0 )
+                    append_list ( &tmp_22_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/systemd/system/" ) != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_22_obj, read_path );
                 else if ( strstr ( read_path, "/etc/systemd/" ) != 0 )
@@ -1023,80 +1025,9 @@ int arr_max0 = 0;
 int arr_max2 = 2;
 int arr_max12 = 12;
 int arr_max20 = 20;
-const char *items_mcinfo_boot_grub_;
-const char *items_mcinfo_cmdlog_;
-const char *items_date;
-const char *items_lsb_release;
-const char *items_uname;
-const char *items_hostname;
-const char *items_uptime;
-const char *items_proc_cpuinfo [ 12 ];
-const char *items_root_anaconda_ks_cfg [ 12 ];
-const char *items_dmidecode [ 12 ];
-const char *items_lsmod [ 12 ];
-const char *items_lspci [ 20 ];
-const char *items_sos_commands_devices_udevadm_info___export_db [ 12 ];
-const char *items_sos_commands_scsi_lsscsi;
-const char *items_installed_rpms [ 12 ];
-const char *items_df [ 2 ];
-const char *items_vgdisplay;
-const char *items_free;
-const char *items_ip_addr;
-const char *items_route;
-const char *items_last [ 12 ];
-const char *items_ps [ 12 ];
-const char *items_lsof [ 12 ];
-const char *items_netstat [ 12 ];
-const char *items_etc_kdump_conf;
-const char *items_etc_sysctl_conf;
-const char *items_etc_rsyslog_conf;
-const char *items_etc_sysconfig_network_scripts_ifcfg_;
-const char *items_proc_meminfo [ 12 ];
-const char *items_proc_interrupts;
-const char *items_proc_net_dev;
-const char *items_proc_net_sockstat;
-const char *items_etc_logrotate_conf;
-const char *items_etc_pki_;
-const char *items_etc_cron_d_;
-const char *items_var_log_dmesg;
-const char *items_var_log_messages [ 20 ];
-const char *items_var_log_secure [ 12 ];
-const char *items_var_log_audit_ [ 12 ];
-const char *items_sos_commands_kernel_sysctl__a [ 12 ];
-const char *items_sos_commands_logs_journalctl___no_pager [ 20 ];
-const char *items_sos_commands_networking_ethtool__S [ 12 ];
-const char *items_sos_commands_networking_ethtool__i [ 12 ];
-const char *items_sos_commands_boot_ [ 12 ];
-const char *items_etc_httpd_;
-const char *items_proc_;
-const char *items_var_crash_;
-const char *items_etc_default_;
-const char *items_etc_logrotate_d_;
-const char *items_etc_modprobe_d_;
-const char *items_etc_host;
-const char *items_etc_udev_;
-const char *items_etc_yum_cfg;
-const char *items_etc_yum_repos_d_;
-const char *items_etc_systemd_system_;
-const char *items_etc_systemd_;
-const char *items_usr_lib_systemd_;
-const char *items_sos_commands_sar_;
-const char *items_sos_commands_virsh_;
-const char *items_sos_commands_usb_;
-const char *items_lib_;
-const char *items_etc_;
-const char *items_sos_commands_networking_;
-const char *items_dev_;
-const char *items_usr_;
-const char *items_var_;
-const char *items_sos_commands_;
-const char *items_var_spool_cron_;
-const char *items_sos_commands_abrt_ [ 12 ];
-const char *items_sys_module_;
 
 int read_file ( const char *file_name, const char *member, int files )
 {
-
     int file_name_len = ( int ) strlen ( file_name );
     char *hairline2 = "<<<<";
     char *blank_line = "";
@@ -1119,7 +1050,8 @@ int read_file ( const char *file_name, const char *member, int files )
 
     /* when this function had been called from 'read_analyze_dir()', items should be set only once */
     if ( files == 0)
-        set_token_to_item_arr ( file_name );
+        if ( set_token_to_item_arr ( file_name ) == 0 )
+            printf("set_token_to_item_arr failed in (%s)\n",file_name);
 
     /* open file */
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
@@ -1132,7 +1064,6 @@ int read_file ( const char *file_name, const char *member, int files )
         /* free_sosreport_analyzer_obj ( ); */
         /* exit ( EXIT_FAILURE ); */
     }
-
 
     if (
         ( strcmp ( member, "boot/grub/" ) == 0 ) ||
@@ -1165,13 +1096,13 @@ int read_file ( const char *file_name, const char *member, int files )
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
         ( strcmp ( member, "var/log/secure" ) == 0 ) ||
         ( ( strcmp ( member, "var/spool/cron/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "dev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "etc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "lib/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "proc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "sos_commands/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "usr/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( file_name, "var/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        ( ( strcmp ( member, "dev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "lib/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "usr/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
     )
     {
         append_list ( &sos_line_obj, blank_line );
@@ -1213,192 +1144,192 @@ int read_file ( const char *file_name, const char *member, int files )
         /* ---- mcfinfo only stuff go here ---- */
         if ( strstr ( file_name, "/boot/grub/" ) != NULL )
              /* we don't need 'for loop' because item is 'all' here. */
-            append_item_to_sos_line_obj ( line, "boot/grub/", items_mcinfo_boot_grub_ );
+            append_item_to_sos_line_obj ( line, "boot/grub/", get_item_arr_string ( "boot/grub/", 0 ) );
         else if ( strstr ( file_name, "/cmdlog/" ) != NULL )
              /* we don't need 'for loop' because item is 'all' here. */
-            append_item_to_sos_line_obj ( line, "cmdlog/", items_mcinfo_cmdlog_ );
+            append_item_to_sos_line_obj ( line, "cmdlog", get_item_arr_string ( "cmdlog/", 0 ) );
         /* ---- end mcfinfo only stuff go here ---- */
         /* ---- independent files go here ---- */
         else if ( ( strstr ( file_name, "/date" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "date", items_date );
+            append_item_to_sos_line_obj ( line, "date", get_item_arr_string ( "date", 0 )  );
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "df" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "df", items_df [ x ] );
+                append_item_to_sos_line_obj ( line, "df", get_item_arr_string ( "df", x )  );
         }
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "dmidecode" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "dmidecode", items_dmidecode [ x ] );
+                append_item_to_sos_line_obj ( line, "dmidecode", get_item_arr_string ( "dmidecode", x )  );
         }
         else if ( strstr ( file_name, "/etc/host" ) != NULL )
-            append_item_to_sos_line_obj ( line, "etc/host", items_etc_host );
+            append_item_to_sos_line_obj ( line, "etc/host", get_item_arr_string ( "etc/host", 0 ) );
         else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "etc/kdump.conf", items_etc_kdump_conf );
+            append_item_to_sos_line_obj ( line, "etc/kdump.conf", get_item_arr_string ( "etc/kdump.conf", 0 ) );
         else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "etc/sysctl.conf", items_etc_sysctl_conf );
+            append_item_to_sos_line_obj ( line, "etc/sysctl.conf", get_item_arr_string ( "etc/sysctl.conf", 0 )  );
         else if ( ( strstr ( file_name, "/etc/rsyslog.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "etc/rsyslog.conf", items_etc_rsyslog_conf );
+            append_item_to_sos_line_obj ( line, "etc/rsyslog.conf", get_item_arr_string ( "etc/rsyslog.conf", 0 ) );
         else if ( strstr ( file_name, "/etc/sysconfig/network-scripts/ifcfg-" ) != NULL )
-            append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", items_etc_sysconfig_network_scripts_ifcfg_ );
+            append_item_to_sos_line_obj ( line, "etc/sysconfig/network-scripts/ifcfg-", get_item_arr_string ( "etc/sysconfig/network-scripts/ifcfg-", 0 ) );
         else if ( strstr ( file_name, "/proc/meminfo" ) != NULL )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "proc/meminfo" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "proc/meminfo", items_proc_meminfo [ x ] );
+                append_item_to_sos_line_obj ( line, "proc/meminfo", get_item_arr_string ( "proc/meminfo", x ) );
         }
         else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "free", items_free );
+            append_item_to_sos_line_obj ( line, "free", get_item_arr_string ( "free", 0 ) );
         else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "lsb-release", items_lsb_release );
+            append_item_to_sos_line_obj ( line, "lsb-release", get_item_arr_string ( "lsb-release", 0 ) );
         else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "uname", items_uname );
+            append_item_to_sos_line_obj ( line, "uname", get_item_arr_string ( "uname", 0 ) );
         else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "hostname", items_hostname );
+            append_item_to_sos_line_obj ( line, "hostname", get_item_arr_string ( "hostname", 0 ) );
         else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "uptime", items_uptime );
+            append_item_to_sos_line_obj ( line, "uptime", get_item_arr_string ( "uptime", 0 ) );
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "last" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "last", items_last [ x ] );
+                append_item_to_sos_line_obj ( line, "last", get_item_arr_string ( "last", x ) );
         }
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "lsmod" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "lsmod", items_lsmod [ x ] );
+                append_item_to_sos_line_obj ( line, "lsmod", get_item_arr_string ( "lsmod", x ) );
         }
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "lsof" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "lsof", items_lsof [ x ] );
+                append_item_to_sos_line_obj ( line, "lsof", get_item_arr_string ( "lsof", x ) );
         }
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "lspci" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "lspci", items_lspci [ x ] );
+                append_item_to_sos_line_obj ( line, "lspci", get_item_arr_string ( "lspci", x ) );
         }
         /* multiple items pattern */
         else if ( strstr ( file_name, "/proc/cpuinfo" ) != NULL )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "proc/cpuinfo" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "proc/cpuinfo", items_proc_cpuinfo [ x ] );
+                append_item_to_sos_line_obj ( line, "proc/cpuinfo", get_item_arr_string ( "proc/cpuinfo", x ) );
         }
         else if ( ( strstr ( file_name, "/root/anaconda-ks.cfg" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", items_root_anaconda_ks_cfg [ 0 ] );
+            append_item_to_sos_line_obj ( line, "root/anaconda-ks.cfg", get_item_arr_string ( "root/anaconda-ks.cfg", 0 ) );
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/devices/udevadm_info_--export-db" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/devices/udevadm_info_--export-db", items_sos_commands_devices_udevadm_info___export_db [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/devices/udevadm_info_--export-db", get_item_arr_string ( "sos_commands/devices/udevadm_info_--export-db", x ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/scsi/lsscsi" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", items_sos_commands_scsi_lsscsi );
+            append_item_to_sos_line_obj ( line, "sos_commands/scsi/lsscsi", get_item_arr_string ( "sos_commands/scsi/lsscsi", 0 ) );
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "installed-rpms" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "installed-rpms", items_installed_rpms [ x ] );
+                append_item_to_sos_line_obj ( line, "installed-rpms", get_item_arr_string ( "installed-rpms", x ) );
         }
         else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "vgdisplay", items_vgdisplay );
+            append_item_to_sos_line_obj ( line, "vgdisplay", get_item_arr_string ( "vgdisplay", 0 ) );
         else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "ip_addr", items_ip_addr );
+            append_item_to_sos_line_obj ( line, "ip_addr", get_item_arr_string ( "ip_addr", 0 ) );
         else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "route", items_route );
+            append_item_to_sos_line_obj ( line, "route", get_item_arr_string ( "route", 0 ) );
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "ps" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "ps", items_ps [ x ] );
+                append_item_to_sos_line_obj ( line, "ps", get_item_arr_string ( "ps", x ) );
         }
         /* multiple items pattern */
         else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             for ( x = 0; x < get_item_numbers_of_member ( "netstat" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "netstat", items_netstat [ x ] );
+                append_item_to_sos_line_obj ( line, "netstat", get_item_arr_string ( "netstat", x ) );
         }
         else if ( strstr ( file_name, "/proc/interrupts" ) != NULL )
-            append_item_to_sos_line_obj ( line, "proc/interrupts", items_proc_interrupts );
+            append_item_to_sos_line_obj ( line, "proc/interrupts", get_item_arr_string ( "proc/interrupts", 0 ) );
         else if ( ( strstr ( file_name, "/proc/net/dev" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "proc/net/dev", items_proc_net_dev );
+            append_item_to_sos_line_obj ( line, "proc/net/dev", get_item_arr_string ( "proc/net/dev", 0 ) );
         else if ( ( strstr ( file_name, "/proc/net/sockstat" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "proc/net/sockstat", items_proc_net_sockstat );
+            append_item_to_sos_line_obj ( line, "proc/net/sockstat", get_item_arr_string ( "proc/net/sockstat", 0 ) );
         else if ( ( strstr ( file_name, "/etc/logrotate.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "etc/logrotate.conf", items_etc_logrotate_conf );
+            append_item_to_sos_line_obj ( line, "etc/logrotate.conf", get_item_arr_string ( "etc/logrotate.conf", 0 ) );
         /* ---- end independent files go here ---- */
         /* ---- etc go here ---- */
         else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_pki_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/pki/", items_etc_pki_ );
+            if ( get_item_arr_string ( "etc/pki/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/pki/", get_item_arr_string ( "etc/pki/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/cron.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_cron_d_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/cron.d/", items_etc_cron_d_ );
+            if ( get_item_arr_string ( "etc/cron.d/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/cron.d/", get_item_arr_string ( "etc/cron.d/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/default/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_default_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/default/", items_etc_default_ );
+            if ( get_item_arr_string ( "etc/default/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/default/", get_item_arr_string ( "etc/default/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/httpd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_httpd_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/httpd/", items_etc_httpd_ );
+            if ( get_item_arr_string ( "etc/httpd/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/httpd/", get_item_arr_string ( "etc/httpd/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/logrotate.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_logrotate_d_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/logrotate.d/", items_etc_logrotate_d_ );
+            if ( get_item_arr_string ( "etc/logrotate.d/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/logrotate.d/", get_item_arr_string ( "etc/logrotate.d/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/modprobe.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_modprobe_d_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/modprobe.d/", items_etc_modprobe_d_ );
+            if ( get_item_arr_string ( "etc/modprobe.d/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/modprobe.d/", get_item_arr_string ( "etc/modprobe.d/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/sys/module/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_sys_module_ != NULL )
-                append_item_to_sos_line_obj ( line, "sys/module/", items_sys_module_ );
+            if ( get_item_arr_string ( "sys/module/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "sys/module/", get_item_arr_string ( "sys/module/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/udev/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_udev_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/udev/", items_etc_udev_ );
+            if ( get_item_arr_string ( "etc/udev/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/udev/", get_item_arr_string ( "etc/udev/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/yum.conf" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
-            append_item_to_sos_line_obj ( line, "etc/yum.conf", items_etc_yum_cfg );
+            append_item_to_sos_line_obj ( line, "etc/yum.conf", get_item_arr_string ( "etc/yum.conf", 0 ) );
         else if ( ( strstr ( file_name, "/etc/yum.repos.d/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_yum_repos_d_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/yum.repos.d/", items_etc_yum_repos_d_ );
+            if ( get_item_arr_string ( "etc/yum.repos.d/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/yum.repos.d/", get_item_arr_string ( "etc/yum.repos.d/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/systemd/system/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_systemd_system_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/systemd/system/", items_etc_systemd_system_ );
+            if ( get_item_arr_string ( "etc/systemd/system/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/systemd/system/", get_item_arr_string ( "etc/systemd/system/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_systemd_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/systemd/", items_etc_systemd_ );
+            if ( get_item_arr_string ( "etc/systemd/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/systemd/", get_item_arr_string ( "etc/systemd/", 0 ) );
         }
         /* ---- end etc go here ---- */
         /* ---- sos_commands go here ---- */
@@ -1406,147 +1337,147 @@ int read_file ( const char *file_name, const char *member, int files )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/abrt/" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/abrt/", items_sos_commands_abrt_ [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/abrt/", get_item_arr_string ( "sos_commands/abrt/", x ) );
         }
         else if ( strstr ( file_name, "/sos_commands/boot/" ) != NULL )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/boot/" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/boot/", items_sos_commands_boot_ [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/boot/", get_item_arr_string ( "sos_commands/boot/", x ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/kernel/sysctl_-a" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/kernel/sysctl_-a" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", items_sos_commands_kernel_sysctl__a [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/kernel/sysctl_-a", get_item_arr_string ( "sos_commands/kernel/sysctl_-a", x ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/logs/journalctl_--no-pager" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", items_sos_commands_logs_journalctl___no_pager [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/logs/journalctl_--no-pager", get_item_arr_string ( "sos_commands/logs/journalctl_--no-pager", x ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-S" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/networking/ethtool_-S" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", items_sos_commands_networking_ethtool__S [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-S", get_item_arr_string ( "sos_commands/networking/ethtool_-S", x ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-i" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "sos_commands/networking/ethtool_-i" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-i", items_sos_commands_networking_ethtool__i [ x ] );
+                append_item_to_sos_line_obj ( line, "sos_commands/networking/ethtool_-i", get_item_arr_string ( "sos_commands/networking/ethtool_-i", x ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/networking/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_sos_commands_networking_ != NULL )
-                append_item_to_sos_line_obj ( line, "sos_commands/networking/", items_sos_commands_networking_ );
+            if ( get_item_arr_string ( "sos_commands/networking/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "sos_commands/networking/", get_item_arr_string ( "sos_commands/networking/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/sar/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_sos_commands_sar_ != NULL )
-                append_item_to_sos_line_obj ( line, "sos_commands/sar/", items_sos_commands_sar_ );
+            if ( get_item_arr_string ( "sos_commands/sar/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "sos_commands/sar/", get_item_arr_string ( "sos_commands/sar/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/usb/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_sos_commands_usb_ != NULL )
-                append_item_to_sos_line_obj ( line, "sos_commands/usb/", items_sos_commands_usb_ );
+            if ( get_item_arr_string ( "sos_commands/usb/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "sos_commands/usb/", get_item_arr_string ( "sos_commands/usb/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/virsh/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_sos_commands_virsh_ != NULL )
-                append_item_to_sos_line_obj ( line, "sos_commands/virsh/", items_sos_commands_virsh_ );
+            if ( get_item_arr_string ( "sos_commands/virsh/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "sos_commands/virsh/", get_item_arr_string ( "sos_commands/virsh/", 0 ) );
         }
         /* ---- end sos_commands go here ---- */
         /* ---- usr go here ---- */
         else if ( ( strstr ( file_name, "/usr/lib/systemd/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_usr_lib_systemd_ != NULL )
-                append_item_to_sos_line_obj ( line, "usr_lib/systemd/", items_usr_lib_systemd_ );
+            if ( get_item_arr_string ( "usr/lib/systemd/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "usr/lib/systemd/", get_item_arr_string ( "usr/lib/systemd/", 0 ) );
         }
         /* ---- end usr go here ---- */
         /* ---- var go here ---- */
         else if ( ( strstr ( file_name, "/var/crash/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_var_crash_ != NULL )
-                append_item_to_sos_line_obj ( line, "var/crash/", items_var_crash_ );
+            if ( get_item_arr_string ( "var/crash/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "var/crash/", get_item_arr_string ( "var/crash/", 0 ) );
         }
         else if ( strstr ( file_name, "/var/log/audit/" ) != NULL )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "var/log/audit/" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "var/log/audit/", items_var_log_audit_ [ x ] );
+                append_item_to_sos_line_obj ( line, "var/log/audit/", get_item_arr_string ( "var/log/audit/", x ) );
         }
         else if ( strstr ( file_name, "/var/log/dmesg" ) != NULL )
-            append_item_to_sos_line_obj ( line, "var/log/dmesg", items_var_log_dmesg );
+            append_item_to_sos_line_obj ( line, "var/log/dmesg", get_item_arr_string ( "var/log/dmesg", 0 ) );
         else if ( strstr ( file_name, "/var/log/messages" ) != NULL )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "var/log/messages" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "var/log/messages", items_var_log_messages [ x ] );
+                append_item_to_sos_line_obj ( line, "var/log/messages", get_item_arr_string ( "var/log/messages", x ) );
         }
         else if ( strstr ( file_name, "/var/log/secure" ) != NULL )
         {
             /* multiple items pattern */
             for ( x = 0; x < get_item_numbers_of_member ( "var/log/secure" ) ; x++ )
-                append_item_to_sos_line_obj ( line, "var/log/secure", items_var_log_secure [ x ] );
+                append_item_to_sos_line_obj ( line, "var/log/secure", get_item_arr_string ( "var/log/secure", x ) );
         }
         else if ( ( strstr ( file_name, "/var/spool/cron/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_var_spool_cron_ != NULL )
-                append_item_to_sos_line_obj ( line, "var/spool/cron/", items_var_spool_cron_ );
+            if ( get_item_arr_string ( "var/spool/cron/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "var/spool/cron/", get_item_arr_string ( "var/spool/cron/", x ) );
         }
         /* ---- end var go here ---- */
         /* ---- read everything stuff should go here ---- */
         else if ( ( strstr ( file_name, "/dev/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_dev_ != NULL )
-                append_item_to_sos_line_obj ( line, "dev/", items_dev_ );
+            if ( get_item_arr_string ( "dev/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "dev/", get_item_arr_string ( "dev/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/etc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_etc_ != NULL )
-                append_item_to_sos_line_obj ( line, "etc/", items_etc_ );
+            if ( get_item_arr_string ( "etc/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "etc/", get_item_arr_string ( "etc/", 0) );
         }
         else if ( ( strstr ( file_name, "/lib/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_lib_ != NULL )
-                append_item_to_sos_line_obj ( line, "lib/", items_lib_ );
+            if ( get_item_arr_string ( "lib/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "lib/", get_item_arr_string ( "lib/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/proc/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_proc_ != NULL )
-                append_item_to_sos_line_obj ( line, "proc/", items_proc_ );
+            if ( get_item_arr_string ( "proc/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "proc/", get_item_arr_string ( "proc/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/sos_commands/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_sos_commands_ != NULL )
-                append_item_to_sos_line_obj ( line, "sos_commands/", items_sos_commands_ );
+            if ( get_item_arr_string ( "sos_commands/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "sos_commands/", get_item_arr_string ( "sos_commands/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/usr/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_usr_ != NULL )
-                append_item_to_sos_line_obj ( line, "usr/", items_usr_ );
+            if ( get_item_arr_string ( "usr/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "usr/", get_item_arr_string ( "usr/", 0 ) );
         }
         else if ( ( strstr ( file_name, "/var/" ) != NULL ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
         {
              /* we don't need 'for loop' because item is 'all' here. */
-            if ( items_var_ != NULL )
-                append_item_to_sos_line_obj ( line, "var/", items_var_ );
+            if ( get_item_arr_string ( "var/", 0 ) != NULL )
+                append_item_to_sos_line_obj ( line, "var/", get_item_arr_string ( "var/", 0 ) );
         }
         /* ---- end read everything stuff should go here ---- */
         else
@@ -1561,7 +1492,7 @@ int read_file ( const char *file_name, const char *member, int files )
     return ( 0 );
 }
 
-void set_token_to_item_arr ( const char *file_name )
+int set_token_to_item_arr ( const char *file_name )
 {
     /*
      * ### FIXME 
@@ -1587,14 +1518,16 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "boot/grub/" ), s );
-        items_mcinfo_boot_grub_ = token;
+        set_item_arr_string ( "boot/grub/", 0, token );
+        return (0);
     }
     /* member cmdlog */
     else if ( ( strstr ( file_name, "/cmdlog/" ) != NULL ) && ( member_item_exists ( "cmdlog/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "cmdlog/" ), s );
-        items_mcinfo_cmdlog_ = token;
+        set_item_arr_string ( "cmdlog/", 0, token );
+        return (0);
     }
     /* ---- end mcfinfo only stuff go here ---- */
     /* ---- independent files go here ---- */
@@ -1604,14 +1537,15 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "date" ), s );
-        items_date = token;
+        set_item_arr_string ( "date", 0, token );
+        return (0);
     }
     /* member df */
     else if ( ( strstr ( file_name, "/df" ) != NULL ) && ( member_item_exists ( "df" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "df" ), s );
-        items_df [ 0 ] = token;
+        set_item_arr_string ( "df", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1623,16 +1557,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_df  [ i ] = token;
+            set_item_arr_string ( "df", i, token );
         }
         set_item_numbers_of_member ( "df", i); 
+        return (0);
     }
     /* member dmidecode */
     else if ( ( strstr ( file_name, "/dmidecode" ) != NULL ) && ( member_item_exists ( "dmidecode" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "dmidecode" ), s );
-        items_dmidecode [ 0 ] = token;
+        set_item_arr_string ( "dmidecode", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1643,30 +1578,33 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_dmidecode  [ i ] = token;
+            set_item_arr_string ( "dmidecode", i, token );
         }
         set_item_numbers_of_member ( "dmidecode", i); 
+        return (0);
     }
     /* member free */
     else if ( ( strstr ( file_name, "/free" ) != NULL ) && ( member_item_exists ( "free" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "free" ), s );
-        items_free = token;
+        set_item_arr_string ( "free", 0, token );
+        return (0);
     }
     /* member hostname */
     else if ( ( strstr ( file_name, "/hostname" ) != NULL ) && ( member_item_exists ( "hostname" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "hostname" ), s );
-        items_hostname = token;
+        set_item_arr_string ( "hostname", 0, token );
+        return (0);
     }
     /* member installed-rpms */
     else if ( ( strstr ( file_name, "/installed-rpms" ) != NULL ) && ( member_item_exists ( "installed-rpms" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "installed-rpms" ), s );
-        items_installed_rpms [ 0 ] = token;
+        set_item_arr_string ( "installed-rpms", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1678,23 +1616,25 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_installed_rpms  [ i ] = token;
+            set_item_arr_string ( "installed-rpms", i, token );
         }
         set_item_numbers_of_member ( "installed-rpms", i); 
+        return (0);
     }
     /* member ip_addr */
     else if ( ( strstr ( file_name, "/ip_addr" ) != NULL ) && ( member_item_exists ( "ip_addr" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "ip_addr" ), s );
-        items_ip_addr = token;
+        set_item_arr_string ( "ip_addr", 0, token );
+        return (0);
     }
     /* member last */
     else if ( ( strstr ( file_name, "/last" ) != NULL ) && ( member_item_exists ( "last" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "last" ), s );
-        items_last [ 0 ] = token;
+        set_item_arr_string ( "last", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1706,23 +1646,25 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_last  [ i ] = token;
+            set_item_arr_string ( "last", i, token );
         }
         set_item_numbers_of_member ( "last", i); 
+        return (0);
     }
     /* member lsb_release */
     else if ( ( strstr ( file_name, "/lsb-release" ) != NULL ) && ( member_item_exists ( "lsb-release" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "lsb-release" ), s );
-        items_lsb_release = token;
+        set_item_arr_string ( "lsb-release", 0, token );
+        return (0);
     }
     /* member lsmod */
     else if ( ( strstr ( file_name, "/lsmod" ) != NULL ) && ( member_item_exists ( "lsmod" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "lsmod" ), s );
-        items_lsmod [ 0 ] = token;
+        set_item_arr_string ( "lsmod", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1733,16 +1675,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_lsmod  [ i ] = token;
+            set_item_arr_string ( "lsmod", i, token );
         }
         set_item_numbers_of_member ( "lsmod", i); 
+        return (0);
     }
     /* member lsof */
     else if ( ( strstr ( file_name, "/lsof" ) != NULL ) && ( member_item_exists ( "lsof" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "lsof" ), s );
-        items_lsof [ 0 ] = token;
+        set_item_arr_string ( "lsof", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1754,16 +1697,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_lsof  [ i ] = token;
+            set_item_arr_string ( "lsof", i, token );
         }
         set_item_numbers_of_member ( "lsof", i); 
+        return (0);
     }
     /* member lspci */
     else if ( ( strstr ( file_name, "/lspci" ) != NULL ) && ( member_item_exists ( "lspci" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "lspci" ), s );
-        items_lspci [ 0 ] = token;
+        set_item_arr_string ( "lspci", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1775,16 +1719,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_lspci  [ i ] = token;
+            set_item_arr_string ( "lspci", i, token );
         }
         set_item_numbers_of_member ( "lspci", i); 
+        return (0);
     }
     /* member netstat */
     else if ( ( strstr ( file_name, "/netstat" ) != NULL ) && ( member_item_exists ( "netstat" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "netstat" ), s );
-        items_netstat [ 0 ] = token;
+        set_item_arr_string ( "netstat", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1796,44 +1741,49 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_netstat  [ i ] = token;
+            set_item_arr_string ( "netstat", i, token );
         }
         set_item_numbers_of_member ( "netstat", i); 
+        return (0);
     }
     /* member uname */
     else if ( ( strstr ( file_name, "/uname" ) != NULL ) && ( member_item_exists ( "uname" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "uname" ), s );
-        items_uname = token;
+        set_item_arr_string ( "uname", 0, token );
+        return (0);
     }
     /* member uptime */
     else if ( ( strstr ( file_name, "/uptime" ) != NULL ) && ( member_item_exists ( "uptime" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "uptime" ), s );
-        items_uptime = token;
+        set_item_arr_string ( "uptime", 0, token );
+        return (0);
     }
     /* member vgdisplay */
     else if ( ( strstr ( file_name, "/vgdisplay" ) != NULL ) && ( member_item_exists ( "vgdisplay" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "vgdisplay" ), s );
-        items_vgdisplay = token;
+        set_item_arr_string ( "vgdisplay", 0, token );
+        return (0);
     }
     /* member route */
     else if ( ( strstr ( file_name, "/route" ) != NULL ) && ( member_item_exists ( "route" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "route" ), s );
-        items_route = token;
+        set_item_arr_string ( "route", 0, token );
+        return (0);
     }
     /* member ps */
     else if ( ( strstr ( file_name, "/ps" ) != NULL ) && ( member_item_exists ( "ps" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "ps" ), s );
-        items_ps [ 0 ] = token;
+        set_item_arr_string ( "ps", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1845,65 +1795,73 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_ps  [ i ] = token;
+            set_item_arr_string ( "ps", i, token );
         }
         set_item_numbers_of_member ( "ps", i); 
+        return (0);
     }
     /* member etc/host */
     else if ( ( strstr ( file_name, "/etc/host" ) != NULL ) && ( member_item_exists ( "etc/host" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/host" ), s );
-        items_etc_host = token;
+        set_item_arr_string ( "etc/host", 0, token );
+        return (0);
     }
     /* member etc/kdump.conf */
     else if ( ( strstr ( file_name, "/etc/kdump.conf" ) != NULL ) && ( member_item_exists ( "etc/kdump.conf" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/kdump.conf" ), s );
-        items_etc_kdump_conf = token;
+        set_item_arr_string ( "etc/kdump.conf", 0, token );
+        return (0);
     }
     /* member etc/logrotate.conf */
     else if ( ( strstr ( file_name, "/etc/logrotate.conf" ) != NULL ) && ( member_item_exists ( "etc/logrotate.conf" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/logrotate.conf" ), s );
-        items_etc_logrotate_conf = token;
+        set_item_arr_string ( "etc/logrotate.conf", 0, token );
+        return (0);
     }
     /* member etc/sysctl.conf */
     else if ( ( strstr ( file_name, "/etc/sysctl.conf" ) != NULL ) && ( member_item_exists ( "etc/sysctl.conf" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/sysctl.conf" ), s );
-        items_etc_sysctl_conf = token;
+        set_item_arr_string ( "etc/sysctl.conf", 0, token );
+        return (0);
     }
     /* member etc/rsyslog.conf */
     else if ( ( strstr ( file_name, "/etc/rsyslog.conf" ) != NULL ) && ( member_item_exists ( "etc/rsyslog.conf" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/rsyslog.conf" ), s );
-        items_etc_rsyslog_conf = token;
+        set_item_arr_string ( "etc/rsyslog.conf", 0, token );
+        return (0);
     }
     /* member etc/sysconfig/network-scripts/ifcfg- */
     else if ( ( strstr ( file_name, "/etc/sysconfig/network-scripts/ifcfg-" ) != NULL ) && ( member_item_exists ( "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/sysconfig/network-scripts/ifcfg-" ), s );
-        items_etc_sysconfig_network_scripts_ifcfg_ = token;
+        set_item_arr_string ( "etc/sysconfig/network-scripts/ifcfg-", 0, token );
+        return (0);
     }
     /* member etc/yum.conf */
     else if ( ( strstr ( file_name, "/etc/yum.conf" ) != NULL ) && ( member_item_exists ( "etc/yum.conf" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/yum.conf" ), s );
-        items_etc_yum_cfg = token;
+        set_item_arr_string ( "etc/yum.conf", 0, token );
+        return (0);
     }
     /* member proc/cpuinfo */
     else if ( ( strstr ( file_name, "/proc/cpuinfo" ) != NULL ) && ( member_item_exists ( "proc/cpuinfo" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "proc/cpuinfo" ), s );
-        items_proc_cpuinfo [ 0 ] = token;
+        set_item_arr_string ( "proc/cpuinfo", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1915,16 +1873,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_proc_cpuinfo  [ i ] = token;
+            set_item_arr_string ( "proc/cpuinfo", i, token );
         }
         set_item_numbers_of_member ( "proc/cpuinfo", i); 
+        return (0);
     }
     /* member proc/meminfo */
     else if ( ( strstr ( file_name, "/proc/meminfo" ) != NULL ) && ( member_item_exists ( "proc/meminfo" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "proc/meminfo" ), s );
-        items_proc_meminfo [ 0 ] = token;
+        set_item_arr_string ( "proc/meminfo", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1936,44 +1895,49 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_proc_meminfo  [ i ] = token;
+            set_item_arr_string ( "proc/meminfo", i, token );
         }
         set_item_numbers_of_member ( "proc/meminfo", i); 
+        return (0);
     }
     /* member proc/interrupts */
     else if ( ( strstr ( file_name, "/proc/interrupts" ) != NULL ) && ( member_item_exists ( "proc/interrupts" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "proc/interrupts" ), s );
-        items_proc_interrupts = token;
+        set_item_arr_string ( "proc/interrupts", 0, token );
+        return (0);
     }
     /* member proc/net/dev */
     else if ( ( strstr ( file_name, "/proc/net/dev" ) != NULL ) && ( member_item_exists ( "proc/net/dev" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "proc/net/dev" ), s );
-        items_proc_net_dev = token;
+        set_item_arr_string ( "proc/net/dev", 0, token );
+        return (0);
     }
     /* member proc/net/sockstat */
     else if ( ( strstr ( file_name, "/proc/net/sockstat" ) != NULL ) && ( member_item_exists ( "proc/net/sockstat" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "proc/net/sockstat" ), s );
-        items_proc_net_sockstat = token;
+        set_item_arr_string ( "proc/net/sockstat", 0, token );
+        return (0);
     }
     /* member root/anaconda-ks.cfg */
     else if ( ( strstr ( file_name, "/root/anaconda-ks.cfg" ) != NULL ) && ( member_item_exists ( "root/anaconda-ks.cfg" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "root/anaconda-ks.cfg" ), s );
-        items_root_anaconda_ks_cfg [ 0 ] = token;
+        set_item_arr_string ( "root/anaconda-ks.cfg", 0, token );
+        return (0);
     }
     /* member sos_commands/devices/udevadm_info_--export-db */
     else if ( ( strstr ( file_name, "/sos_commands/devices/udevadm_info_--export-db" ) != NULL ) && ( member_item_exists ( "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/devices/udevadm_info_--export-db" ), s );
-        items_sos_commands_devices_udevadm_info___export_db [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/devices/udevadm_info_--export-db", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -1985,16 +1949,18 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_devices_udevadm_info___export_db  [ i ] = token;
+            set_item_arr_string ( "sos_commands/devices/udevadm_info_--export-db", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/devices/udevadm_info_--export-db", i); 
+        return (0);
     }
     /* member sos_commands/scsi/lsscsi */
     else if ( ( strstr ( file_name, "/sos_commands/scsi/lsscsi" ) != NULL ) && ( member_item_exists ( "sos_commands/scsi/lsscsi" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/scsi/lsscsi" ), s );
-        items_sos_commands_scsi_lsscsi = token;
+        set_item_arr_string ( "sos_commands/scsi/lsscsi", 0, token );
+        return (0);
     }
     /* ---- end independent files go here ---- */
     /* ---- etc go here ---- */
@@ -2003,80 +1969,89 @@ void set_token_to_item_arr ( const char *file_name )
     else if ( ( strstr ( file_name, "/etc/cron.d/" ) != NULL ) && ( member_item_exists ( "etc/cron.d/" ) == 0 ) )
     {
         /* get the first token */
-        //token = strtok ( sosreport_analyzer_cfg->etc_cron_d_.member, s );
         token = strtok ( get_items_of_member ( "etc/cron.d/" ), s );
-        items_etc_cron_d_ = token;
+        set_item_arr_string ( "etc/cron.d/", 0, token );
+        return (0);
     }
     /* member etc/httpd/ */
     else if ( ( strstr ( file_name, "/etc/httpd/" ) != NULL ) && ( member_item_exists ( "etc/httpd/" ) == 0 ) )
     {
         /* get the first token */
-        //token = strtok ( sosreport_analyzer_cfg->etc_httpd_.member, s );
         token = strtok ( get_items_of_member ( "etc/httpd/" ), s );
-        items_etc_httpd_ = token;
+        set_item_arr_string ( "etc/httpd/", 0, token );
+        return (0);
     }
     /* member etc/default/ */
     else if ( ( strstr ( file_name, "/etc/default/" ) != NULL ) && ( member_item_exists ( "etc/default/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/default/" ), s );
-        items_etc_default_ = token;
+        set_item_arr_string ( "etc/default/", 0, token );
+        return (0);
     }
     /* member etc/logrotate.d/ */
     else if ( ( strstr ( file_name, "/etc/logrotate.d/" ) != NULL ) && ( member_item_exists ( "etc/logrotate.d/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/logrotate.d/" ), s );
-        items_etc_logrotate_d_ = token;
+        set_item_arr_string ( "etc/logrotate.d/", 0, token );
+        return (0);
     }
     /* member etc/modprobe.d/ */
     else if ( ( strstr ( file_name, "/etc/modprobe.d/" ) != NULL ) && ( member_item_exists ( "etc/modprobe.d/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/modprobe.d/" ), s );
-        items_etc_modprobe_d_ = token;
+        set_item_arr_string ( "etc/modprobe.d/", 0, token );
+        return (0);
     }
     /* member sys/module/ */
     else if ( ( strstr ( file_name, "/sys/module/" ) != NULL ) && ( member_item_exists ( "sys/module/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sys/module/" ), s );
-        items_sys_module_ = token;
+        set_item_arr_string ( "sys/module/", 0, token );
+        return (0);
     }
     /* member etc/pki/ */
     else if ( ( strstr ( file_name, "/etc/pki/" ) != NULL ) && ( member_item_exists ( "etc/pki/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/pki/" ), s );
-        items_etc_pki_ = token;
+        set_item_arr_string ( "etc/pki/", 0, token );
+        return (0);
     }
     /* member etc/udev/ */
     else if ( ( strstr ( file_name, "/etc/udev/" ) != NULL ) && ( member_item_exists ( "etc/udev/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/udev/" ), s );
-        items_etc_udev_ = token;
+        set_item_arr_string ( "etc/udev/", 0, token );
+        return (0);
     }
     /* member etc/systemd/system/ */
     else if ( ( strstr ( file_name, "/etc/systemd/system/" ) != NULL ) && ( member_item_exists ( "etc/systemd/system/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/systemd/system/" ), s );
-        items_etc_systemd_system_ = token;
+        set_item_arr_string ( "etc/systemd/system/", 0, token );
+        return (0);
     }
     /* member etc/systemd/ */
     else if ( ( strstr ( file_name, "/etc/systemd/" ) != NULL ) && ( member_item_exists ( "etc/systemd/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/system/" ), s );
-        items_etc_systemd_ = token;
+        set_item_arr_string ( "etc/system/", 0, token );
+        return (0);
     }
     /* member etc/yum.repos.d/ */
     else if ( ( strstr ( file_name, "/etc/yum.repos.d/" ) != NULL ) && ( member_item_exists ( "etc/yum.repos.d/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/yum.repos.d/" ), s );
-        items_etc_yum_repos_d_ = token;
+        set_item_arr_string ( "etc/yum.repos.d/", 0, token );
+        return (0);
     }
     /* ---- end etc go here ---- */
     /* ---- usr go here ---- */
@@ -2086,7 +2061,8 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "usr/lib/systemd/" ), s );
-        items_usr_lib_systemd_ = token;
+        set_item_arr_string ( "usr/lib/systemd/", 0, token );
+        return (0);
     }
     /* ---- end usr go here ---- */
     /* ---- sos_commands go here ---- */
@@ -2096,7 +2072,7 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/abrt/" ), s );
-        items_sos_commands_abrt_ [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/abrt/", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2108,16 +2084,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_abrt_  [ i ] = token;
+            set_item_arr_string ( "sos_commands/abrt/", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/abrt/", i); 
+        return (0);
     }
     /* member sos_commands/boot/ */
     else if ( ( strstr ( file_name, "/sos_commands/boot/" ) != NULL ) && ( member_item_exists ( "sos_commands/boot/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/boot/" ), s );
-        items_sos_commands_boot_ [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/boot/", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2129,16 +2106,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_boot_  [ i ] = token;
+            set_item_arr_string ( "sos_commands/boot/", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/boot/", i); 
+        return (0);
     }
     /* member sos_commands/kernel/sysctl_-a */
     else if ( ( strstr ( file_name, "/sos_commands/kernel/sysctl_-a" ) != NULL ) && ( member_item_exists ( "sos_commands/kernel/sysctl_-a" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/kernel/sysctl_-a" ), s );
-        items_sos_commands_kernel_sysctl__a [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/kernel/sysctl_-a", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2150,16 +2128,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_kernel_sysctl__a  [ i ] = token;
+            set_item_arr_string ( "sos_commands/kernel/sysctl_-a", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/kernel/sysctl_-a", i); 
+        return (0);
     }
     /* member sos_commands/logs/journalctl_--no-pager */
     else if ( ( strstr ( file_name, "/sos_commands/logs/journalctl_--no-pager" ) != NULL ) && ( member_item_exists ( "sos_commands/logs/journalctl_--no-pager" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/logs/journalctl_--no-pager" ), s );
-        items_sos_commands_logs_journalctl___no_pager [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/logs/journalctl_--no-pager", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2171,16 +2150,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_logs_journalctl___no_pager  [ i ] = token;
+            set_item_arr_string ( "sos_commands/logs/journalctl_--no-pager", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/logs/journalctl_--no-pager", i); 
+        return (0);
     }
     /* member sos_commands/networking/ethtool_-S */
     else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-S" ) != NULL ) && ( member_item_exists ( "sos_commands/networking/ethtool_-S" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/networking/ethtool_-S" ), s );
-        items_sos_commands_networking_ethtool__S [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/networking/ethtool_-S", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2192,16 +2172,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_networking_ethtool__S  [ i ] = token;
+            set_item_arr_string ( "sos_commands/networking/ethtool_-S", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/networking/ethtool_-S", i); 
+        return (0);
     }
     /* member sos_commands/networking/ethtool_-i */
     else if ( ( strstr ( file_name, "/sos_commands/networking/ethtool_-i" ) != NULL ) && ( member_item_exists ( "sos_commands/networking/ethtool_-i" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/networking/ethtool_-i" ), s );
-        items_sos_commands_networking_ethtool__i [ 0 ] = token;
+        set_item_arr_string ( "sos_commands/networking/ethtool_-i", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2213,37 +2194,42 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_sos_commands_networking_ethtool__i  [ i ] = token;
+            set_item_arr_string ( "sos_commands/networking/ethtool_-i", i, token );
         }
         set_item_numbers_of_member ( "sos_commands/networking/ethtool_-i", i); 
+        return (0);
     }
     /* member sos_commands/networking/ */
     else if ( ( strstr ( file_name, "/sos_commands/networking/" ) != NULL ) && ( member_item_exists ( "sos_commands/networking/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/networking/" ), s );
-        items_sos_commands_networking_ = token;
+        set_item_arr_string ( "sos_commands/networking/", 0, token );
+        return (0);
     }
     /* member sos_commands/sar/ */
     else if ( ( strstr ( file_name, "/sos_commands/sar/" ) != NULL ) && ( member_item_exists ( "sos_commands/sar/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/sar/" ), s );
-        items_sos_commands_sar_ = token;
+        set_item_arr_string ( "sos_commands/sar/", 0, token );
+        return (0);
     }
     /* member sos_commands/usb/ */
     else if ( ( strstr ( file_name, "/sos_commands/usb/" ) != NULL ) && ( member_item_exists ( "sos_commands/usb/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/usb/" ), s );
-        items_sos_commands_usb_ = token;
+        set_item_arr_string ( "sos_commands/usb/", 0, token );
+        return (0);
     }
     /* member sos_commands/virsh/ */
     else if ( ( strstr ( file_name, "/sos_commands/virsh/" ) != NULL ) && ( member_item_exists ( "sos_commands/virsh/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/virsh/" ), s );
-        items_sos_commands_virsh_ = token;
+        set_item_arr_string ( "sos_commands/virsh/", 0, token );
+        return (0);
     }
     /* ---- end sos_commands go here ---- */
     /* ---- var go here ---- */
@@ -2253,32 +2239,35 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/crash/" ), s );
-        items_var_crash_ = token;
+        set_item_arr_string ( "var/crash/", 0, token );
+        return (0);
     }
     /* member var/spool/cron/ */
     else if ( ( strstr ( file_name, "/var/spool/cron/" ) != NULL ) && ( member_item_exists ( "var/spool/cron/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/spool/cron/" ), s );
-        items_var_spool_cron_ = token;
+        set_item_arr_string ( "var/spool/cron/", 0, token );
+        return (0);
     }
     /* member var/log/dmesg */
     else if ( ( strstr ( file_name, "/var/log/dmesg" ) != NULL ) && ( member_item_exists ( "var/log/dmesg" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/log/dmesg" ), s );
-        items_var_log_dmesg = token;
+        set_item_arr_string ( "var/log/dmesg", 0, token );
+        return (0);
     }
     /* member var/log/messages */
     else if ( ( strstr ( file_name, "/var/log/messages" ) != NULL ) && ( member_item_exists ( "var/log/messages" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/log/messages" ), s );
-        items_var_log_messages [ 0 ] = token;
+        set_item_arr_string ( "var/log/messages", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( get_item_numbers_of_member ( "var/log/messages" ) > arr_max12 )
+            if ( get_item_numbers_of_member ( "var/log/messages" ) > arr_max20 )
             {
                 printf("can't set items over %d for var/log/messages\n",arr_max20);
                 free_sosreport_analyzer_obj ( );
@@ -2286,16 +2275,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_var_log_messages  [ i ] = token;
+            set_item_arr_string ( "var/log/messages", i, token );
         }
         set_item_numbers_of_member ( "var/log/messages", i); 
+        return (0);
     }
     /* member var/log/secure */
     else if ( ( strstr ( file_name, "/var/log/secure" ) != NULL ) && ( member_item_exists ( "var/log/secure" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/log/secure" ), s );
-        items_var_log_secure [ 0 ] = token;
+        set_item_arr_string ( "var/log/secure", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2307,16 +2297,17 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_var_log_secure  [ i ] = token;
+            set_item_arr_string ( "var/log/secure", i, token );
         }
         set_item_numbers_of_member ( "var/log/secure", i); 
+        return (0);
     }
     /* member var/log/audit/ */
     else if ( ( strstr ( file_name, "/var/log/audit/" ) != NULL ) && ( member_item_exists ( "var/log/audit/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/log/audit/" ), s );
-        items_var_log_audit_ [ 0 ] = token;
+        set_item_arr_string ( "var/log/audit/", 0, token );
         /* get the next token ... */
         while ( token != NULL )
         {
@@ -2328,9 +2319,10 @@ void set_token_to_item_arr ( const char *file_name )
             }
             token = strtok ( NULL, s );
             i ++;
-            items_var_log_audit_  [ i ] = token;
+            set_item_arr_string ( "var/log/audit/", i, token );
         }
         set_item_numbers_of_member ( "var/log/audit/", i); 
+        return (0);
     }
     /* ---- end var go here ---- */
     /* ---- read everything stuff go here ---- */
@@ -2340,51 +2332,59 @@ void set_token_to_item_arr ( const char *file_name )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "dev/" ), s );
-        items_dev_ = token;
+        set_item_arr_string ( "dev/", 0, token );
+        return (0);
     }
     /* member etc/ */
     else if ( ( strstr ( file_name, "/etc/" ) != NULL ) && ( member_item_exists ( "etc/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "etc/" ), s );
-        items_etc_ = token;
+        set_item_arr_string ( "etc/", 0, token );
+        return (0);
     }
     /* member lib/ */
     else if ( ( strstr ( file_name, "/lib/" ) != NULL ) && ( member_item_exists ( "lib/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "lib/" ), s );
-        items_lib_ = token;
+        set_item_arr_string ( "lib/", 0, token );
+        return (0);
     }
     /* member proc/ */
     else if ( ( strstr ( file_name, "/proc/" ) != NULL ) && ( member_item_exists ( "proc/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "proc/" ), s );
-        items_proc_ = token;
+        set_item_arr_string ( "proc/", 0, token );
+        return (0);
     }
     /* member sos_commands/ */
     else if ( ( strstr ( file_name, "/sos_commands/" ) != NULL ) && ( member_item_exists ( "sos_commands/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "sos_commands/" ), s );
-        items_sos_commands_ = token;
+        set_item_arr_string ( "sos_commands/", 0, token );
+        return (0);
     }
     /* member usr/ */
     else if ( ( strstr ( file_name, "/usr/" ) != NULL ) && ( member_item_exists ( "usr/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "usr/" ), s );
-        items_usr_ = token;
+        set_item_arr_string ( "usr/", 0, token );
+        return (0);
     }
     /* member var/ */
     else if ( ( strstr ( file_name, "/var/" ) != NULL ) && ( member_item_exists ( "var/" ) == 0 ) )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( "var/" ), s );
-        items_var_ = token;
+        set_item_arr_string ( "var/", 0, token );
+        return (0);
     }
     /* ---- end read everything stuff go here ---- */
+    return (1);
 }
 
 void read_file_pre ( const char *member, const char *dir_name )

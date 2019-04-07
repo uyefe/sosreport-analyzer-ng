@@ -284,7 +284,7 @@ void sos_file_to_write ( void );
  *
  * This function sets items as an array of each member which had been set in config file. 
  */
-void set_token_to_item_arr ( const char *file_name );
+int set_token_to_item_arr ( const char *file_name );
 
 /*
  * append_item_to_line_obj()
