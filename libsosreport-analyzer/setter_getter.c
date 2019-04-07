@@ -829,6 +829,510 @@ int set_file_numbers_of_member ( const char *member, int x )
     return ( 0 );
 }
 
+int set_item_arr_string ( const char *member, int x, const char *item_name )
+{
+    if ( item_name == NULL )
+        return ( 0 );
+    if ( x > MAX_ITEM_NUMBERS )
+        return ( 1 );
+    if ( strcmp ( "df", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->df.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "date", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->date.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "dmidecode", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->dmidecode.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "free", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->free.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "hostname", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->hostname.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "installed-rpms", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->installed_rpms.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "ip_addr", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->ip_addr.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "last", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->last.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "lsb-release", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->lsb_release.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "lsmod", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->lsmod.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "lsof", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->lsof.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "lspci", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->lspci.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "ps", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->ps.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "route", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->route.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "netstat", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->netstat.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "uname", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->uname.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "uptime", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->uptime.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "vgdisplay", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->vgdisplay.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "boot/grub/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->mcinfo_boot_grub_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "cmdlog/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->mcinfo_cmdlog_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "dev/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->dev_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/cron.d/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_cron_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/default/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_default_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/host", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_host.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/httpd/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_httpd_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/kdump.conf", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_kdump_conf.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/logrotate.conf", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_logrotate_conf.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/logrotate.d/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_logrotate_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_modprobe_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/pki/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_pki_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_rsyslog_conf.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_sysctl_conf.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_systemd_system_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/systemd/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_systemd_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/udev/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_udev_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/yum.conf", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_yum_conf.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/yum.repos.d/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_yum_repos_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "lib/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->lib_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/cpuinfo", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_cpuinfo.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/interrupts", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_interrupts.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/meminfo", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_meminfo.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/net/dev", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_net_dev.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_net_sockstat.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "root/anaconda-ks.cfg", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_abrt_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/networking/ethtool_-S", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/networking/ethtool_-i", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_networking_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_sar_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_usb_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_virsh_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sys_module_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "usr/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->usr_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->usr_lib_systemd_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/crash/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_crash_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/log/audit/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_log_audit_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/log/dmesg", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_log_dmesg.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/log/messages", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_log_messages.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/log/secure", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_log_secure.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "var/spool/cron/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->var_spool_cron_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    return ( 1 );
+}
+
+char *get_item_arr_string ( const char *member, int x )
+{
+    if ( strcmp ( "df", member ) == 0 )
+        return sosreport_analyzer_cfg->df.item_names.item_name [ x ]; 
+    else if ( strcmp ( "date", member ) == 0 )
+        return sosreport_analyzer_cfg->date.item_names.item_name [ x ]; 
+    else if ( strcmp ( "dmidecode", member ) == 0 )
+        return sosreport_analyzer_cfg->dmidecode.item_names.item_name [ x ]; 
+    else if ( strcmp ( "free", member ) == 0 )
+        return sosreport_analyzer_cfg->free.item_names.item_name [ x ]; 
+    else if ( strcmp ( "hostname", member ) == 0 )
+        return sosreport_analyzer_cfg->hostname.item_names.item_name [ x ]; 
+    else if ( strcmp ( "installed-rpms", member ) == 0 )
+        return sosreport_analyzer_cfg->installed_rpms.item_names.item_name [ x ]; 
+    else if ( strcmp ( "ip_addr", member ) == 0 )
+        return sosreport_analyzer_cfg->ip_addr.item_names.item_name [ x ]; 
+    else if ( strcmp ( "last", member ) == 0 )
+        return sosreport_analyzer_cfg->last.item_names.item_name [ x ]; 
+    else if ( strcmp ( "lsb-release", member ) == 0 )
+        return sosreport_analyzer_cfg->lsb_release.item_names.item_name [ x ]; 
+    else if ( strcmp ( "lsmod", member ) == 0 )
+        return sosreport_analyzer_cfg->lsmod.item_names.item_name [ x ]; 
+    else if ( strcmp ( "lsof", member ) == 0 )
+        return sosreport_analyzer_cfg->lsof.item_names.item_name [ x ]; 
+    else if ( strcmp ( "lspci", member ) == 0 )
+        return sosreport_analyzer_cfg->lspci.item_names.item_name [ x ]; 
+    else if ( strcmp ( "ps", member ) == 0 )
+        return sosreport_analyzer_cfg->ps.item_names.item_name [ x ]; 
+    else if ( strcmp ( "route", member ) == 0 )
+        return sosreport_analyzer_cfg->route.item_names.item_name [ x ]; 
+    else if ( strcmp ( "netstat", member ) == 0 )
+        return sosreport_analyzer_cfg->netstat.item_names.item_name [ x ]; 
+    else if ( strcmp ( "uname", member ) == 0 )
+        return sosreport_analyzer_cfg->uname.item_names.item_name [ x ]; 
+    else if ( strcmp ( "uptime", member ) == 0 )
+        return sosreport_analyzer_cfg->uptime.item_names.item_name [ x ]; 
+    else if ( strcmp ( "vgdisplay", member ) == 0 )
+        return sosreport_analyzer_cfg->vgdisplay.item_names.item_name [ x ]; 
+    else if ( strcmp ( "boot/grub/", member ) == 0 )
+        return sosreport_analyzer_cfg->mcinfo_boot_grub_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "cmdlog/", member ) == 0 )
+        return sosreport_analyzer_cfg->mcinfo_cmdlog_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "dev/", member ) == 0 )
+        return sosreport_analyzer_cfg->dev_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/cron.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_cron_d_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/default/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_default_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/host", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_host.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/httpd/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_httpd_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/kdump.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_kdump_conf.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/logrotate.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_logrotate_conf.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/logrotate.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_logrotate_d_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_modprobe_d_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/pki/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_pki_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_rsyslog_conf.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysctl_conf.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_systemd_system_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/systemd/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_systemd_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/udev/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_udev_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/yum.conf", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_yum_conf.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/yum.repos.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_yum_repos_d_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "lib/", member ) == 0 )
+        return sosreport_analyzer_cfg->lib_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/cpuinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_cpuinfo.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/interrupts", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_interrupts.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/meminfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_meminfo.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/net/dev", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_net_dev.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_net_sockstat.item_names.item_name [ x ]; 
+    else if ( strcmp ( "root/anaconda-ks.cfg", member ) == 0 )
+        return sosreport_analyzer_cfg->root_anaconda_ks_cfg.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_abrt_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/networking/ethtool_-S", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/networking/ethtool_-i", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_networking_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_sar_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_usb_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_virsh_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sys/module/", member ) == 0 )
+        return sosreport_analyzer_cfg->sys_module_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "usr/", member ) == 0 )
+        return sosreport_analyzer_cfg->usr_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "usr/lib/systemd/", member ) == 0 )
+        return sosreport_analyzer_cfg->usr_lib_systemd_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/crash/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_crash_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/log/audit/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_audit_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/log/dmesg", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_dmesg.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/log/messages", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_messages.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/log/secure", member ) == 0 )
+        return sosreport_analyzer_cfg->var_log_secure.item_names.item_name [ x ]; 
+    else if ( strcmp ( "var/spool/cron/", member ) == 0 )
+        return sosreport_analyzer_cfg->var_spool_cron_.item_names.item_name [ x ]; 
+    return "skip";
+}
+
 int member_item_exists ( const char *member )
 {
     if ( strcmp ( "df", member ) == 0 )

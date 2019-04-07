@@ -113,4 +113,28 @@ int member_item_exists ( const char *member );
  */
 int init_item_numbers_of_member ( void );
 
+/* 
+ *  Function Name: set_item_arr_string ()
+ *
+ *  This function sets item string for a member which had been set in config file.
+ *
+ *  Caller : 
+ *
+ *  Calls : none
+ *
+ */
+int set_item_arr_string ( const char *member, int x, const char *item );
+
+/* 
+ *  Function Name: get_item_arr_string ()
+ *
+ *  This function gets item string for a member which had been set in config file.
+ *
+ *  Caller : 
+ *
+ *  Calls : none
+ *
+ */
+char *get_item_arr_string ( const char *member, int x );
+
 #endif /* SOSREPORT_ANALYZER_SETTER_GETTER_H */
