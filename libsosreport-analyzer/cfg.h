@@ -23,14 +23,17 @@
 #ifndef SOSREPORT_ANALYZER__CFG_H
 #define SOSREPORT_ANALYZER__CFG_H
 
+#include "../common/global.h"
+#include "../common/common_line_data.h"
+
 /* the maximum line length in the configuration file */
 #define MAX_LINE_LENGTH    4096
 
 /* the maximum item numbers in the configuration file */
-#define MAX_ITEM_NUMBERS   20 
+#define MAX_ITEM_NUMBERS    20 
 
 /* the maximum item strings in the configuration file */
-#define MAX_ITEM_STRINGS   30 
+#define MAX_ITEM_STRINGS    30 
 
 /* the delimiters of tokens */
 #define TOKEN_DELIM "="
@@ -42,12 +45,20 @@ typedef struct
 
 } item_arr;
 
+/* 488 files each 255 bytes */
+typedef struct
+{
+    char file_name  [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ] [ MAX_FILE_NAME_LENGTH + 1 ];
+
+} file_name_arr;
+
 typedef struct
 {
     char member [ MAX_LINE_LENGTH ];
     int item_num;
     int file_num;
     item_arr item_names;
+    file_name_arr file_names;
 
 } config_each;
 
