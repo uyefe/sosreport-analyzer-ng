@@ -284,7 +284,6 @@ void sos_file_to_write ( void );
  *
  * This function sets items as an array of each member which had been set in config file. 
  */
-//int set_token_to_item_arr ( const char *file_name );
 int set_token_to_item_arr ( const char *file_name, const char *member );
 
 /*
@@ -302,7 +301,5 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
  *
  */
 void free_sosreport_analyzer_obj ( void );
-
-int set_token_to_item_arr_for_member ( const char *file_name, const char *member );
 
 #endif /* SOSREPORT_ANALYZER_COMMON_H */

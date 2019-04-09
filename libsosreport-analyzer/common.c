@@ -1149,8 +1149,11 @@ int read_file ( const char *file_name, const char *member, int files )
     return ( 0 );
 }
 
-int set_token_to_item_arr_for_member ( const char *file_name, const char *member )
+int set_token_to_item_arr ( const char *file_name, const char *member )
 {
+    /* initialized item numbers of member here */
+    init_item_numbers_of_member ( );
+
     int i = 0;
 
     const char s [ 8 ] = " \t\n\r"; /* this is the delimiter */
@@ -1179,16 +1182,6 @@ int set_token_to_item_arr_for_member ( const char *file_name, const char *member
     }
     else
         return (1);
-    return (1);
-}
-
-int set_token_to_item_arr ( const char *file_name, const char *member )
-{
-    /* initialized item numbers of member here */
-    init_item_numbers_of_member ( );
-
-    set_token_to_item_arr_for_member ( file_name, member );
-
     return (1);
 }
 
