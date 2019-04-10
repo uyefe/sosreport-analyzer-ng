@@ -885,7 +885,6 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 )
                 continue;
 
-
             /*
              *  find files with name fname_part 
              */
@@ -1021,7 +1020,7 @@ static int memory_array_information = 0;
 static int memory_information = 0;
 
 /* These are array numbers limits. */
-int arr_max0 = 0;
+int arr_max1 = 1;
 int arr_max2 = 2;
 int arr_max12 = 12;
 int arr_max20 = 20;
@@ -1050,7 +1049,7 @@ int read_file ( const char *file_name, const char *member, int files )
 
     /* when this function had been called from 'read_analyze_dir()', items should be set only once */
     if ( files == 0)
-        if ( set_token_to_item_arr ( file_name, member ) == 0 )
+        if ( set_token_to_item_arr ( file_name, member ) == 1 )
             printf("set_token_to_item_arr failed in (%s)\n",file_name);
 
     /* open file */
@@ -1116,7 +1115,7 @@ int read_file ( const char *file_name, const char *member, int files )
     {
         lnr++;
         line = linebuf;
-        int x = 0;
+        int x = 1;
 
         /* strip newline */
         i = ( int ) strlen ( line );
@@ -1167,17 +1166,123 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
         /* get the next token ... */
         while ( token != NULL )
         {
-            if ( get_item_numbers_of_member ( member ) > arr_max20 )
+            set_item_numbers_of_member ( member, i ); 
+            if (
+                ( strcmp ( member, "date" ) == 0 ) ||
+                ( strcmp ( member, "lsb-release" ) == 0 ) ||
+                ( strcmp ( member, "uname" ) == 0 ) ||
+                ( strcmp ( member, "hostname" ) == 0 ) ||
+                ( strcmp ( member, "uptime" ) == 0 ) ||
+                ( strcmp ( member, "root/anaconda-ks.cfg" ) == 0 ) ||
+                ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+                ( strcmp ( member, "sys/module/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
+                ( strcmp ( member, "etc/udev/" ) == 0 ) ||
+                ( strcmp ( member, "vgdisplay" ) == 0 ) ||
+                ( strcmp ( member, "free" ) == 0 ) ||
+                ( strcmp ( member, "ip_addr" ) == 0 ) ||
+                ( strcmp ( member, "route" ) == 0 ) ||
+                ( strcmp ( member, "etc/host" ) == 0 ) ||
+                ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
+                ( strcmp ( member, "etc/systemd/" ) == 0 ) ||
+                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
+                ( strcmp ( member, "etc/default/" ) == 0 ) ||
+                ( strcmp ( member, "etc/kdump.conf" ) == 0 ) ||
+                ( strcmp ( member, "etc/sysctl.conf" ) == 0 ) ||
+                ( strcmp ( member, "etc/rsyslog.conf" ) == 0 ) ||
+                ( strcmp ( member, "etc/yum.conf" ) == 0 ) ||
+                ( strcmp ( member, "etc/yum.repos.d/" ) == 0 ) ||
+                ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
+                ( strcmp ( member, "proc/net/dev" ) == 0 ) ||
+                ( strcmp ( member, "proc/net/sockstat" ) == 0 ) ||
+                ( strcmp ( member, "proc/interrupts" ) == 0 ) ||
+                ( strcmp ( member, "etc/logrotate.conf" ) == 0 ) ||
+                ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
+                ( strcmp ( member, "etc/pki/" ) == 0 ) ||
+                ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+                ( strcmp ( member, "var/spool/cron/" ) == 0 ) ||
+                ( strcmp ( member, "var/log/dmesg" ) == 0 ) ||
+                ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
+                ( strcmp ( member, "lib/" ) == 0 ) ||
+                ( strcmp ( member, "etc/" ) == 0 ) ||
+                ( strcmp ( member, "dev/" ) == 0 ) ||
+                ( strcmp ( member, "usr/" ) == 0 ) ||
+                ( strcmp ( member, "var/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/" ) == 0 )
+            )
             {
-                printf("can't set items over %d for %s\n",arr_max20,member);
-                free_sosreport_analyzer_obj ( );
-                exit ( EXIT_FAILURE );
+                if ( get_item_numbers_of_member ( member ) > arr_max1 )
+                {
+                    printf("can't set items over %d for %s\n",arr_max1,member);
+                    free_sosreport_analyzer_obj ( );
+                    exit ( EXIT_FAILURE );
+                }
+            }
+
+            if (
+                ( strcmp ( member, "df" ) == 0 )
+            )
+            {
+                if ( get_item_numbers_of_member ( member ) > arr_max2 )
+                {
+                    printf("can't set items over %d for %s\n",arr_max2,member);
+                    free_sosreport_analyzer_obj ( );
+                    exit ( EXIT_FAILURE );
+                }
+            }
+
+            if (
+                ( strcmp ( member, "proc/cpuinfo" ) == 0 ) ||
+                ( strcmp ( member, "lsmod" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
+                ( strcmp ( member, "installed-rpms" ) == 0 ) ||
+                ( strcmp ( member, "last" ) == 0 ) ||
+                ( strcmp ( member, "ps" ) == 0 ) ||
+                ( strcmp ( member, "lsof" ) == 0 ) ||
+                ( strcmp ( member, "netstat" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+                ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
+                ( strcmp ( member, "var/log/secure" ) == 0 ) ||
+                ( strcmp ( member, "var/log/audit/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/abrt/" ) == 0 ) ||
+                ( strcmp ( member, "proc/" ) == 0 ) ||
+                ( strcmp ( member, "var/crash/" ) == 0 )
+            )
+            {
+                if ( get_item_numbers_of_member ( member ) > arr_max12 )
+                {
+                    printf("can't set items over %d for %s\n",arr_max12,member);
+                    free_sosreport_analyzer_obj ( );
+                    exit ( EXIT_FAILURE );
+                }
+            }
+
+            if (
+                ( strcmp ( member, "lspci" ) == 0 ) ||
+                ( strcmp ( member, "var/log/messages" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
+                ( strcmp ( member, "demidecode" ) == 0 )
+            )
+            {
+                if ( get_item_numbers_of_member ( member ) > arr_max20 )
+                {
+                    printf("can't set items over %d for %s\n",arr_max20,member);
+                    free_sosreport_analyzer_obj ( );
+                    exit ( EXIT_FAILURE );
+                }
             }
             token = strtok ( NULL, s );
             i ++;
             set_item_arr_string ( member, i, token );
         }
-        set_item_numbers_of_member ( member, i); 
+        set_item_numbers_of_member ( member, i ); 
         return (0);
     }
     else
