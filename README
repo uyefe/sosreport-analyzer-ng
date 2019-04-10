@@ -58,8 +58,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze ps file.
   Analyze lsof file.
   Analyze netstat file.
-  Echo files in etc/systemd/.
   Echo files in etc/systemd/system/.
+  Echo files in etc/systemd/.
   Echo files in usr/lib/systemd/.
   Echo files in sos_commands/sar.
   Echo files in sos_commands/virsh.
