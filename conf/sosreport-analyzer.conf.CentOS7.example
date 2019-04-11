@@ -12,6 +12,9 @@
 # sosreport-analyzer will stop to analyze when file does not exist.
 # In such cases, you can skip the file, setting item-name to 'skip'.
 # ex. lsb-release=skip
+#
+# Note: sosreport-analyzer automatically skips the directory which is not present.
+#
 
 ## date
 ##
@@ -396,7 +399,7 @@ etc/httpd/=all
 ##
 ## All you can set is 'all'
 
-lib/=all
+lib/=skip
 
 ## etc/
 ##
