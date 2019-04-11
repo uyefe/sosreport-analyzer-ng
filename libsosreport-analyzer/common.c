@@ -1019,12 +1019,6 @@ static int bios_information = 0;
 static int memory_array_information = 0;
 static int memory_information = 0;
 
-/* These are array numbers limits. */
-int arr_max1 = 1;
-int arr_max2 = 2;
-int arr_max12 = 12;
-int arr_max20 = 20;
-
 int read_file ( const char *file_name, const char *member, int files )
 {
     int file_name_len = ( int ) strlen ( file_name );
@@ -1150,6 +1144,12 @@ int read_file ( const char *file_name, const char *member, int files )
 
 int set_token_to_item_arr ( const char *file_name, const char *member )
 {
+    /* These are array number limits for items of a member. */
+    int arr_max1 = 1;
+    int arr_max2 = 2;
+    int arr_max12 = 12;
+    int arr_max20 = 20;
+
     /* initialized item numbers of member here */
     init_item_numbers_of_member ( );
 
@@ -1214,7 +1214,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                 ( strcmp ( member, "sos_commands/" ) == 0 )
             )
             {
-                if ( get_item_numbers_of_member ( member ) > arr_max1 )
+                if ( get_item_numbers_of_member ( member ) >= arr_max1 )
                 {
                     printf("can't set items over %d for %s\n",arr_max1,member);
                     free_sosreport_analyzer_obj ( );
@@ -1226,7 +1226,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                 ( strcmp ( member, "df" ) == 0 )
             )
             {
-                if ( get_item_numbers_of_member ( member ) > arr_max2 )
+                if ( get_item_numbers_of_member ( member ) >= arr_max2 )
                 {
                     printf("can't set items over %d for %s\n",arr_max2,member);
                     free_sosreport_analyzer_obj ( );
@@ -1256,7 +1256,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                 ( strcmp ( member, "var/crash/" ) == 0 )
             )
             {
-                if ( get_item_numbers_of_member ( member ) > arr_max12 )
+                if ( get_item_numbers_of_member ( member ) >= arr_max12 )
                 {
                     printf("can't set items over %d for %s\n",arr_max12,member);
                     free_sosreport_analyzer_obj ( );
@@ -1271,7 +1271,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                 ( strcmp ( member, "demidecode" ) == 0 )
             )
             {
-                if ( get_item_numbers_of_member ( member ) > arr_max20 )
+                if ( get_item_numbers_of_member ( member ) >= arr_max20 )
                 {
                     printf("can't set items over %d for %s\n",arr_max20,member);
                     free_sosreport_analyzer_obj ( );
