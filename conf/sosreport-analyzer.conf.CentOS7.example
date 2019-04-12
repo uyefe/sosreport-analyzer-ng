@@ -7,14 +7,12 @@
 #
 #
 # 'all' echos every line in the file.
+# Remember that 'all' should come very first. Other 'all' is omitted automatically.
 # In some items, you can set any item-name. 
 # Sometimes, certain files are not made by sosreport.
-# sosreport-analyzer will stop to analyze when file does not exist.
 # In such cases, you can skip the file, setting item-name to 'skip'.
+# But don't worry, sosreport-analyzer will automatically skips the directory which is not present.
 # ex. lsb-release=skip
-#
-# Note: sosreport-analyzer automatically skips the directory which is not present.
-#
 
 ## date
 ##
