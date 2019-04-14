@@ -95,6 +95,8 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->var_log_secure.item_num = 0;
     sosreport_analyzer_cfg->var_spool_cron_.item_num = 0;
     sosreport_analyzer_cfg->sys_module_.item_num = 0;
+    sosreport_analyzer_cfg->etc_pam_d_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_pam_.item_num = 0;
 
     return ( 0 );
 }
@@ -161,6 +163,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_logrotate_d_.item_num;
     else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_modprobe_d_.item_num;
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_pam_d_.item_num;
     else if ( strcmp ( "etc/pki/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_pki_.item_num;
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
@@ -213,6 +217,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num;
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_networking_.item_num;
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_pam_.item_num;
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_sar_.item_num;
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
@@ -307,6 +313,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_logrotate_d_.member;
     else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_modprobe_d_.member;
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_pam_d_.member;
     else if ( strcmp ( "etc/pki/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_pki_.member;
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
@@ -359,6 +367,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member;
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_networking_.member;
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_pam_.member;
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_sar_.member;
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
@@ -453,6 +463,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_logrotate_d_.file_num;
     else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_modprobe_d_.file_num;
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_pam_d_.file_num;
     else if ( strcmp ( "etc/pki/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_pki_.file_num;
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
@@ -505,6 +517,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.file_num;
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_networking_.file_num;
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_pam_.file_num;
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_sar_.file_num;
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
@@ -599,6 +613,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_logrotate_d_.item_num = x; 
     else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
         sosreport_analyzer_cfg->etc_modprobe_d_.item_num = x; 
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_pam_d_.item_num = x; 
     else if ( strcmp ( "etc/pki/", member ) == 0 )
         sosreport_analyzer_cfg->etc_pki_.item_num = x; 
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
@@ -651,6 +667,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num = x; 
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_networking_.item_num = x; 
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_pam_.item_num = x; 
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_sar_.item_num = x; 
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
@@ -745,6 +763,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_logrotate_d_.file_num = x; 
     else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
         sosreport_analyzer_cfg->etc_modprobe_d_.file_num = x; 
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_pam_d_.file_num = x; 
     else if ( strcmp ( "etc/pki/", member ) == 0 )
         sosreport_analyzer_cfg->etc_pki_.file_num = x; 
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
@@ -797,6 +817,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.file_num = x; 
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_networking_.file_num = x; 
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_pam_.file_num = x; 
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_sar_.file_num = x; 
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
@@ -985,6 +1007,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->etc_modprobe_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_pam_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "etc/pki/", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->etc_pki_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
@@ -1113,6 +1140,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->sos_commands_networking_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_pam_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
@@ -1250,6 +1282,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->etc_logrotate_d_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/modprobe.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_modprobe_d_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_pam_d_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/pki/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_pki_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
@@ -1302,6 +1336,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_networking_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_pam_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_sar_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
@@ -1485,6 +1521,11 @@ int member_item_exists ( const char *member )
         if ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 )
             return ( 0 );
     }
+    else if ( strcmp ( "etc/pam.d/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->etc_pam_d_.member, "" ) != 0 )
+            return ( 0 );
+    }
     else if ( strcmp ( "etc/pki/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 )
@@ -1613,6 +1654,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "sos_commands/networking/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/pam/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sos_commands_pam_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "sos_commands/sar/", member ) == 0 )

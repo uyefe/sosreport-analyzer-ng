@@ -92,26 +92,26 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
         /* common stuff for both mcinfo and sosreport */
         if ( strcmp ( keyword, "etc/host" ) == 0 )
             strncpy ( cfg->etc_host.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "proc/cpuinfo" ) == 0 )
-            strncpy ( cfg->proc_cpuinfo.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
-            strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/modprobe.d/" ) == 0 )
             strncpy ( cfg->etc_modprobe_d_.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "var/log/dmesg" ) == 0 )
-            strncpy ( cfg->var_log_dmesg.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
+            strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
             strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "var/spool/cron/" ) == 0 )
-            strncpy ( cfg->var_spool_cron_.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
-            strncpy ( cfg->var_log_messages.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "var/crash/" ) == 0 )
-            strncpy ( cfg->var_crash_.member, line, MAX_LINE_LENGTH - 1 );
-        else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
-            strncpy ( cfg->proc_meminfo.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/cpuinfo" ) == 0 )
+            strncpy ( cfg->proc_cpuinfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/interrupts" ) == 0 )
             strncpy ( cfg->proc_interrupts.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
+            strncpy ( cfg->proc_meminfo.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/crash/" ) == 0 )
+            strncpy ( cfg->var_crash_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/log/dmesg" ) == 0 )
+            strncpy ( cfg->var_log_dmesg.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/log/messages" ) == 0 )
+            strncpy ( cfg->var_log_messages.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "var/spool/cron/" ) == 0 )
+            strncpy ( cfg->var_spool_cron_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/" ) == 0 )
             strncpy ( cfg->etc_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "var/" ) == 0 )
@@ -130,84 +130,82 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
         {
             if ( strcmp ( keyword, "date" ) == 0 )
                 strncpy ( cfg->date.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "lsb-release" ) == 0 )
-                strncpy ( cfg->lsb_release.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "uname" ) == 0 )
-                strncpy ( cfg->uname.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "hostname" ) == 0 )
-                strncpy ( cfg->hostname.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "uptime" ) == 0 )
-                strncpy ( cfg->uptime.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "root/anaconda-ks.cfg" ) == 0 )
-                strncpy ( cfg->root_anaconda_ks_cfg.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "df" ) == 0 )
+                strncpy ( cfg->df.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "dmidecode" ) == 0 )
                 strncpy ( cfg->dmidecode.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "free" ) == 0 )
+                strncpy ( cfg->free.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "hostname" ) == 0 )
+                strncpy ( cfg->hostname.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "installed-rpms" ) == 0 )
+                strncpy ( cfg->installed_rpms.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "ip_addr" ) == 0 )
+                strncpy ( cfg->ip_addr.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "last" ) == 0 )
+                strncpy ( cfg->last.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "lsb-release" ) == 0 )
+                strncpy ( cfg->lsb_release.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "lsof" ) == 0 )
+                strncpy ( cfg->lsof.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lsmod" ) == 0 )
                 strncpy ( cfg->lsmod.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "lspci" ) == 0 )
                 strncpy ( cfg->lspci.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
-                strncpy ( cfg->sos_commands_devices_udevadm_info___export_db.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "sos_commands/scsi/lsscsi" ) == 0 )
-                strncpy ( cfg->sos_commands_scsi_lsscsi.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "installed-rpms" ) == 0 )
-                strncpy ( cfg->installed_rpms.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/yum.conf" ) == 0 )
-                strncpy ( cfg->etc_yum_conf.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/yum.repos.d/" ) == 0 )
-                strncpy ( cfg->etc_yum_repos_d_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/udev/" ) == 0 )
-                strncpy ( cfg->etc_udev_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "df" ) == 0 )
-                strncpy ( cfg->df.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
-                strncpy ( cfg->vgdisplay.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "free" ) == 0 )
-                strncpy ( cfg->free.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "ip_addr" ) == 0 )
-                strncpy ( cfg->ip_addr.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "route" ) == 0 )
-                strncpy ( cfg->route.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "last" ) == 0 )
-                strncpy ( cfg->last.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "ps" ) == 0 )
-                strncpy ( cfg->ps.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "lsof" ) == 0 )
-                strncpy ( cfg->lsof.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "netstat" ) == 0 )
                 strncpy ( cfg->netstat.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/systemd/" ) == 0 )
-                strncpy ( cfg->etc_systemd_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/systemd/system/" ) == 0 )
-                strncpy ( cfg->etc_systemd_system_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "usr/lib/systemd/" ) == 0 )
-                strncpy ( cfg->usr_lib_systemd_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "ps" ) == 0 )
+                strncpy ( cfg->ps.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "route" ) == 0 )
+                strncpy ( cfg->route.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "uname" ) == 0 )
+                strncpy ( cfg->uname.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "uptime" ) == 0 )
+                strncpy ( cfg->uptime.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
+                strncpy ( cfg->vgdisplay.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
+                strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
                 strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/httpd/" ) == 0 )
+                strncpy ( cfg->etc_httpd_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/kdump.conf" ) == 0 )
                 strncpy ( cfg->etc_kdump_conf.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
-                strncpy ( cfg->etc_sysctl_conf.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/rsyslog.conf" ) == 0 )
-                strncpy ( cfg->etc_rsyslog_conf.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
-                strncpy ( cfg->proc_net_dev.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
-                strncpy ( cfg->proc_net_sockstat.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/logrotate.conf" ) == 0 )
                 strncpy ( cfg->etc_logrotate_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/logrotate.d/" ) == 0 )
                 strncpy ( cfg->etc_logrotate_d_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/pam.d/" ) == 0 )
+                strncpy ( cfg->etc_pam_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/pki/" ) == 0 )
                 strncpy ( cfg->etc_pki_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "var/log/secure" ) == 0 )
-                strncpy ( cfg->var_log_secure.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "var/log/audit/" ) == 0 )
-                strncpy ( cfg->var_log_audit_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/rsyslog.conf" ) == 0 )
+                strncpy ( cfg->etc_rsyslog_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
+                strncpy ( cfg->etc_sysctl_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/systemd/" ) == 0 )
+                strncpy ( cfg->etc_systemd_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/systemd/system/" ) == 0 )
+                strncpy ( cfg->etc_systemd_system_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/udev/" ) == 0 )
+                strncpy ( cfg->etc_udev_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/yum.conf" ) == 0 )
+                strncpy ( cfg->etc_yum_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/yum.repos.d/" ) == 0 )
+                strncpy ( cfg->etc_yum_repos_d_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
+                strncpy ( cfg->proc_net_dev.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "proc/net/sockstat" ) == 0 )
+                strncpy ( cfg->proc_net_sockstat.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "root/anaconda-ks.cfg" ) == 0 )
+                strncpy ( cfg->root_anaconda_ks_cfg.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/abrt/" ) == 0 )
                 strncpy ( cfg->sos_commands_abrt_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
                 strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
+                strncpy ( cfg->sos_commands_devices_udevadm_info___export_db.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
                 strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -218,24 +216,32 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_networking_ethtool__i.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/" ) == 0 )
                 strncpy ( cfg->sos_commands_networking_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "etc/httpd/" ) == 0 )
-                strncpy ( cfg->etc_httpd_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/pam/" ) == 0 )
+                strncpy ( cfg->sos_commands_pam_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/sar/" ) == 0 )
                 strncpy ( cfg->sos_commands_sar_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "sos_commands/virsh/" ) == 0 )
-                strncpy ( cfg->sos_commands_virsh_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/scsi/lsscsi" ) == 0 )
+                strncpy ( cfg->sos_commands_scsi_lsscsi.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/usb/" ) == 0 )
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "lib/" ) == 0 )
-                strncpy ( cfg->lib_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "dev/" ) == 0 )
-                strncpy ( cfg->dev_.member, line, MAX_LINE_LENGTH - 1 );
-            else if ( strcmp ( keyword, "usr/" ) == 0 )
-                strncpy ( cfg->usr_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/virsh/" ) == 0 )
+                strncpy ( cfg->sos_commands_virsh_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
                 strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sys/module/" ) == 0 )
                 strncpy ( cfg->sys_module_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "usr/lib/systemd/" ) == 0 )
+                strncpy ( cfg->usr_lib_systemd_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "var/log/secure" ) == 0 )
+                strncpy ( cfg->var_log_secure.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "var/log/audit/" ) == 0 )
+                strncpy ( cfg->var_log_audit_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "dev/" ) == 0 )
+                strncpy ( cfg->dev_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "lib/" ) == 0 )
+                strncpy ( cfg->lib_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "usr/" ) == 0 )
+                strncpy ( cfg->usr_.member, line, MAX_LINE_LENGTH - 1 );
         }
         else
             return ( 1 );
@@ -395,6 +401,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/systemd/", cfg, mcinfo );
         append_sos_header_obj ( "etc/systemd/system/", cfg, mcinfo );
         append_sos_header_obj ( "usr/lib/systemd/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/pam.d/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/pam/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/cron/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/sar/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/virsh/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
@@ -447,6 +457,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     /* these members are those included in sosreport and mcinfo */
     if ( strcmp ( member, "etc/host" ) == 0 )
         strcat ( str_tmp, cfg->etc_host.member );
+    else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
+        strcat ( str_tmp, cfg->etc_cron_d_.member );
     else if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         strcat ( str_tmp, cfg->etc_sysconfig_network_scripts_ifcfg_.member );
     else if ( strcmp ( member, "proc/cpuinfo" ) == 0 )
@@ -457,8 +469,6 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->proc_interrupts.member );
     else if ( strcmp ( member, "var/log/dmesg" ) == 0 )
         strcat ( str_tmp, cfg->var_log_dmesg.member );
-    else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
-        strcat ( str_tmp, cfg->etc_cron_d_.member );
     else if ( strcmp ( member, "var/spool/cron/" ) == 0 )
         strcat ( str_tmp, cfg->var_spool_cron_.member );
     else if ( strcmp ( member, "var/log/messages" ) == 0 )
@@ -485,90 +495,84 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     {
         if ( strcmp ( member, "date" ) == 0 )
             strcat ( str_tmp, cfg->date.member );
-        else if ( strcmp ( member, "lsb-release" ) == 0 )
-            strcat ( str_tmp, cfg->lsb_release.member );
-        else if ( strcmp ( member, "uname" ) == 0 )
-            strcat ( str_tmp, cfg->uname.member );
-        else if ( strcmp ( member, "hostname" ) == 0 )
-            strcat ( str_tmp, cfg->hostname.member );
-        else if ( strcmp ( member, "uptime" ) == 0 )
-            strcat ( str_tmp, cfg->uptime.member );
-        else if ( strcmp ( member, "root/anaconda-ks.cfg" ) == 0 )
-            strcat ( str_tmp, cfg->root_anaconda_ks_cfg.member );
-        else if ( strcmp ( member, "dmidecode" ) == 0 )
-            strcat ( str_tmp, cfg->dmidecode.member );
-        else if ( strcmp ( member, "lsmod" ) == 0 )
-            strcat ( str_tmp, cfg->lsmod.member );
-        else if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_modprobe_d_.member );
-        else if ( strcmp ( member, "sys/module/" ) == 0 )
-            strcat ( str_tmp, cfg->sys_module_.member );
-        else if ( strcmp ( member, "lspci" ) == 0 )
-            strcat ( str_tmp, cfg->lspci.member );
-        else if ( strcmp ( member, "etc/udev/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_udev_.member );
-        else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
-        else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
-        else if ( strcmp ( member, "installed-rpms" ) == 0 )
-            strcat ( str_tmp, cfg->installed_rpms.member );
-        else if ( strcmp ( member, "etc/yum.conf" ) == 0 )
-            strcat ( str_tmp, cfg->etc_yum_conf.member );
-        else if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_yum_repos_d_.member );
         else if ( strcmp ( member, "df" ) == 0 )
             strcat ( str_tmp, cfg->df.member );
-        else if ( strcmp ( member, "vgdisplay" ) == 0 )
-            strcat ( str_tmp, cfg->vgdisplay.member );
+        else if ( strcmp ( member, "dmidecode" ) == 0 )
+            strcat ( str_tmp, cfg->dmidecode.member );
         else if ( strcmp ( member, "free" ) == 0 )
             strcat ( str_tmp, cfg->free.member );
+        else if ( strcmp ( member, "hostname" ) == 0 )
+            strcat ( str_tmp, cfg->hostname.member );
+        else if ( strcmp ( member, "installed-rpms" ) == 0 )
+            strcat ( str_tmp, cfg->installed_rpms.member );
         else if ( strcmp ( member, "ip_addr" ) == 0 )
             strcat ( str_tmp, cfg->ip_addr.member );
-        else if ( strcmp ( member, "route" ) == 0 )
-            strcat ( str_tmp, cfg->route.member );
         else if ( strcmp ( member, "last" ) == 0 )
             strcat ( str_tmp, cfg->last.member );
-        else if ( strcmp ( member, "ps" ) == 0 )
-            strcat ( str_tmp, cfg->ps.member );
+        else if ( strcmp ( member, "lsb-release" ) == 0 )
+            strcat ( str_tmp, cfg->lsb_release.member );
+        else if ( strcmp ( member, "lsmod" ) == 0 )
+            strcat ( str_tmp, cfg->lsmod.member );
         else if ( strcmp ( member, "lsof" ) == 0 )
             strcat ( str_tmp, cfg->lsof.member );
+        else if ( strcmp ( member, "lspci" ) == 0 )
+            strcat ( str_tmp, cfg->lspci.member );
+        else if ( strcmp ( member, "route" ) == 0 )
+            strcat ( str_tmp, cfg->route.member );
         else if ( strcmp ( member, "netstat" ) == 0 )
             strcat ( str_tmp, cfg->netstat.member );
-        else if ( strcmp ( member, "etc/systemd/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_systemd_.member );
-        else if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_systemd_system_.member );
-        else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
-            strcat ( str_tmp, cfg->usr_lib_systemd_.member );
-        else if ( strcmp ( member, "sos_commands/sar/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_sar_.member );
-        else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_virsh_.member );
-        else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_usb_.member );
+        else if ( strcmp ( member, "ps" ) == 0 )
+            strcat ( str_tmp, cfg->ps.member );
+        else if ( strcmp ( member, "uname" ) == 0 )
+            strcat ( str_tmp, cfg->uname.member );
+        else if ( strcmp ( member, "uptime" ) == 0 )
+            strcat ( str_tmp, cfg->uptime.member );
+        else if ( strcmp ( member, "vgdisplay" ) == 0 )
+            strcat ( str_tmp, cfg->vgdisplay.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
+        else if ( strcmp ( member, "etc/httpd/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_httpd_.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_kdump_conf.member );
-        else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
-            strcat ( str_tmp, cfg->etc_sysctl_conf.member );
-        else if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
-            strcat ( str_tmp, cfg->etc_rsyslog_conf.member );
-        else if ( strcmp ( member, "proc/net/dev" ) == 0 )
-            strcat ( str_tmp, cfg->proc_net_dev.member );
-        else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )
-            strcat ( str_tmp, cfg->proc_net_sockstat.member );
         else if ( strcmp ( member, "etc/logrotate.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_logrotate_conf.member );
         else if ( strcmp ( member, "etc/logrotate.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_logrotate_d_.member );
         else if ( strcmp ( member, "etc/pki/" ) == 0 )
             strcat ( str_tmp, cfg->etc_pki_.member );
-        else if ( strcmp ( member, "var/log/secure" ) == 0 )
-            strcat ( str_tmp, cfg->var_log_secure.member );
-        else if ( strcmp ( member, "var/log/audit/" ) == 0 )
-            strcat ( str_tmp, cfg->var_log_audit_.member );
+        else if ( strcmp ( member, "etc/pam.d/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_pam_d_.member );
+        else if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_modprobe_d_.member );
+        else if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
+            strcat ( str_tmp, cfg->etc_rsyslog_conf.member );
+        else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
+            strcat ( str_tmp, cfg->etc_sysctl_conf.member );
+        else if ( strcmp ( member, "etc/systemd/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_systemd_.member );
+        else if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_systemd_system_.member );
+        else if ( strcmp ( member, "etc/udev/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_udev_.member );
+        else if ( strcmp ( member, "etc/yum.conf" ) == 0 )
+            strcat ( str_tmp, cfg->etc_yum_conf.member );
+        else if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_yum_repos_d_.member );
+        else if ( strcmp ( member, "proc/net/dev" ) == 0 )
+            strcat ( str_tmp, cfg->proc_net_dev.member );
+        else if ( strcmp ( member, "proc/net/sockstat" ) == 0 )
+            strcat ( str_tmp, cfg->proc_net_sockstat.member );
+        else if ( strcmp ( member, "root/anaconda-ks.cfg" ) == 0 )
+            strcat ( str_tmp, cfg->root_anaconda_ks_cfg.member );
+        else if ( strcmp ( member, "sos_commands/abrt/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_abrt_.member );
+        else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_boot_.member );
+        else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
+        else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
         else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a.member );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -577,18 +581,28 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S.member );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_networking_ethtool__i.member );
-        else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_boot_.member );
-        else if ( strcmp ( member, "etc/httpd/" ) == 0 )
-            strcat ( str_tmp, cfg->etc_httpd_.member );
-        else if ( strcmp ( member, "lib/" ) == 0 )
-            strcat ( str_tmp, cfg->lib_.member );
         else if ( strcmp ( member, "sos_commands/networking/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_networking_.member );
-        else if ( strcmp ( member, "sos_commands/abrt/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_abrt_.member );
+        else if ( strcmp ( member, "sos_commands/pam/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_pam_.member );
+        else if ( strcmp ( member, "sos_commands/sar/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_sar_.member );
+        else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_virsh_.member );
+        else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_usb_.member );
+        else if ( strcmp ( member, "sys/module/" ) == 0 )
+            strcat ( str_tmp, cfg->sys_module_.member );
+        else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
+            strcat ( str_tmp, cfg->usr_lib_systemd_.member );
+        else if ( strcmp ( member, "var/log/secure" ) == 0 )
+            strcat ( str_tmp, cfg->var_log_secure.member );
+        else if ( strcmp ( member, "var/log/audit/" ) == 0 )
+            strcat ( str_tmp, cfg->var_log_audit_.member );
         else if ( strcmp ( member, "dev/" ) == 0 )
             strcat ( str_tmp, cfg->dev_.member );
+        else if ( strcmp ( member, "lib/" ) == 0 )
+            strcat ( str_tmp, cfg->lib_.member );
         else if ( strcmp ( member, "usr/" ) == 0 )
             strcat ( str_tmp, cfg->usr_.member );
         else if ( strcmp ( member, "sos_commands/" ) == 0 )

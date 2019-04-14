@@ -8,7 +8,7 @@
 #
 # 'all' echos every line in the file.
 # Remember that 'all' should come very first. Other 'all' is omitted automatically.
-# In some items, you can set any item-name. 
+# In some items, you can set any item-name, but string length shoul be between 2 to 10.
 # Sometimes, certain files are not made by sosreport.
 # In such cases, you can skip the file, setting item-name to 'skip'.
 # But don't worry, sosreport-analyzer will automatically skips the directory which is not present.
@@ -196,6 +196,18 @@ etc/systemd/=all
 ## All you can set is 'all'
 
 usr/lib/systemd/=all
+
+## etc/pam.d/
+##
+## All you can set is 'all'
+
+etc/pam.d/=all
+
+## sos_commands/pam/
+##
+## All you can set is 'all'
+
+sos_commands/pam/=all
 
 ## sos_commands/sar/
 ##

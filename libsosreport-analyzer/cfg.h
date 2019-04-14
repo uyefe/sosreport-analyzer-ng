@@ -207,6 +207,10 @@ struct sosreport_analyzer_config
     config_each sos_commands_abrt_;
     /* should be all */
     config_each sys_module_;
+    /* should be all */
+    config_each etc_pam_d_;
+    /* should be all */
+    config_each sos_commands_pam_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

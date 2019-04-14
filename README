@@ -61,6 +61,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in etc/systemd/system/.
   Echo files in etc/systemd/.
   Echo files in usr/lib/systemd/.
+  Echo files in etc/pam.d/.
+  Echo files in sos_commands/pam/.
   Echo files in sos_commands/sar.
   Echo files in sos_commands/virsh.
   Echo files in sos_commands/usb.

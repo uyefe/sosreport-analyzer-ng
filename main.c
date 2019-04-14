@@ -134,6 +134,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_35_obj );
     init_list ( &tmp_36_obj );
     init_list ( &tmp_37_obj );
+    init_list ( &tmp_38_obj );
+    init_list ( &tmp_39_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -172,6 +174,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &var_spool_cron__obj );
     init_list ( &sos_commands_abrt__obj );
     init_list ( &sys_module__obj );
+    init_list ( &etc_pam_d__obj );
+    init_list ( &sos_commands_pam__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -377,6 +381,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/systemd/", dir_name );
             read_file_pre ( "etc/systemd/system/", dir_name );
             read_file_pre ( "usr/lib/systemd/", dir_name );
+            read_file_pre ( "etc/pam.d/", dir_name );
+            read_file_pre ( "sos_commands/pam/", dir_name );
             read_file_pre ( "sos_commands/sar/", dir_name );
             read_file_pre ( "sos_commands/virsh/", dir_name );
             read_file_pre ( "sos_commands/usb/", dir_name );
@@ -453,6 +459,8 @@ int main ( int argc, char *argv [ ] )
             append_list ( &var__obj, hairline );
             append_list ( &proc__obj, hairline );
             append_list ( &var_spool_cron__obj, hairline );
+            append_list ( &etc_pam_d__obj, hairline );
+            append_list ( &sos_commands_pam__obj, hairline );
         }
     }
 
@@ -510,6 +518,8 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_systemd__obj, fp_w );
             file_write_list ( &etc_systemd_system__obj, fp_w );
             file_write_list ( &usr_lib_systemd__obj, fp_w );
+            file_write_list ( &etc_pam_d__obj, fp_w );
+            file_write_list ( &sos_commands_pam__obj, fp_w );
             file_write_list ( &sos_commands_sar__obj, fp_w );
             file_write_list ( &sos_commands_virsh__obj, fp_w );
             file_write_list ( &sos_commands_usb__obj, fp_w );
