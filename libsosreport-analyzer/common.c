@@ -1142,6 +1142,22 @@ int read_file ( const char *file_name, const char *member, int files )
     return ( 0 );
 }
 
+int check_item_string_length ( const char *token, const char *member )
+{
+    int strlen_token = ( int ) strlen ( token );
+    if ( strlen_token > MAX_ITEM_STRING_LENGTH ) 
+    {
+        printf("item '%s' for '%s' is too long (%d)\n",token,member,strlen_token);
+        return ( 1 );
+    }
+    if ( strlen_token < MIN_ITEM_STRING_LENGTH ) 
+    {
+        printf("item '%s' for '%s' is too short (%d)\n",token,member,strlen_token);
+        return ( 1 );
+    }
+    return ( 0 );
+}
+
 int set_token_to_item_arr ( const char *file_name, const char *member )
 {
     /* These are array number limits for items of a member. */
@@ -1162,6 +1178,11 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
     {
         /* get the first token */
         token = strtok ( get_items_of_member ( member ), s );
+        if ( check_item_string_length ( token, member ) != 0 )
+        {
+            free_sosreport_analyzer_obj ( );
+            exit ( EXIT_FAILURE );
+        }
         set_item_arr_string ( member, 0, token );
 
         if ( strcmp ( token, "all" ) == 0 )
@@ -1171,6 +1192,11 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
             /* get the next token ... */
             while ( token != NULL )
             {
+                if ( check_item_string_length ( token, member ) != 0 )
+                {
+                    free_sosreport_analyzer_obj ( );
+                    exit ( EXIT_FAILURE );
+                }
                 if ( strcmp ( token, "all" ) == 0 )
                     break;
                 set_item_numbers_of_member ( member, i ); 

@@ -42,6 +42,12 @@
 /* the maximum size of analyze file */
 #define MAX_ANALYZE_FILE_SIZE 5242880 
 
+/* the minimum string length of the item for member */
+#define MIN_ITEM_STRING_LENGTH 2 
+
+/* the maximum string length of the item for member */
+#define MAX_ITEM_STRING_LENGTH 10 
+
 /*
  * reverse_the_string()
  *
