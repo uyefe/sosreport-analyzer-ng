@@ -1,3 +1,5 @@
+1.0.105
+Fix to check item string length for each member.
 1.0.104
 Fix reading item 'all' setting for each member.
 1.0.103

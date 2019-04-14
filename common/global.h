@@ -25,7 +25,7 @@
 
 #define PROGRAM_VERSION 1
 #define PROGRAM_RELEASE 0
-#define PROGRAM_SUB_RELEASE 104
+#define PROGRAM_SUB_RELEASE 105
 
 /* the maximum line length of file name */
 #define MAX_FULL_PATH_LENGTH  512
@@ -37,13 +37,13 @@
 #define MAX_FILE_NAME_LENGTH  255
 
 /* the maximum analyze files */
-#define MAX_ANALYZE_FILES 31 
+#define MAX_ANALYZE_FILES 31
 
 /* the maximum size of analyze file */
-#define MAX_ANALYZE_FILE_SIZE 5242880 
+#define MAX_ANALYZE_FILE_SIZE 5242880
 
 /* the minimum string length of the item for member */
-#define MIN_ITEM_STRING_LENGTH 2 
+#define MIN_ITEM_STRING_LENGTH 2
 
 /* the maximum string length of the item for member */
 #define MAX_ITEM_STRING_LENGTH 10 
