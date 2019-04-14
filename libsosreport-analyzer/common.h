@@ -302,4 +302,12 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
  */
 void free_sosreport_analyzer_obj ( void );
 
+/*
+ * check_item_string_length ()
+ *
+ * This function checks item string length in the conf file 
+ *
+ */
+int check_item_string_length ( const char *token, const char *member );
+
 #endif /* SOSREPORT_ANALYZER_COMMON_H */
