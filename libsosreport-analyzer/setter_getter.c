@@ -97,6 +97,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->sys_module_.item_num = 0;
     sosreport_analyzer_cfg->etc_pam_d_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_pam_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_apache_.item_num = 0;
 
     return ( 0 );
 }
@@ -203,6 +204,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_.item_num;
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_abrt_.item_num;
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_apache_.item_num;
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.item_num;
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
@@ -353,6 +356,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_.member;
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_abrt_.member;
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_apache_.member;
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.member;
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
@@ -503,6 +508,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_.file_num;
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_abrt_.file_num;
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_apache_.file_num;
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.file_num;
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
@@ -653,6 +660,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_.item_num = x; 
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_abrt_.item_num = x; 
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_apache_.item_num = x; 
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_boot_.item_num = x; 
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
@@ -803,6 +812,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_.file_num = x; 
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_abrt_.file_num = x; 
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_apache_.file_num = x; 
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_boot_.file_num = x; 
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
@@ -1107,6 +1118,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->sos_commands_abrt_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_apache_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
@@ -1322,6 +1338,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->sos_commands_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_abrt_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_apache_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
@@ -1619,6 +1637,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_abrt_.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sos_commands_apache_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )

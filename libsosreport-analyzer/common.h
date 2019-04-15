@@ -77,6 +77,7 @@ extern struct line_data *tmp_36_obj;
 extern struct line_data *tmp_37_obj;
 extern struct line_data *tmp_38_obj;
 extern struct line_data *tmp_39_obj;
+extern struct line_data *tmp_40_obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct line_data *etc_pki__obj;
@@ -117,6 +118,7 @@ extern struct line_data *sos_commands_abrt__obj;
 extern struct line_data *sys_module__obj;
 extern struct line_data *etc_pam_d__obj;
 extern struct line_data *sos_commands_pam__obj;
+extern struct line_data *sos_commands_apache__obj;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -157,6 +159,7 @@ extern char *str_arr_sos_commands_abrt [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sys_module [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_pam_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_pam [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_sos_commands_apache [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'

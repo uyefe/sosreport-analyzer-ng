@@ -202,6 +202,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->root_anaconda_ks_cfg.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/abrt/" ) == 0 )
                 strncpy ( cfg->sos_commands_abrt_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/apache/" ) == 0 )
+                strncpy ( cfg->sos_commands_apache_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
                 strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
@@ -437,6 +439,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/abrt/", cfg, mcinfo );
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/apache/", cfg, mcinfo );
         append_sos_header_obj ( "lib/", cfg, mcinfo );
         append_sos_header_obj ( "etc/", cfg, mcinfo );
         append_sos_header_obj ( "dev/", cfg, mcinfo );
@@ -567,6 +570,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->root_anaconda_ks_cfg.member );
         else if ( strcmp ( member, "sos_commands/abrt/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_abrt_.member );
+        else if ( strcmp ( member, "sos_commands/apache/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_apache_.member );
         else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_boot_.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
