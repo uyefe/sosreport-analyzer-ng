@@ -405,6 +405,12 @@ sos_commands/abrt/=all
 
 etc/httpd/=all
 
+## sos_commands/apache/
+##
+## All you can set is 'all'
+
+sos_commands/apache/=all
+
 ## lib/
 ##
 ## All you can set is 'all'

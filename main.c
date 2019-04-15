@@ -136,6 +136,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_37_obj );
     init_list ( &tmp_38_obj );
     init_list ( &tmp_39_obj );
+    init_list ( &tmp_40_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -176,6 +177,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sys_module__obj );
     init_list ( &etc_pam_d__obj );
     init_list ( &sos_commands_pam__obj );
+    init_list ( &sos_commands_apache__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -416,6 +418,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/networking/", dir_name );
             read_file_pre ( "sos_commands/", dir_name );
             read_file_pre ( "etc/httpd/", dir_name );
+            read_file_pre ( "sos_commands/apache/", dir_name );
             read_file_pre ( "lib/", dir_name );
             read_file_pre ( "etc/", dir_name );
             read_file_pre ( "dev/", dir_name );
@@ -461,6 +464,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &var_spool_cron__obj, hairline );
             append_list ( &etc_pam_d__obj, hairline );
             append_list ( &sos_commands_pam__obj, hairline );
+            append_list ( &sos_commands_apache__obj, hairline );
         }
     }
 
@@ -539,6 +543,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_networking__obj, fp_w );
             file_write_list ( &sos_commands_obj, fp_w );
             file_write_list ( &etc_httpd__obj, fp_w );
+            file_write_list ( &sos_commands_apache__obj, fp_w );
             file_write_list ( &lib__obj, fp_w );
             file_write_list ( &etc__obj, fp_w );
             file_write_list ( &dev__obj, fp_w );
