@@ -1,3 +1,5 @@
+1.0.107
+Add member 'sos_commands/apache/'.
 1.0.106
 Add members, 'etc/pam.d/','sos_commands/pam/'.
 1.0.105

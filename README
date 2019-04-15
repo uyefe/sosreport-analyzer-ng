@@ -95,6 +95,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze sos_commands/networking/ethtool_-i files.
   Echo files in sos_commands/networking/.
   Echo files in etc/httpd/.
+  Echo files in sos_commands/apache/.
   Echo files in lib/.
   Echo files in etc/.
   Echo files in sos_commands/ except journalctl*.
