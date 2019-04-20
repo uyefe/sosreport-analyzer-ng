@@ -131,6 +131,12 @@ vgdisplay=all
 
 free=all
 
+## sos_commands/memory/ 
+##
+## All you can set is 'all'
+
+sos_commands/memory/=all
+
 ## ip_addr 
 ##
 ## All you can set is 'all'
@@ -398,6 +404,18 @@ sos_commands/networking/=all
 ## ex. sos_commands/abrt/=all
 
 sos_commands/abrt/=all
+
+## etc/audit/
+##
+## All you can set is 'all'
+
+etc/audit/=all
+
+## sos_commands/auditd/
+##
+## All you can set is 'all'
+
+sos_commands/auditd/=all
 
 ## etc/httpd/
 ##

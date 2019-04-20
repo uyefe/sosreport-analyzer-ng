@@ -213,6 +213,12 @@ struct sosreport_analyzer_config
     config_each sos_commands_pam_;
     /* should be all */
     config_each sos_commands_apache_;
+    /* should be all */
+    config_each etc_audit_;
+    /* should be all */
+    config_each sos_commands_auditd_;
+    /* should be all */
+    config_each sos_commands_memory_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

@@ -164,6 +164,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->uptime.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
                 strncpy ( cfg->vgdisplay.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/audit/" ) == 0 )
+                strncpy ( cfg->etc_audit_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
                 strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
@@ -202,6 +204,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->root_anaconda_ks_cfg.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/abrt/" ) == 0 )
                 strncpy ( cfg->sos_commands_abrt_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/auditd/" ) == 0 )
+                strncpy ( cfg->sos_commands_auditd_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/apache/" ) == 0 )
                 strncpy ( cfg->sos_commands_apache_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
@@ -212,6 +216,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
                 strncpy ( cfg->sos_commands_logs_journalctl___no_pager.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/memory/" ) == 0 )
+                strncpy ( cfg->sos_commands_memory_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-S" ) == 0 )
                 strncpy ( cfg->sos_commands_networking_ethtool__S.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-i" ) == 0 )
@@ -393,6 +399,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "df", cfg, mcinfo );
         append_sos_header_obj ( "vgdisplay", cfg, mcinfo );
         append_sos_header_obj ( "free", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/memory/", cfg, mcinfo );
         append_sos_header_obj ( "etc/host", cfg, mcinfo );
         append_sos_header_obj ( "ip_addr", cfg, mcinfo );
         append_sos_header_obj ( "route", cfg, mcinfo );
@@ -431,13 +438,15 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/secure", cfg, mcinfo );
-        append_sos_header_obj ( "var/log/audit/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/abrt/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/audit/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/auditd/", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/audit/", cfg, mcinfo );
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/apache/", cfg, mcinfo );
         append_sos_header_obj ( "lib/", cfg, mcinfo );
@@ -532,6 +541,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->uptime.member );
         else if ( strcmp ( member, "vgdisplay" ) == 0 )
             strcat ( str_tmp, cfg->vgdisplay.member );
+        else if ( strcmp ( member, "etc/audit/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_audit_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
         else if ( strcmp ( member, "etc/httpd/" ) == 0 )
@@ -572,6 +583,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_abrt_.member );
         else if ( strcmp ( member, "sos_commands/apache/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_apache_.member );
+        else if ( strcmp ( member, "sos_commands/auditd/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_auditd_.member );
         else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_boot_.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
@@ -582,6 +595,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a.member );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager.member );
+        else if ( strcmp ( member, "sos_commands/memory/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_memory_.member );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_networking_ethtool__S.member );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 )
