@@ -170,6 +170,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
                 strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/firewalld/" ) == 0 )
+                strncpy ( cfg->etc_firewalld_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/httpd/" ) == 0 )
                 strncpy ( cfg->etc_httpd_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/kdump.conf" ) == 0 )
@@ -212,6 +214,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
                 strncpy ( cfg->sos_commands_devices_udevadm_info___export_db.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/firewalld/" ) == 0 )
+                strncpy ( cfg->sos_commands_firewalld_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
                 strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -412,8 +416,6 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "usr/lib/systemd/", cfg, mcinfo );
         append_sos_header_obj ( "etc/pam.d/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/pam/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/cron/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/sar/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/virsh/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
@@ -424,6 +426,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/yum.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/yum.repos.d/", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
+        append_sos_header_obj ( "etc/firewalld/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/firewalld/", cfg, mcinfo );
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/boot/", cfg, mcinfo );
@@ -545,6 +549,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_audit_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
+        else if ( strcmp ( member, "etc/firewalld/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_firewalld_.member );
         else if ( strcmp ( member, "etc/httpd/" ) == 0 )
             strcat ( str_tmp, cfg->etc_httpd_.member );
         else if ( strcmp ( member, "etc/kdump.conf" ) == 0 )
@@ -589,8 +595,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_boot_.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
-        else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
+        else if ( strcmp ( member, "sos_commands/firewalld/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_firewalld_.member );
         else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a.member );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -607,6 +613,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_pam_.member );
         else if ( strcmp ( member, "sos_commands/sar/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_sar_.member );
+        else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
         else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_virsh_.member );
         else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )

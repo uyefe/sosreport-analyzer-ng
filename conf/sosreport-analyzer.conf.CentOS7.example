@@ -275,6 +275,18 @@ etc/yum.repos.d/=all
 
 etc/sysconfig/network-scripts/ifcfg-=all
 
+## etc/firewalld
+##
+## All you can set is 'all'
+
+etc/firewalld/=all
+
+## sos_commands/firewalld
+##
+## All you can set is 'all'
+
+sos_commands/firewalld/=all
+
 ## sos_commands/boot/ 
 ##
 ## You can set arbitrary item-name including 'all' up to 12

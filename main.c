@@ -140,6 +140,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_41_obj );
     init_list ( &tmp_42_obj );
     init_list ( &tmp_43_obj );
+    init_list ( &tmp_44_obj );
+    init_list ( &tmp_45_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -184,6 +186,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_audit__obj );
     init_list ( &sos_commands_auditd__obj );
     init_list ( &sos_commands_memory__obj );
+    init_list ( &etc_firewalld__obj );
+    init_list ( &sos_commands_firewalld__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -402,6 +406,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/yum.conf", dir_name );
             read_file_pre ( "etc/yum.repos.d/", dir_name );
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
+            read_file_pre ( "etc/firewalld/", dir_name );
+            read_file_pre ( "sos_commands/firewalld/", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "sos_commands/boot/", dir_name );
@@ -477,6 +483,8 @@ int main ( int argc, char *argv [ ] )
             append_list ( &etc_audit__obj, hairline );
             append_list ( &sos_commands_auditd__obj, hairline );
             append_list ( &sos_commands_memory__obj, hairline );
+            append_list ( &etc_firewalld__obj, hairline );
+            append_list ( &sos_commands_firewalld__obj, hairline );
         }
     }
 
@@ -546,6 +554,8 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_boot__obj, fp_w );
             file_write_list ( &etc_yum_repos_d__obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
+            file_write_list ( &etc_firewalld__obj, fp_w );
+            file_write_list ( &sos_commands_firewalld__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
             file_write_list ( &var_crash__obj, fp_w );

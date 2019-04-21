@@ -219,6 +219,10 @@ struct sosreport_analyzer_config
     config_each sos_commands_auditd_;
     /* should be all */
     config_each sos_commands_memory_;
+    /* should be all */
+    config_each etc_firewalld_;
+    /* should be all */
+    config_each sos_commands_firewalld_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

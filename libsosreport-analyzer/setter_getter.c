@@ -49,12 +49,14 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->etc_.item_num = 0;
     sosreport_analyzer_cfg->etc_cron_d_.item_num = 0;
     sosreport_analyzer_cfg->etc_default_.item_num = 0;
+    sosreport_analyzer_cfg->etc_firewalld_.item_num = 0;
     sosreport_analyzer_cfg->etc_host.item_num = 0;
     sosreport_analyzer_cfg->etc_httpd_.item_num = 0;
     sosreport_analyzer_cfg->etc_kdump_conf.item_num = 0;
     sosreport_analyzer_cfg->etc_logrotate_conf.item_num = 0;
     sosreport_analyzer_cfg->etc_logrotate_d_.item_num = 0;
     sosreport_analyzer_cfg->etc_modprobe_d_.item_num = 0;
+    sosreport_analyzer_cfg->etc_pam_d_.item_num = 0;
     sosreport_analyzer_cfg->etc_pki_.item_num = 0;
     sosreport_analyzer_cfg->etc_rsyslog_conf.item_num = 0;
     sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num = 0;
@@ -74,18 +76,22 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->root_anaconda_ks_cfg.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_abrt_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_apache_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_boot_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_firewalld_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_memory_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_networking_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_pam_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_sar_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_usb_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_virsh_.item_num = 0;
+    sosreport_analyzer_cfg->sys_module_.item_num = 0;
     sosreport_analyzer_cfg->usr_.item_num = 0;
     sosreport_analyzer_cfg->usr_lib_systemd_.item_num = 0;
     sosreport_analyzer_cfg->var_.item_num = 0;
@@ -95,10 +101,6 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->var_log_messages.item_num = 0;
     sosreport_analyzer_cfg->var_log_secure.item_num = 0;
     sosreport_analyzer_cfg->var_spool_cron_.item_num = 0;
-    sosreport_analyzer_cfg->sys_module_.item_num = 0;
-    sosreport_analyzer_cfg->etc_pam_d_.item_num = 0;
-    sosreport_analyzer_cfg->sos_commands_pam_.item_num = 0;
-    sosreport_analyzer_cfg->sos_commands_apache_.item_num = 0;
 
     return ( 0 );
 }
@@ -153,6 +155,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_cron_d_.item_num;
     else if ( strcmp ( "etc/default/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_default_.item_num;
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_firewalld_.item_num;
     else if ( strcmp ( "etc/host", member ) == 0 )
         return sosreport_analyzer_cfg->etc_host.item_num;
     else if ( strcmp ( "etc/httpd/", member ) == 0 )
@@ -211,6 +215,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_boot_.item_num;
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num;
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_firewalld_.item_num;
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num;
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -307,6 +313,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_cron_d_.member;
     else if ( strcmp ( "etc/default/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_default_.member;
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_firewalld_.member;
     else if ( strcmp ( "etc/host", member ) == 0 )
         return sosreport_analyzer_cfg->etc_host.member;
     else if ( strcmp ( "etc/httpd/", member ) == 0 )
@@ -365,6 +373,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_boot_.member;
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member;
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_firewalld_.member;
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member;
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -461,6 +471,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_cron_d_.file_num;
     else if ( strcmp ( "etc/default/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_default_.file_num;
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_firewalld_.file_num;
     else if ( strcmp ( "etc/host", member ) == 0 )
         return sosreport_analyzer_cfg->etc_host.file_num;
     else if ( strcmp ( "etc/httpd/", member ) == 0 )
@@ -519,6 +531,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_boot_.file_num;
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.file_num;
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_firewalld_.file_num;
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.file_num;
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -615,6 +629,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_cron_d_.item_num = x; 
     else if ( strcmp ( "etc/default/", member ) == 0 )
         sosreport_analyzer_cfg->etc_default_.item_num = x; 
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_firewalld_.item_num = x; 
     else if ( strcmp ( "etc/host", member ) == 0 )
         sosreport_analyzer_cfg->etc_host.item_num = x; 
     else if ( strcmp ( "etc/httpd/", member ) == 0 )
@@ -673,6 +689,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_boot_.item_num = x; 
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = x; 
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_firewalld_.item_num = x; 
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num = x; 
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -769,6 +787,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_cron_d_.file_num = x; 
     else if ( strcmp ( "etc/default/", member ) == 0 )
         sosreport_analyzer_cfg->etc_default_.file_num = x; 
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_firewalld_.file_num = x; 
     else if ( strcmp ( "etc/host", member ) == 0 )
         sosreport_analyzer_cfg->etc_host.file_num = x; 
     else if ( strcmp ( "etc/httpd/", member ) == 0 )
@@ -827,6 +847,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_boot_.file_num = x; 
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.file_num = x; 
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_firewalld_.file_num = x; 
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.file_num = x; 
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -999,6 +1021,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->etc_default_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_firewalld_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "etc/host", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->etc_host.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
@@ -1142,6 +1169,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_firewalld_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
@@ -1302,6 +1334,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->etc_cron_d_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/default/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_default_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_firewalld_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/host", member ) == 0 )
         return sosreport_analyzer_cfg->etc_host.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/httpd/", member ) == 0 )
@@ -1360,6 +1394,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_firewalld_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -1527,6 +1563,11 @@ int member_item_exists ( const char *member )
         if ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 )
             return ( 0 );
     }
+    else if ( strcmp ( "etc/firewalld/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->etc_firewalld_.member, "" ) != 0 )
+            return ( 0 );
+    }
     else if ( strcmp ( "etc/host", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->etc_host.member, "" ) != 0 )
@@ -1670,6 +1711,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "sos_commands/devices/udevadm_info_--export-db", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sos_commands_firewalld_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )

@@ -360,6 +360,20 @@ struct line_data sos_commands_memory__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_firewalld__obj */
+struct line_data etc_firewalld__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_commands_firewalld__obj */
+struct line_data sos_commands_firewalld__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -661,6 +675,20 @@ struct line_data tmp_43_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_44_obj */
+struct line_data tmp_44_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_45_obj */
+struct line_data tmp_45_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -709,6 +737,8 @@ struct line_data *tmp_40_obj = &tmp_40_obj_raw;
 struct line_data *tmp_41_obj = &tmp_41_obj_raw;
 struct line_data *tmp_42_obj = &tmp_42_obj_raw;
 struct line_data *tmp_43_obj = &tmp_43_obj_raw;
+struct line_data *tmp_44_obj = &tmp_44_obj_raw;
+struct line_data *tmp_45_obj = &tmp_45_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -753,12 +783,14 @@ struct line_data *sos_commands_apache__obj = &sos_commands_apache__obj_raw;
 struct line_data *etc_audit__obj = &etc_audit__obj_raw;
 struct line_data *sos_commands_auditd__obj = &sos_commands_auditd__obj_raw;
 struct line_data *sos_commands_memory__obj = &sos_commands_memory__obj_raw;
+struct line_data *etc_firewalld__obj = &etc_firewalld__obj_raw;
+struct line_data *sos_commands_firewalld__obj = &sos_commands_firewalld__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_pki [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
-char *str_arr_cron [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_cron_d [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_ifcfg [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_log_messages [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_var_log_secure [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -798,6 +830,8 @@ char *str_arr_sos_commands_apache [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_audit [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_auditd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_memory [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sos_commands_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -935,22 +969,23 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 continue;
 
             /* Here, we try to read files recursively */
-            if (
-                ( ( strcmp ( member, "etc/pki/" ) == 0 ) || 
-                ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
-                ( strcmp ( member, "var/crash/" ) == 0 ) ||
-                ( strcmp ( member, "proc/" ) == 0 ) ||
-                ( strcmp ( member, "etc/udev/" ) == 0 ) ||
-                ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
-                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
-                ( strcmp ( member, "lib/" ) == 0 ) ||
-                ( strcmp ( member, "etc/" ) == 0 ) || 
-                ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
+            if ( (
                 ( strcmp ( member, "dev/" ) == 0 ) || 
-                ( strcmp ( member, "usr/" ) == 0 ) || 
-                ( strcmp ( member, "var/" ) == 0 ) || 
+                ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
+                ( strcmp ( member, "etc/pki/" ) == 0 ) || 
+                ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
+                ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
+                ( strcmp ( member, "etc/udev/" ) == 0 ) ||
+                ( strcmp ( member, "etc/" ) == 0 ) || 
+                ( strcmp ( member, "lib/" ) == 0 ) ||
+                ( strcmp ( member, "proc/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
                 ( strcmp ( member, "sos_commands/" ) == 0 ) ||
-                ( strcmp ( member, "sys/module/" ) == 0 ) )
+                ( strcmp ( member, "sys/module/" ) == 0 ) ||
+                ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
+                ( strcmp ( member, "usr/" ) == 0 ) || 
+                ( strcmp ( member, "var/crash/" ) == 0 ) ||
+                ( strcmp ( member, "var/" ) == 0 ) ) 
                 &&
                 /* try to read all files in the directory */
                 ( ( recursive == 0 ) || ( recursive == 1 ) )
@@ -967,21 +1002,22 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             /* Here are members of above and has files in the rootdir of itself
              * do read etc/systemd/system/'s rootdir so, no need here
              * do read proc/'s rootdir so, no need here
+             * do read etc/firewalld/'s rootdir so, no need here
              * do read etc/'s rootdir so, no need here
              * do read sos_commands/networking/'s rootdir so, no need here
              */
-            if (
-                ( ( strcmp ( member, "etc/pki/" ) == 0 ) || 
+            if ( (
+                ( strcmp ( member, "dev/" ) == 0 ) || 
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) || 
-                ( strcmp ( member, "var/crash/" ) == 0 ) || 
+                ( strcmp ( member, "etc/pki/" ) == 0 ) || 
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) || 
                 ( strcmp ( member, "lib/" ) == 0 ) ||
-                ( strcmp ( member, "dev/" ) == 0 ) || 
-                ( strcmp ( member, "usr/" ) == 0 ) || 
-                ( strcmp ( member, "var/" ) == 0 ) || 
                 ( strcmp ( member, "sos_commands/" ) == 0 ) ||
-                ( strcmp ( member, "sys/module/" ) == 0 ) )
+                ( strcmp ( member, "sys/module/" ) == 0 ) ||
+                ( strcmp ( member, "usr/" ) == 0 ) || 
+                ( strcmp ( member, "var/crash/" ) == 0 ) || 
+                ( strcmp ( member, "var/" ) == 0 ) )
                 &&
                 ( recursive == 0 )
                 )
@@ -1006,6 +1042,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_4_obj, read_path );
                 else if ( strstr ( read_path, "/etc/default/" ) != 0 )
                     append_list ( &tmp_16_obj, read_path );
+                /* for etc/firewalld/'s rootdir */
+                else if ( strstr ( read_path, "/etc/firewalld/" ) != 0 )
+                    append_list ( &tmp_44_obj, read_path );
+                else if ( ( strstr ( read_path, "/etc/firewalld/" ) != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_44_obj, read_path );
                 else if ( strstr ( read_path, "/etc/host" ) != 0 )
                     append_list ( &tmp_19_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/httpd/" ) != 0 ) && ( recursive == 1 ) )
@@ -1031,24 +1072,26 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_20_obj, read_path );
                 else if ( strstr ( read_path, "/etc/yum.repos.d/" ) != 0 )
                     append_list ( &tmp_21_obj, read_path );
-                else if ( strstr ( read_path, "/sos_commands/boot/" ) != 0 )
-                    append_list ( &tmp_12_obj, read_path );
-                else if ( strstr ( read_path, "/sos_commands/logs/journalctl_--no-pager" ) != 0 )
-                    append_list ( &tmp_9_obj, read_path );
-                else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-S" ) != 0 )
-                    append_list ( &tmp_10_obj, read_path );
-                else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-i" ) != 0 )
-                    append_list ( &tmp_11_obj, read_path );
-                else if ( strstr ( read_path, "/sos_commands/networking/" ) != 0 )
-                    append_list ( &tmp_30_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/abrt/" ) != 0 )
                     append_list ( &tmp_36_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/apache/" ) != 0 )
                     append_list ( &tmp_40_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/auditd/" ) != 0 )
                     append_list ( &tmp_42_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/boot/" ) != 0 )
+                    append_list ( &tmp_12_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/logs/journalctl_--no-pager" ) != 0 )
+                    append_list ( &tmp_9_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/firewalld/" ) != 0 )
+                    append_list ( &tmp_45_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/memory/" ) != 0 )
                     append_list ( &tmp_43_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-S" ) != 0 )
+                    append_list ( &tmp_10_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-i" ) != 0 )
+                    append_list ( &tmp_11_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/networking/" ) != 0 )
+                    append_list ( &tmp_30_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/pam/" ) != 0 )
                     append_list ( &tmp_39_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/sar/" ) != 0 )
@@ -1181,6 +1224,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/audit/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/default/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/httpd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1193,6 +1237,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/apache/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/boot/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1331,6 +1376,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "etc/audit/" ) == 0 ) ||
                     ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/default/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
                     ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
                     ( strcmp ( member, "etc/host" ) == 0 ) ||
                     ( strcmp ( member, "etc/kdump.conf" ) == 0 ) ||
@@ -1356,6 +1402,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "proc/interrupts" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
+                    ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
@@ -1496,6 +1543,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_audit_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/default/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_firewalld_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/httpd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/host") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_host.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pki/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) ) ||
@@ -1525,6 +1573,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/apache/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_apache_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/auditd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_auditd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_firewalld_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) ) ||
@@ -1562,7 +1611,6 @@ void read_file_pre ( const char *member, const char *dir_name )
         append_list ( &sos_line_obj, "" );
 
         /* for ones of which should read directory, or matched files in the directory */
-        /* This order is the order of tmp_<number>_obj */
         if (
             ( strcmp ( member, "boot/grub/" ) == 0 ) ||
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
@@ -1570,6 +1618,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "etc/audit/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/default/" ) == 0 ) ||
+            ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
             ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
             ( strcmp ( member, "etc/host" ) == 0 ) ||
             ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
@@ -1588,6 +1637,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
@@ -1641,8 +1691,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         }
         else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
         {
-            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_4_obj, str_arr_cron ); i ++ )
-                append_list ( &etc_cron_d__obj, str_arr_cron [ i ] );
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_4_obj, str_arr_etc_cron_d ); i ++ )
+                append_list ( &etc_cron_d__obj, str_arr_etc_cron_d [ i ] );
             read_file_from_analyze_dir ( &etc_cron_d__obj, "etc/cron.d/" );
         }
         else if ( strcmp ( member, "etc/default/" ) == 0 )
@@ -1650,6 +1700,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_16_obj, str_arr_etc_default ); i ++ )
                 append_list ( &etc_default__obj, str_arr_etc_default [ i ] );
             read_file_from_analyze_dir ( &etc_default__obj, "etc/default/" );
+        }
+        else if ( strcmp ( member, "etc/firewalld/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_44_obj, str_arr_etc_firewalld ); i ++ )
+                append_list ( &etc_firewalld__obj, str_arr_etc_firewalld [ i ] );
+            read_file_from_analyze_dir ( &etc_firewalld__obj, "etc/firewalld/" );
         }
         else if ( strcmp ( member, "etc/httpd/" ) == 0 )
         {
@@ -1758,6 +1814,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_12_obj, str_arr_boot ); i ++ )
                 append_list ( &sos_commands_boot__obj, str_arr_boot [ i ] );
             read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
+        }
+        else if ( strcmp ( member, "sos_commands/firewalld/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_45_obj, str_arr_sos_commands_firewalld ); i ++ )
+                append_list ( &sos_commands_firewalld__obj, str_arr_sos_commands_firewalld [ i ] );
+            read_file_from_analyze_dir ( &sos_commands_firewalld__obj, "sos_commands/firewalld/" );
         }
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
         {
@@ -2266,6 +2328,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/audit/" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/default/" ) == 0 ) ||
+        ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
         ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
         ( strcmp ( member, "etc/host" ) == 0 ) ||
         ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
@@ -2285,6 +2348,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
@@ -2412,6 +2476,10 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_42_obj ); 
     if ( tmp_43_obj != NULL ) 
         clear_list ( &tmp_43_obj ); 
+    if ( tmp_44_obj != NULL ) 
+        clear_list ( &tmp_44_obj ); 
+    if ( tmp_45_obj != NULL ) 
+        clear_list ( &tmp_45_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2499,4 +2567,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_auditd__obj ); 
     if ( sos_commands_memory__obj != NULL ) 
         clear_list ( &sos_commands_memory__obj ); 
+    if ( etc_firewalld__obj != NULL ) 
+        clear_list ( &etc_firewalld__obj ); 
+    if ( sos_commands_firewalld__obj != NULL ) 
+        clear_list ( &sos_commands_firewalld__obj ); 
 }
