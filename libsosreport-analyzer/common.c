@@ -374,6 +374,13 @@ struct line_data sos_commands_firewalld__obj_raw =
         NULL /* next pointer */
     };
 
+/* sos_commands_devicemapper__obj */
+struct line_data sos_commands_devicemapper__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -689,6 +696,13 @@ struct line_data tmp_45_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_46_obj */
+struct line_data tmp_46_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -739,6 +753,7 @@ struct line_data *tmp_42_obj = &tmp_42_obj_raw;
 struct line_data *tmp_43_obj = &tmp_43_obj_raw;
 struct line_data *tmp_44_obj = &tmp_44_obj_raw;
 struct line_data *tmp_45_obj = &tmp_45_obj_raw;
+struct line_data *tmp_46_obj = &tmp_46_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -785,6 +800,7 @@ struct line_data *sos_commands_auditd__obj = &sos_commands_auditd__obj_raw;
 struct line_data *sos_commands_memory__obj = &sos_commands_memory__obj_raw;
 struct line_data *etc_firewalld__obj = &etc_firewalld__obj_raw;
 struct line_data *sos_commands_firewalld__obj = &sos_commands_firewalld__obj_raw;
+struct line_data *sos_commands_devicemapper__obj = &sos_commands_devicemapper__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -832,6 +848,7 @@ char *str_arr_sos_commands_auditd [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_memory [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sos_commands_devicemapper [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1080,6 +1097,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_42_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/boot/" ) != 0 )
                     append_list ( &tmp_12_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/devicemapper/" ) != 0 )
+                    append_list ( &tmp_46_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/logs/journalctl_--no-pager" ) != 0 )
                     append_list ( &tmp_9_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/firewalld/" ) != 0 )
@@ -1237,6 +1256,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/apache/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/boot/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1402,6 +1422,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "proc/interrupts" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
+                    ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
@@ -1573,8 +1594,9 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/apache/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_apache_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/auditd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_auditd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/boot/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_firewalld_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/devicemapper/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devicemapper_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_firewalld_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_memory_.member, "" ) != 0 ) ) ||
@@ -1637,6 +1659,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
@@ -1814,6 +1837,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_12_obj, str_arr_boot ); i ++ )
                 append_list ( &sos_commands_boot__obj, str_arr_boot [ i ] );
             read_file_from_analyze_dir ( &sos_commands_boot__obj, "sos_commands/boot/" );
+        }
+        else if ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_46_obj, str_arr_sos_commands_devicemapper ); i ++ )
+                append_list ( &sos_commands_devicemapper__obj, str_arr_sos_commands_devicemapper [ i ] );
+            read_file_from_analyze_dir ( &sos_commands_devicemapper__obj, "sos_commands/devicemapper/" );
         }
         else if ( strcmp ( member, "sos_commands/firewalld/" ) == 0 )
         {
@@ -2347,6 +2376,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
@@ -2480,6 +2510,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_44_obj ); 
     if ( tmp_45_obj != NULL ) 
         clear_list ( &tmp_45_obj ); 
+    if ( tmp_46_obj != NULL ) 
+        clear_list ( &tmp_46_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2571,4 +2603,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &etc_firewalld__obj ); 
     if ( sos_commands_firewalld__obj != NULL ) 
         clear_list ( &sos_commands_firewalld__obj ); 
+    if ( sos_commands_devicemapper__obj != NULL ) 
+        clear_list ( &sos_commands_devicemapper__obj ); 
 }

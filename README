@@ -45,12 +45,15 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files in sys/module/.
   Analyze lspci file.
   Analyze etc/udev/ file.
+  Echo files in sos_commands/devicemapper/.
   Analyze sos_commands/devices/udevadm_info_--export-db file.
   Echo sos_commands/scsi/lsscsi file.
   Analyze installed-rpms file.
   Analyze df file.
   Echo vgdisplay file.
   Echo free file.
+  Echo files in sos_commands/memory/.
+  Analyze proc/meminfo file.
   Echo files etc/host*.
   Echo ip_addr file.
   Echo route file.
@@ -73,7 +76,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo etc/yum.conf file.
   Echo files in etc/yum.repos.d/.
   Echo files etc/sysconfig/network-scripts/ifcfg-*.
-  Analyze proc/meminfo file.
+  Echo files in etc/firewalld/.
+  Echo files in sos_commands/firewalld/.
   Echo proc/interrupts file.
   Analyze files in sos_commands/boot/.
   Echo proc/net/dev file.

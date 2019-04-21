@@ -94,6 +94,12 @@ lspci=00: 01: 02: 03: 04: 05: 06: 07: 08: 09: 7f 80 driver modules
 
 sos_commands/scsi/lsscsi=all
 
+## sos_commands/devicemapper/
+##
+## All you can set is 'all'
+
+sos_commands/devicemapper/=all
+
 ## devices/udevadm_info_--export-db=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 12
@@ -136,6 +142,13 @@ free=all
 ## All you can set is 'all'
 
 sos_commands/memory/=all
+
+## proc/meminfo
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. proc/meminfo=HugePage Hugepages
+
+proc/meminfo=all
 
 ## ip_addr 
 ##
@@ -293,13 +306,6 @@ sos_commands/firewalld/=all
 ## ex. sos_commands/boot/=all
 
 sos_commands/boot/=all
-
-## proc/meminfo
-##
-## You can set arbitrary item-name including 'all' up to 12
-## ex. proc/meminfo=HugePage Hugepages
-
-proc/meminfo=all
 
 ## proc/net/dev
 ##

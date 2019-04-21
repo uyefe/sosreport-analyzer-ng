@@ -142,6 +142,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_43_obj );
     init_list ( &tmp_44_obj );
     init_list ( &tmp_45_obj );
+    init_list ( &tmp_46_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -188,6 +189,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_memory__obj );
     init_list ( &etc_firewalld__obj );
     init_list ( &sos_commands_firewalld__obj );
+    init_list ( &sos_commands_devicemapper__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -376,6 +378,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/modprobe.d/", dir_name );
             read_file_pre ( "sys/module/", dir_name );
             read_file_pre ( "lspci", dir_name );
+            read_file_pre ( "sos_commands/devicemapper/", dir_name );
             read_file_pre ( "sos_commands/devices/udevadm_info_--export-db", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
             read_file_pre ( "installed-rpms", dir_name );
@@ -384,6 +387,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "vgdisplay", dir_name );
             read_file_pre ( "free", dir_name );
             read_file_pre ( "sos_commands/memory/", dir_name );
+            read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "etc/host", dir_name );
             read_file_pre ( "ip_addr", dir_name );
             read_file_pre ( "route", dir_name );
@@ -408,7 +412,6 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
             read_file_pre ( "etc/firewalld/", dir_name );
             read_file_pre ( "sos_commands/firewalld/", dir_name );
-            read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "sos_commands/boot/", dir_name );
             read_file_pre ( "proc/net/dev", dir_name );
@@ -485,6 +488,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_memory__obj, hairline );
             append_list ( &etc_firewalld__obj, hairline );
             append_list ( &sos_commands_firewalld__obj, hairline );
+            append_list ( &sos_commands_devicemapper__obj, hairline );
         }
     }
 
@@ -536,6 +540,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_host_obj, fp_w );
             file_write_list ( &etc_modprobe_d__obj, fp_w );
             file_write_list ( &sys_module__obj, fp_w );
+            file_write_list ( &sos_commands_devicemapper__obj, fp_w );
             file_write_list ( &etc_udev__obj, fp_w );
             file_write_list ( &sos_commands_memory__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );

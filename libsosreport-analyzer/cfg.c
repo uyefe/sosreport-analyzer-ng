@@ -212,6 +212,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_apache_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/boot/" ) == 0 )
                 strncpy ( cfg->sos_commands_boot_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/devicemapper/" ) == 0 )
+                strncpy ( cfg->sos_commands_devicemapper_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
                 strncpy ( cfg->sos_commands_devices_udevadm_info___export_db.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/firewalld/" ) == 0 )
@@ -397,6 +399,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sys/module/", cfg, mcinfo );
         append_sos_header_obj ( "lspci", cfg, mcinfo );
         append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/devicemapper/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
         append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
@@ -404,6 +407,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "vgdisplay", cfg, mcinfo );
         append_sos_header_obj ( "free", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/memory/", cfg, mcinfo );
+        append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "etc/host", cfg, mcinfo );
         append_sos_header_obj ( "ip_addr", cfg, mcinfo );
         append_sos_header_obj ( "route", cfg, mcinfo );
@@ -428,7 +432,6 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
         append_sos_header_obj ( "etc/firewalld/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/firewalld/", cfg, mcinfo );
-        append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/boot/", cfg, mcinfo );
         append_sos_header_obj ( "proc/net/dev", cfg, mcinfo );
@@ -593,6 +596,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_auditd_.member );
         else if ( strcmp ( member, "sos_commands/boot/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_boot_.member );
+        else if ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_devicemapper_.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
         else if ( strcmp ( member, "sos_commands/firewalld/" ) == 0 )
