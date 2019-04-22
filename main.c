@@ -441,8 +441,8 @@ int main ( int argc, char *argv [ ] )
             /* files */
             read_file_pre ( "lsof", dir_name );
             /* systemd */
-            read_file_pre ( "etc/systemd/", dir_name );
             read_file_pre ( "etc/systemd/system/", dir_name );
+            read_file_pre ( "etc/systemd/", dir_name );
             read_file_pre ( "usr/lib/systemd/", dir_name );
             /* security */
             read_file_pre ( "etc/pam.d/", dir_name );

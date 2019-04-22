@@ -14,7 +14,7 @@
 # But don't worry, sosreport-analyzer will automatically skips the directory which is not present.
 # ex. lsb-release=skip
 
-#### general #### 
+##==== general ==== 
 
 ## date
 ##
@@ -91,7 +91,7 @@ etc/sysconfig/=all
 
 sos_commands/boot/=all
 
-#### cpu #### 
+##==== cpu ==== 
 
 ## proc/interrupts
 ##
@@ -99,7 +99,7 @@ sos_commands/boot/=all
 
 proc/interrupts=all
 
-#### module## ## 
+##==== module ====
 
 ## lsmod=<item> ...
 ##
@@ -120,7 +120,7 @@ etc/modprobe.d/=all
 
 sys/module/=all
 
-#### device ####
+##==== device ==== 
 
 ## lspci=<item> ...
 ##
@@ -158,7 +158,7 @@ sos_commands/scsi/lsscsi=all
 
 sos_commands/usb/=all
 
-#### disk usage ####
+##==== disk usage ==== 
 
 ## df=<item> ...
 ##
@@ -172,7 +172,7 @@ df=/dev
 
 vgdisplay=all
 
-#### memory usage ####
+##==== memory usage ==== 
 
 ## free
 ##
@@ -193,7 +193,7 @@ sos_commands/memory/=all
 
 proc/meminfo=all
 
-#### networking ####
+##==== networking ==== 
 
 ## etc/host
 ##
@@ -270,7 +270,7 @@ sos_commands/networking/=all
 
 netstat=TIME_WAIT
 
-#### process ####
+##==== process ==== 
 
 ## ps 
 ##
@@ -279,7 +279,7 @@ netstat=TIME_WAIT
 
 ps=all
 
-#### virtualization ####
+##==== virtualization ==== 
 
 ## sos_commands/virsh/
 ##
@@ -287,7 +287,7 @@ ps=all
 
 sos_commands/virsh/=all
 
-#### files ####
+##==== files ==== 
 
 ## lsof 
 ##
@@ -296,7 +296,7 @@ sos_commands/virsh/=all
 
 lsof=bash
 
-#### systemd ####
+##====  systemd ==== 
 
 ## etc/systemd/system/
 ##
@@ -316,7 +316,7 @@ etc/systemd/=all
 
 usr/lib/systemd/=all
 
-#### security ####
+##==== security ==== 
 
 ## etc/pam.d/
 ##
@@ -362,7 +362,7 @@ var/log/audit/=denied
 
 etc/pki/=all
 
-#### kernel ####
+##==== kernel ==== 
 
 ## etc/kdump.conf 
 ##
@@ -397,7 +397,7 @@ var/crash/=all
 
 sos_commands/abrt/=all
 
-#### yum ####
+##==== yum ==== 
 
 ## etc/yum.conf 
 ##
@@ -411,7 +411,7 @@ etc/yum.conf=all
 
 etc/yum.repos.d/=all
 
-#### login ####
+##==== login ==== 
 
 ## last
 ##
@@ -422,7 +422,7 @@ etc/yum.repos.d/=all
 
 last=all
 
-#### cron ####
+##==== cron ==== 
 
 ## etc/cron.d/
 ##
@@ -436,7 +436,7 @@ etc/cron.d/=all
 
 var/spool/cron/=all
 
-#### logrotate ####
+##==== logrotate ==== 
 
 ## etc/logrotate.conf
 ##
@@ -450,7 +450,7 @@ etc/logrotate.conf=all
 
 etc/logrotate.d/=all
 
-#### logs and journals ####
+##==== logs and journals ==== 
 
 ## etc/rsyslog.conf 
 ##
@@ -484,7 +484,7 @@ sos_commands/logs/journalctl_--no-pager=kdump WARNING dump_stack bnx2x tg3 [<fff
 
 sos_commands/sar/=all
 
-#### httpd ####
+##==== httpd ==== 
 
 ## etc/httpd/
 ##
@@ -498,7 +498,7 @@ etc/httpd/=all
 
 sos_commands/apache/=all
 
-#### others ( default item is 'skip' ) ####
+##==== others ( default item is 'skip' ) ==== 
 
 ## lib/
 ##
