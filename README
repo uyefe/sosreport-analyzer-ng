@@ -60,18 +60,18 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo files in sos_commands/devicemapper/.
     Analyze sos_commands/devices/udevadm_info_--export-db file.
     Echo sos_commands/scsi/lsscsi file.
-    Echo files in sos_commands/usb.
+    Echo files in sos_commands/usb/.
 
   ## disk usage ##
     Analyze df file.
     Echo vgdisplay file.
 
-  ## memory ##
+  ## memory usage ##
     Echo free file.
     Echo files in sos_commands/memory/.
     Analyze proc/meminfo file.
 
-  ## network ##
+  ## networking ##
     Echo files etc/host*.
     Echo ip_addr file.
     Echo route file.
@@ -89,7 +89,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Analyze ps file.
 
   ## virtualization ##
-    Echo files in sos_commands/virsh.
+    Echo files in sos_commands/virsh/.
 
   ## files ##
     Analyze lsof file.
@@ -103,6 +103,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo files in etc/pam.d/.
     Echo files in sos_commands/pam/.
     Analyze var/log/secure* files.
+    Echo files in etc/audit/.
+    Echo files in sos_commands/auditd/.
     Analyze files in var/log/audit/.
     Echo files in etc/pki/.
 
@@ -139,7 +141,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo files in etc/httpd/.
     Echo files in sos_commands/apache/.
 
-  ## others ( default 'skip') ##
+  ## others ( default item is 'skip') ##
     Echo files in lib/.
     Echo files in etc/.
     Echo files in sos_commands/ except journalctl*.

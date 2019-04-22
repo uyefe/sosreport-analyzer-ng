@@ -94,6 +94,26 @@ int main ( int argc, char *argv [ ] )
     /* initialize the line list object (node) */
     /* sos_dir_file_obj doesn't need to be initialized */
     init_list ( &sos_header_obj );
+    init_list ( &sos_subtitle_general_obj );
+    init_list ( &sos_subtitle_cpu_obj );
+    init_list ( &sos_subtitle_module_obj );
+    init_list ( &sos_subtitle_device_obj );
+    init_list ( &sos_subtitle_disk_usage_obj );
+    init_list ( &sos_subtitle_memory_usage_obj );
+    init_list ( &sos_subtitle_networking_obj );
+    init_list ( &sos_subtitle_process_obj );
+    init_list ( &sos_subtitle_virtualization_obj );
+    init_list ( &sos_subtitle_files_obj );
+    init_list ( &sos_subtitle_systemd_obj );
+    init_list ( &sos_subtitle_security_obj );
+    init_list ( &sos_subtitle_kernel_obj );
+    init_list ( &sos_subtitle_yum_obj );
+    init_list ( &sos_subtitle_login_obj );
+    init_list ( &sos_subtitle_cron_obj );
+    init_list ( &sos_subtitle_logrotate_obj );
+    init_list ( &sos_subtitle_logs_and_journals_obj );
+    init_list ( &sos_subtitle_httpd_obj );
+    init_list ( &sos_subtitle_others_obj );
     init_list ( &sos_line_obj );
     init_list ( &sos_tail_obj );
 
@@ -143,6 +163,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_44_obj );
     init_list ( &tmp_45_obj );
     init_list ( &tmp_46_obj );
+    init_list ( &tmp_47_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -190,6 +211,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_firewalld__obj );
     init_list ( &sos_commands_firewalld__obj );
     init_list ( &sos_commands_devicemapper__obj );
+    init_list ( &etc_sysconfig__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -366,79 +388,100 @@ int main ( int argc, char *argv [ ] )
         }
         if ( mcinfo == 0 )
         {
+            /* general */
             read_file_pre ( "date", dir_name );
             read_file_pre ( "lsb-release", dir_name );
             read_file_pre ( "uname", dir_name );
             read_file_pre ( "hostname", dir_name );
             read_file_pre ( "uptime", dir_name );
+            read_file_pre ( "installed-rpms", dir_name );
             read_file_pre ( "proc/cpuinfo", dir_name );
             read_file_pre ( "root/anaconda-ks.cfg", dir_name );
             read_file_pre ( "dmidecode", dir_name );
+            read_file_pre ( "etc/default/", dir_name );
+            read_file_pre ( "etc/sysconfig/", dir_name );
+            read_file_pre ( "sos_commands/boot/", dir_name );
+            /* cpu */
+            read_file_pre ( "proc/interrupts", dir_name );
+            /* module */
             read_file_pre ( "lsmod", dir_name );
             read_file_pre ( "etc/modprobe.d/", dir_name );
             read_file_pre ( "sys/module/", dir_name );
+            /* device */
             read_file_pre ( "lspci", dir_name );
+            read_file_pre ( "etc/udev/", dir_name );
             read_file_pre ( "sos_commands/devicemapper/", dir_name );
             read_file_pre ( "sos_commands/devices/udevadm_info_--export-db", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
-            read_file_pre ( "installed-rpms", dir_name );
-            read_file_pre ( "etc/udev/", dir_name );
+            read_file_pre ( "sos_commands/usb/", dir_name );
+            /* disk usage */
             read_file_pre ( "df", dir_name );
             read_file_pre ( "vgdisplay", dir_name );
+            /* memory usage */
             read_file_pre ( "free", dir_name );
             read_file_pre ( "sos_commands/memory/", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
+            /* networking */
             read_file_pre ( "etc/host", dir_name );
             read_file_pre ( "ip_addr", dir_name );
             read_file_pre ( "route", dir_name );
-            read_file_pre ( "last", dir_name );
-            read_file_pre ( "ps", dir_name );
-            read_file_pre ( "lsof", dir_name );
-            read_file_pre ( "netstat", dir_name );
-            read_file_pre ( "etc/systemd/", dir_name );
-            read_file_pre ( "etc/systemd/system/", dir_name );
-            read_file_pre ( "usr/lib/systemd/", dir_name );
-            read_file_pre ( "etc/pam.d/", dir_name );
-            read_file_pre ( "sos_commands/pam/", dir_name );
-            read_file_pre ( "sos_commands/sar/", dir_name );
-            read_file_pre ( "sos_commands/virsh/", dir_name );
-            read_file_pre ( "sos_commands/usb/", dir_name );
-            read_file_pre ( "etc/default/", dir_name );
-            read_file_pre ( "etc/kdump.conf", dir_name );
-            read_file_pre ( "etc/sysctl.conf", dir_name );
-            read_file_pre ( "etc/rsyslog.conf", dir_name );
-            read_file_pre ( "etc/yum.conf", dir_name );
-            read_file_pre ( "etc/yum.repos.d/", dir_name );
             read_file_pre ( "etc/sysconfig/network-scripts/ifcfg-", dir_name );
             read_file_pre ( "etc/firewalld/", dir_name );
             read_file_pre ( "sos_commands/firewalld/", dir_name );
-            read_file_pre ( "proc/interrupts", dir_name );
-            read_file_pre ( "sos_commands/boot/", dir_name );
             read_file_pre ( "proc/net/dev", dir_name );
             read_file_pre ( "proc/net/sockstat", dir_name );
-            read_file_pre ( "etc/logrotate.conf", dir_name );
-            read_file_pre ( "etc/logrotate.d/", dir_name );
-            read_file_pre ( "etc/pki/", dir_name );
-            read_file_pre ( "etc/cron.d/", dir_name );
-            read_file_pre ( "var/spool/cron/", dir_name );
-            read_file_pre ( "var/log/dmesg", dir_name );
-            read_file_pre ( "var/log/messages", dir_name );
-            read_file_pre ( "var/log/secure", dir_name );
-            read_file_pre ( "var/crash/", dir_name );
-            read_file_pre ( "sos_commands/abrt/", dir_name );
-            read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
-            read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-i", dir_name );
             read_file_pre ( "sos_commands/networking/", dir_name );
-            read_file_pre ( "sos_commands/", dir_name );
+            read_file_pre ( "netstat", dir_name );
+            /* process */
+            read_file_pre ( "ps", dir_name );
+            /* virtualization */
+            read_file_pre ( "sos_commands/virsh/", dir_name );
+            /* files */
+            read_file_pre ( "lsof", dir_name );
+            /* systemd */
+            read_file_pre ( "etc/systemd/", dir_name );
+            read_file_pre ( "etc/systemd/system/", dir_name );
+            read_file_pre ( "usr/lib/systemd/", dir_name );
+            /* security */
+            read_file_pre ( "etc/pam.d/", dir_name );
+            read_file_pre ( "sos_commands/pam/", dir_name );
+            read_file_pre ( "var/log/secure", dir_name );
             read_file_pre ( "etc/audit/", dir_name );
             read_file_pre ( "sos_commands/auditd/", dir_name );
             read_file_pre ( "var/log/audit/", dir_name );
+            read_file_pre ( "etc/pki/", dir_name );
+            /* kernel */
+            read_file_pre ( "etc/kdump.conf", dir_name );
+            read_file_pre ( "etc/sysctl.conf", dir_name );
+            read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
+            read_file_pre ( "var/crash/", dir_name );
+            read_file_pre ( "sos_commands/abrt/", dir_name );
+            /* yum */
+            read_file_pre ( "etc/yum.conf", dir_name );
+            read_file_pre ( "etc/yum.repos.d/", dir_name );
+            /* login */
+            read_file_pre ( "last", dir_name );
+            /* cron */
+            read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "var/spool/cron/", dir_name );
+            /* logrotate */
+            read_file_pre ( "etc/logrotate.conf", dir_name );
+            read_file_pre ( "etc/logrotate.d/", dir_name );
+            /* logs and journals */
+            read_file_pre ( "etc/rsyslog.conf", dir_name );
+            read_file_pre ( "var/log/dmesg", dir_name );
+            read_file_pre ( "var/log/messages", dir_name );
+            read_file_pre ( "sos_commands/logs/journalctl_--no-pager", dir_name );
+            read_file_pre ( "sos_commands/sar/", dir_name );
+            /* httpd */
             read_file_pre ( "etc/httpd/", dir_name );
             read_file_pre ( "sos_commands/apache/", dir_name );
+            /* others ( default item is 'skip') */
             read_file_pre ( "lib/", dir_name );
             read_file_pre ( "etc/", dir_name );
+            read_file_pre ( "sos_commands/", dir_name );
             read_file_pre ( "dev/", dir_name );
             read_file_pre ( "usr/", dir_name );
             read_file_pre ( "var/", dir_name );
@@ -489,6 +532,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &etc_firewalld__obj, hairline );
             append_list ( &sos_commands_firewalld__obj, hairline );
             append_list ( &sos_commands_devicemapper__obj, hairline );
+            append_list ( &etc_sysconfig__obj, hairline );
         }
     }
 
@@ -537,46 +581,107 @@ int main ( int argc, char *argv [ ] )
         }
         if ( mcinfo == 0 )
         {
-            file_write_list ( &etc_host_obj, fp_w );
+            /* general */
+            append_list ( &sos_subtitle_general_obj, "==== general ====" );
+            file_write_list ( &sos_subtitle_general_obj, fp_w );
+            file_write_list ( &etc_default__obj, fp_w );
+            file_write_list ( &etc_sysconfig__obj, fp_w );
+            file_write_list ( &sos_commands_boot__obj, fp_w );
+            /* cpu */
+            append_list ( &sos_subtitle_cpu_obj, "==== cpu ====" );
+            file_write_list ( &sos_subtitle_cpu_obj, fp_w );
+            /* module */
+            append_list ( &sos_subtitle_module_obj, "==== module ====" );
+            file_write_list ( &sos_subtitle_module_obj, fp_w );
             file_write_list ( &etc_modprobe_d__obj, fp_w );
             file_write_list ( &sys_module__obj, fp_w );
-            file_write_list ( &sos_commands_devicemapper__obj, fp_w );
+            /* device */
+            append_list ( &sos_subtitle_device_obj, "==== device ====" );
+            file_write_list ( &sos_subtitle_device_obj, fp_w );
             file_write_list ( &etc_udev__obj, fp_w );
-            file_write_list ( &sos_commands_memory__obj, fp_w );
-            file_write_list ( &etc_pki__obj, fp_w );
-            file_write_list ( &etc_cron_d__obj, fp_w );
-            file_write_list ( &var_spool_cron__obj, fp_w );
-            file_write_list ( &etc_systemd__obj, fp_w );
-            file_write_list ( &etc_systemd_system__obj, fp_w );
-            file_write_list ( &usr_lib_systemd__obj, fp_w );
-            file_write_list ( &etc_pam_d__obj, fp_w );
-            file_write_list ( &sos_commands_pam__obj, fp_w );
-            file_write_list ( &sos_commands_sar__obj, fp_w );
-            file_write_list ( &sos_commands_virsh__obj, fp_w );
+            file_write_list ( &sos_commands_devicemapper__obj, fp_w );
             file_write_list ( &sos_commands_usb__obj, fp_w );
-            file_write_list ( &etc_default__obj, fp_w );
-            file_write_list ( &etc_logrotate_d__obj, fp_w );
-            file_write_list ( &sos_commands_boot__obj, fp_w );
-            file_write_list ( &etc_yum_repos_d__obj, fp_w );
+            /* disk usage */
+            append_list ( &sos_subtitle_disk_usage_obj, "==== disk_usage ====" );
+            file_write_list ( &sos_subtitle_disk_usage_obj, fp_w );
+            /* memory usage */
+            append_list ( &sos_subtitle_memory_usage_obj, "==== memory_usage ====" );
+            file_write_list ( &sos_subtitle_memory_usage_obj, fp_w );
+            file_write_list ( &sos_commands_memory__obj, fp_w );
+            /* networking */
+            append_list ( &sos_subtitle_networking_obj, "==== networking ====" );
+            file_write_list ( &sos_subtitle_networking_obj, fp_w );
+            file_write_list ( &etc_host_obj, fp_w );
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &etc_firewalld__obj, fp_w );
             file_write_list ( &sos_commands_firewalld__obj, fp_w );
-            file_write_list ( &var_log_messages_obj, fp_w );
-            file_write_list ( &var_log_secure_obj, fp_w );
-            file_write_list ( &var_crash__obj, fp_w );
-            file_write_list ( &sos_commands_abrt__obj, fp_w );
-            file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );
             file_write_list ( &sos_commands_networking__obj, fp_w );
-            file_write_list ( &sos_commands_obj, fp_w );
+            /* process */
+            append_list ( &sos_subtitle_process_obj, "==== process ====" );
+            file_write_list ( &sos_subtitle_process_obj, fp_w );
+            /* virtualization */
+            append_list ( &sos_subtitle_virtualization_obj, "==== virtualization ====" );
+            file_write_list ( &sos_subtitle_virtualization_obj, fp_w );
+            file_write_list ( &sos_commands_virsh__obj, fp_w );
+            /* files */
+            append_list ( &sos_subtitle_files_obj, "==== files ====" );
+            file_write_list ( &sos_subtitle_files_obj, fp_w );
+            /* systemd */
+            append_list ( &sos_subtitle_systemd_obj, "==== systemd ====" );
+            file_write_list ( &sos_subtitle_systemd_obj, fp_w );
+            file_write_list ( &etc_systemd_system__obj, fp_w );
+            file_write_list ( &etc_systemd__obj, fp_w );
+            file_write_list ( &usr_lib_systemd__obj, fp_w );
+            /* security */
+            append_list ( &sos_subtitle_security_obj, "==== security ====" );
+            file_write_list ( &sos_subtitle_security_obj, fp_w );
+            file_write_list ( &etc_pam_d__obj, fp_w );
+            file_write_list ( &sos_commands_pam__obj, fp_w );
+            file_write_list ( &var_log_secure_obj, fp_w );
             file_write_list ( &etc_audit__obj, fp_w );
             file_write_list ( &sos_commands_auditd__obj, fp_w );
             file_write_list ( &var_log_audit__obj, fp_w );
+            file_write_list ( &etc_pki__obj, fp_w );
+            /* kernel */
+            append_list ( &sos_subtitle_kernel_obj, "==== kernel ====" );
+            file_write_list ( &sos_subtitle_kernel_obj, fp_w );
+            file_write_list ( &var_crash__obj, fp_w );
+            file_write_list ( &sos_commands_abrt__obj, fp_w );
+            /* yum */
+            append_list ( &sos_subtitle_yum_obj, "==== yum ====" );
+            file_write_list ( &sos_subtitle_yum_obj, fp_w );
+            file_write_list ( &etc_yum_repos_d__obj, fp_w );
+            /* login */
+            append_list ( &sos_subtitle_login_obj, "==== login ====" );
+            file_write_list ( &sos_subtitle_login_obj, fp_w );
+            /* cron */
+            append_list ( &sos_subtitle_cron_obj, "==== cron ====" );
+            file_write_list ( &sos_subtitle_cron_obj, fp_w );
+            file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &var_spool_cron__obj, fp_w );
+            /* logrotate */
+            append_list ( &sos_subtitle_logrotate_obj, "==== logrotate ====" );
+            file_write_list ( &sos_subtitle_logrotate_obj, fp_w );
+            file_write_list ( &etc_logrotate_d__obj, fp_w );
+            /* logs and journals */
+            append_list ( &sos_subtitle_logs_and_journals_obj, "==== logs_and_journals ====" );
+            file_write_list ( &sos_subtitle_logs_and_journals_obj, fp_w );
+            file_write_list ( &var_log_messages_obj, fp_w );
+            file_write_list ( &sos_commands_logs_journalctl___no_pager_obj, fp_w );
+            file_write_list ( &sos_commands_sar__obj, fp_w );
+            /* httpd */
+            append_list ( &sos_subtitle_httpd_obj, "==== httpd ====" );
+            file_write_list ( &sos_subtitle_httpd_obj, fp_w );
             file_write_list ( &etc_httpd__obj, fp_w );
             file_write_list ( &sos_commands_apache__obj, fp_w );
+            /* others ( default item is 'skip' ) */
+            append_list ( &sos_subtitle_others_obj, "==== others ====" );
+            file_write_list ( &sos_subtitle_others_obj, fp_w );
             file_write_list ( &lib__obj, fp_w );
             file_write_list ( &etc__obj, fp_w );
+            file_write_list ( &sos_commands_obj, fp_w );
             file_write_list ( &dev__obj, fp_w );
             file_write_list ( &usr__obj, fp_w );
             file_write_list ( &var__obj, fp_w );

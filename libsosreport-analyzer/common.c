@@ -45,6 +45,146 @@ struct line_data sos_header_obj_raw =
         NULL /* next pointer */
     };
 
+/* sos_subtitle_general_obj */
+struct line_data sos_subtitle_general_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_cpu_obj */
+struct line_data sos_subtitle_cpu_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_module_obj */
+struct line_data sos_subtitle_module_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_device_obj */
+struct line_data sos_subtitle_device_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_disk_usage_obj */
+struct line_data sos_subtitle_disk_usage_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_memory_usage_obj */
+struct line_data sos_subtitle_memory_usage_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_networking_obj */
+struct line_data sos_subtitle_networking_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_process_obj */
+struct line_data sos_subtitle_process_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_virtualization_obj */
+struct line_data sos_subtitle_virtualization_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_files_obj */
+struct line_data sos_subtitle_files_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_systemd_obj */
+struct line_data sos_subtitle_systemd_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_security_obj */
+struct line_data sos_subtitle_security_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_kernel_obj */
+struct line_data sos_subtitle_kernel_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_yum_obj */
+struct line_data sos_subtitle_yum_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_login_obj */
+struct line_data sos_subtitle_login_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_cron_obj */
+struct line_data sos_subtitle_cron_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_logrotate_obj */
+struct line_data sos_subtitle_logrotate_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_logs_and_journals_obj */
+struct line_data sos_subtitle_logs_and_journals_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_httpd_obj */
+struct line_data sos_subtitle_httpd_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_subtitle_others_obj */
+struct line_data sos_subtitle_others_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* line_obj */
 struct line_data sos_line_obj_raw =
     {
@@ -381,6 +521,13 @@ struct line_data sos_commands_devicemapper__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_sysconfig__obj */
+struct line_data etc_sysconfig__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -703,9 +850,36 @@ struct line_data tmp_46_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_47_obj */
+struct line_data tmp_47_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
+struct line_data *sos_subtitle_general_obj = &sos_subtitle_general_obj_raw;
+struct line_data *sos_subtitle_cpu_obj = &sos_subtitle_cpu_obj_raw;
+struct line_data *sos_subtitle_module_obj = &sos_subtitle_module_obj_raw;
+struct line_data *sos_subtitle_device_obj = &sos_subtitle_device_obj_raw;
+struct line_data *sos_subtitle_disk_usage_obj = &sos_subtitle_disk_usage_obj_raw;
+struct line_data *sos_subtitle_memory_usage_obj = &sos_subtitle_memory_usage_obj_raw;
+struct line_data *sos_subtitle_networking_obj = &sos_subtitle_networking_obj_raw;
+struct line_data *sos_subtitle_process_obj = &sos_subtitle_process_obj_raw;
+struct line_data *sos_subtitle_virtualization_obj = &sos_subtitle_virtualization_obj_raw;
+struct line_data *sos_subtitle_files_obj = &sos_subtitle_files_obj_raw;
+struct line_data *sos_subtitle_systemd_obj = &sos_subtitle_systemd_obj_raw;
+struct line_data *sos_subtitle_security_obj = &sos_subtitle_security_obj_raw;
+struct line_data *sos_subtitle_kernel_obj = &sos_subtitle_kernel_obj_raw;
+struct line_data *sos_subtitle_yum_obj = &sos_subtitle_yum_obj_raw;
+struct line_data *sos_subtitle_login_obj = &sos_subtitle_login_obj_raw;
+struct line_data *sos_subtitle_cron_obj = &sos_subtitle_cron_obj_raw;
+struct line_data *sos_subtitle_logrotate_obj = &sos_subtitle_logrotate_obj_raw;
+struct line_data *sos_subtitle_logs_and_journals_obj = &sos_subtitle_logs_and_journals_obj_raw;
+struct line_data *sos_subtitle_httpd_obj = &sos_subtitle_httpd_obj_raw;
+struct line_data *sos_subtitle_others_obj = &sos_subtitle_others_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
 struct line_data *tmp_1_obj = &tmp_1_obj_raw;
@@ -754,6 +928,7 @@ struct line_data *tmp_43_obj = &tmp_43_obj_raw;
 struct line_data *tmp_44_obj = &tmp_44_obj_raw;
 struct line_data *tmp_45_obj = &tmp_45_obj_raw;
 struct line_data *tmp_46_obj = &tmp_46_obj_raw;
+struct line_data *tmp_47_obj = &tmp_47_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -801,6 +976,7 @@ struct line_data *sos_commands_memory__obj = &sos_commands_memory__obj_raw;
 struct line_data *etc_firewalld__obj = &etc_firewalld__obj_raw;
 struct line_data *sos_commands_firewalld__obj = &sos_commands_firewalld__obj_raw;
 struct line_data *sos_commands_devicemapper__obj = &sos_commands_devicemapper__obj_raw;
+struct line_data *etc_sysconfig__obj = &etc_firewalld__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -849,6 +1025,7 @@ char *str_arr_sos_commands_memory [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_devicemapper [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_sysconfig [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1020,6 +1197,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
              * do read etc/systemd/system/'s rootdir so, no need here
              * do read proc/'s rootdir so, no need here
              * do read etc/firewalld/'s rootdir so, no need here
+             * do read etc/sysconfig/'s rootdir so, no need here
              * do read etc/'s rootdir so, no need here
              * do read sos_commands/networking/'s rootdir so, no need here
              */
@@ -1076,6 +1254,9 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_38_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/pki/" ) != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_3_obj, read_path );
+                /* for etc/sysconfig/'s rootdir */
+                else if ( strstr ( read_path, "/etc/sysconfig/" ) != 0 )
+                    append_list ( &tmp_47_obj, read_path );
                 else if ( strstr ( read_path, "/etc/sysconfig/network-scripts/ifcfg-" ) != 0 )
                     append_list ( &tmp_5_obj, read_path );
                 /* for etc/systemd/system/'s rootdir */
@@ -1248,6 +1429,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pam.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/sysconfig/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/system/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/udev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1406,6 +1588,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/pki/" ) == 0 ) ||
                     ( strcmp ( member, "etc/rsyslog.conf" ) == 0 ) ||
+                    ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||
                     ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
                     ( strcmp ( member, "etc/sysctl.conf" ) == 0 ) ||
                     ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
@@ -1574,6 +1757,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/pam.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_pam_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/rsyslog.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/sysconfig/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/system/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/sysctl.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysctl_conf.member, "" ) != 0 ) ) ||
@@ -1625,6 +1809,46 @@ void read_file_pre ( const char *member, const char *dir_name )
         snprintf ( result_tmp, MAX_LINE_LENGTH, "(config setting is %s)", result_tmp_pre );
         snprintf (str_tmp, MAX_LINE_LENGTH, "%s/%s", get_dirname ( str_tmp3 ), member );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
+        if ( strcmp ( member, "date" ) ==0 )
+            append_list ( &sos_line_obj, "==== general ====" );
+        if ( strcmp ( member, "proc/interrupts" ) ==0 )
+            append_list ( &sos_line_obj, "==== cpu ====" );
+        if ( strcmp ( member, "lsmod" ) ==0 )
+            append_list ( &sos_line_obj, "==== module ====" );
+        if ( strcmp ( member, "lspci" ) ==0 )
+            append_list ( &sos_line_obj, "==== device ====" );
+        if ( strcmp ( member, "df" ) ==0 )
+            append_list ( &sos_line_obj, "==== disk usage ====" );
+        if ( strcmp ( member, "free" ) ==0 )
+            append_list ( &sos_line_obj, "==== memory usage ====" );
+        if ( strcmp ( member, "etc/host" ) ==0 )
+            append_list ( &sos_line_obj, "==== networking ====" );
+        if ( strcmp ( member, "ps" ) ==0 )
+            append_list ( &sos_line_obj, "==== process ====" );
+        if ( strcmp ( member, "sos_commands/virsh/" ) ==0 )
+            append_list ( &sos_line_obj, "==== virtualization ====" );
+        if ( strcmp ( member, "lsof" ) ==0 )
+            append_list ( &sos_line_obj, "==== files ====" );
+        if ( strcmp ( member, "etc/systemd/system/" ) ==0 )
+            append_list ( &sos_line_obj, "==== systemd ====" );
+        if ( strcmp ( member, "etc/pam.d/" ) ==0 )
+            append_list ( &sos_line_obj, "==== security ====" );
+        if ( strcmp ( member, "etc/kdump.conf" ) ==0 )
+            append_list ( &sos_line_obj, "==== kernel ====" );
+        if ( strcmp ( member, "etc/yum.conf" ) ==0 )
+            append_list ( &sos_line_obj, "==== yum ====" );
+        if ( strcmp ( member, "last" ) ==0 )
+            append_list ( &sos_line_obj, "==== login ====" );
+        if ( strcmp ( member, "etc/cron.d/" ) ==0 )
+            append_list ( &sos_line_obj, "==== cron ====" );
+        if ( strcmp ( member, "etc/logrotate.conf" ) ==0 )
+            append_list ( &sos_line_obj, "==== logrotate ====" );
+        if ( strcmp ( member, "etc/rsyslog.conf" ) ==0 )
+            append_list ( &sos_line_obj, "==== logs and journals ====" );
+        if ( strcmp ( member, "etc/httpd/" ) ==0 )
+            append_list ( &sos_line_obj, "==== httpd ====" );
+        if ( strcmp ( member, "lib/" ) ==0 )
+            append_list ( &sos_line_obj, "==== others ====" );
         append_list ( &sos_line_obj, "" );
         append_list ( &sos_line_obj, hairline1 );
         append_list ( &sos_line_obj, hairline2 );
@@ -1647,6 +1871,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/pki/" ) == 0 ) ||
             ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+            ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||
             ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
             ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
             ( strcmp ( member, "etc/systemd/" ) == 0 ) ||
@@ -1771,6 +1996,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_5_obj, str_arr_ifcfg ); i ++ )
                 append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, str_arr_ifcfg [ i ] );
             read_file_from_analyze_dir ( &etc_sysconfig_network_scripts_ifcfg__obj, "etc/sysconfig/network-scripts/ifcfg-" );
+        }
+        else if ( strcmp ( member, "etc/sysconfig/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_47_obj, str_arr_etc_sysconfig ); i ++ )
+                append_list ( &etc_sysconfig__obj, str_arr_etc_sysconfig [ i ] );
+            read_file_from_analyze_dir ( &etc_sysconfig__obj, "etc/sysconfig/" );
         }
         else if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
         {
@@ -2364,6 +2595,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
+        ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||
         ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
         ( strcmp ( member, "etc/systemd/" ) == 0 ) ||
         ( strcmp ( member, "etc/udev/" ) == 0 ) ||
@@ -2415,6 +2647,46 @@ void free_sosreport_analyzer_obj ( void )
 {
     if ( sos_header_obj != NULL ) 
         clear_list ( &sos_header_obj ); 
+    if ( sos_subtitle_general_obj != NULL ) 
+        clear_list ( &sos_subtitle_general_obj ); 
+    if ( sos_subtitle_cpu_obj != NULL ) 
+        clear_list ( &sos_subtitle_cpu_obj ); 
+    if ( sos_subtitle_module_obj != NULL ) 
+        clear_list ( &sos_subtitle_module_obj ); 
+    if ( sos_subtitle_device_obj != NULL ) 
+        clear_list ( &sos_subtitle_device_obj ); 
+    if ( sos_subtitle_disk_usage_obj != NULL ) 
+        clear_list ( &sos_subtitle_disk_usage_obj ); 
+    if ( sos_subtitle_memory_usage_obj != NULL ) 
+        clear_list ( &sos_subtitle_memory_usage_obj ); 
+    if ( sos_subtitle_networking_obj != NULL ) 
+        clear_list ( &sos_subtitle_networking_obj ); 
+    if ( sos_subtitle_process_obj != NULL ) 
+        clear_list ( &sos_subtitle_process_obj ); 
+    if ( sos_subtitle_virtualization_obj != NULL ) 
+        clear_list ( &sos_subtitle_virtualization_obj ); 
+    if ( sos_subtitle_files_obj != NULL ) 
+        clear_list ( &sos_subtitle_files_obj ); 
+    if ( sos_subtitle_systemd_obj != NULL ) 
+        clear_list ( &sos_subtitle_systemd_obj ); 
+    if ( sos_subtitle_security_obj != NULL ) 
+        clear_list ( &sos_subtitle_security_obj ); 
+    if ( sos_subtitle_kernel_obj != NULL ) 
+        clear_list ( &sos_subtitle_kernel_obj ); 
+    if ( sos_subtitle_yum_obj != NULL ) 
+        clear_list ( &sos_subtitle_yum_obj ); 
+    if ( sos_subtitle_login_obj != NULL ) 
+        clear_list ( &sos_subtitle_login_obj ); 
+    if ( sos_subtitle_cron_obj != NULL ) 
+        clear_list ( &sos_subtitle_cron_obj ); 
+    if ( sos_subtitle_logrotate_obj != NULL ) 
+        clear_list ( &sos_subtitle_logrotate_obj ); 
+    if ( sos_subtitle_logs_and_journals_obj != NULL ) 
+        clear_list ( &sos_subtitle_logs_and_journals_obj ); 
+    if ( sos_subtitle_httpd_obj != NULL ) 
+        clear_list ( &sos_subtitle_httpd_obj ); 
+    if ( sos_subtitle_others_obj != NULL ) 
+        clear_list ( &sos_subtitle_others_obj ); 
     if ( sos_line_obj != NULL ) 
         clear_list ( &sos_line_obj ); 
     if ( sos_tail_obj != NULL ) 
@@ -2512,6 +2784,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_45_obj ); 
     if ( tmp_46_obj != NULL ) 
         clear_list ( &tmp_46_obj ); 
+    if ( tmp_47_obj != NULL ) 
+        clear_list ( &tmp_47_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2605,4 +2879,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_firewalld__obj ); 
     if ( sos_commands_devicemapper__obj != NULL ) 
         clear_list ( &sos_commands_devicemapper__obj ); 
+    if ( etc_sysconfig__obj != NULL ) 
+        clear_list ( &etc_sysconfig__obj ); 
 }

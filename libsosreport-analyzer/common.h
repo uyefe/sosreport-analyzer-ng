@@ -35,6 +35,26 @@
 extern struct line_data *tmp_obj;
 extern struct dir_file_name *sos_dir_file_obj;
 extern struct line_data *sos_header_obj;
+extern struct line_data *sos_subtitle_general_obj;
+extern struct line_data *sos_subtitle_cpu_obj;
+extern struct line_data *sos_subtitle_module_obj;
+extern struct line_data *sos_subtitle_device_obj;
+extern struct line_data *sos_subtitle_disk_usage_obj;
+extern struct line_data *sos_subtitle_memory_usage_obj;
+extern struct line_data *sos_subtitle_networking_obj;
+extern struct line_data *sos_subtitle_process_obj;
+extern struct line_data *sos_subtitle_virtualization_obj;
+extern struct line_data *sos_subtitle_files_obj;
+extern struct line_data *sos_subtitle_systemd_obj;
+extern struct line_data *sos_subtitle_security_obj;
+extern struct line_data *sos_subtitle_kernel_obj;
+extern struct line_data *sos_subtitle_yum_obj;
+extern struct line_data *sos_subtitle_login_obj;
+extern struct line_data *sos_subtitle_cron_obj;
+extern struct line_data *sos_subtitle_logrotate_obj;
+extern struct line_data *sos_subtitle_logs_and_journals_obj;
+extern struct line_data *sos_subtitle_httpd_obj;
+extern struct line_data *sos_subtitle_others_obj;
 extern struct line_data *sos_line_obj;
 extern struct line_data *sos_tail_obj;
 
@@ -84,6 +104,7 @@ extern struct line_data *tmp_43_obj;
 extern struct line_data *tmp_44_obj;
 extern struct line_data *tmp_45_obj;
 extern struct line_data *tmp_46_obj;
+extern struct line_data *tmp_47_obj;
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct line_data *etc_pki__obj;
@@ -131,6 +152,7 @@ extern struct line_data *sos_commands_memory__obj;
 extern struct line_data *etc_firewalld__obj;
 extern struct line_data *sos_commands_firewalld__obj;
 extern struct line_data *sos_commands_devicemapper__obj;
+extern struct line_data *etc_sysconfig__obj;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -178,6 +200,7 @@ extern char *str_arr_sos_commands_memory [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ]
 extern char *str_arr_etc_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_devicemapper [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_sysconfig [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'

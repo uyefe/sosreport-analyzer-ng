@@ -186,6 +186,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_pki_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/rsyslog.conf" ) == 0 )
                 strncpy ( cfg->etc_rsyslog_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/sysconfig/" ) == 0 )
+                strncpy ( cfg->etc_sysconfig_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
                 strncpy ( cfg->etc_sysctl_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/systemd/" ) == 0 )
@@ -386,81 +388,102 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
     }
     if ( mcinfo == 0 ) 
     {
+        /* general */
         append_sos_header_obj ( "date", cfg, mcinfo );
         append_sos_header_obj ( "lsb-release", cfg, mcinfo );
         append_sos_header_obj ( "uname", cfg, mcinfo );
         append_sos_header_obj ( "hostname", cfg, mcinfo );
         append_sos_header_obj ( "uptime", cfg, mcinfo );
+        append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
         append_sos_header_obj ( "proc/cpuinfo", cfg, mcinfo );
         append_sos_header_obj ( "root/anaconda-ks.cfg", cfg, mcinfo );
         append_sos_header_obj ( "dmidecode", cfg, mcinfo );
+        append_sos_header_obj ( "etc/default/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/sysconfig/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/boot/", cfg, mcinfo );
+        /* cpu */
+        append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
+        /* module */
         append_sos_header_obj ( "lsmod", cfg, mcinfo );
         append_sos_header_obj ( "etc/modprobe.d/", cfg, mcinfo );
         append_sos_header_obj ( "sys/module/", cfg, mcinfo );
+        /* device */
         append_sos_header_obj ( "lspci", cfg, mcinfo );
         append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devicemapper/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
-        append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
+        /* disk usage */
         append_sos_header_obj ( "df", cfg, mcinfo );
         append_sos_header_obj ( "vgdisplay", cfg, mcinfo );
+        /* memory usage */
         append_sos_header_obj ( "free", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/memory/", cfg, mcinfo );
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
+        /* networking */
         append_sos_header_obj ( "etc/host", cfg, mcinfo );
         append_sos_header_obj ( "ip_addr", cfg, mcinfo );
         append_sos_header_obj ( "route", cfg, mcinfo );
-        append_sos_header_obj ( "last", cfg, mcinfo );
-        append_sos_header_obj ( "ps", cfg, mcinfo );
-        append_sos_header_obj ( "lsof", cfg, mcinfo );
-        append_sos_header_obj ( "netstat", cfg, mcinfo );
-        append_sos_header_obj ( "etc/systemd/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/systemd/system/", cfg, mcinfo );
-        append_sos_header_obj ( "usr/lib/systemd/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/pam.d/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/pam/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/sar/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/virsh/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/default/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
-        append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
-        append_sos_header_obj ( "etc/rsyslog.conf", cfg, mcinfo );
-        append_sos_header_obj ( "etc/yum.conf", cfg, mcinfo );
-        append_sos_header_obj ( "etc/yum.repos.d/", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
         append_sos_header_obj ( "etc/firewalld/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/firewalld/", cfg, mcinfo );
-        append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/boot/", cfg, mcinfo );
         append_sos_header_obj ( "proc/net/dev", cfg, mcinfo );
         append_sos_header_obj ( "proc/net/sockstat", cfg, mcinfo );
-        append_sos_header_obj ( "etc/logrotate.conf", cfg, mcinfo );
-        append_sos_header_obj ( "etc/logrotate.d/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/pki/", cfg, mcinfo );
-        append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
-        append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
-        append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
-        append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
-        append_sos_header_obj ( "var/crash/", cfg, mcinfo );
-        append_sos_header_obj ( "var/log/secure", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/abrt/", cfg, mcinfo );
+        append_sos_header_obj ( "netstat", cfg, mcinfo );
+        /* process */
+        append_sos_header_obj ( "ps", cfg, mcinfo );
+        /* virtualization */
+        append_sos_header_obj ( "sos_commands/virsh/", cfg, mcinfo );
+        /* files */
+        append_sos_header_obj ( "lsof", cfg, mcinfo );
+        /* systemd */
+        append_sos_header_obj ( "etc/systemd/system/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/systemd/", cfg, mcinfo );
+        append_sos_header_obj ( "usr/lib/systemd/", cfg, mcinfo );
+        /* security */
+        append_sos_header_obj ( "etc/pam.d/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/pam/", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/secure", cfg, mcinfo );
         append_sos_header_obj ( "etc/audit/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/auditd/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/audit/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/pki/", cfg, mcinfo );
+        /* kernel */
+        append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/sysctl.conf", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
+        append_sos_header_obj ( "var/crash/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/abrt/", cfg, mcinfo );
+        /* yum */
+        append_sos_header_obj ( "etc/yum.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/yum.repos.d/", cfg, mcinfo );
+        /* login */
+        append_sos_header_obj ( "last", cfg, mcinfo );
+        /* cron */
+        append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
+        append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
+        /* logrotate */
+        append_sos_header_obj ( "etc/logrotate.conf", cfg, mcinfo );
+        append_sos_header_obj ( "etc/logrotate.d/", cfg, mcinfo );
+        /* logs and journals */
+        append_sos_header_obj ( "etc/rsyslog.conf", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/logs/journalctl_--no-pager", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/sar/", cfg, mcinfo );
+        /* httpd */
         append_sos_header_obj ( "etc/httpd/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/apache/", cfg, mcinfo );
+        /* others ( default items is 'skip' ) */
         append_sos_header_obj ( "lib/", cfg, mcinfo );
         append_sos_header_obj ( "etc/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/", cfg, mcinfo );
         append_sos_header_obj ( "dev/", cfg, mcinfo );
         append_sos_header_obj ( "usr/", cfg, mcinfo );
-        append_sos_header_obj ( "sos_commands/", cfg, mcinfo );
     }
     append_sos_header_obj ( "var/", cfg, mcinfo );
     append_sos_header_obj ( "proc/", cfg, mcinfo );
@@ -570,6 +593,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_modprobe_d_.member );
         else if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_rsyslog_conf.member );
+        else if ( strcmp ( member, "etc/sysconfig/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_sysconfig_.member );
         else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_sysctl_conf.member );
         else if ( strcmp ( member, "etc/systemd/" ) == 0 )

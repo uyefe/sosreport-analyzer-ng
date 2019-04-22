@@ -60,6 +60,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->etc_pki_.item_num = 0;
     sosreport_analyzer_cfg->etc_rsyslog_conf.item_num = 0;
     sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num = 0;
+    sosreport_analyzer_cfg->etc_sysconfig_.item_num = 0;
     sosreport_analyzer_cfg->etc_sysctl_conf.item_num = 0;
     sosreport_analyzer_cfg->etc_systemd_system_.item_num = 0;
     sosreport_analyzer_cfg->etc_systemd_.item_num = 0;
@@ -178,6 +179,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.item_num;
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num;
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysconfig_.item_num;
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysctl_conf.item_num;
     else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
@@ -338,6 +341,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.member;
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member;
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysconfig_.member;
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysctl_conf.member;
     else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
@@ -498,6 +503,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.file_num;
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.file_num;
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysconfig_.file_num;
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysctl_conf.file_num;
     else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
@@ -658,6 +665,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_rsyslog_conf.item_num = x; 
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num = x; 
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_sysconfig_.item_num = x; 
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
         sosreport_analyzer_cfg->etc_sysctl_conf.item_num = x; 
     else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
@@ -818,6 +827,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_rsyslog_conf.file_num = x; 
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.file_num = x; 
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_sysconfig_.file_num = x; 
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
         sosreport_analyzer_cfg->etc_sysctl_conf.file_num = x; 
     else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
@@ -1085,6 +1096,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_sysconfig_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
@@ -1372,6 +1388,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_sysconfig_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysctl_conf.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/systemd/system/", member ) == 0 )
@@ -1634,6 +1652,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "etc/sysctl.conf", member ) == 0 )
