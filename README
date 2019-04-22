@@ -32,77 +32,123 @@ Binary path: /usr/local/bin/sosreport-analyzer
   New version of config is found in /usr/share/sosreport-analyzer/sosreport-analyzer.conf.example.
   Copy it as /etc/sosreport-analyzer.conf.
 
-  Echo date file.
-  Echo lsb-release file.
-  Echo uname file.
-  Echo hostname file.
-  Echo uptime file.
-  Analyze proc/cpuinfo file.
-  Echo root/anaconda-ks.cfg file.
-  Analyze dmidecode file.
-  Analyze lsmod file.
-  Echo files in etc/modprobe.d/.
-  Echo files in sys/module/.
-  Analyze lspci file.
-  Analyze etc/udev/ file.
-  Analyze sos_commands/devices/udevadm_info_--export-db file.
-  Echo sos_commands/scsi/lsscsi file.
-  Analyze installed-rpms file.
-  Analyze df file.
-  Echo vgdisplay file.
-  Echo free file.
-  Echo files etc/host*.
-  Echo ip_addr file.
-  Echo route file.
-  Analyze last file.
-  Analyze ps file.
-  Analyze lsof file.
-  Analyze netstat file.
-  Echo files in etc/systemd/system/.
-  Echo files in etc/systemd/.
-  Echo files in usr/lib/systemd/.
-  Echo files in etc/pam.d/.
-  Echo files in sos_commands/pam/.
-  Echo files in sos_commands/sar.
-  Echo files in sos_commands/virsh.
-  Echo files in sos_commands/usb.
-  Echo files in etc/default.
-  Analyze etc/kdump.conf.
-  Analyze etc/sysctl.conf.
-  Echo etc/rsyslog.conf.
-  Echo etc/yum.conf file.
-  Echo files in etc/yum.repos.d/.
-  Echo files etc/sysconfig/network-scripts/ifcfg-*.
-  Analyze proc/meminfo file.
-  Echo proc/interrupts file.
-  Analyze files in sos_commands/boot/.
-  Echo proc/net/dev file.
-  Echo proc/net/sockstat file.
-  Echo etc/logrotate.conf file.
-  Echo files in etc/logrotate.d/.
-  Echo files in etc/pki/.
-  Echo files in etc/cron.d/.
-  Echo files in var/spool/cron/.
-  Echo var/log/dmesg file.
-  Analyze var/log/messages* files.
-  Echo files in var/crash/ if the directory exists.
-  Analyze files under sos_commands/abrt/.
-  Analyze var/log/secure* files.
-  Analyze files in var/log/audit/.
-  Analyze sos_commands/kernel/sysctl_-a file.
-  Analyze sos_commands/logs/journalctl_--no-pager files.
-  Analyze sos_commands/networking/ethtool_-S files.
-  Analyze sos_commands/networking/ethtool_-i files.
-  Echo files in sos_commands/networking/.
-  Echo files in etc/httpd/.
-  Echo files in sos_commands/apache/.
-  Echo files in lib/.
-  Echo files in etc/.
-  Echo files in sos_commands/ except journalctl*.
-  Echo files in dev/.
-  Echo files in usr/.
-  Echo files in var/ except messages*, journal*, sa*, nova* crash*.
-  Analyze files under proc/.
+  ## general ##
+    Echo date file.
+    Echo lsb-release file.
+    Echo uname file.
+    Echo hostname file.
+    Echo uptime file.
+    Analyze installed-rpms file.
+    Analyze proc/cpuinfo file.
+    Echo root/anaconda-ks.cfg file.
+    Analyze dmidecode file.
+    Echo files in etc/default.
+    Echo files in etc/sysconfig/ except '/network-scripts/'.
+    Analyze files in sos_commands/boot/.
+
+  ## cpu ##
+    Echo proc/interrupts file.
+
+  ## module ##
+    Analyze lsmod file.
+    Echo files in etc/modprobe.d/.
+    Echo files in sys/module/.
+
+  ## device ##
+    Analyze lspci file.
+    Analyze etc/udev/ file.
+    Echo files in sos_commands/devicemapper/.
+    Analyze sos_commands/devices/udevadm_info_--export-db file.
+    Echo sos_commands/scsi/lsscsi file.
+    Echo files in sos_commands/usb/.
+
+  ## disk usage ##
+    Analyze df file.
+    Echo vgdisplay file.
+
+  ## memory usage ##
+    Echo free file.
+    Echo files in sos_commands/memory/.
+    Analyze proc/meminfo file.
+
+  ## networking ##
+    Echo files etc/host*.
+    Echo ip_addr file.
+    Echo route file.
+    Echo files etc/sysconfig/network-scripts/ifcfg-*.
+    Echo files in etc/firewalld/.
+    Echo files in sos_commands/firewalld/.
+    Echo proc/net/dev file.
+    Echo proc/net/sockstat file.
+    Analyze sos_commands/networking/ethtool_-S files.
+    Analyze sos_commands/networking/ethtool_-i files.
+    Echo files in sos_commands/networking/.
+    Analyze netstat file.
+
+  ## process ##
+    Analyze ps file.
+
+  ## virtualization ##
+    Echo files in sos_commands/virsh/.
+
+  ## files ##
+    Analyze lsof file.
+
+  ## systemd ##
+    Echo files in etc/systemd/system/.
+    Echo files in etc/systemd/.
+    Echo files in usr/lib/systemd/.
+
+  ## security ##
+    Echo files in etc/pam.d/.
+    Echo files in sos_commands/pam/.
+    Analyze var/log/secure* files.
+    Echo files in etc/audit/.
+    Echo files in sos_commands/auditd/.
+    Analyze files in var/log/audit/.
+    Echo files in etc/pki/.
+
+  ## kernel ##
+    Analyze etc/kdump.conf.
+    Analyze etc/sysctl.conf.
+    Analyze sos_commands/kernel/sysctl_-a file.
+    Echo files in var/crash/ if the directory exists.
+    Analyze files under sos_commands/abrt/.
+
+  ## yum ##
+    Echo etc/yum.conf file.
+    Echo files in etc/yum.repos.d/.
+
+  ## login ##
+    Analyze last file.
+
+  ## cron ##
+    Echo files in etc/cron.d/.
+    Echo files in var/spool/cron/.
+
+  ## logrotate ##
+    Echo etc/logrotate.conf file.
+    Echo files in etc/logrotate.d/.
+
+  ## logs and journals ##
+    Echo etc/rsyslog.conf.
+    Echo var/log/dmesg file.
+    Analyze var/log/messages* files.
+    Analyze sos_commands/logs/journalctl_--no-pager files.
+    Echo files in sos_commands/sar.
+
+  ## httpd ##
+    Echo files in etc/httpd/.
+    Echo files in sos_commands/apache/.
+
+  ## others ( default item is 'skip') ##
+    Echo files in lib/.
+    Echo files in etc/.
+    Echo files in sos_commands/ except journalctl*.
+    Echo files in dev/.
+    Echo files in usr/.
+    Echo files in var/ except messages*, journal*, sa*, nova* crash*.
+    Analyze files in proc/.
 
   For mcinfo 
 
