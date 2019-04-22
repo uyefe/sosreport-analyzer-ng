@@ -4,7 +4,7 @@ lib_LTLIBRARIES = libsosreport-analyzer.la
 
 libsosreport_analyzer_la_SOURCES = cfg.c common.c line_data.c setter_getter.c
 
-libsosreport_analyzer_la_LDFLAGS = -version-info 1:107:0
+libsosreport_analyzer_la_LDFLAGS = -version-info 1:108:0
 
 all:
 
