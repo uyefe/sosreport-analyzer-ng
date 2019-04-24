@@ -47,6 +47,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->mcinfo_cmdlog_.item_num = 0;
     sosreport_analyzer_cfg->dev_.item_num = 0;
     sosreport_analyzer_cfg->etc_.item_num = 0;
+    sosreport_analyzer_cfg->etc_audit_.item_num = 0;
     sosreport_analyzer_cfg->etc_cron_d_.item_num = 0;
     sosreport_analyzer_cfg->etc_default_.item_num = 0;
     sosreport_analyzer_cfg->etc_firewalld_.item_num = 0;
@@ -59,6 +60,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->etc_pam_d_.item_num = 0;
     sosreport_analyzer_cfg->etc_pki_.item_num = 0;
     sosreport_analyzer_cfg->etc_rsyslog_conf.item_num = 0;
+    sosreport_analyzer_cfg->etc_selinux_.item_num = 0;
     sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num = 0;
     sosreport_analyzer_cfg->etc_sysconfig_.item_num = 0;
     sosreport_analyzer_cfg->etc_sysctl_conf.item_num = 0;
@@ -78,6 +80,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->sos_commands_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_abrt_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_apache_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_auditd_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_boot_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_devicemapper_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = 0;
@@ -90,6 +93,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->sos_commands_networking_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_pam_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_sar_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_selinux_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_usb_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_virsh_.item_num = 0;
@@ -153,6 +157,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->dev_.item_num;
     else if ( strcmp ( "etc/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_.item_num;
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_audit_.item_num;
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_cron_d_.item_num;
     else if ( strcmp ( "etc/default/", member ) == 0 )
@@ -177,6 +183,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_pki_.item_num;
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.item_num;
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_selinux_.item_num;
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num;
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -215,6 +223,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_abrt_.item_num;
     else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_apache_.item_num;
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_auditd_.item_num;
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.item_num;
     else if ( strcmp ( "sos_commands/devicemapper/", member ) == 0 )
@@ -241,6 +251,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_sar_.item_num;
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_num;
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_selinux_.item_num;
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_usb_.item_num;
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
@@ -315,6 +327,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->dev_.member;
     else if ( strcmp ( "etc/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_.member;
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_audit_.member;
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_cron_d_.member;
     else if ( strcmp ( "etc/default/", member ) == 0 )
@@ -339,6 +353,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_pki_.member;
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.member;
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_selinux_.member;
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.member;
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -373,6 +389,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->root_anaconda_ks_cfg.member;
     else if ( strcmp ( "sos_commands/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_.member;
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_auditd_.member;
     else if ( strcmp ( "sos_commands/abrt/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_abrt_.member;
     else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
@@ -403,6 +421,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_sar_.member;
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member;
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_selinux_.member;
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_usb_.member;
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
@@ -477,6 +497,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->dev_.file_num;
     else if ( strcmp ( "etc/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_.file_num;
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_audit_.file_num;
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_cron_d_.file_num;
     else if ( strcmp ( "etc/default/", member ) == 0 )
@@ -501,6 +523,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_pki_.file_num;
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.file_num;
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_selinux_.file_num;
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.file_num;
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -539,6 +563,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_abrt_.file_num;
     else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_apache_.file_num;
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_auditd_.file_num;
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.file_num;
     else if ( strcmp ( "sos_commands/devicemapper/", member ) == 0 )
@@ -565,6 +591,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_sar_.file_num;
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.file_num;
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_selinux_.file_num;
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_usb_.file_num;
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
@@ -639,6 +667,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->dev_.item_num = x; 
     else if ( strcmp ( "etc/", member ) == 0 )
         sosreport_analyzer_cfg->etc_.item_num = x; 
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_audit_.item_num = x; 
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
         sosreport_analyzer_cfg->etc_cron_d_.item_num = x; 
     else if ( strcmp ( "etc/default/", member ) == 0 )
@@ -663,6 +693,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_pki_.item_num = x; 
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
         sosreport_analyzer_cfg->etc_rsyslog_conf.item_num = x; 
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_selinux_.item_num = x; 
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_num = x; 
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -701,6 +733,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_abrt_.item_num = x; 
     else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_apache_.item_num = x; 
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_auditd_.item_num = x; 
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_boot_.item_num = x; 
     else if ( strcmp ( "sos_commands/devicemapper/", member ) == 0 )
@@ -727,6 +761,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_sar_.item_num = x; 
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_num = x; 
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_selinux_.item_num = x; 
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_usb_.item_num = x; 
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
@@ -801,6 +837,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->dev_.file_num = x; 
     else if ( strcmp ( "etc/", member ) == 0 )
         sosreport_analyzer_cfg->etc_.file_num = x; 
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_audit_.file_num = x; 
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
         sosreport_analyzer_cfg->etc_cron_d_.file_num = x; 
     else if ( strcmp ( "etc/default/", member ) == 0 )
@@ -825,6 +863,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_pki_.file_num = x; 
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
         sosreport_analyzer_cfg->etc_rsyslog_conf.file_num = x; 
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_selinux_.file_num = x; 
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.file_num = x; 
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -863,6 +903,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_abrt_.file_num = x; 
     else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_apache_.file_num = x; 
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_auditd_.file_num = x; 
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_boot_.file_num = x; 
     else if ( strcmp ( "sos_commands/devicemapper/", member ) == 0 )
@@ -889,6 +931,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_sar_.file_num = x; 
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.file_num = x; 
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_selinux_.file_num = x; 
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_usb_.file_num = x; 
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
@@ -1033,6 +1077,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->etc_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_audit_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->etc_cron_d_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
@@ -1096,6 +1145,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_selinux_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -1188,6 +1242,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->sos_commands_apache_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_auditd_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
@@ -1251,6 +1310,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_selinux_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
@@ -1362,6 +1426,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->dev_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_audit_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_cron_d_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/default/", member ) == 0 )
@@ -1386,6 +1452,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->etc_pki_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
         return sosreport_analyzer_cfg->etc_rsyslog_conf.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_selinux_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
         return sosreport_analyzer_cfg->etc_sysconfig_network_scripts_ifcfg_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/sysconfig/", member ) == 0 )
@@ -1424,6 +1492,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->sos_commands_abrt_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/apache/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_apache_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_auditd_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_boot_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/devicemapper/", member ) == 0 )
@@ -1450,6 +1520,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->sos_commands_sar_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_selinux_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_usb_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/virsh/", member ) == 0 )
@@ -1589,6 +1661,11 @@ int member_item_exists ( const char *member )
         if ( strcmp ( sosreport_analyzer_cfg->etc_.member, "" ) != 0 )
             return ( 0 );
     }
+    else if ( strcmp ( "etc/audit/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->etc_audit_.member, "" ) != 0 )
+            return ( 0 );
+    }
     else if ( strcmp ( "etc/cron.d/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 )
@@ -1647,6 +1724,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "etc/rsyslog.conf", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "etc/selinux/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->etc_selinux_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "etc/sysconfig/network-scripts/ifcfg-", member ) == 0 )
@@ -1744,6 +1826,11 @@ int member_item_exists ( const char *member )
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_apache_.member, "" ) != 0 )
             return ( 0 );
     }
+    else if ( strcmp ( "sos_commands/auditd/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sos_commands_auditd_.member, "" ) != 0 )
+            return ( 0 );
+    }
     else if ( strcmp ( "sos_commands/boot/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_boot_.member, "" ) != 0 )
@@ -1807,6 +1894,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "sos_commands/scsi/lsscsi", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/selinux/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sos_commands_selinux_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "sos_commands/usb/", member ) == 0 )

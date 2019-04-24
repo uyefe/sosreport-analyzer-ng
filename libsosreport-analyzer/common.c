@@ -528,6 +528,20 @@ struct line_data etc_sysconfig__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_selinux__obj */
+struct line_data etc_selinux__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_commands_selinux__obj */
+struct line_data sos_commands_selinux__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -857,6 +871,20 @@ struct line_data tmp_47_obj_raw =
         NULL /* next pointer */
     };
 
+/* tmp_48_obj */
+struct line_data tmp_48_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* tmp_49_obj */
+struct line_data tmp_49_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -882,6 +910,7 @@ struct line_data *sos_subtitle_httpd_obj = &sos_subtitle_httpd_obj_raw;
 struct line_data *sos_subtitle_others_obj = &sos_subtitle_others_obj_raw;
 struct line_data *sos_line_obj = &sos_line_obj_raw;
 struct line_data *sos_tail_obj = &sos_tail_obj_raw;
+
 struct line_data *tmp_1_obj = &tmp_1_obj_raw;
 struct line_data *tmp_2_obj = &tmp_2_obj_raw;
 struct line_data *tmp_3_obj = &tmp_3_obj_raw;
@@ -929,6 +958,8 @@ struct line_data *tmp_44_obj = &tmp_44_obj_raw;
 struct line_data *tmp_45_obj = &tmp_45_obj_raw;
 struct line_data *tmp_46_obj = &tmp_46_obj_raw;
 struct line_data *tmp_47_obj = &tmp_47_obj_raw;
+struct line_data *tmp_48_obj = &tmp_48_obj_raw;
+struct line_data *tmp_49_obj = &tmp_49_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -977,6 +1008,8 @@ struct line_data *etc_firewalld__obj = &etc_firewalld__obj_raw;
 struct line_data *sos_commands_firewalld__obj = &sos_commands_firewalld__obj_raw;
 struct line_data *sos_commands_devicemapper__obj = &sos_commands_devicemapper__obj_raw;
 struct line_data *etc_sysconfig__obj = &etc_firewalld__obj_raw;
+struct line_data *etc_selinux__obj = &etc_selinux__obj_raw;
+struct line_data *sos_commands_selinux__obj = &sos_commands_selinux__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -1026,6 +1059,8 @@ char *str_arr_etc_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_devicemapper [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_sysconfig [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_selinux [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sos_commands_selinux [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1168,6 +1203,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
                 ( strcmp ( member, "etc/pki/" ) == 0 ) || 
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
+                ( strcmp ( member, "etc/selinux/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
                 ( strcmp ( member, "etc/udev/" ) == 0 ) ||
                 ( strcmp ( member, "etc/" ) == 0 ) || 
@@ -1195,10 +1231,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             }
             /* Here are members of above and has files in the rootdir of itself
              * do read etc/systemd/system/'s rootdir so, no need here
-             * do read proc/'s rootdir so, no need here
              * do read etc/firewalld/'s rootdir so, no need here
+             * do read etc/selinux/'s rootdir so, no need here
              * do read etc/sysconfig/'s rootdir so, no need here
              * do read etc/'s rootdir so, no need here
+             * do read proc/'s rootdir so, no need here
              * do read sos_commands/networking/'s rootdir so, no need here
              */
             if ( (
@@ -1254,6 +1291,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_38_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/pki/" ) != 0 ) && ( recursive == 1 ) )
                     append_list ( &tmp_3_obj, read_path );
+                /* for etc/selinux/'s rootdir */
+                else if ( strstr ( read_path, "/etc/selinux/" ) != 0 )
+                    append_list ( &tmp_48_obj, read_path );
+                else if ( ( strstr ( read_path, "/etc/selinux/" ) != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_48_obj, read_path );
                 /* for etc/sysconfig/'s rootdir */
                 else if ( strstr ( read_path, "/etc/sysconfig/" ) != 0 )
                     append_list ( &tmp_47_obj, read_path );
@@ -1296,6 +1338,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_39_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/sar/" ) != 0 )
                     append_list ( &tmp_25_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/selinux/" ) != 0 )
+                    append_list ( &tmp_49_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/usb/" ) != 0 )
                     append_list ( &tmp_27_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/virsh/" ) != 0 )
@@ -1429,6 +1473,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pam.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/selinux/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/sysconfig/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/system/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1447,6 +1492,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/networking/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/pam/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/sar/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/usb/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sys/module/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1588,6 +1634,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/pki/" ) == 0 ) ||
                     ( strcmp ( member, "etc/rsyslog.conf" ) == 0 ) ||
+                    ( strcmp ( member, "etc/selinux/" ) == 0 ) ||
                     ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||
                     ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
                     ( strcmp ( member, "etc/sysctl.conf" ) == 0 ) ||
@@ -1611,6 +1658,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
+                    ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/" ) == 0 ) ||
@@ -1756,6 +1804,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/logrotate.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pam.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_pam_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/rsyslog.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/selinux/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_selinux_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/sysconfig/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/system/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) ) ||
@@ -1789,6 +1838,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/networking/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/pam/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_pam_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/sar/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_sar_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/selinux/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_selinux_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/scsi/lsscsi") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_scsi_lsscsi.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/usb/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_usb_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/virsh/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_virsh_.member, "" ) != 0 ) ) ||
@@ -1871,6 +1921,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/pki/" ) == 0 ) ||
             ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+            ( strcmp ( member, "etc/selinux/" ) == 0 ) ||
             ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||
             ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
             ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
@@ -1893,6 +1944,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/" ) == 0 ) ||
@@ -1990,6 +2042,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_3_obj, str_arr_pki ); i ++ )
                 append_list ( &etc_pki__obj, str_arr_pki [ i ] );
             read_file_from_analyze_dir ( &etc_pki__obj, "etc/pki/" );
+        }
+        else if ( strcmp ( member, "etc/selinux/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_48_obj, str_arr_etc_selinux ); i ++ )
+                append_list ( &etc_selinux__obj, str_arr_etc_selinux [ i ] );
+            read_file_from_analyze_dir ( &etc_selinux__obj, "etc/selinux/" );
         }
         else if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         {
@@ -2122,6 +2180,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_25_obj, str_arr_sos_commands_sar ); i ++ )
                 append_list ( &sos_commands_sar__obj, str_arr_sos_commands_sar [ i ] );
             read_file_from_analyze_dir ( &sos_commands_sar__obj, "sos_commands/sar/" );
+        }
+        else if ( strcmp ( member, "sos_commands/selinux/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_49_obj, str_arr_sos_commands_selinux ); i ++ )
+                append_list ( &sos_commands_selinux__obj, str_arr_sos_commands_selinux [ i ] );
+            read_file_from_analyze_dir ( &sos_commands_selinux__obj, "sos_commands/selinux/" );
         }
         else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
         {
@@ -2594,6 +2658,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/selinux/" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||
         ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
@@ -2619,6 +2684,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
@@ -2786,6 +2852,10 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_46_obj ); 
     if ( tmp_47_obj != NULL ) 
         clear_list ( &tmp_47_obj ); 
+    if ( tmp_48_obj != NULL ) 
+        clear_list ( &tmp_48_obj ); 
+    if ( tmp_49_obj != NULL ) 
+        clear_list ( &tmp_49_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -2881,4 +2951,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_devicemapper__obj ); 
     if ( etc_sysconfig__obj != NULL ) 
         clear_list ( &etc_sysconfig__obj ); 
+    if ( etc_selinux__obj != NULL ) 
+        clear_list ( &etc_selinux__obj ); 
+    if ( sos_commands_selinux__obj != NULL ) 
+        clear_list ( &sos_commands_selinux__obj ); 
 }

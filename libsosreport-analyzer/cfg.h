@@ -227,6 +227,10 @@ struct sosreport_analyzer_config
     config_each sos_commands_devicemapper_;
     /* should be all */
     config_each etc_sysconfig_;
+    /* should be all */
+    config_each etc_selinux_;
+    /* should be all */
+    config_each sos_commands_selinux_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

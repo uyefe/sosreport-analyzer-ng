@@ -164,6 +164,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_45_obj );
     init_list ( &tmp_46_obj );
     init_list ( &tmp_47_obj );
+    init_list ( &tmp_48_obj );
+    init_list ( &tmp_49_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -212,6 +214,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_firewalld__obj );
     init_list ( &sos_commands_devicemapper__obj );
     init_list ( &etc_sysconfig__obj );
+    init_list ( &etc_selinux__obj );
+    init_list ( &sos_commands_selinux__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -452,6 +456,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/auditd/", dir_name );
             read_file_pre ( "var/log/audit/", dir_name );
             read_file_pre ( "etc/pki/", dir_name );
+            read_file_pre ( "etc/selinux/", dir_name );
+            read_file_pre ( "sos_commands/selinux/", dir_name );
             /* kernel */
             read_file_pre ( "etc/kdump.conf", dir_name );
             read_file_pre ( "etc/sysctl.conf", dir_name );
@@ -533,6 +539,8 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_firewalld__obj, hairline );
             append_list ( &sos_commands_devicemapper__obj, hairline );
             append_list ( &etc_sysconfig__obj, hairline );
+            append_list ( &etc_selinux__obj, hairline );
+            append_list ( &sos_commands_selinux__obj, hairline );
         }
     }
 
@@ -644,6 +652,8 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_auditd__obj, fp_w );
             file_write_list ( &var_log_audit__obj, fp_w );
             file_write_list ( &etc_pki__obj, fp_w );
+            file_write_list ( &etc_selinux__obj, fp_w );
+            file_write_list ( &sos_commands_selinux__obj, fp_w );
             /* kernel */
             append_list ( &sos_subtitle_kernel_obj, "==== kernel ====" );
             file_write_list ( &sos_subtitle_kernel_obj, fp_w );
