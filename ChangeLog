@@ -1,3 +1,5 @@
+1.0.110
+Add members, 'etc/selinux/','sos_commands/selinux/'.
 1.0.109
 Fix ordering.
 1.0.108

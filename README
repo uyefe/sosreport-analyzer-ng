@@ -107,6 +107,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo files in sos_commands/auditd/.
     Analyze files in var/log/audit/.
     Echo files in etc/pki/.
+    Echo files in etc/selinux/.
+    Echo files in sos_commands/selinux/.
 
   ==== kernel ==== 
     Analyze etc/kdump.conf.
