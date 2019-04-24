@@ -362,6 +362,18 @@ var/log/audit/=denied
 
 etc/pki/=all
 
+## etc/selinux/
+##
+## All you can set is 'all'
+
+etc/selinux/=all
+
+## sos_commands/selinux/
+##
+## All you can set is 'all'
+
+sos_commands/selinux/=all
+
 ##==== kernel ==== 
 
 ## etc/kdump.conf 

@@ -105,6 +105,9 @@ extern struct line_data *tmp_44_obj;
 extern struct line_data *tmp_45_obj;
 extern struct line_data *tmp_46_obj;
 extern struct line_data *tmp_47_obj;
+extern struct line_data *tmp_48_obj;
+extern struct line_data *tmp_49_obj;
+
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
 extern struct line_data *etc_pki__obj;
@@ -153,6 +156,8 @@ extern struct line_data *etc_firewalld__obj;
 extern struct line_data *sos_commands_firewalld__obj;
 extern struct line_data *sos_commands_devicemapper__obj;
 extern struct line_data *etc_sysconfig__obj;
+extern struct line_data *etc_selinux__obj;
+extern struct line_data *sos_commands_selinux__obj;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -201,6 +206,8 @@ extern char *str_arr_etc_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_firewalld [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_devicemapper [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_sysconfig [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_selinux [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_sos_commands_selinux [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'

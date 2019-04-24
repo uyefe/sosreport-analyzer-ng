@@ -186,6 +186,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_pki_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/rsyslog.conf" ) == 0 )
                 strncpy ( cfg->etc_rsyslog_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/selinux/" ) == 0 )
+                strncpy ( cfg->etc_selinux_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/sysconfig/" ) == 0 )
                 strncpy ( cfg->etc_sysconfig_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/sysctl.conf" ) == 0 )
@@ -238,6 +240,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_sar_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/scsi/lsscsi" ) == 0 )
                 strncpy ( cfg->sos_commands_scsi_lsscsi.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/selinux/" ) == 0 )
+                strncpy ( cfg->sos_commands_selinux_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/usb/" ) == 0 )
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/virsh/" ) == 0 )
@@ -464,6 +468,8 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/auditd/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/audit/", cfg, mcinfo );
         append_sos_header_obj ( "etc/pki/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/selinux/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/selinux/", cfg, mcinfo );
         /* kernel */
         append_sos_header_obj ( "==== kernel ====", cfg, mcinfo );
         append_sos_header_obj ( "etc/kdump.conf", cfg, mcinfo );
@@ -613,6 +619,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_modprobe_d_.member );
         else if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_rsyslog_conf.member );
+        else if ( strcmp ( member, "etc/selinux/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_selinux_.member );
         else if ( strcmp ( member, "etc/sysconfig/" ) == 0 )
             strcat ( str_tmp, cfg->etc_sysconfig_.member );
         else if ( strcmp ( member, "etc/sysctl.conf" ) == 0 )
@@ -665,6 +673,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_sar_.member );
         else if ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
+        else if ( strcmp ( member, "sos_commands/selinux/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_selinux_.member );
         else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_virsh_.member );
         else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
