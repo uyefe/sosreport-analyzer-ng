@@ -1,3 +1,5 @@
+1.0.111
+Add members, 'etc/dnf/', 'sos_commands/dnf/', 'etc/yum/', 'sos_commands/yum/'.
 1.0.110
 Add members, 'etc/selinux/','sos_commands/selinux/'.
 1.0.109
