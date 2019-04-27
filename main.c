@@ -166,6 +166,10 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_47_obj );
     init_list ( &tmp_48_obj );
     init_list ( &tmp_49_obj );
+    init_list ( &tmp_50_obj );
+    init_list ( &tmp_51_obj );
+    init_list ( &tmp_52_obj );
+    init_list ( &tmp_53_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -216,6 +220,10 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_sysconfig__obj );
     init_list ( &etc_selinux__obj );
     init_list ( &sos_commands_selinux__obj );
+    init_list ( &etc_yum__obj );
+    init_list ( &sos_commands_yum__obj );
+    init_list ( &etc_dnf__obj );
+    init_list ( &sos_commands_dnf__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -464,9 +472,13 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/kernel/sysctl_-a", dir_name );
             read_file_pre ( "var/crash/", dir_name );
             read_file_pre ( "sos_commands/abrt/", dir_name );
-            /* yum */
+            /* dnf/yum */
             read_file_pre ( "etc/yum.conf", dir_name );
             read_file_pre ( "etc/yum.repos.d/", dir_name );
+            read_file_pre ( "etc/yum/", dir_name );
+            read_file_pre ( "sos_commands/yum/", dir_name );
+            read_file_pre ( "etc/dnf/", dir_name );
+            read_file_pre ( "sos_commands/dnf/", dir_name );
             /* login */
             read_file_pre ( "last", dir_name );
             /* cron */
@@ -541,6 +553,10 @@ int main ( int argc, char *argv [ ] )
             append_list ( &etc_sysconfig__obj, hairline );
             append_list ( &etc_selinux__obj, hairline );
             append_list ( &sos_commands_selinux__obj, hairline );
+            append_list ( &etc_yum__obj, hairline );
+            append_list ( &sos_commands_yum__obj, hairline );
+            append_list ( &etc_dnf__obj, hairline );
+            append_list ( &sos_commands_dnf__obj, hairline );
         }
     }
 
@@ -659,10 +675,14 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_subtitle_kernel_obj, fp_w );
             file_write_list ( &var_crash__obj, fp_w );
             file_write_list ( &sos_commands_abrt__obj, fp_w );
-            /* yum */
-            append_list ( &sos_subtitle_yum_obj, "==== yum ====" );
+            /* dnf/yum */
+            append_list ( &sos_subtitle_yum_obj, "==== dnf/yum ====" );
             file_write_list ( &sos_subtitle_yum_obj, fp_w );
+            file_write_list ( &etc_dnf__obj, fp_w );
+            file_write_list ( &sos_commands_dnf__obj, fp_w );
             file_write_list ( &etc_yum_repos_d__obj, fp_w );
+            file_write_list ( &etc_yum__obj, fp_w );
+            file_write_list ( &sos_commands_yum__obj, fp_w );
             /* login */
             append_list ( &sos_subtitle_login_obj, "==== login ====" );
             file_write_list ( &sos_subtitle_login_obj, fp_w );

@@ -231,6 +231,14 @@ struct sosreport_analyzer_config
     config_each etc_selinux_;
     /* should be all */
     config_each sos_commands_selinux_;
+    /* should be all */
+    config_each etc_yum_;
+    /* should be all */
+    config_each sos_commands_yum_;
+    /* should be all */
+    config_each etc_dnf_;
+    /* should be all */
+    config_each sos_commands_dnf_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

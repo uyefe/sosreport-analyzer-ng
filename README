@@ -117,9 +117,13 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo files in var/crash/ if the directory exists.
     Analyze files under sos_commands/abrt/.
 
-  ==== yum ==== 
+  ==== dnf/yum ==== 
+    Echo files in etc/dnf/.
+    Echo files in sos_commands/dnf/.
     Echo etc/yum.conf file.
     Echo files in etc/yum.repos.d/.
+    Echo files in etc/yum/.
+    Echo files in sos_commands/yum/.
 
   ==== login ====
     Analyze last file.
