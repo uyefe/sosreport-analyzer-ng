@@ -411,6 +411,18 @@ sos_commands/abrt/=all
 
 ##==== yum ==== 
 
+## etc/dnf/
+##
+## All you can set is 'all'
+
+etc/dnf/=all
+
+## sos_commands/dnf/
+##
+## All you can set is 'all'
+
+sos_commands/dnf/=all
+
 ## etc/yum.conf 
 ##
 ## All you can set is 'all'
@@ -422,6 +434,18 @@ etc/yum.conf=all
 ## All you can set is 'all'
 
 etc/yum.repos.d/=all
+
+## etc/yum/
+##
+## All you can set is 'all'
+
+etc/yum/=all
+
+## sos_commands/yum/
+##
+## All you can set is 'all'
+
+sos_commands/yum/=all
 
 ##==== login ==== 
 

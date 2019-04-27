@@ -170,6 +170,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
                 strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/dnf/" ) == 0 )
+                strncpy ( cfg->etc_dnf_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/firewalld/" ) == 0 )
                 strncpy ( cfg->etc_firewalld_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/httpd/" ) == 0 )
@@ -200,6 +202,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_udev_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/yum.conf" ) == 0 )
                 strncpy ( cfg->etc_yum_conf.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/yum/" ) == 0 )
+                strncpy ( cfg->etc_yum_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/yum.repos.d/" ) == 0 )
                 strncpy ( cfg->etc_yum_repos_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "proc/net/dev" ) == 0 )
@@ -220,6 +224,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_devicemapper_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
                 strncpy ( cfg->sos_commands_devices_udevadm_info___export_db.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/dnf/" ) == 0 )
+                strncpy ( cfg->sos_commands_dnf_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/firewalld/" ) == 0 )
                 strncpy ( cfg->sos_commands_firewalld_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
@@ -246,6 +252,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_usb_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/virsh/" ) == 0 )
                 strncpy ( cfg->sos_commands_virsh_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/yum/" ) == 0 )
+                strncpy ( cfg->sos_commands_yum_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
                 strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sys/module/" ) == 0 )
@@ -477,10 +485,14 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/kernel/sysctl_-a", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/abrt/", cfg, mcinfo );
-        /* yum */
-        append_sos_header_obj ( "==== yum ====", cfg, mcinfo );
+        /* dnf/yum */
+        append_sos_header_obj ( "==== dnf/yum ====", cfg, mcinfo );
+        append_sos_header_obj ( "etc/dnf/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/dnf/", cfg, mcinfo );
         append_sos_header_obj ( "etc/yum.conf", cfg, mcinfo );
         append_sos_header_obj ( "etc/yum.repos.d/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/yum/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/yum/", cfg, mcinfo );
         /* login */
         append_sos_header_obj ( "==== login ====", cfg, mcinfo );
         append_sos_header_obj ( "last", cfg, mcinfo );
@@ -601,6 +613,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_audit_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )
             strcat ( str_tmp, cfg->etc_default_.member );
+        else if ( strcmp ( member, "etc/dnf/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_dnf_.member );
         else if ( strcmp ( member, "etc/firewalld/" ) == 0 )
             strcat ( str_tmp, cfg->etc_firewalld_.member );
         else if ( strcmp ( member, "etc/httpd/" ) == 0 )
@@ -633,6 +647,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_udev_.member );
         else if ( strcmp ( member, "etc/yum.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_yum_conf.member );
+        else if ( strcmp ( member, "etc/yum/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_yum_.member );
         else if ( strcmp ( member, "etc/yum.repos.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_yum_repos_d_.member );
         else if ( strcmp ( member, "proc/net/dev" ) == 0 )
@@ -653,6 +669,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_devicemapper_.member );
         else if ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_devices_udevadm_info___export_db.member );
+        else if ( strcmp ( member, "sos_commands/dnf/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_dnf_.member );
         else if ( strcmp ( member, "sos_commands/firewalld/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_firewalld_.member );
         else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
@@ -675,10 +693,12 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_scsi_lsscsi.member );
         else if ( strcmp ( member, "sos_commands/selinux/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_selinux_.member );
-        else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_virsh_.member );
         else if ( strcmp ( member, "sos_commands/usb/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_usb_.member );
+        else if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_virsh_.member );
+        else if ( strcmp ( member, "sos_commands/yum/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_yum_.member );
         else if ( strcmp ( member, "sys/module/" ) == 0 )
             strcat ( str_tmp, cfg->sys_module_.member );
         else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
