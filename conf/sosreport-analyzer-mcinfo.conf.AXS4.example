@@ -64,6 +64,30 @@ proc/interrupts=all
 
 etc/cron.d/=all
 
+## etc/cron.hourly/
+##
+## All you can set is 'all'
+
+etc/cron.hourly/=all
+
+## etc/cron.daily/
+##
+## All you can set is 'all'
+
+etc/cron.daily/=all
+
+## etc/cron.weekly/
+##
+## All you can set is 'all'
+
+etc/cron.weekly/=all
+
+## etc/cron.monthly/
+##
+## All you can set is 'all'
+
+etc/cron.monthly/=all
+
 ## var/spool/cron/
 ##
 ## All you can set is 'all'

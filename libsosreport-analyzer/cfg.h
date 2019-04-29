@@ -239,6 +239,14 @@ struct sosreport_analyzer_config
     config_each etc_dnf_;
     /* should be all */
     config_each sos_commands_dnf_;
+    /* should be all */
+    config_each etc_cron_hourly_;
+    /* should be all */
+    config_each etc_cron_daily_;
+    /* should be all */
+    config_each etc_cron_weekly_;
+    /* should be all */
+    config_each etc_cron_monthly_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

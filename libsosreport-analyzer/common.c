@@ -570,6 +570,34 @@ struct line_data sos_commands_dnf__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_cron_hourly__obj */
+struct line_data etc_cron_hourly__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* etc_cron_daily__obj */
+struct line_data etc_cron_daily__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* etc_cron_weekly__obj */
+struct line_data etc_cron_weekly__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* etc_cron_monthly__obj */
+struct line_data etc_cron_monthly__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -937,6 +965,34 @@ struct line_data tmp_53_obj_raw =
         NULL /* next pointer */
     };
 
+struct line_data tmp_54_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+struct line_data tmp_55_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+struct line_data tmp_56_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+struct line_data tmp_57_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* making pointers to the structs */
+/* making pointers to the structs */
+/* making pointers to the structs */
+/* making pointers to the structs */
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -1016,6 +1072,10 @@ struct line_data *tmp_50_obj = &tmp_50_obj_raw;
 struct line_data *tmp_51_obj = &tmp_51_obj_raw;
 struct line_data *tmp_52_obj = &tmp_52_obj_raw;
 struct line_data *tmp_53_obj = &tmp_53_obj_raw;
+struct line_data *tmp_54_obj = &tmp_54_obj_raw;
+struct line_data *tmp_55_obj = &tmp_55_obj_raw;
+struct line_data *tmp_56_obj = &tmp_56_obj_raw;
+struct line_data *tmp_57_obj = &tmp_57_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -1070,6 +1130,10 @@ struct line_data *etc_yum__obj = &etc_yum__obj_raw;
 struct line_data *sos_commands_yum__obj = &sos_commands_yum__obj_raw;
 struct line_data *etc_dnf__obj = &etc_dnf__obj_raw;
 struct line_data *sos_commands_dnf__obj = &sos_commands_dnf__obj_raw;
+struct line_data *etc_cron_hourly__obj = &etc_cron_hourly__obj_raw;
+struct line_data *etc_cron_daily__obj = &etc_cron_daily__obj_raw;
+struct line_data *etc_cron_weekly__obj = &etc_cron_weekly__obj_raw;
+struct line_data *etc_cron_monthly__obj = &etc_cron_monthly__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -1125,6 +1189,10 @@ char *str_arr_etc_yum [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_yum [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_dnf [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_dnf [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_cron_hourly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_cron_daily [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_cron_weekly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_cron_monthly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1296,6 +1364,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 }
             }
             /* Here are members of above and has files in the rootdir of itself
+             *
              * do read etc/dnf/'s rootdir so, no need here
              * do read etc/systemd/system/'s rootdir so, no need here
              * do read etc/firewalld/'s rootdir so, no need here
@@ -1340,6 +1409,14 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_41_obj, read_path );
                 else if ( strstr ( read_path, "/etc/cron.d/" ) != 0 )
                     append_list ( &tmp_4_obj, read_path );
+                else if ( strstr ( read_path, "/etc/cron.hourly/" ) != 0 )
+                    append_list ( &tmp_54_obj, read_path );
+                else if ( strstr ( read_path, "/etc/cron.daily/" ) != 0 )
+                    append_list ( &tmp_55_obj, read_path );
+                else if ( strstr ( read_path, "/etc/cron.weekly/" ) != 0 )
+                    append_list ( &tmp_56_obj, read_path );
+                else if ( strstr ( read_path, "/etc/cron.monthly/" ) != 0 )
+                    append_list ( &tmp_57_obj, read_path );
                 else if ( strstr ( read_path, "/etc/default/" ) != 0 )
                     append_list ( &tmp_16_obj, read_path );
                 /* for etc/dnf/'s rootdir */
@@ -1546,6 +1623,10 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.daily/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.weekly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.monthly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/default/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/dnf/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1706,6 +1787,10 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "vgdisplay" ) == 0 ) ||
                     ( strcmp ( member, "etc/audit/" ) == 0 ) ||
                     ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/cron.daily/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/cron.weekly/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/cron.monthly/" ) == 0 ) ||
                     ( strcmp ( member, "etc/default/" ) == 0 ) ||
                     ( strcmp ( member, "etc/dnf/" ) == 0 ) ||
                     ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
@@ -1881,6 +1966,10 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "dev/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dev_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_audit_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.hourly/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_hourly_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.daily/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_daily_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.weekly/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_weekly_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.monthly/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_monthly_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/default/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_default_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/dnf/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_dnf_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_firewalld_.member, "" ) != 0 ) ) ||
@@ -2004,6 +2093,10 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "dev/" ) == 0 ) ||
             ( strcmp ( member, "etc/audit/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+            ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
+            ( strcmp ( member, "etc/cron.daily/" ) == 0 ) ||
+            ( strcmp ( member, "etc/cron.weekly/" ) == 0 ) ||
+            ( strcmp ( member, "etc/cron.monthly/" ) == 0 ) ||
             ( strcmp ( member, "etc/default/" ) == 0 ) ||
             ( strcmp ( member, "etc/dnf/" ) == 0 ) ||
             ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
@@ -2089,6 +2182,30 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_4_obj, str_arr_etc_cron_d ); i ++ )
                 append_list ( &etc_cron_d__obj, str_arr_etc_cron_d [ i ] );
             read_file_from_analyze_dir ( &etc_cron_d__obj, "etc/cron.d/" );
+        }
+        else if ( strcmp ( member, "etc/cron.hourly/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_54_obj, str_arr_etc_cron_hourly ); i ++ )
+                append_list ( &etc_cron_hourly__obj, str_arr_etc_cron_hourly [ i ] );
+            read_file_from_analyze_dir ( &etc_cron_hourly__obj, "etc/cron.hourly/" );
+        }
+        else if ( strcmp ( member, "etc/cron.daily/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_55_obj, str_arr_etc_cron_daily ); i ++ )
+                append_list ( &etc_cron_daily__obj, str_arr_etc_cron_daily [ i ] );
+            read_file_from_analyze_dir ( &etc_cron_daily__obj, "etc/cron.daily/" );
+        }
+        else if ( strcmp ( member, "etc/cron.weekly/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_56_obj, str_arr_etc_cron_weekly ); i ++ )
+                append_list ( &etc_cron_weekly__obj, str_arr_etc_cron_weekly [ i ] );
+            read_file_from_analyze_dir ( &etc_cron_weekly__obj, "etc/cron.weekly/" );
+        }
+        else if ( strcmp ( member, "etc/cron.monthly/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_57_obj, str_arr_etc_cron_monthly ); i ++ )
+                append_list ( &etc_cron_monthly__obj, str_arr_etc_cron_monthly [ i ] );
+            read_file_from_analyze_dir ( &etc_cron_monthly__obj, "etc/cron.monthly/" );
         }
         else if ( strcmp ( member, "etc/default/" ) == 0 )
         {
@@ -2770,6 +2887,10 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/pki/" ) == 0 ) ||
         ( strcmp ( member, "etc/audit/" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.daily/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.weekly/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.monthly/" ) == 0 ) ||
         ( strcmp ( member, "etc/default/" ) == 0 ) ||
         ( strcmp ( member, "etc/dnf/" ) == 0 ) ||
         ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
@@ -2989,6 +3110,14 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_52_obj ); 
     if ( tmp_53_obj != NULL ) 
         clear_list ( &tmp_53_obj ); 
+    if ( tmp_54_obj != NULL ) 
+        clear_list ( &tmp_54_obj ); 
+    if ( tmp_55_obj != NULL ) 
+        clear_list ( &tmp_55_obj ); 
+    if ( tmp_56_obj != NULL ) 
+        clear_list ( &tmp_56_obj ); 
+    if ( tmp_57_obj != NULL ) 
+        clear_list ( &tmp_57_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3096,4 +3225,12 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &etc_dnf__obj ); 
     if ( sos_commands_dnf__obj != NULL ) 
         clear_list ( &sos_commands_dnf__obj ); 
+    if ( etc_cron_hourly__obj != NULL ) 
+        clear_list ( &etc_cron_hourly__obj ); 
+    if ( etc_cron_daily__obj != NULL ) 
+        clear_list ( &etc_cron_daily__obj ); 
+    if ( etc_cron_weekly__obj != NULL ) 
+        clear_list ( &etc_cron_weekly__obj ); 
+    if ( etc_cron_monthly__obj != NULL ) 
+        clear_list ( &etc_cron_monthly__obj ); 
 }
