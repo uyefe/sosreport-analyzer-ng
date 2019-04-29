@@ -130,6 +130,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
 
   ==== cron ==== 
     Echo files in etc/cron.d/.
+    Echo files in etc/cron.hourly/.
+    Echo files in etc/cron.daily/.
+    Echo files in etc/cron.weekly/.
+    Echo files in etc/cron.monthly/.
     Echo files in var/spool/cron/.
 
   ==== logrotate ==== 
@@ -171,6 +175,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo proc/interrupts file.
   Echo var/log/dmesg file.
   Echo files in etc/cron.d/.
+  Echo files in etc/cron.hourly/.
+  Echo files in etc/cron.daily/.
+  Echo files in etc/cron.weekly/.
+  Echo files in etc/cron.monthly/.
   Echo files in var/spool/cron/.
   Analyze var/log/messages* files.
   Echo files in var/crash/.

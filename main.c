@@ -170,6 +170,10 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_51_obj );
     init_list ( &tmp_52_obj );
     init_list ( &tmp_53_obj );
+    init_list ( &tmp_54_obj );
+    init_list ( &tmp_55_obj );
+    init_list ( &tmp_56_obj );
+    init_list ( &tmp_57_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -224,6 +228,10 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_yum__obj );
     init_list ( &etc_dnf__obj );
     init_list ( &sos_commands_dnf__obj );
+    init_list ( &etc_cron_hourly__obj );
+    init_list ( &etc_cron_daily__obj );
+    init_list ( &etc_cron_weekly__obj );
+    init_list ( &etc_cron_monthly__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -374,6 +382,10 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "etc/cron.hourly/", dir_name );
+            read_file_pre ( "etc/cron.daily/", dir_name );
+            read_file_pre ( "etc/cron.weekly/", dir_name );
+            read_file_pre ( "etc/cron.monthly/", dir_name );
             read_file_pre ( "var/spool/cron/", dir_name );
             read_file_pre ( "var/log/messages", dir_name );
             read_file_pre ( "var/crash/", dir_name );
@@ -483,6 +495,10 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "last", dir_name );
             /* cron */
             read_file_pre ( "etc/cron.d/", dir_name );
+            read_file_pre ( "etc/cron.hourly/", dir_name );
+            read_file_pre ( "etc/cron.daily/", dir_name );
+            read_file_pre ( "etc/cron.weekly/", dir_name );
+            read_file_pre ( "etc/cron.monthly/", dir_name );
             read_file_pre ( "var/spool/cron/", dir_name );
             /* logrotate */
             read_file_pre ( "etc/logrotate.conf", dir_name );
@@ -510,6 +526,10 @@ int main ( int argc, char *argv [ ] )
             append_list ( &etc_host_obj, hairline );
             append_list ( &etc_pki__obj, hairline );
             append_list ( &etc_cron_d__obj, hairline );
+            append_list ( &etc_cron_hourly__obj, hairline );
+            append_list ( &etc_cron_daily__obj, hairline );
+            append_list ( &etc_cron_weekly__obj, hairline );
+            append_list ( &etc_cron_monthly__obj, hairline );
             append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
             append_list ( &etc_default__obj, hairline );
             append_list ( &etc_logrotate_d__obj, hairline );
@@ -593,6 +613,10 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_sysconfig_network_scripts_ifcfg__obj, fp_w );
             file_write_list ( &mcinfo_cmdlog__obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &etc_cron_hourly__obj, fp_w );
+            file_write_list ( &etc_cron_daily__obj, fp_w );
+            file_write_list ( &etc_cron_weekly__obj, fp_w );
+            file_write_list ( &etc_cron_monthly__obj, fp_w );
             file_write_list ( &var_spool_cron__obj, fp_w );
             file_write_list ( &var_log_messages_obj, fp_w );
             file_write_list ( &var_log_secure_obj, fp_w );
@@ -690,6 +714,10 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_subtitle_cron_obj, "==== cron ====" );
             file_write_list ( &sos_subtitle_cron_obj, fp_w );
             file_write_list ( &etc_cron_d__obj, fp_w );
+            file_write_list ( &etc_cron_hourly__obj, fp_w );
+            file_write_list ( &etc_cron_daily__obj, fp_w );
+            file_write_list ( &etc_cron_weekly__obj, fp_w );
+            file_write_list ( &etc_cron_monthly__obj, fp_w );
             file_write_list ( &var_spool_cron__obj, fp_w );
             /* logrotate */
             append_list ( &sos_subtitle_logrotate_obj, "==== logrotate ====" );

@@ -98,6 +98,14 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->etc_sysconfig_network_scripts_ifcfg_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
             strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/cron.hourly/" ) == 0 )
+            strncpy ( cfg->etc_cron_hourly_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/cron.daily/" ) == 0 )
+            strncpy ( cfg->etc_cron_daily_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/cron.weekly/" ) == 0 )
+            strncpy ( cfg->etc_cron_weekly_.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "etc/cron.monthly/" ) == 0 )
+            strncpy ( cfg->etc_cron_monthly_.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/cpuinfo" ) == 0 )
             strncpy ( cfg->proc_cpuinfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/interrupts" ) == 0 )
@@ -394,6 +402,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.hourly/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.daily/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.weekly/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.monthly/", cfg, mcinfo );
         append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
@@ -499,6 +511,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         /* cron */
         append_sos_header_obj ( "==== cron ====", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.hourly/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.daily/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.weekly/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/cron.monthly/", cfg, mcinfo );
         append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
         /* logrotate */
         append_sos_header_obj ( "==== logrotate ====", cfg, mcinfo );
@@ -539,6 +555,14 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->etc_host.member );
     else if ( strcmp ( member, "etc/cron.d/" ) == 0 )
         strcat ( str_tmp, cfg->etc_cron_d_.member );
+    else if ( strcmp ( member, "etc/cron.hourly/" ) == 0 )
+        strcat ( str_tmp, cfg->etc_cron_hourly_.member );
+    else if ( strcmp ( member, "etc/cron.daily/" ) == 0 )
+        strcat ( str_tmp, cfg->etc_cron_daily_.member );
+    else if ( strcmp ( member, "etc/cron.weekly/" ) == 0 )
+        strcat ( str_tmp, cfg->etc_cron_weekly_.member );
+    else if ( strcmp ( member, "etc/cron.monthly/" ) == 0 )
+        strcat ( str_tmp, cfg->etc_cron_monthly_.member );
     else if ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 )
         strcat ( str_tmp, cfg->etc_sysconfig_network_scripts_ifcfg_.member );
     else if ( strcmp ( member, "proc/cpuinfo" ) == 0 )
