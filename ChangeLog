@@ -1,3 +1,6 @@
+1.0.112
+Add members, 'etc/cron.hourly/', 'etc/cron.daily/', 'etc/cron.weekly/',
+'etc/cron.monthly/'.
 1.0.111
 Add members, 'etc/dnf/', 'sos_commands/dnf/', 'etc/yum/', 'sos_commands/yum/'.
 1.0.110
