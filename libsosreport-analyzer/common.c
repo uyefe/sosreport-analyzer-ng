@@ -598,6 +598,13 @@ struct line_data etc_cron_monthly__obj_raw =
         NULL /* next pointer */
     };
 
+/* sos_commands_networkmanager__obj */
+struct line_data sos_commands_networkmanager__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -989,10 +996,12 @@ struct line_data tmp_57_obj_raw =
         NULL /* next pointer */
     };
 
-/* making pointers to the structs */
-/* making pointers to the structs */
-/* making pointers to the structs */
-/* making pointers to the structs */
+struct line_data tmp_58_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -1076,6 +1085,7 @@ struct line_data *tmp_54_obj = &tmp_54_obj_raw;
 struct line_data *tmp_55_obj = &tmp_55_obj_raw;
 struct line_data *tmp_56_obj = &tmp_56_obj_raw;
 struct line_data *tmp_57_obj = &tmp_57_obj_raw;
+struct line_data *tmp_58_obj = &tmp_58_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -1134,6 +1144,7 @@ struct line_data *etc_cron_hourly__obj = &etc_cron_hourly__obj_raw;
 struct line_data *etc_cron_daily__obj = &etc_cron_daily__obj_raw;
 struct line_data *etc_cron_weekly__obj = &etc_cron_weekly__obj_raw;
 struct line_data *etc_cron_monthly__obj = &etc_cron_monthly__obj_raw;
+struct line_data *sos_commands_networkmanager__obj = &sos_commands_networkmanager__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -1193,6 +1204,7 @@ char *str_arr_etc_cron_hourly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_cron_daily [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_cron_weekly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_cron_monthly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sos_commands_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1488,6 +1500,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_11_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/networking/" ) != 0 )
                     append_list ( &tmp_30_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/networkmanager/" ) != 0 )
+                    append_list ( &tmp_58_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/pam/" ) != 0 )
                     append_list ( &tmp_39_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/sar/" ) != 0 )
@@ -1653,6 +1667,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networkmanager/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/pam/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/sar/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1879,6 +1894,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
+                    ( strcmp ( member, "sos_commands/networkmanager/" ) == 0 ) ||
                     ( strcmp ( member, "var/crash/" ) == 0 ) ||
                     ( strcmp ( member, "var/log/audit/" ) == 0 ) ||
                     ( strcmp ( member, "var/log/secure" ) == 0 )
@@ -2015,6 +2031,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-i") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/networkmanager/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networkmanager_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/pam/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_pam_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/sar/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_sar_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/selinux/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_selinux_.member, "" ) != 0 ) ) ||
@@ -2129,6 +2146,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/networkmanager/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) ||
@@ -2398,6 +2416,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_30_obj, str_arr_sos_commands_networking ); i ++ )
                 append_list ( &sos_commands_networking__obj, str_arr_sos_commands_networking [ i ] );
             read_file_from_analyze_dir ( &sos_commands_networking__obj, "sos_commands/networking/" );
+        }
+        else if ( strcmp ( member, "sos_commands/networkmanager/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_58_obj, str_arr_sos_commands_networkmanager ); i ++ )
+                append_list ( &sos_commands_networkmanager__obj, str_arr_sos_commands_networkmanager [ i ] );
+            read_file_from_analyze_dir ( &sos_commands_networkmanager__obj, "sos_commands/networkmanager/" );
         }
         else if ( strcmp ( member, "sos_commands/pam/" ) == 0 )
         {
@@ -2921,10 +2945,11 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/networkmanager/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) ||
@@ -3118,6 +3143,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_56_obj ); 
     if ( tmp_57_obj != NULL ) 
         clear_list ( &tmp_57_obj ); 
+    if ( tmp_58_obj != NULL ) 
+        clear_list ( &tmp_58_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3233,4 +3260,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &etc_cron_weekly__obj ); 
     if ( etc_cron_monthly__obj != NULL ) 
         clear_list ( &etc_cron_monthly__obj ); 
+    if ( sos_commands_networkmanager__obj != NULL ) 
+        clear_list ( &sos_commands_networkmanager__obj ); 
 }
