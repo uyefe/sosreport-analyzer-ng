@@ -259,9 +259,17 @@ sos_commands/networking/ethtool_-i=all
 
 ## sos_commands/networking/
 ##
-## All you can set is 'all'
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands=link 
 
 sos_commands/networking/=all
+
+## sos_commands/networkmanager/
+##
+## You can set arbitrary item-name including 'all' up to 12
+## ex. sos_commands=link 
+
+sos_commands/networkmanager/=all
 
 ## netstat 
 ##

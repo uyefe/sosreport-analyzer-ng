@@ -82,7 +82,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo proc/net/sockstat file.
     Analyze sos_commands/networking/ethtool_-S files.
     Analyze sos_commands/networking/ethtool_-i files.
-    Echo files in sos_commands/networking/.
+    Analyze files in sos_commands/networking/.
+    Analyze files in sos_commands/networkmanager/.
     Analyze netstat file.
 
   ==== process ==== 
