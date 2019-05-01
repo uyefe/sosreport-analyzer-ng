@@ -176,10 +176,10 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->uptime.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
                 strncpy ( cfg->vgdisplay.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/anacrontab" ) == 0 )
+                strncpy ( cfg->etc_anacrontab.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/audit/" ) == 0 )
                 strncpy ( cfg->etc_audit_.member, line, MAX_LINE_LENGTH - 1 );
-            //else if ( strcmp ( keyword, "etc/cron.d/" ) == 0 )
-            //    strncpy ( cfg->etc_cron_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/default/" ) == 0 )
                 strncpy ( cfg->etc_default_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/dnf/" ) == 0 )
@@ -403,10 +403,6 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "cmdlog/", cfg, mcinfo );
         append_sos_header_obj ( "etc/host", cfg, mcinfo );
         append_sos_header_obj ( "etc/sysconfig/network-scripts/ifcfg-", cfg, mcinfo );
-        append_sos_header_obj ( "etc/", cfg, mcinfo );
-        append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
-        append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
-        append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
         append_sos_header_obj ( "etc/crontab", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.deny", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
@@ -414,6 +410,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/cron.daily/", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.weekly/", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.monthly/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/", cfg, mcinfo );
+        append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
+        append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
+        append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
         append_sos_header_obj ( "var/spool/cron/", cfg, mcinfo );
         append_sos_header_obj ( "var/log/messages", cfg, mcinfo );
         append_sos_header_obj ( "var/crash/", cfg, mcinfo );
@@ -519,6 +519,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "last", cfg, mcinfo );
         /* cron */
         append_sos_header_obj ( "==== cron ====", cfg, mcinfo );
+        append_sos_header_obj ( "etc/anacrontab", cfg, mcinfo );
         append_sos_header_obj ( "etc/crontab", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.deny", cfg, mcinfo );
         append_sos_header_obj ( "etc/cron.d/", cfg, mcinfo );
@@ -648,6 +649,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->uptime.member );
         else if ( strcmp ( member, "vgdisplay" ) == 0 )
             strcat ( str_tmp, cfg->vgdisplay.member );
+        else if ( strcmp ( member, "etc/anacrontab" ) == 0 )
+            strcat ( str_tmp, cfg->etc_anacrontab.member );
         else if ( strcmp ( member, "etc/audit/" ) == 0 )
             strcat ( str_tmp, cfg->etc_audit_.member );
         else if ( strcmp ( member, "etc/default/" ) == 0 )

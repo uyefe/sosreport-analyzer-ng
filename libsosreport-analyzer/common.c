@@ -1636,13 +1636,14 @@ int read_file ( const char *file_name, const char *member, int files )
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/crontab" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.deny" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.daily/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.weekly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/cron.monthly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/anacrontab" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( strcmp ( member, "etc/crontab" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.deny" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.daily/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.weekly/" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.monthly/" ) == 0 ) ||
         ( ( strcmp ( member, "etc/default/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/dnf/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1802,6 +1803,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "route" ) == 0 ) ||
                     ( strcmp ( member, "uptime" ) == 0 ) ||
                     ( strcmp ( member, "vgdisplay" ) == 0 ) ||
+                    ( strcmp ( member, "etc/anacrontab" ) == 0 ) ||
                     ( strcmp ( member, "etc/audit/" ) == 0 ) ||
                     ( strcmp ( member, "etc/crontab" ) == 0 ) ||
                     ( strcmp ( member, "etc/cron.deny" ) == 0 ) ||
@@ -1984,6 +1986,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "lsof") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsof.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "netstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->netstat.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "dev/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dev_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/anacrontab") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_anacrontab.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_audit_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/crontab") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_crontab.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.deny") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_deny.member, "" ) != 0 ) ) ||
@@ -2058,49 +2061,50 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "var/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->var_.member, "" ) != 0 ) )
     )
     {
+        /* You should check the order of the member. For example, if '/etc' comes first, '/etc/xxx' will be '/etc'...  */
         search_list ( &sos_header_obj, member, result_tmp_pre );
         snprintf ( result_tmp, MAX_LINE_LENGTH, "(config setting is %s)", result_tmp_pre );
         snprintf (str_tmp, MAX_LINE_LENGTH, "%s/%s", get_dirname ( str_tmp3 ), member );
         snprintf ( str_tmp2, MAX_LINE_LENGTH, "file:%s", str_tmp );
-        if ( strcmp ( member, "date" ) ==0 )
+        if ( strcmp ( member, "date" ) == 0 )
             append_list ( &sos_line_obj, "==== general ====" );
-        if ( strcmp ( member, "proc/interrupts" ) ==0 )
+        if ( strcmp ( member, "proc/interrupts" ) == 0 )
             append_list ( &sos_line_obj, "==== cpu ====" );
-        if ( strcmp ( member, "lsmod" ) ==0 )
+        if ( strcmp ( member, "lsmod" ) == 0 )
             append_list ( &sos_line_obj, "==== module ====" );
-        if ( strcmp ( member, "lspci" ) ==0 )
+        if ( strcmp ( member, "lspci" ) == 0 )
             append_list ( &sos_line_obj, "==== device ====" );
-        if ( strcmp ( member, "df" ) ==0 )
+        if ( strcmp ( member, "df" ) == 0 )
             append_list ( &sos_line_obj, "==== disk usage ====" );
-        if ( strcmp ( member, "free" ) ==0 )
+        if ( strcmp ( member, "free" ) == 0 )
             append_list ( &sos_line_obj, "==== memory usage ====" );
-        if ( strcmp ( member, "etc/host" ) ==0 )
+        if ( strcmp ( member, "etc/host" ) == 0 )
             append_list ( &sos_line_obj, "==== networking ====" );
-        if ( strcmp ( member, "ps" ) ==0 )
+        if ( strcmp ( member, "ps" ) == 0 )
             append_list ( &sos_line_obj, "==== process ====" );
-        if ( strcmp ( member, "sos_commands/virsh/" ) ==0 )
+        if ( strcmp ( member, "sos_commands/virsh/" ) == 0 )
             append_list ( &sos_line_obj, "==== virtualization ====" );
-        if ( strcmp ( member, "lsof" ) ==0 )
+        if ( strcmp ( member, "lsof" ) == 0 )
             append_list ( &sos_line_obj, "==== files ====" );
-        if ( strcmp ( member, "etc/systemd/system/" ) ==0 )
+        if ( strcmp ( member, "etc/systemd/system/" ) == 0 )
             append_list ( &sos_line_obj, "==== systemd ====" );
-        if ( strcmp ( member, "etc/pam.d/" ) ==0 )
+        if ( strcmp ( member, "etc/pam.d/" ) == 0 )
             append_list ( &sos_line_obj, "==== security ====" );
-        if ( strcmp ( member, "etc/kdump.conf" ) ==0 )
+        if ( strcmp ( member, "etc/kdump.conf" ) == 0 )
             append_list ( &sos_line_obj, "==== kernel ====" );
-        if ( strcmp ( member, "etc/yum.conf" ) ==0 )
+        if ( strcmp ( member, "etc/yum.conf" ) == 0 )
             append_list ( &sos_line_obj, "==== dnf/yum ====" );
-        if ( strcmp ( member, "last" ) ==0 )
+        if ( strcmp ( member, "last" ) == 0 )
             append_list ( &sos_line_obj, "==== login ====" );
-        if ( strcmp ( member, "etc/crontab" ) ==0 )
+        if ( strcmp ( member, "etc/anacrontab" ) == 0 )
             append_list ( &sos_line_obj, "==== cron ====" );
-        if ( strcmp ( member, "etc/logrotate.conf" ) ==0 )
+        if ( strcmp ( member, "etc/logrotate.conf" ) == 0 )
             append_list ( &sos_line_obj, "==== logrotate ====" );
-        if ( strcmp ( member, "etc/rsyslog.conf" ) ==0 )
+        if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
             append_list ( &sos_line_obj, "==== logs and journals ====" );
-        if ( strcmp ( member, "etc/httpd/" ) ==0 )
+        if ( strcmp ( member, "etc/httpd/" ) == 0 )
             append_list ( &sos_line_obj, "==== httpd ====" );
-        if ( strcmp ( member, "lib/" ) ==0 )
+        if ( strcmp ( member, "lib/" ) == 0 )
             append_list ( &sos_line_obj, "==== others ====" );
         append_list ( &sos_line_obj, "" );
         append_list ( &sos_line_obj, hairline1 );
@@ -2915,6 +2919,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "ps" ) == 0 ) ||
         ( strcmp ( member, "dev/" ) == 0 ) ||
         ( strcmp ( member, "etc/pki/" ) == 0 ) ||
+        ( strcmp ( member, "etc/anacrontab" ) == 0 ) ||
         ( strcmp ( member, "etc/audit/" ) == 0 ) ||
         ( strcmp ( member, "etc/crontab" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.deny" ) == 0 ) ||
