@@ -1,7 +1,9 @@
+1.0.114
+Add members, 'etc/crontab', 'etc/cron.deny'.
 1.0.113
-Add members, 'sos_commands/networkmanager/',
+Add members, 'sos_commands/networkmanager/'.
 1.0.112
-Add members, 'etc/cron.hourly/', 'etc/cron.daily/', 'etc/cron.weekly/',
+Add members, 'etc/cron.hourly/', 'etc/cron.daily/', 'etc/cron.weekly/'.
 'etc/cron.monthly/'.
 1.0.111
 Add members, 'etc/dnf/', 'sos_commands/dnf/', 'etc/yum/', 'sos_commands/yum/'.
