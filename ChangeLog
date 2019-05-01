@@ -1,3 +1,5 @@
+1.0.115
+Add member, 'etc/anacrontab'.
 1.0.114
 Add members, 'etc/crontab', 'etc/cron.deny'.
 1.0.113
