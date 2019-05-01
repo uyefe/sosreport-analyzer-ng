@@ -130,6 +130,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Analyze last file.
 
   ==== cron ==== 
+    Echo etc/anacrontab file.
     Echo etc/crontab file.
     Echo etc/cron.deny file.
     Echo files in etc/cron.d/.

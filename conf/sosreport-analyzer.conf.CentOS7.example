@@ -468,6 +468,12 @@ last=all
 
 ##==== cron ==== 
 
+## etc/anacrontab
+##
+## All you can set is 'all'
+
+etc/anacrontab=all
+
 ## etc/crontab
 ##
 ## All you can set is 'all'

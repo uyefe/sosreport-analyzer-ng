@@ -503,6 +503,7 @@ int main ( int argc, char *argv [ ] )
             /* login */
             read_file_pre ( "last", dir_name );
             /* cron */
+            read_file_pre ( "etc/anacrontab", dir_name );
             read_file_pre ( "etc/crontab", dir_name );
             read_file_pre ( "etc/cron.deny", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
