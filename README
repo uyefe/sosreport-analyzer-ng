@@ -130,6 +130,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Analyze last file.
 
   ==== cron ==== 
+    Echo etc/crontab file.
+    Echo etc/cron.deny file.
     Echo files in etc/cron.d/.
     Echo files in etc/cron.hourly/.
     Echo files in etc/cron.daily/.
@@ -175,6 +177,8 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze proc/meminfo file.
   Echo proc/interrupts file.
   Echo var/log/dmesg file.
+  Echo etc/crontab file.
+  Echo etc/cron.deny file.
   Echo files in etc/cron.d/.
   Echo files in etc/cron.hourly/.
   Echo files in etc/cron.daily/.

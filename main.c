@@ -383,6 +383,8 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "proc/meminfo", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
+            read_file_pre ( "etc/crontab", dir_name );
+            read_file_pre ( "etc/cron.deny", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
             read_file_pre ( "etc/cron.hourly/", dir_name );
             read_file_pre ( "etc/cron.daily/", dir_name );
@@ -403,6 +405,10 @@ int main ( int argc, char *argv [ ] )
             append_list ( &mcinfo_cmdlog__obj, hairline );
             append_list ( &etc_host_obj, hairline );
             append_list ( &etc_cron_d__obj, hairline );
+            append_list ( &etc_cron_hourly__obj, hairline );
+            append_list ( &etc_cron_daily__obj, hairline );
+            append_list ( &etc_cron_weekly__obj, hairline );
+            append_list ( &etc_cron_monthly__obj, hairline );
             append_list ( &var_spool_cron__obj, hairline );
             append_list ( &var_log_messages_obj, hairline );
             append_list ( &var_crash__obj, hairline );
@@ -497,6 +503,8 @@ int main ( int argc, char *argv [ ] )
             /* login */
             read_file_pre ( "last", dir_name );
             /* cron */
+            read_file_pre ( "etc/crontab", dir_name );
+            read_file_pre ( "etc/cron.deny", dir_name );
             read_file_pre ( "etc/cron.d/", dir_name );
             read_file_pre ( "etc/cron.hourly/", dir_name );
             read_file_pre ( "etc/cron.daily/", dir_name );

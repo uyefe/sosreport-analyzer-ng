@@ -468,6 +468,18 @@ last=all
 
 ##==== cron ==== 
 
+## etc/crontab
+##
+## All you can set is 'all'
+
+etc/crontab=all
+
+## etc/cron.deny
+##
+## All you can set is 'all'
+
+etc/cron.deny=all
+
 ## etc/cron.d/
 ##
 ## All you can set is 'all'

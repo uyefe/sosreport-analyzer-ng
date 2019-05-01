@@ -249,6 +249,10 @@ struct sosreport_analyzer_config
     config_each etc_cron_monthly_;
     /* should be all */
     config_each sos_commands_networkmanager_;
+    /* should be all */
+    config_each etc_crontab;
+    /* should be all */
+    config_each etc_cron_deny;
 };
 
 /*  This is a pointer to the global configuration, it should be available
