@@ -1636,6 +1636,8 @@ int read_file ( const char *file_name, const char *member, int files )
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/crontab" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.deny" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.daily/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1801,6 +1803,8 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "uptime" ) == 0 ) ||
                     ( strcmp ( member, "vgdisplay" ) == 0 ) ||
                     ( strcmp ( member, "etc/audit/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/crontab" ) == 0 ) ||
+                    ( strcmp ( member, "etc/cron.deny" ) == 0 ) ||
                     ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
                     ( strcmp ( member, "etc/cron.daily/" ) == 0 ) ||
@@ -1981,6 +1985,8 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "netstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->netstat.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "dev/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dev_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_audit_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/crontab") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_crontab.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/cron.deny") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_deny.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_d_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.hourly/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_hourly_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/cron.daily/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_cron_daily_.member, "" ) != 0 ) ) ||
@@ -2086,7 +2092,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             append_list ( &sos_line_obj, "==== dnf/yum ====" );
         if ( strcmp ( member, "last" ) ==0 )
             append_list ( &sos_line_obj, "==== login ====" );
-        if ( strcmp ( member, "etc/cron.d/" ) ==0 )
+        if ( strcmp ( member, "etc/crontab" ) ==0 )
             append_list ( &sos_line_obj, "==== cron ====" );
         if ( strcmp ( member, "etc/logrotate.conf" ) ==0 )
             append_list ( &sos_line_obj, "==== logrotate ====" );
@@ -2910,6 +2916,8 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "dev/" ) == 0 ) ||
         ( strcmp ( member, "etc/pki/" ) == 0 ) ||
         ( strcmp ( member, "etc/audit/" ) == 0 ) ||
+        ( strcmp ( member, "etc/crontab" ) == 0 ) ||
+        ( strcmp ( member, "etc/cron.deny" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
         ( strcmp ( member, "etc/cron.daily/" ) == 0 ) ||
