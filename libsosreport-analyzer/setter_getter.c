@@ -47,6 +47,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->mcinfo_cmdlog_.item_num = 0;
     sosreport_analyzer_cfg->dev_.item_num = 0;
     sosreport_analyzer_cfg->etc_.item_num = 0;
+    sosreport_analyzer_cfg->etc_NetworkManager_.item_num = 0;
     sosreport_analyzer_cfg->etc_audit_.item_num = 0;
     sosreport_analyzer_cfg->etc_anacrontab.item_num = 0;
     sosreport_analyzer_cfg->etc_crontab.item_num = 0;
@@ -167,8 +168,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->mcinfo_cmdlog_.item_num;
     else if ( strcmp ( "dev/", member ) == 0 )
         return sosreport_analyzer_cfg->dev_.item_num;
-    else if ( strcmp ( "etc/", member ) == 0 )
-        return sosreport_analyzer_cfg->etc_.item_num;
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_NetworkManager_.item_num;
     else if ( strcmp ( "etc/audit/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_audit_.item_num;
     else if ( strcmp ( "etc/anacrontab", member ) == 0 )
@@ -231,6 +232,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_yum_repos_d_.item_num;
     else if ( strcmp ( "etc/yum/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_yum_.item_num;
+    else if ( strcmp ( "etc/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_.item_num;
     else if ( strcmp ( "lib/", member ) == 0 )
         return sosreport_analyzer_cfg->lib_.item_num;
     else if ( strcmp ( "proc/", member ) == 0 )
@@ -361,8 +364,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->mcinfo_cmdlog_.member;
     else if ( strcmp ( "dev/", member ) == 0 )
         return sosreport_analyzer_cfg->dev_.member;
-    else if ( strcmp ( "etc/", member ) == 0 )
-        return sosreport_analyzer_cfg->etc_.member;
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_NetworkManager_.member;
     else if ( strcmp ( "etc/audit/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_audit_.member;
     else if ( strcmp ( "etc/anacrontab", member ) == 0 )
@@ -425,6 +428,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_yum_repos_d_.member;
     else if ( strcmp ( "etc/yum/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_yum_.member;
+    else if ( strcmp ( "etc/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_.member;
     else if ( strcmp ( "lib/", member ) == 0 )
         return sosreport_analyzer_cfg->lib_.member;
     else if ( strcmp ( "proc/", member ) == 0 )
@@ -555,8 +560,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->mcinfo_cmdlog_.file_num;
     else if ( strcmp ( "dev/", member ) == 0 )
         return sosreport_analyzer_cfg->dev_.file_num;
-    else if ( strcmp ( "etc/", member ) == 0 )
-        return sosreport_analyzer_cfg->etc_.file_num;
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_NetworkManager_.file_num;
     else if ( strcmp ( "etc/audit/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_audit_.file_num;
     else if ( strcmp ( "etc/anacrontab", member ) == 0 )
@@ -619,6 +624,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->etc_yum_repos_d_.file_num;
     else if ( strcmp ( "etc/yum/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_yum_.file_num;
+    else if ( strcmp ( "etc/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_.file_num;
     else if ( strcmp ( "lib/", member ) == 0 )
         return sosreport_analyzer_cfg->lib_.file_num;
     else if ( strcmp ( "proc/", member ) == 0 )
@@ -749,8 +756,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->mcinfo_cmdlog_.item_num = x; 
     else if ( strcmp ( "dev/", member ) == 0 )
         sosreport_analyzer_cfg->dev_.item_num = x; 
-    else if ( strcmp ( "etc/", member ) == 0 )
-        sosreport_analyzer_cfg->etc_.item_num = x; 
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_NetworkManager_.item_num = x; 
     else if ( strcmp ( "etc/audit/", member ) == 0 )
         sosreport_analyzer_cfg->etc_audit_.item_num = x; 
     else if ( strcmp ( "etc/anacrontab", member ) == 0 )
@@ -813,6 +820,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_yum_repos_d_.item_num = x; 
     else if ( strcmp ( "etc/yum/", member ) == 0 )
         sosreport_analyzer_cfg->etc_yum_.item_num = x; 
+    else if ( strcmp ( "etc/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_.item_num = x; 
     else if ( strcmp ( "lib/", member ) == 0 )
         sosreport_analyzer_cfg->lib_.item_num = x; 
     else if ( strcmp ( "proc/", member ) == 0 )
@@ -943,8 +952,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->mcinfo_cmdlog_.file_num = x; 
     else if ( strcmp ( "dev/", member ) == 0 )
         sosreport_analyzer_cfg->dev_.file_num = x; 
-    else if ( strcmp ( "etc/", member ) == 0 )
-        sosreport_analyzer_cfg->etc_.file_num = x; 
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_NetworkManager_.file_num = x; 
     else if ( strcmp ( "etc/audit/", member ) == 0 )
         sosreport_analyzer_cfg->etc_audit_.file_num = x; 
     else if ( strcmp ( "etc/anacrontab", member ) == 0 )
@@ -1007,6 +1016,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->etc_yum_repos_d_.file_num = x; 
     else if ( strcmp ( "etc/yum/", member ) == 0 )
         sosreport_analyzer_cfg->etc_yum_.file_num = x; 
+    else if ( strcmp ( "etc/", member ) == 0 )
+        sosreport_analyzer_cfg->etc_.file_num = x; 
     else if ( strcmp ( "lib/", member ) == 0 )
         sosreport_analyzer_cfg->lib_.file_num = x; 
     else if ( strcmp ( "proc/", member ) == 0 )
@@ -1204,9 +1215,9 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->dev_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
-    else if ( strcmp ( "etc/", member ) == 0 )
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
     {
-        strncpy ( sosreport_analyzer_cfg->etc_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        strncpy ( sosreport_analyzer_cfg->etc_NetworkManager_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "etc/audit/", member ) == 0 )
@@ -1362,6 +1373,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
     else if ( strcmp ( "etc/yum/", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->etc_yum_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "etc/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->etc_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "lib/", member ) == 0 )
@@ -1616,8 +1632,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->mcinfo_cmdlog_.item_names.item_name [ x ]; 
     else if ( strcmp ( "dev/", member ) == 0 )
         return sosreport_analyzer_cfg->dev_.item_names.item_name [ x ]; 
-    else if ( strcmp ( "etc/", member ) == 0 )
-        return sosreport_analyzer_cfg->etc_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_NetworkManager_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/audit/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_audit_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/anacrontab", member ) == 0 )
@@ -1680,6 +1696,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->etc_yum_repos_d_.item_names.item_name [ x ]; 
     else if ( strcmp ( "etc/yum/", member ) == 0 )
         return sosreport_analyzer_cfg->etc_yum_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "etc/", member ) == 0 )
+        return sosreport_analyzer_cfg->etc_.item_names.item_name [ x ]; 
     else if ( strcmp ( "lib/", member ) == 0 )
         return sosreport_analyzer_cfg->lib_.item_names.item_name [ x ]; 
     else if ( strcmp ( "proc/", member ) == 0 )
@@ -1872,9 +1890,9 @@ int member_item_exists ( const char *member )
         if ( strcmp ( sosreport_analyzer_cfg->dev_.member, "" ) != 0 )
             return ( 0 );
     }
-    else if ( strcmp ( "etc/", member ) == 0 )
+    else if ( strcmp ( "etc/NetworkManager/", member ) == 0 )
     {
-        if ( strcmp ( sosreport_analyzer_cfg->etc_.member, "" ) != 0 )
+        if ( strcmp ( sosreport_analyzer_cfg->etc_NetworkManager_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "etc/audit/", member ) == 0 )
@@ -2030,6 +2048,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "etc/yum/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->etc_yum_.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "etc/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->etc_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "lib/", member ) == 0 )

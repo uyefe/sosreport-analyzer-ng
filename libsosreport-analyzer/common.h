@@ -116,6 +116,7 @@ extern struct line_data *tmp_55_obj;
 extern struct line_data *tmp_56_obj;
 extern struct line_data *tmp_57_obj;
 extern struct line_data *tmp_58_obj;
+extern struct line_data *tmp_59_obj;
 
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
@@ -176,6 +177,7 @@ extern struct line_data *etc_cron_daily__obj;
 extern struct line_data *etc_cron_weekly__obj;
 extern struct line_data *etc_cron_monthly__obj;
 extern struct line_data *sos_commands_networkmanager__obj;
+extern struct line_data *etc_networkmanager__obj;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -235,6 +237,7 @@ extern char *str_arr_etc_cron_daily [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_cron_weekly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_etc_cron_hourly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'

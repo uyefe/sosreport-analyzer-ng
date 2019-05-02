@@ -67,194 +67,101 @@ typedef struct
  */
 struct sosreport_analyzer_config
 {
-    /* should be all */
     config_each mcinfo_boot_grub_;
-    /* should be all */
     config_each mcinfo_cmdlog_;
-    /* should be all */
     config_each date;
-    /* should be all */
     config_each lsb_release;
-    /* should be all */
     config_each uname;
-    /* should be all */
     config_each hostname;
-    /* should be all */
     config_each uptime;
-    /* allows word delimited by space */
     config_each proc_cpuinfo;
-    /* should be all */
     config_each root_anaconda_ks_cfg;
-    /* allows word delimited by space */
     config_each dmidecode;
-    /* allows word delimited by space */
     config_each lsmod;
-    /* should be all */
-    config_each etc_modprobe_d_;
-    /* allows word delimited by space */
     config_each lspci;
-    /* should be all */
-    config_each etc_udev_;
-    /* allows word delimited by space */
-    config_each sos_commands_devices_udevadm_info___export_db;
-    /* allows word delimited by space */
     config_each df;
-    /* should be all */
-    config_each sos_commands_scsi_lsscsi;
-    /* allows word delimited by space */
     config_each installed_rpms;
-    /* should be all */
     config_each vgdisplay;
-    /* should be all */
     config_each free;
-    /* should be all */
     config_each ip_addr;
-    /* should be all */
     config_each route;
-    /* should be all */
     config_each last;
-    /* should be all */
     config_each ps;
-    /* should be all */
     config_each lsof;
-    /* should be all */
     config_each netstat;
-    /* should be all */
-    config_each etc_host;
-    /* should be all */
-    config_each etc_systemd_;
-    /* should be all */
-    config_each etc_systemd_system_;
-    /* should be all */
-    config_each usr_lib_systemd_;
-    /* allows word delimited by space */
-    config_each etc_default_;
-    /* allows word delimited by space */
-    config_each etc_kdump_conf;
-    /* allows word delimited by space */
-    config_each etc_sysctl_conf;
-    /* should be all */
-    config_each etc_rsyslog_conf;
-    /* should be all */
-    config_each etc_sysconfig_network_scripts_ifcfg_;
-    /* allows word delimited by space */
-    config_each proc_meminfo;
-    /* should be all */
-    config_each proc_net_dev;
-    /* should be all */
-    config_each proc_net_sockstat;
-    /* should be all */
-    config_each proc_interrupts;
-    /* should be all */
-    config_each etc_logrotate_conf;
-    /* should be all */
-    config_each etc_logrotate_d_;
-    /* should be all */
-    config_each etc_pki_;
-    /* should be all */
-    config_each etc_cron_d_;
-    /* should be all */
-    config_each var_log_dmesg;
-    /* allows word delimited by space */
-    config_each var_log_messages;
-    /* allows word delimited by space */
-    config_each var_log_secure;
-    /* allows word delimited by space */
-    config_each var_log_audit_;
-    /* allows word delimited by space */
-    config_each var_crash_;
-    /* allows word delimited by space */
-    config_each sos_commands_kernel_sysctl__a;
-    /* allows word delimited by space */
-    config_each sos_commands_logs_journalctl___no_pager;
-    /* allows word delimited by space */
-    config_each sos_commands_networking_ethtool__S;
-    /* allows word delimited by space */
-    config_each sos_commands_networking_ethtool__i;
-    /* allows word delimited by space */
-    config_each sos_commands_boot_;
-    /* should be all */
-    config_each etc_httpd_;
-    /* allows word delimited by space */
-    config_each proc_;
-    /* should be all */
-    config_each etc_yum_conf;
-    /* should be all */
-    config_each etc_yum_repos_d_;
-    /* should be all */
-    config_each sos_commands_sar_;
-    /* should be all */
-    config_each sos_commands_virsh_;
-    /* should be all */
-    config_each sos_commands_usb_;
-    /* should be all */
     config_each lib_;
-    /* should be all */
-    config_each etc_;
-    /* should be all */
-    config_each sos_commands_networking_;
-    /* should be all */
     config_each dev_;
-    /* should be all */
+    config_each usr_lib_systemd_;
     config_each usr_;
-    /* should be all */
-    config_each var_;
-    /* should be all */
-    config_each sos_commands_;
-    /* should be all */
-    config_each var_spool_cron_;
-    /* allows word delimited by space */
-    config_each sos_commands_abrt_;
-    /* should be all */
     config_each sys_module_;
-    /* should be all */
-    config_each etc_pam_d_;
-    /* should be all */
-    config_each sos_commands_pam_;
-    /* should be all */
-    config_each sos_commands_apache_;
-    /* should be all */
-    config_each etc_audit_;
-    /* should be all */
-    config_each sos_commands_auditd_;
-    /* should be all */
-    config_each sos_commands_memory_;
-    /* should be all */
-    config_each etc_firewalld_;
-    /* should be all */
-    config_each sos_commands_firewalld_;
-    /* should be all */
-    config_each sos_commands_devicemapper_;
-    /* should be all */
-    config_each etc_sysconfig_;
-    /* should be all */
-    config_each etc_selinux_;
-    /* should be all */
-    config_each sos_commands_selinux_;
-    /* should be all */
-    config_each etc_yum_;
-    /* should be all */
-    config_each sos_commands_yum_;
-    /* should be all */
-    config_each etc_dnf_;
-    /* should be all */
-    config_each sos_commands_dnf_;
-    /* should be all */
-    config_each etc_cron_hourly_;
-    /* should be all */
-    config_each etc_cron_daily_;
-    /* should be all */
-    config_each etc_cron_weekly_;
-    /* should be all */
-    config_each etc_cron_monthly_;
-    /* should be all */
-    config_each sos_commands_networkmanager_;
-    /* should be all */
-    config_each etc_crontab;
-    /* should be all */
-    config_each etc_cron_deny;
-    /* should be all */
+    config_each etc_NetworkManager_;
     config_each etc_anacrontab;
+    config_each etc_audit_;
+    config_each etc_crontab;
+    config_each etc_cron_deny;
+    config_each etc_cron_d_;
+    config_each etc_cron_hourly_;
+    config_each etc_cron_daily_;
+    config_each etc_cron_weekly_;
+    config_each etc_cron_monthly_;
+    config_each etc_default_;
+    config_each etc_dnf_;
+    config_each etc_firewalld_;
+    config_each etc_host;
+    config_each etc_httpd_;
+    config_each etc_kdump_conf;
+    config_each etc_logrotate_conf;
+    config_each etc_logrotate_d_;
+    config_each etc_modprobe_d_;
+    config_each etc_pam_d_;
+    config_each etc_pki_;
+    config_each etc_rsyslog_conf;
+    config_each etc_selinux_;
+    config_each etc_sysconfig_network_scripts_ifcfg_;
+    config_each etc_sysconfig_;
+    config_each etc_sysctl_conf;
+    config_each etc_systemd_system_;
+    config_each etc_systemd_;
+    config_each etc_udev_;
+    config_each etc_yum_conf;
+    config_each etc_yum_repos_d_;
+    config_each etc_yum_;
+    config_each etc_;
+    config_each sos_commands_apache_;
+    config_each sos_commands_abrt_;
+    config_each sos_commands_auditd_;
+    config_each sos_commands_boot_;
+    config_each sos_commands_devices_udevadm_info___export_db;
+    config_each sos_commands_devicemapper_;
+    config_each sos_commands_dnf_;
+    config_each sos_commands_firewalld_;
+    config_each sos_commands_kernel_sysctl__a;
+    config_each sos_commands_logs_journalctl___no_pager;
+    config_each sos_commands_memory_;
+    config_each sos_commands_networking_ethtool__S;
+    config_each sos_commands_networking_ethtool__i;
+    config_each sos_commands_networking_;
+    config_each sos_commands_networkmanager_;
+    config_each sos_commands_pam_;
+    config_each sos_commands_sar_;
+    config_each sos_commands_scsi_lsscsi;
+    config_each sos_commands_selinux_;
+    config_each sos_commands_usb_;
+    config_each sos_commands_yum_;
+    config_each sos_commands_virsh_;
+    config_each sos_commands_;
+    config_each var_crash_;
+    config_each var_log_audit_;
+    config_each var_log_dmesg;
+    config_each var_log_messages;
+    config_each var_log_secure;
+    config_each var_spool_cron_;
+    config_each var_;
+    config_each proc_meminfo;
+    config_each proc_net_dev;
+    config_each proc_net_sockstat;
+    config_each proc_interrupts;
+    config_each proc_;
 };
 
 /*  This is a pointer to the global configuration, it should be available

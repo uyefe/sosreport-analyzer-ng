@@ -264,6 +264,12 @@ sos_commands/networking/ethtool_-i=all
 
 sos_commands/networking/=all
 
+## etc/NetworkManager/
+##
+## All you can set is 'all'
+
+etc/NetworkManager/=all
+
 ## sos_commands/networkmanager/
 ##
 ## You can set arbitrary item-name including 'all' up to 12
