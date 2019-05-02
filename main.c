@@ -175,6 +175,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_56_obj );
     init_list ( &tmp_57_obj );
     init_list ( &tmp_58_obj );
+    init_list ( &tmp_59_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -234,6 +235,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_cron_weekly__obj );
     init_list ( &etc_cron_monthly__obj );
     init_list ( &sos_commands_networkmanager__obj );
+    init_list ( &etc_networkmanager__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -465,6 +467,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/networking/ethtool_-S", dir_name );
             read_file_pre ( "sos_commands/networking/ethtool_-i", dir_name );
             read_file_pre ( "sos_commands/networking/", dir_name );
+            read_file_pre ( "etc/NetworkManager/", dir_name );
             read_file_pre ( "sos_commands/networkmanager/", dir_name );
             read_file_pre ( "netstat", dir_name );
             /* process */
@@ -533,63 +536,84 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "var/", dir_name );
             read_file_pre ( "proc/", dir_name );
             append_list ( &sos_header_obj, "Also, read these files." );
+            /* general */
             append_list ( &sos_header_obj, hairline );
             append_list ( &sos_commands_boot__obj, hairline );
             append_list ( &etc_host_obj, hairline );
-            append_list ( &etc_pki__obj, hairline );
+            append_list ( &etc_default__obj, hairline );
+            append_list ( &etc_sysconfig__obj, hairline );
+            /* cpu */
+            /* module */
+            append_list ( &etc_modprobe_d__obj, hairline );
+            append_list ( &sys_module__obj, hairline );
+            /* device */
+            append_list ( &etc_udev__obj, hairline );
+            append_list ( &sos_commands_devicemapper__obj, hairline );
+            append_list ( &sos_commands_usb__obj, hairline );
+            /* disk usage */
+            /* memory usage */
+            append_list ( &sos_commands_memory__obj, hairline );
+            /* networking */
+            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
+            append_list ( &sos_commands_networking_ethtool__S_obj, hairline );
+            append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
+            append_list ( &sos_commands_networking__obj, hairline );
+            append_list ( &etc_firewalld__obj, hairline );
+            append_list ( &sos_commands_firewalld__obj, hairline );
+            append_list ( &etc_networkmanager__obj, hairline );
+            append_list ( &sos_commands_networkmanager__obj, hairline );
+            /* process */
+            /* virtualization */
+            append_list ( &sos_commands_virsh__obj, hairline );
+            /* files */
+            /* systemd */
+            append_list ( &etc_systemd_system__obj, hairline );
+            append_list ( &etc_systemd__obj, hairline );
+            append_list ( &usr_lib_systemd__obj, hairline );
+            /* security */
+            append_list ( &etc_audit__obj, hairline );
+            append_list ( &var_log_audit__obj, hairline );
+            append_list ( &sos_commands_auditd__obj, hairline );
+            append_list ( &etc_pam_d__obj, hairline );
+            append_list ( &sos_commands_pam__obj, hairline );
+            append_list ( &etc_selinux__obj, hairline );
+            append_list ( &sos_commands_selinux__obj, hairline );
+            append_list ( &var_log_secure_obj, hairline );
+            /* kernel */
+            append_list ( &sos_commands_abrt__obj, hairline );
+            append_list ( &var_crash__obj, hairline );
+            /* dnf/yum */
+            append_list ( &etc_yum_repos_d__obj, hairline );
+            append_list ( &sos_commands_yum__obj, hairline );
+            append_list ( &etc_yum__obj, hairline );
+            append_list ( &etc_dnf__obj, hairline );
+            append_list ( &sos_commands_dnf__obj, hairline );
+            /* login */
+            /* cron */
             append_list ( &etc_cron_d__obj, hairline );
             append_list ( &etc_cron_hourly__obj, hairline );
             append_list ( &etc_cron_daily__obj, hairline );
             append_list ( &etc_cron_weekly__obj, hairline );
             append_list ( &etc_cron_monthly__obj, hairline );
-            append_list ( &etc_sysconfig_network_scripts_ifcfg__obj, hairline );
-            append_list ( &etc_default__obj, hairline );
+            append_list ( &var_spool_cron__obj, hairline );
+            /* logrotate */
             append_list ( &etc_logrotate_d__obj, hairline );
-            append_list ( &etc_modprobe_d__obj, hairline );
-            append_list ( &sys_module__obj, hairline );
-            append_list ( &var_log_messages_obj, hairline );
-            append_list ( &var_log_secure_obj, hairline );
-            append_list ( &var_log_audit__obj, hairline );
-            append_list ( &var_crash__obj, hairline );
-            append_list ( &sos_commands_abrt__obj, hairline );
+            /* logs and journals */
             append_list ( &sos_commands_logs_journalctl___no_pager_obj, hairline );
-            append_list ( &sos_commands_networking_ethtool__S_obj, hairline );
-            append_list ( &sos_commands_networking_ethtool__i_obj, hairline );
-            append_list ( &sos_commands_networking__obj, hairline );
-            append_list ( &sos_commands_obj, hairline );
-            append_list ( &etc_httpd__obj, hairline );
-            append_list ( &etc_udev__obj, hairline );
-            append_list ( &etc_yum_repos_d__obj, hairline );
-            append_list ( &etc_systemd__obj, hairline );
-            append_list ( &etc_systemd_system__obj, hairline );
-            append_list ( &usr_lib_systemd__obj, hairline );
+            append_list ( &var_log_messages_obj, hairline );
             append_list ( &sos_commands_sar__obj, hairline );
-            append_list ( &sos_commands_virsh__obj, hairline );
-            append_list ( &sos_commands_usb__obj, hairline );
+            append_list ( &etc_pki__obj, hairline );
+            /* httpd */
+            append_list ( &etc_httpd__obj, hairline );
+            append_list ( &sos_commands_apache__obj, hairline );
+            /* others ( default item is 'skip') */
             append_list ( &lib__obj, hairline );
             append_list ( &etc__obj, hairline );
+            append_list ( &sos_commands_obj, hairline );
             append_list ( &dev__obj, hairline );
             append_list ( &usr__obj, hairline );
             append_list ( &var__obj, hairline );
             append_list ( &proc__obj, hairline );
-            append_list ( &var_spool_cron__obj, hairline );
-            append_list ( &etc_pam_d__obj, hairline );
-            append_list ( &sos_commands_pam__obj, hairline );
-            append_list ( &sos_commands_apache__obj, hairline );
-            append_list ( &etc_audit__obj, hairline );
-            append_list ( &sos_commands_auditd__obj, hairline );
-            append_list ( &sos_commands_memory__obj, hairline );
-            append_list ( &etc_firewalld__obj, hairline );
-            append_list ( &sos_commands_firewalld__obj, hairline );
-            append_list ( &sos_commands_devicemapper__obj, hairline );
-            append_list ( &etc_sysconfig__obj, hairline );
-            append_list ( &etc_selinux__obj, hairline );
-            append_list ( &sos_commands_selinux__obj, hairline );
-            append_list ( &etc_yum__obj, hairline );
-            append_list ( &sos_commands_yum__obj, hairline );
-            append_list ( &etc_dnf__obj, hairline );
-            append_list ( &sos_commands_dnf__obj, hairline );
-            append_list ( &sos_commands_networkmanager__obj, hairline );
         }
     }
 
@@ -679,6 +703,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_networking_ethtool__S_obj, fp_w );
             file_write_list ( &sos_commands_networking_ethtool__i_obj, fp_w );
             file_write_list ( &sos_commands_networking__obj, fp_w );
+            file_write_list ( &etc_networkmanager__obj, fp_w );
             file_write_list ( &sos_commands_networkmanager__obj, fp_w );
             /* process */
             append_list ( &sos_subtitle_process_obj, "==== process ====" );

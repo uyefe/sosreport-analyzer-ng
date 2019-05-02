@@ -605,6 +605,13 @@ struct line_data sos_commands_networkmanager__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_networkmanager__obj */
+struct line_data etc_networkmanager__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* tmp_1_obj */
 struct line_data tmp_1_obj_raw =
     {
@@ -1002,6 +1009,12 @@ struct line_data tmp_58_obj_raw =
         NULL /* next pointer */
     };
 
+struct line_data tmp_59_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -1086,6 +1099,7 @@ struct line_data *tmp_55_obj = &tmp_55_obj_raw;
 struct line_data *tmp_56_obj = &tmp_56_obj_raw;
 struct line_data *tmp_57_obj = &tmp_57_obj_raw;
 struct line_data *tmp_58_obj = &tmp_58_obj_raw;
+struct line_data *tmp_59_obj = &tmp_59_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -1145,6 +1159,7 @@ struct line_data *etc_cron_daily__obj = &etc_cron_daily__obj_raw;
 struct line_data *etc_cron_weekly__obj = &etc_cron_weekly__obj_raw;
 struct line_data *etc_cron_monthly__obj = &etc_cron_monthly__obj_raw;
 struct line_data *sos_commands_networkmanager__obj = &sos_commands_networkmanager__obj_raw;
+struct line_data *etc_networkmanager__obj = &etc_networkmanager__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -1205,6 +1220,7 @@ char *str_arr_etc_cron_daily [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_cron_weekly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_cron_monthly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1417,6 +1433,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_1_obj, read_path );
                 else if ( strstr ( read_path, "/cmdlog/" ) != 0 )
                     append_list ( &tmp_2_obj, read_path );
+                else if ( strstr ( read_path, "/etc/NetworkManager/" ) != 0 )
+                    append_list ( &tmp_59_obj, read_path );
                 else if ( strstr ( read_path, "/etc/audit/" ) != 0 )
                     append_list ( &tmp_41_obj, read_path );
                 else if ( strstr ( read_path, "/etc/cron.d/" ) != 0 )
@@ -1633,8 +1651,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( strcmp ( member, "boot/grub/" ) == 0 ) ||
         ( strcmp ( member, "cmdlog/" ) == 0 ) ||
         ( strcmp ( member, "etc/host" ) == 0 ) ||
-        ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
-        ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/NetworkManager/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/anacrontab" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( strcmp ( member, "etc/crontab" ) == 0 ) ||
@@ -1651,13 +1668,16 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pam.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/selinux/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( ( strcmp ( member, "etc/sysconfig/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/system/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/udev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/yum.repos.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/yum/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/abrt/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/apache/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
@@ -1677,6 +1697,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/usb/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/yum/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sys/module/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "var/crash/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1684,13 +1705,11 @@ int read_file ( const char *file_name, const char *member, int files )
         ( strcmp ( member, "var/log/messages" ) == 0 ) ||
         ( strcmp ( member, "var/log/secure" ) == 0 ) ||
         ( ( strcmp ( member, "var/spool/cron/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "var/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "dev/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "etc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "lib/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "proc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "sos_commands/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "usr/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
-        ( ( strcmp ( member, "var/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
+        ( ( strcmp ( member, "proc/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) )
     )
     {
         append_list ( &sos_line_obj, blank_line );
@@ -1803,6 +1822,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "route" ) == 0 ) ||
                     ( strcmp ( member, "uptime" ) == 0 ) ||
                     ( strcmp ( member, "vgdisplay" ) == 0 ) ||
+                    ( strcmp ( member, "etc/NetworkManager/" ) == 0 ) ||
                     ( strcmp ( member, "etc/anacrontab" ) == 0 ) ||
                     ( strcmp ( member, "etc/audit/" ) == 0 ) ||
                     ( strcmp ( member, "etc/crontab" ) == 0 ) ||
@@ -1986,6 +2006,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "lsof") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lsof.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "netstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->netstat.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "dev/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->dev_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/NetworkManager/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_NetworkManager_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/anacrontab") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_anacrontab.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/audit/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_audit_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/crontab") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_crontab.member, "" ) != 0 ) ) ||
@@ -2118,6 +2139,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "boot/grub/" ) == 0 ) ||
             ( strcmp ( member, "cmdlog/" ) == 0 ) ||
             ( strcmp ( member, "dev/" ) == 0 ) ||
+            ( strcmp ( member, "etc/NetworkManager/" ) == 0 ) ||
             ( strcmp ( member, "etc/audit/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/cron.hourly/" ) == 0 ) ||
@@ -2198,6 +2220,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_31_obj, str_arr_dev ); i ++ )
                 append_list ( &dev__obj, str_arr_dev [ i ] );
             read_file_from_analyze_dir ( &dev__obj, "dev/" );
+        }
+        else if ( strcmp ( member, "etc/NetworkManager/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_59_obj, str_arr_etc_networkmanager ); i ++ )
+                append_list ( &etc_networkmanager__obj, str_arr_etc_networkmanager [ i ] );
+            read_file_from_analyze_dir ( &etc_networkmanager__obj, "etc/NetworkManager/" );
         }
         else if ( strcmp ( member, "etc/audit/" ) == 0 )
         {
@@ -2919,6 +2947,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "ps" ) == 0 ) ||
         ( strcmp ( member, "dev/" ) == 0 ) ||
         ( strcmp ( member, "etc/pki/" ) == 0 ) ||
+        ( strcmp ( member, "etc/NetworkManager/" ) == 0 ) ||
         ( strcmp ( member, "etc/anacrontab" ) == 0 ) ||
         ( strcmp ( member, "etc/audit/" ) == 0 ) ||
         ( strcmp ( member, "etc/crontab" ) == 0 ) ||
@@ -3158,6 +3187,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_57_obj ); 
     if ( tmp_58_obj != NULL ) 
         clear_list ( &tmp_58_obj ); 
+    if ( tmp_59_obj != NULL ) 
+        clear_list ( &tmp_59_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3275,4 +3306,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &etc_cron_monthly__obj ); 
     if ( sos_commands_networkmanager__obj != NULL ) 
         clear_list ( &sos_commands_networkmanager__obj ); 
+    if ( etc_networkmanager__obj != NULL ) 
+        clear_list ( &etc_networkmanager__obj ); 
 }

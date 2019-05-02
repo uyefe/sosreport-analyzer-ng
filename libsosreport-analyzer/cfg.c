@@ -89,7 +89,7 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             printf("skip member '%s'.\n",keyword);
     else
     {
-        /* common stuff for both mcinfo and sosreport */
+        /* common members for both mcinfo and sosreport */
         if ( strcmp ( keyword, "etc/host" ) == 0 )
             strncpy ( cfg->etc_host.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "etc/modprobe.d/" ) == 0 )
@@ -131,6 +131,7 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
         else if ( strcmp ( keyword, "proc/" ) == 0 )
             strncpy ( cfg->proc_.member, line, MAX_LINE_LENGTH - 1 );
 
+        /* mcinfo only */
         if ( mcinfo == 1 )
         {
             if ( strcmp ( keyword, "boot/grub/" ) == 0 )
@@ -138,6 +139,7 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             else if ( strcmp ( keyword, "cmdlog/" ) == 0 )
                 strncpy ( cfg->mcinfo_cmdlog_.member, line, MAX_LINE_LENGTH - 1 );
         }
+        /* sosreport only */
         else if ( mcinfo == 0 )
         {
             if ( strcmp ( keyword, "date" ) == 0 )
@@ -176,6 +178,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->uptime.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "vgdisplay" ) == 0 )
                 strncpy ( cfg->vgdisplay.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/NetworkManager/" ) == 0 )
+                strncpy ( cfg->etc_NetworkManager_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/anacrontab" ) == 0 )
                 strncpy ( cfg->etc_anacrontab.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/audit/" ) == 0 )
@@ -472,6 +476,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/networking/ethtool_-S", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/ethtool_-i", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
+        append_sos_header_obj ( "etc/NetworkManager/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networkmanager/", cfg, mcinfo );
         append_sos_header_obj ( "netstat", cfg, mcinfo );
         /* process */
@@ -562,7 +567,7 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
     memset ( str_tmp, '\0', MAX_FILE_NAME_LENGTH ); 
     snprintf (str_tmp, strlen ( member ) + 2, "%s=", member );
 
-    /* these members are those included in sosreport and mcinfo */
+    /* common members for both mcinfo and sosreport */
     if ( strcmp ( member, "etc/host" ) == 0 )
         strcat ( str_tmp, cfg->etc_host.member );
     else if ( strcmp ( member, "etc/crontab" ) == 0 )
@@ -649,6 +654,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->uptime.member );
         else if ( strcmp ( member, "vgdisplay" ) == 0 )
             strcat ( str_tmp, cfg->vgdisplay.member );
+        else if ( strcmp ( member, "etc/NetworkManager/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_NetworkManager_.member );
         else if ( strcmp ( member, "etc/anacrontab" ) == 0 )
             strcat ( str_tmp, cfg->etc_anacrontab.member );
         else if ( strcmp ( member, "etc/audit/" ) == 0 )
