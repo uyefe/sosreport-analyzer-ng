@@ -152,6 +152,12 @@ sos_commands/devices/udevadm_info_--export-db=all
 
 sos_commands/scsi/lsscsi=all
 
+## sos_commands/ipmitool/
+##
+## All you can set is 'all'
+
+sos_commands/ipmitool/=all
+
 ## sos_commands/usb/
 ##
 ## All you can set is 'all'

@@ -244,6 +244,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_dnf_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/firewalld/" ) == 0 )
                 strncpy ( cfg->sos_commands_firewalld_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/ipmitool/" ) == 0 )
+                strncpy ( cfg->sos_commands_ipmitool_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/kernel/sysctl_-a" ) == 0 )
                 strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
@@ -452,6 +454,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "etc/udev/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devicemapper/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/devices/udevadm_info_--export-db", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/ipmitool/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
         /* disk usage */
@@ -722,6 +725,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_dnf_.member );
         else if ( strcmp ( member, "sos_commands/firewalld/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_firewalld_.member );
+        else if ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_ipmitool_.member );
         else if ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a.member );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )

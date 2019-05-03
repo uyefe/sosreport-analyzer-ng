@@ -135,6 +135,7 @@ struct sosreport_analyzer_config
     config_each sos_commands_devicemapper_;
     config_each sos_commands_dnf_;
     config_each sos_commands_firewalld_;
+    config_each sos_commands_ipmitool_;
     config_each sos_commands_kernel_sysctl__a;
     config_each sos_commands_logs_journalctl___no_pager;
     config_each sos_commands_memory_;

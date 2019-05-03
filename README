@@ -59,6 +59,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Analyze etc/udev/ file.
     Echo files in sos_commands/devicemapper/.
     Analyze sos_commands/devices/udevadm_info_--export-db file.
+    Echo files in sos_commands/ipmitool/.
     Echo sos_commands/scsi/lsscsi file.
     Echo files in sos_commands/usb/.
 

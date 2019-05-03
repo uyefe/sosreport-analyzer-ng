@@ -96,6 +96,7 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_dnf_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_firewalld_.item_num = 0;
+    sosreport_analyzer_cfg->sos_commands_ipmitool_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_memory_.item_num = 0;
@@ -268,6 +269,8 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.item_num;
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_firewalld_.item_num;
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_ipmitool_.item_num;
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num;
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -464,6 +467,8 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_dnf_.member;
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_firewalld_.member;
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_ipmitool_.member;
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member;
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -660,6 +665,8 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->sos_commands_dnf_.file_num;
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_firewalld_.file_num;
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_ipmitool_.file_num;
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.file_num;
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -856,6 +863,8 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_dnf_.item_num = x; 
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_firewalld_.item_num = x; 
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_ipmitool_.item_num = x; 
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_num = x; 
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -1052,6 +1061,8 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->sos_commands_dnf_.file_num = x; 
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_firewalld_.file_num = x; 
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+        sosreport_analyzer_cfg->sos_commands_ipmitool_.file_num = x; 
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.file_num = x; 
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -1465,6 +1476,11 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->sos_commands_firewalld_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->sos_commands_ipmitool_.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
@@ -1732,6 +1748,8 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->sos_commands_dnf_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_firewalld_.item_names.item_name [ x ]; 
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+        return sosreport_analyzer_cfg->sos_commands_ipmitool_.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )
         return sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.item_names.item_name [ x ]; 
     else if ( strcmp ( "sos_commands/logs/journalctl_--no-pager", member ) == 0 )
@@ -2138,6 +2156,11 @@ int member_item_exists ( const char *member )
     else if ( strcmp ( "sos_commands/firewalld/", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->sos_commands_firewalld_.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "sos_commands/ipmitool/", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->sos_commands_ipmitool_.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "sos_commands/kernel/sysctl_-a", member ) == 0 )

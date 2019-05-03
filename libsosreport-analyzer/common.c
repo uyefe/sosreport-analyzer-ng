@@ -612,343 +612,301 @@ struct line_data etc_networkmanager__obj_raw =
         NULL /* next pointer */
     };
 
-/* tmp_1_obj */
+/* sos_commands_ipmitool__obj */
+struct line_data sos_commands_ipmitool__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 struct line_data tmp_1_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_2_obj */
 struct line_data tmp_2_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_3_obj */
 struct line_data tmp_3_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_4_obj */
 struct line_data tmp_4_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_5_obj */
 struct line_data tmp_5_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_6_obj */
 struct line_data tmp_6_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_7_obj */
 struct line_data tmp_7_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_8_obj */
 struct line_data tmp_8_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_9_obj */
 struct line_data tmp_9_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_10_obj */
 struct line_data tmp_10_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_11_obj */
 struct line_data tmp_11_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_12_obj */
 struct line_data tmp_12_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_13_obj */
 struct line_data tmp_13_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_14_obj */
 struct line_data tmp_14_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_15_obj */
 struct line_data tmp_15_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_16_obj */
 struct line_data tmp_16_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_17_obj */
 struct line_data tmp_17_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_18_obj */
 struct line_data tmp_18_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_19_obj */
 struct line_data tmp_19_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_20_obj */
 struct line_data tmp_20_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_21_obj */
 struct line_data tmp_21_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_22_obj */
 struct line_data tmp_22_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_23_obj */
 struct line_data tmp_23_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_24_obj */
 struct line_data tmp_24_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_25_obj */
 struct line_data tmp_25_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_26_obj */
 struct line_data tmp_26_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_27_obj */
 struct line_data tmp_27_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_28_obj */
 struct line_data tmp_28_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_29_obj */
 struct line_data tmp_29_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_30_obj */
 struct line_data tmp_30_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_31_obj */
 struct line_data tmp_31_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_32_obj */
 struct line_data tmp_32_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_33_obj */
 struct line_data tmp_33_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_34_obj */
 struct line_data tmp_34_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_35_obj */
 struct line_data tmp_35_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_36_obj */
 struct line_data tmp_36_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_37_obj */
 struct line_data tmp_37_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_38_obj */
 struct line_data tmp_38_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_39_obj */
 struct line_data tmp_39_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_40_obj */
 struct line_data tmp_40_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_41_obj */
 struct line_data tmp_41_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_42_obj */
 struct line_data tmp_42_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_43_obj */
 struct line_data tmp_43_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_44_obj */
 struct line_data tmp_44_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_45_obj */
 struct line_data tmp_45_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_46_obj */
 struct line_data tmp_46_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_47_obj */
 struct line_data tmp_47_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_48_obj */
 struct line_data tmp_48_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
     };
 
-/* tmp_49_obj */
 struct line_data tmp_49_obj_raw =
     {
         "\0", /* each line */
@@ -1010,6 +968,12 @@ struct line_data tmp_58_obj_raw =
     };
 
 struct line_data tmp_59_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+struct line_data tmp_60_obj_raw =
     {
         "\0", /* each line */
         NULL /* next pointer */
@@ -1100,6 +1064,7 @@ struct line_data *tmp_56_obj = &tmp_56_obj_raw;
 struct line_data *tmp_57_obj = &tmp_57_obj_raw;
 struct line_data *tmp_58_obj = &tmp_58_obj_raw;
 struct line_data *tmp_59_obj = &tmp_59_obj_raw;
+struct line_data *tmp_60_obj = &tmp_60_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -1160,6 +1125,7 @@ struct line_data *etc_cron_weekly__obj = &etc_cron_weekly__obj_raw;
 struct line_data *etc_cron_monthly__obj = &etc_cron_monthly__obj_raw;
 struct line_data *sos_commands_networkmanager__obj = &sos_commands_networkmanager__obj_raw;
 struct line_data *etc_networkmanager__obj = &etc_networkmanager__obj_raw;
+struct line_data *sos_commands_ipmitool__obj = &sos_commands_ipmitool__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -1221,6 +1187,7 @@ char *str_arr_etc_cron_weekly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_cron_monthly [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_etc_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sos_commands_ipmitool [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1510,6 +1477,8 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_9_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/firewalld/" ) != 0 )
                     append_list ( &tmp_45_obj, read_path );
+                else if ( strstr ( read_path, "/sos_commands/ipmitool/" ) != 0 )
+                    append_list ( &tmp_60_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/memory/" ) != 0 )
                     append_list ( &tmp_43_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-S" ) != 0 )
@@ -1685,6 +1654,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/etc/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1866,6 +1836,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/dnf/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
+                    ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
@@ -2055,6 +2026,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_devices_udevadm_info___export_db.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/dnf/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_dnf_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_firewalld_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/ipmitool/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_ipmitool_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_memory_.member, "" ) != 0 ) ) ||
@@ -2173,6 +2145,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/dnf/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
@@ -2424,6 +2397,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_45_obj, str_arr_sos_commands_firewalld ); i ++ )
                 append_list ( &sos_commands_firewalld__obj, str_arr_sos_commands_firewalld [ i ] );
             read_file_from_analyze_dir ( &sos_commands_firewalld__obj, "sos_commands/firewalld/" );
+        }
+        else if ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_60_obj, str_arr_sos_commands_ipmitool ); i ++ )
+                append_list ( &sos_commands_ipmitool__obj, str_arr_sos_commands_ipmitool [ i ] );
+            read_file_from_analyze_dir ( &sos_commands_ipmitool__obj, "sos_commands/ipmitool/" );
         }
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
         {
@@ -2985,6 +2964,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/dnf/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
@@ -3189,6 +3169,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_58_obj ); 
     if ( tmp_59_obj != NULL ) 
         clear_list ( &tmp_59_obj ); 
+    if ( tmp_60_obj != NULL ) 
+        clear_list ( &tmp_60_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3308,4 +3290,6 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_networkmanager__obj ); 
     if ( etc_networkmanager__obj != NULL ) 
         clear_list ( &etc_networkmanager__obj ); 
+    if ( sos_commands_ipmitool__obj != NULL ) 
+        clear_list ( &sos_commands_ipmitool__obj ); 
 }
