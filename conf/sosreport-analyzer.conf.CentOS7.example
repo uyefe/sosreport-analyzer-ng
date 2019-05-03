@@ -283,6 +283,12 @@ etc/NetworkManager/=all
 
 sos_commands/networkmanager/=all
 
+## sos_commands/wireless/
+##
+## All you can set is 'all'
+
+sos_commands/wireless/=all
+
 ## netstat 
 ##
 ## You can set arbitrary item-name including 'all' up to 12
