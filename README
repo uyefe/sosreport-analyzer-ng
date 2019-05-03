@@ -86,6 +86,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Analyze files in sos_commands/networking/.
     Echo files in etc/NetworkManager/.
     Analyze files in sos_commands/networkmanager/.
+    Echo files in sos_commands/wireless/.
     Analyze netstat file.
 
   ==== process ==== 

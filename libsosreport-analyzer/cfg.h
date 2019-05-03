@@ -150,6 +150,7 @@ struct sosreport_analyzer_config
     config_each sos_commands_usb_;
     config_each sos_commands_yum_;
     config_each sos_commands_virsh_;
+    config_each sos_commands_wireless_;
     config_each sos_commands_;
     config_each var_crash_;
     config_each var_log_audit_;

@@ -177,6 +177,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_58_obj );
     init_list ( &tmp_59_obj );
     init_list ( &tmp_60_obj );
+    init_list ( &tmp_61_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -238,6 +239,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_commands_networkmanager__obj );
     init_list ( &etc_networkmanager__obj );
     init_list ( &sos_commands_ipmitool__obj );
+    init_list ( &sos_commands_wireless__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -472,6 +474,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/networking/", dir_name );
             read_file_pre ( "etc/NetworkManager/", dir_name );
             read_file_pre ( "sos_commands/networkmanager/", dir_name );
+            read_file_pre ( "sos_commands/wireless/", dir_name );
             read_file_pre ( "netstat", dir_name );
             /* process */
             read_file_pre ( "ps", dir_name );
@@ -565,6 +568,7 @@ int main ( int argc, char *argv [ ] )
             append_list ( &sos_commands_firewalld__obj, hairline );
             append_list ( &etc_networkmanager__obj, hairline );
             append_list ( &sos_commands_networkmanager__obj, hairline );
+            append_list ( &sos_commands_wireless__obj, hairline );
             /* process */
             /* virtualization */
             append_list ( &sos_commands_virsh__obj, hairline );
@@ -708,6 +712,7 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &sos_commands_networking__obj, fp_w );
             file_write_list ( &etc_networkmanager__obj, fp_w );
             file_write_list ( &sos_commands_networkmanager__obj, fp_w );
+            file_write_list ( &sos_commands_wireless__obj, fp_w );
             /* process */
             append_list ( &sos_subtitle_process_obj, "==== process ====" );
             file_write_list ( &sos_subtitle_process_obj, fp_w );

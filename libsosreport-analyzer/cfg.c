@@ -274,6 +274,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_virsh_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/yum/" ) == 0 )
                 strncpy ( cfg->sos_commands_yum_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/wireless/" ) == 0 )
+                strncpy ( cfg->sos_commands_wireless_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/" ) == 0 )
                 strncpy ( cfg->sos_commands_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sys/module/" ) == 0 )
@@ -481,6 +483,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/networking/", cfg, mcinfo );
         append_sos_header_obj ( "etc/NetworkManager/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/networkmanager/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/wireless/", cfg, mcinfo );
         append_sos_header_obj ( "netstat", cfg, mcinfo );
         /* process */
         append_sos_header_obj ( "==== process ====", cfg, mcinfo );
@@ -755,6 +758,10 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_virsh_.member );
         else if ( strcmp ( member, "sos_commands/yum/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_yum_.member );
+        else if ( strcmp ( member, "sos_commands/wireless/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_wireless_.member );
+        else if ( strcmp ( member, "sos_commands/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_.member );
         else if ( strcmp ( member, "sys/module/" ) == 0 )
             strcat ( str_tmp, cfg->sys_module_.member );
         else if ( strcmp ( member, "usr/lib/systemd/" ) == 0 )
@@ -769,8 +776,6 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->lib_.member );
         else if ( strcmp ( member, "usr/" ) == 0 )
             strcat ( str_tmp, cfg->usr_.member );
-        else if ( strcmp ( member, "sos_commands/" ) == 0 )
-            strcat ( str_tmp, cfg->sos_commands_.member );
     }
     append_list ( &sos_header_obj, str_tmp );
 }
