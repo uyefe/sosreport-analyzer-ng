@@ -176,6 +176,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_57_obj );
     init_list ( &tmp_58_obj );
     init_list ( &tmp_59_obj );
+    init_list ( &tmp_60_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -236,6 +237,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_cron_monthly__obj );
     init_list ( &sos_commands_networkmanager__obj );
     init_list ( &etc_networkmanager__obj );
+    init_list ( &sos_commands_ipmitool__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -446,6 +448,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "etc/udev/", dir_name );
             read_file_pre ( "sos_commands/devicemapper/", dir_name );
             read_file_pre ( "sos_commands/devices/udevadm_info_--export-db", dir_name );
+            read_file_pre ( "sos_commands/ipmitool/", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
             read_file_pre ( "sos_commands/usb/", dir_name );
             /* disk usage */
