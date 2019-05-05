@@ -46,6 +46,12 @@ hostname=all
 
 uptime=all
 
+## etc/nsswitch.conf 
+##
+## All you can set is 'all'
+
+etc/nsswitch.conf=all
+
 ## installed-rpms=<item> ...
 ##
 ## You can set arbitrary item-name including 'all' up to 12
