@@ -1655,6 +1655,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/httpd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/nsswitch.conf" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pam.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pki/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/selinux/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1831,6 +1832,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "etc/logrotate.conf" ) == 0 ) ||
                     ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/nsswitch.conf" ) == 0 ) ||
                     ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/pki/" ) == 0 ) ||
                     ( strcmp ( member, "etc/rsyslog.conf" ) == 0 ) ||
@@ -2021,6 +2023,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/rsyslog.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_rsyslog_conf.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/selinux/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_selinux_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_modprobe_d_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/nsswitch.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_nsswitch_conf.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/sysconfig/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_sysconfig_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/system/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_system_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/systemd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_systemd_.member, "" ) != 0 ) ) ||
@@ -2973,6 +2976,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/nsswitch.conf" ) == 0 ) ||
         ( strcmp ( member, "etc/selinux/" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/network-scripts/ifcfg-" ) == 0 ) ||
         ( strcmp ( member, "etc/sysconfig/" ) == 0 ) ||

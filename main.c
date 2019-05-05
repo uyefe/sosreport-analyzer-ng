@@ -432,6 +432,7 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "uname", dir_name );
             read_file_pre ( "hostname", dir_name );
             read_file_pre ( "uptime", dir_name );
+            read_file_pre ( "etc/nsswitch.conf", dir_name );
             read_file_pre ( "installed-rpms", dir_name );
             read_file_pre ( "proc/cpuinfo", dir_name );
             read_file_pre ( "root/anaconda-ks.cfg", dir_name );

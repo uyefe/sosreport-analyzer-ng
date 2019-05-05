@@ -113,6 +113,7 @@ struct sosreport_analyzer_config
     config_each etc_logrotate_conf;
     config_each etc_logrotate_d_;
     config_each etc_modprobe_d_;
+    config_each etc_nsswitch_conf;
     config_each etc_pam_d_;
     config_each etc_pki_;
     config_each etc_rsyslog_conf;

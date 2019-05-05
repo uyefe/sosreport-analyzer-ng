@@ -198,6 +198,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_logrotate_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/logrotate.d/" ) == 0 )
                 strncpy ( cfg->etc_logrotate_d_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/nsswitch.conf" ) == 0 )
+                strncpy ( cfg->etc_nsswitch_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/pam.d/" ) == 0 )
                 strncpy ( cfg->etc_pam_d_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/pki/" ) == 0 )
@@ -435,6 +437,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "uname", cfg, mcinfo );
         append_sos_header_obj ( "hostname", cfg, mcinfo );
         append_sos_header_obj ( "uptime", cfg, mcinfo );
+        append_sos_header_obj ( "etc/nsswitch.conf", cfg, mcinfo );
         append_sos_header_obj ( "installed-rpms", cfg, mcinfo );
         append_sos_header_obj ( "proc/cpuinfo", cfg, mcinfo );
         append_sos_header_obj ( "root/anaconda-ks.cfg", cfg, mcinfo );
@@ -686,6 +689,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_pam_d_.member );
         else if ( strcmp ( member, "etc/modprobe.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_modprobe_d_.member );
+        else if ( strcmp ( member, "etc/nsswitch.conf" ) == 0 )
+            strcat ( str_tmp, cfg->etc_nsswitch_conf.member );
         else if ( strcmp ( member, "etc/rsyslog.conf" ) == 0 )
             strcat ( str_tmp, cfg->etc_rsyslog_conf.member );
         else if ( strcmp ( member, "etc/selinux/" ) == 0 )

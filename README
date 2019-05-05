@@ -38,6 +38,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo uname file.
     Echo hostname file.
     Echo uptime file.
+    Echo etc/nsswitch.conf file.
     Analyze installed-rpms file.
     Analyze proc/cpuinfo file.
     Echo root/anaconda-ks.cfg file.
