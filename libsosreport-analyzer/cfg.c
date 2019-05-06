@@ -198,6 +198,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->etc_logrotate_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/logrotate.d/" ) == 0 )
                 strncpy ( cfg->etc_logrotate_d_.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "etc/lvm/" ) == 0 )
+                strncpy ( cfg->etc_lvm_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/nsswitch.conf" ) == 0 )
                 strncpy ( cfg->etc_nsswitch_conf.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "etc/pam.d/" ) == 0 )
@@ -252,6 +254,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
                 strncpy ( cfg->sos_commands_kernel_sysctl__a.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
                 strncpy ( cfg->sos_commands_logs_journalctl___no_pager.member, line, MAX_LINE_LENGTH - 1 );
+            else if ( strcmp ( keyword, "sos_commands/lvm2/" ) == 0 )
+                strncpy ( cfg->sos_commands_lvm2_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/memory/" ) == 0 )
                 strncpy ( cfg->sos_commands_memory_.member, line, MAX_LINE_LENGTH - 1 );
             else if ( strcmp ( keyword, "sos_commands/networking/ethtool_-S" ) == 0 )
@@ -462,6 +466,10 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "sos_commands/ipmitool/", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/scsi/lsscsi", cfg, mcinfo );
         append_sos_header_obj ( "sos_commands/usb/", cfg, mcinfo );
+        /* file systems */
+        append_sos_header_obj ( "==== file systems ====", cfg, mcinfo );
+        append_sos_header_obj ( "etc/lvm/", cfg, mcinfo );
+        append_sos_header_obj ( "sos_commands/lvm2/", cfg, mcinfo );
         /* disk usage */
         append_sos_header_obj ( "==== disk usage ====", cfg, mcinfo );
         append_sos_header_obj ( "df", cfg, mcinfo );
@@ -683,6 +691,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->etc_logrotate_conf.member );
         else if ( strcmp ( member, "etc/logrotate.d/" ) == 0 )
             strcat ( str_tmp, cfg->etc_logrotate_d_.member );
+        else if ( strcmp ( member, "etc/lvm/" ) == 0 )
+            strcat ( str_tmp, cfg->etc_lvm_.member );
         else if ( strcmp ( member, "etc/pki/" ) == 0 )
             strcat ( str_tmp, cfg->etc_pki_.member );
         else if ( strcmp ( member, "etc/pam.d/" ) == 0 )
@@ -739,6 +749,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
             strcat ( str_tmp, cfg->sos_commands_kernel_sysctl__a.member );
         else if ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_logs_journalctl___no_pager.member );
+        else if ( strcmp ( member, "sos_commands/lvm2/" ) == 0 )
+            strcat ( str_tmp, cfg->sos_commands_lvm2_.member );
         else if ( strcmp ( member, "sos_commands/memory/" ) == 0 )
             strcat ( str_tmp, cfg->sos_commands_memory_.member );
         else if ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 )

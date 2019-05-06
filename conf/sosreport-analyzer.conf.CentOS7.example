@@ -184,6 +184,20 @@ df=/dev
 
 vgdisplay=all
 
+##==== file systems ==== 
+
+## etc/lvm/ 
+##
+## All you can set is 'all'
+
+etc/lvm/=all
+
+## sos_commands/lvm2/
+##
+## All you can set is 'all'
+
+sos_commands/lvm2/=all
+
 ##==== memory usage ==== 
 
 ## free

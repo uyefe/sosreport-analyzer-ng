@@ -39,6 +39,7 @@ extern struct line_data *sos_subtitle_general_obj;
 extern struct line_data *sos_subtitle_cpu_obj;
 extern struct line_data *sos_subtitle_module_obj;
 extern struct line_data *sos_subtitle_device_obj;
+extern struct line_data *sos_subtitle_file_systems_obj;
 extern struct line_data *sos_subtitle_disk_usage_obj;
 extern struct line_data *sos_subtitle_memory_usage_obj;
 extern struct line_data *sos_subtitle_networking_obj;
@@ -119,6 +120,8 @@ extern struct line_data *tmp_58_obj;
 extern struct line_data *tmp_59_obj;
 extern struct line_data *tmp_60_obj;
 extern struct line_data *tmp_61_obj;
+extern struct line_data *tmp_62_obj;
+extern struct line_data *tmp_63_obj;
 
 extern struct line_data *mcinfo_boot_grub__obj;
 extern struct line_data *mcinfo_cmdlog__obj;
@@ -182,6 +185,8 @@ extern struct line_data *sos_commands_networkmanager__obj;
 extern struct line_data *etc_networkmanager__obj;
 extern struct line_data *sos_commands_ipmitool__obj;
 extern struct line_data *sos_commands_wireless__obj;
+extern struct line_data *etc_lvm__obj;
+extern struct line_data *sos_commands_lvm2__obj;
 
 extern char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_cmdlog [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -244,6 +249,8 @@ extern char *str_arr_sos_commands_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPO
 extern char *str_arr_etc_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_ipmitool [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 extern char *str_arr_sos_commands_wireless [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_etc_lvm [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+extern char *str_arr_sos_commands_lvm2 [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 /*
  * new function reading files from the result of 'read_analyze_dir'
