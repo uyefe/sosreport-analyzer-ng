@@ -112,6 +112,7 @@ struct sosreport_analyzer_config
     config_each etc_kdump_conf;
     config_each etc_logrotate_conf;
     config_each etc_logrotate_d_;
+    config_each etc_lvm_;
     config_each etc_modprobe_d_;
     config_each etc_nsswitch_conf;
     config_each etc_pam_d_;
@@ -139,6 +140,7 @@ struct sosreport_analyzer_config
     config_each sos_commands_ipmitool_;
     config_each sos_commands_kernel_sysctl__a;
     config_each sos_commands_logs_journalctl___no_pager;
+    config_each sos_commands_lvm2_;
     config_each sos_commands_memory_;
     config_each sos_commands_networking_ethtool__S;
     config_each sos_commands_networking_ethtool__i;

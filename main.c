@@ -98,6 +98,7 @@ int main ( int argc, char *argv [ ] )
     init_list ( &sos_subtitle_cpu_obj );
     init_list ( &sos_subtitle_module_obj );
     init_list ( &sos_subtitle_device_obj );
+    init_list ( &sos_subtitle_file_systems_obj );
     init_list ( &sos_subtitle_disk_usage_obj );
     init_list ( &sos_subtitle_memory_usage_obj );
     init_list ( &sos_subtitle_networking_obj );
@@ -178,6 +179,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &tmp_59_obj );
     init_list ( &tmp_60_obj );
     init_list ( &tmp_61_obj );
+    init_list ( &tmp_62_obj );
+    init_list ( &tmp_63_obj );
 
     init_list ( &mcinfo_boot_grub__obj );
     init_list ( &mcinfo_cmdlog__obj );
@@ -240,6 +243,8 @@ int main ( int argc, char *argv [ ] )
     init_list ( &etc_networkmanager__obj );
     init_list ( &sos_commands_ipmitool__obj );
     init_list ( &sos_commands_wireless__obj );
+    init_list ( &etc_lvm__obj );
+    init_list ( &sos_commands_lvm2__obj );
 
     char str_tmp [ MAX_FILE_NAME_LENGTH ]; 
     char str_tmp2 [ MAX_FILE_NAME_LENGTH ]; 
@@ -454,6 +459,9 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "sos_commands/ipmitool/", dir_name );
             read_file_pre ( "sos_commands/scsi/lsscsi", dir_name );
             read_file_pre ( "sos_commands/usb/", dir_name );
+            /* file systems */
+            read_file_pre ( "etc/lvm/", dir_name );
+            read_file_pre ( "sos_commands/lvm2/", dir_name );
             /* disk usage */
             read_file_pre ( "df", dir_name );
             read_file_pre ( "vgdisplay", dir_name );
@@ -694,6 +702,9 @@ int main ( int argc, char *argv [ ] )
             file_write_list ( &etc_udev__obj, fp_w );
             file_write_list ( &sos_commands_devicemapper__obj, fp_w );
             file_write_list ( &sos_commands_usb__obj, fp_w );
+            /* file systems */
+            file_write_list ( &etc_lvm__obj, fp_w );
+            file_write_list ( &sos_commands_lvm2__obj, fp_w );
             /* disk usage */
             append_list ( &sos_subtitle_disk_usage_obj, "==== disk_usage ====" );
             file_write_list ( &sos_subtitle_disk_usage_obj, fp_w );

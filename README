@@ -64,6 +64,10 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo sos_commands/scsi/lsscsi file.
     Echo files in sos_commands/usb/.
 
+  ==== file systems ==== 
+    Echo files in etc/lvm/.
+    Echo files in sos_commands/lvm2/.
+    
   ==== disk usage ==== 
     Analyze df file.
     Echo vgdisplay file.

@@ -73,6 +73,13 @@ struct line_data sos_subtitle_device_obj_raw =
         NULL /* next pointer */
     };
 
+/* sos_subtitle_file_systems_obj */
+struct line_data sos_subtitle_file_systems_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* sos_subtitle_disk_usage_obj */
 struct line_data sos_subtitle_disk_usage_obj_raw =
     {
@@ -184,6 +191,7 @@ struct line_data sos_subtitle_others_obj_raw =
         "\0", /* each line */
         NULL /* next pointer */
     };
+
 
 /* line_obj */
 struct line_data sos_line_obj_raw =
@@ -626,6 +634,21 @@ struct line_data sos_commands_wireless__obj_raw =
         NULL /* next pointer */
     };
 
+/* etc_lvm__obj */
+struct line_data etc_lvm__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+/* sos_commands_lvm2__obj */
+struct line_data sos_commands_lvm2__obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+
 struct line_data tmp_1_obj_raw =
     {
         "\0", /* each line */
@@ -992,7 +1015,18 @@ struct line_data tmp_61_obj_raw =
         NULL /* next pointer */
     };
 
-/* making pointers to the structs */
+struct line_data tmp_62_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
+struct line_data tmp_63_obj_raw =
+    {
+        "\0", /* each line */
+        NULL /* next pointer */
+    };
+
 /* making pointers to the structs */
 struct dir_file_name *sos_dir_file_obj = &sos_dir_file_obj_raw;
 struct line_data *sos_header_obj = &sos_header_obj_raw;
@@ -1000,6 +1034,7 @@ struct line_data *sos_subtitle_general_obj = &sos_subtitle_general_obj_raw;
 struct line_data *sos_subtitle_cpu_obj = &sos_subtitle_cpu_obj_raw;
 struct line_data *sos_subtitle_module_obj = &sos_subtitle_module_obj_raw;
 struct line_data *sos_subtitle_device_obj = &sos_subtitle_device_obj_raw;
+struct line_data *sos_subtitle_file_systems_obj = &sos_subtitle_file_systems_obj_raw;
 struct line_data *sos_subtitle_disk_usage_obj = &sos_subtitle_disk_usage_obj_raw;
 struct line_data *sos_subtitle_memory_usage_obj = &sos_subtitle_memory_usage_obj_raw;
 struct line_data *sos_subtitle_networking_obj = &sos_subtitle_networking_obj_raw;
@@ -1080,6 +1115,8 @@ struct line_data *tmp_58_obj = &tmp_58_obj_raw;
 struct line_data *tmp_59_obj = &tmp_59_obj_raw;
 struct line_data *tmp_60_obj = &tmp_60_obj_raw;
 struct line_data *tmp_61_obj = &tmp_61_obj_raw;
+struct line_data *tmp_62_obj = &tmp_62_obj_raw;
+struct line_data *tmp_63_obj = &tmp_63_obj_raw;
 
 struct line_data *mcinfo_boot_grub__obj = &mcinfo_boot_grub__obj_raw;
 struct line_data *mcinfo_cmdlog__obj = &mcinfo_cmdlog__obj_raw;
@@ -1142,6 +1179,8 @@ struct line_data *sos_commands_networkmanager__obj = &sos_commands_networkmanage
 struct line_data *etc_networkmanager__obj = &etc_networkmanager__obj_raw;
 struct line_data *sos_commands_ipmitool__obj = &sos_commands_ipmitool__obj_raw;
 struct line_data *sos_commands_wireless__obj = &sos_commands_wireless__obj_raw;
+struct line_data *etc_lvm__obj = &etc_lvm__obj_raw;
+struct line_data *sos_commands_lvm2__obj = &sos_commands_lvm2__obj_raw;
 
 /* in near future, these should be replaced with structs in cfg.h */
 char *str_arr_boot_grub [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
@@ -1205,6 +1244,8 @@ char *str_arr_sos_commands_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR 
 char *str_arr_etc_networkmanager [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_ipmitool [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 char *str_arr_sos_commands_wireless [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_etc_lvm [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
+char *str_arr_sos_commands_lvm2 [ MAX_ANALYZE_FILES_FOR_SOSREPORT_DIR ];
 
 int read_analyze_dir ( const char *member, const char *dname, int recursive )
 {
@@ -1348,6 +1389,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/firewalld/" ) == 0 ) ||
                 ( strcmp ( member, "etc/pki/" ) == 0 ) || 
                 ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
+                ( strcmp ( member, "etc/lvm/" ) == 0 ) ||
                 ( strcmp ( member, "etc/selinux/" ) == 0 ) ||
                 ( strcmp ( member, "etc/systemd/system/" ) == 0 ) ||
                 ( strcmp ( member, "etc/yum/" ) == 0 ) ||
@@ -1355,6 +1397,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                 ( strcmp ( member, "etc/" ) == 0 ) || 
                 ( strcmp ( member, "lib/" ) == 0 ) ||
                 ( strcmp ( member, "proc/" ) == 0 ) ||
+                ( strcmp ( member, "sos_commands/lvm2/" ) == 0 ) ||
                 ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
                 ( strcmp ( member, "sos_commands/" ) == 0 ) ||
                 ( strcmp ( member, "sys/module/" ) == 0 ) ||
@@ -1378,6 +1421,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
             /* Here are members of above and has files in the rootdir of itself
              *
              * do read etc/dnf/'s rootdir so, no need here
+             * do read etc/lvm/'s rootdir so, no need here
              * do read etc/systemd/system/'s rootdir so, no need here
              * do read etc/firewalld/'s rootdir so, no need here
              * do read etc/selinux/'s rootdir so, no need here
@@ -1385,6 +1429,7 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
              * do read etc/yum/'s rootdir so, no need here
              * do read etc/'s rootdir so, no need here
              * do read proc/'s rootdir so, no need here
+             * do read sos_commands/lvm2/'s rootdir so, no need here
              * do read sos_commands/networking/'s rootdir so, no need here
              */
             if ( (
@@ -1449,6 +1494,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_13_obj, read_path );
                 else if ( strstr ( read_path, "/etc/logrotate.d/" ) != 0 )
                     append_list ( &tmp_17_obj, read_path );
+                /* for etc/lvm/'s rootdir */
+                else if ( strstr ( read_path, "/etc/lvm/" ) != 0 )
+                    append_list ( &tmp_62_obj, read_path );
+                else if ( ( strstr ( read_path, "/etc/lvm/" ) != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_62_obj, read_path );
                 else if ( strstr ( read_path, "/etc/modprobe.d/" ) != 0 )
                     append_list ( &tmp_18_obj, read_path );
                 else if ( ( strstr ( read_path, "/etc/pam.d/" ) != 0 ) )
@@ -1496,6 +1546,11 @@ int read_analyze_dir ( const char *member, const char *dname, int recursive )
                     append_list ( &tmp_45_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/ipmitool/" ) != 0 )
                     append_list ( &tmp_60_obj, read_path );
+                /* for sos_commands/lvm2/'s rootdir */
+                else if ( strstr ( read_path, "/sos_commands/lvm2/" ) != 0 )
+                    append_list ( &tmp_63_obj, read_path );
+                else if ( ( strstr ( read_path, "/sos_commands/lvm2/" ) != 0 ) && ( recursive == 1 ) )
+                    append_list ( &tmp_63_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/memory/" ) != 0 )
                     append_list ( &tmp_43_obj, read_path );
                 else if ( strstr ( read_path, "/sos_commands/networking/ethtool_-S" ) != 0 )
@@ -1654,6 +1709,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "etc/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/httpd/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/lvm/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/nsswitch.conf" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pam.d/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1676,6 +1732,7 @@ int read_file ( const char *file_name, const char *member, int files )
         ( ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) && ( strcmp ( member, "cmdlog/") != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/lvm2/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) && ( strcmp ( member, "cmdlog/" ) != 0 ) ) ||
@@ -1831,6 +1888,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "etc/kdump.conf" ) == 0 ) ||
                     ( strcmp ( member, "etc/logrotate.conf" ) == 0 ) ||
                     ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
+                    ( strcmp ( member, "etc/lvm/" ) == 0 ) ||
                     ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
                     ( strcmp ( member, "etc/nsswitch.conf" ) == 0 ) ||
                     ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
@@ -1859,6 +1917,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "sos_commands/dnf/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) ||
+                    ( strcmp ( member, "sos_commands/lvm2/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
@@ -2015,6 +2074,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/firewalld/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_firewalld_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/httpd/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_httpd_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/host") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_host.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "etc/lvm/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_lvm_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/pki/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_pki_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/kdump.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_kdump_conf.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/logrotate.conf") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_logrotate_conf.member, "" ) != 0 ) ) ||
@@ -2053,6 +2113,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "sos_commands/ipmitool/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_ipmitool_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/kernel/sysctl_-a") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_kernel_sysctl__a.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_logs_journalctl___no_pager.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "sos_commands/lvm2/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_lvm2_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/memory/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_memory_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-S") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__S.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/networking/ethtool_-i") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_networking_ethtool__i.member, "" ) != 0 ) ) ||
@@ -2092,6 +2153,8 @@ void read_file_pre ( const char *member, const char *dir_name )
             append_list ( &sos_line_obj, "==== module ====" );
         if ( strcmp ( member, "lspci" ) == 0 )
             append_list ( &sos_line_obj, "==== device ====" );
+        if ( strcmp ( member, "etc/lvm/" ) == 0 )
+            append_list ( &sos_line_obj, "==== file systems ====" );
         if ( strcmp ( member, "df" ) == 0 )
             append_list ( &sos_line_obj, "==== disk usage ====" );
         if ( strcmp ( member, "free" ) == 0 )
@@ -2149,6 +2212,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
             ( strcmp ( member, "etc/host" ) == 0 ) ||
             ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
+            ( strcmp ( member, "etc/lvm/" ) == 0 ) ||
             ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
             ( strcmp ( member, "etc/pki/" ) == 0 ) ||
             ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
@@ -2172,6 +2236,7 @@ void read_file_pre ( const char *member, const char *dir_name )
             ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
+            ( strcmp ( member, "sos_commands/lvm2/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
             ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
@@ -2297,6 +2362,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_17_obj, str_arr_etc_logrotate_d ); i ++ )
                 append_list ( &etc_logrotate_d__obj, str_arr_etc_logrotate_d [ i ] );
             read_file_from_analyze_dir ( &etc_logrotate_d__obj, "etc/logrotate.d/" );
+        }
+        else if ( strcmp ( member, "etc/lvm/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_62_obj, str_arr_etc_lvm ); i ++ )
+                append_list ( &etc_lvm__obj, str_arr_etc_lvm [ i ] );
+            read_file_from_analyze_dir ( &etc_lvm__obj, "etc/lvm/" );
         }
         else if ( strcmp ( member, "etc/pam.d/" ) == 0 )
         {
@@ -2435,6 +2506,12 @@ void read_file_pre ( const char *member, const char *dir_name )
             for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_9_obj, str_arr_logs_journalctl ); i ++ )
                 append_list ( &sos_commands_logs_journalctl___no_pager_obj, str_arr_logs_journalctl [ i ] );
             read_file_from_analyze_dir ( &sos_commands_logs_journalctl___no_pager_obj, "sos_commands/logs/journalctl_--no-pager" );
+        }
+        else if ( strcmp ( member, "sos_commands/lvm2/" ) == 0 )
+        {
+            for ( i = 0; i < bubble_sort_object_by_the_string ( &tmp_63_obj, str_arr_sos_commands_lvm2 ); i ++ )
+                append_list ( &sos_commands_lvm2__obj, str_arr_sos_commands_lvm2 [ i ] );
+            read_file_from_analyze_dir ( &sos_commands_lvm2__obj, "sos_commands/lvm2/" );
         }
         else if ( strcmp ( member, "sos_commands/memory/" ) == 0 )
         {
@@ -2974,6 +3051,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/httpd/" ) == 0 ) ||
         ( strcmp ( member, "etc/host" ) == 0 ) ||
         ( strcmp ( member, "etc/logrotate.d/" ) == 0 ) ||
+        ( strcmp ( member, "etc/lvm/" ) == 0 ) ||
         ( strcmp ( member, "etc/pam.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/modprobe.d/" ) == 0 ) ||
         ( strcmp ( member, "etc/nsswitch.conf" ) == 0 ) ||
@@ -2994,25 +3072,26 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/boot/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/dnf/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/devices/udevadm_info_--export-db" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/dnf/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/firewalld/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/ipmitool/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/kernel/sysctl_-a" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/logs/journalctl_--no-pager" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/lvm2/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-S" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/ethtool_-i" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networking/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/networkmanager/" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/memory/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/pam/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/sar/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/selinux/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/scsi/lsscsi" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/usb/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/virsh/" ) == 0 ) ||
-        ( strcmp ( member, "sos_commands/yum/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/wireless/" ) == 0 ) ||
+        ( strcmp ( member, "sos_commands/yum/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/" ) == 0 ) ||
         ( strcmp ( member, "sys/module/" ) == 0 ) ||
         ( strcmp ( member, "usr/lib/systemd/" ) == 0 ) ||
@@ -3046,6 +3125,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_subtitle_module_obj ); 
     if ( sos_subtitle_device_obj != NULL ) 
         clear_list ( &sos_subtitle_device_obj ); 
+    if ( sos_subtitle_file_systems_obj != NULL ) 
+        clear_list ( &sos_subtitle_file_systems_obj ); 
     if ( sos_subtitle_disk_usage_obj != NULL ) 
         clear_list ( &sos_subtitle_disk_usage_obj ); 
     if ( sos_subtitle_memory_usage_obj != NULL ) 
@@ -3207,6 +3288,10 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &tmp_60_obj ); 
     if ( tmp_61_obj != NULL ) 
         clear_list ( &tmp_61_obj ); 
+    if ( tmp_62_obj != NULL ) 
+        clear_list ( &tmp_62_obj ); 
+    if ( tmp_63_obj != NULL ) 
+        clear_list ( &tmp_63_obj ); 
 
     if ( etc_pki__obj != NULL ) 
         clear_list ( &etc_pki__obj ); 
@@ -3330,4 +3415,8 @@ void free_sosreport_analyzer_obj ( void )
         clear_list ( &sos_commands_ipmitool__obj ); 
     if ( sos_commands_wireless__obj != NULL ) 
         clear_list ( &sos_commands_wireless__obj ); 
+    if ( etc_lvm__obj != NULL ) 
+        clear_list ( &etc_lvm__obj ); 
+    if ( sos_commands_lvm2__obj != NULL ) 
+        clear_list ( &sos_commands_lvm2__obj ); 
 }
