@@ -1,3 +1,5 @@
+1.0.120
+Add member, 'etc/lvm/', 'sos_commands/lvm2/'.
 1.0.119
 Add member, 'etc/nsswitch.conf'.
 1.0.118
