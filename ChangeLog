@@ -1,3 +1,5 @@
+1.0.121
+Add member, 'proc/zoneinfo', 'proc/buddyinfo', 'proc/vmstat'.
 1.0.120
 Add member, 'etc/lvm/', 'sos_commands/lvm2/'.
 1.0.119
