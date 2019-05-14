@@ -83,11 +83,14 @@ int init_item_numbers_of_member ( void )
     sosreport_analyzer_cfg->etc_yum_.item_num = 0;
     sosreport_analyzer_cfg->lib_.item_num = 0;
     sosreport_analyzer_cfg->proc_.item_num = 0;
+    sosreport_analyzer_cfg->proc_buddyinfo.item_num = 0;
     sosreport_analyzer_cfg->proc_cpuinfo.item_num = 0;
     sosreport_analyzer_cfg->proc_interrupts.item_num = 0;
     sosreport_analyzer_cfg->proc_meminfo.item_num = 0;
+    sosreport_analyzer_cfg->proc_zoneinfo.item_num = 0;
     sosreport_analyzer_cfg->proc_net_dev.item_num = 0;
     sosreport_analyzer_cfg->proc_net_sockstat.item_num = 0;
+    sosreport_analyzer_cfg->proc_vmstat.item_num = 0;
     sosreport_analyzer_cfg->root_anaconda_ks_cfg.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_.item_num = 0;
     sosreport_analyzer_cfg->sos_commands_abrt_.item_num = 0;
@@ -247,12 +250,18 @@ int get_item_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->lib_.item_num;
     else if ( strcmp ( "proc/", member ) == 0 )
         return sosreport_analyzer_cfg->proc_.item_num;
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_buddyinfo.item_num;
     else if ( strcmp ( "proc/cpuinfo", member ) == 0 )
         return sosreport_analyzer_cfg->proc_cpuinfo.item_num;
     else if ( strcmp ( "proc/interrupts", member ) == 0 )
         return sosreport_analyzer_cfg->proc_interrupts.item_num;
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
         return sosreport_analyzer_cfg->proc_meminfo.item_num;
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_vmstat.item_num;
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_zoneinfo.item_num;
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
         return sosreport_analyzer_cfg->proc_net_dev.item_num;
     else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
@@ -457,8 +466,14 @@ char *get_items_of_member ( const char *member )
         return sosreport_analyzer_cfg->proc_cpuinfo.member;
     else if ( strcmp ( "proc/interrupts", member ) == 0 )
         return sosreport_analyzer_cfg->proc_interrupts.member;
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_buddyinfo.member;
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
         return sosreport_analyzer_cfg->proc_meminfo.member;
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_vmstat.member;
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_zoneinfo.member;
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
         return sosreport_analyzer_cfg->proc_net_dev.member;
     else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
@@ -663,8 +678,14 @@ int get_file_numbers_of_member ( const char *member )
         return sosreport_analyzer_cfg->proc_cpuinfo.file_num;
     else if ( strcmp ( "proc/interrupts", member ) == 0 )
         return sosreport_analyzer_cfg->proc_interrupts.file_num;
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_buddyinfo.file_num;
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
         return sosreport_analyzer_cfg->proc_meminfo.file_num;
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_vmstat.file_num;
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_zoneinfo.file_num;
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
         return sosreport_analyzer_cfg->proc_net_dev.file_num;
     else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
@@ -869,8 +890,14 @@ int set_item_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->proc_cpuinfo.item_num = x; 
     else if ( strcmp ( "proc/interrupts", member ) == 0 )
         sosreport_analyzer_cfg->proc_interrupts.item_num = x; 
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+        sosreport_analyzer_cfg->proc_buddyinfo.item_num = x; 
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
         sosreport_analyzer_cfg->proc_meminfo.item_num = x; 
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+        sosreport_analyzer_cfg->proc_vmstat.item_num = x; 
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+        sosreport_analyzer_cfg->proc_zoneinfo.item_num = x; 
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
         sosreport_analyzer_cfg->proc_net_dev.item_num = x; 
     else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
@@ -1075,8 +1102,14 @@ int set_file_numbers_of_member ( const char *member, int x )
         sosreport_analyzer_cfg->proc_cpuinfo.file_num = x; 
     else if ( strcmp ( "proc/interrupts", member ) == 0 )
         sosreport_analyzer_cfg->proc_interrupts.file_num = x; 
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+        sosreport_analyzer_cfg->proc_buddyinfo.file_num = x; 
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
         sosreport_analyzer_cfg->proc_meminfo.file_num = x; 
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+        sosreport_analyzer_cfg->proc_vmstat.file_num = x; 
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+        sosreport_analyzer_cfg->proc_zoneinfo.file_num = x; 
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
         sosreport_analyzer_cfg->proc_net_dev.file_num = x; 
     else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
@@ -1465,9 +1498,24 @@ int set_item_arr_string ( const char *member, int x, const char *item_name )
         strncpy ( sosreport_analyzer_cfg->proc_interrupts.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_buddyinfo.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
     {
         strncpy ( sosreport_analyzer_cfg->proc_meminfo.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_vmstat.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
+        return ( 0 );
+    }
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+    {
+        strncpy ( sosreport_analyzer_cfg->proc_zoneinfo.item_names.item_name [ x ], item_name, MAX_ITEM_STRINGS );
         return ( 0 );
     }
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
@@ -1790,8 +1838,14 @@ char *get_item_arr_string ( const char *member, int x )
         return sosreport_analyzer_cfg->proc_cpuinfo.item_names.item_name [ x ]; 
     else if ( strcmp ( "proc/interrupts", member ) == 0 )
         return sosreport_analyzer_cfg->proc_interrupts.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_buddyinfo.item_names.item_name [ x ]; 
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
         return sosreport_analyzer_cfg->proc_meminfo.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_vmstat.item_names.item_name [ x ]; 
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+        return sosreport_analyzer_cfg->proc_zoneinfo.item_names.item_name [ x ]; 
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
         return sosreport_analyzer_cfg->proc_net_dev.item_names.item_name [ x ]; 
     else if ( strcmp ( "proc/net/sockstat", member ) == 0 )
@@ -2175,9 +2229,24 @@ int member_item_exists ( const char *member )
         if ( strcmp ( sosreport_analyzer_cfg->proc_interrupts.member, "" ) != 0 )
             return ( 0 );
     }
+    else if ( strcmp ( "proc/buddyinfo", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->proc_buddyinfo.member, "" ) != 0 )
+            return ( 0 );
+    }
     else if ( strcmp ( "proc/meminfo", member ) == 0 )
     {
         if ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "proc/vmstat", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->proc_vmstat.member, "" ) != 0 )
+            return ( 0 );
+    }
+    else if ( strcmp ( "proc/zoneinfo", member ) == 0 )
+    {
+        if ( strcmp ( sosreport_analyzer_cfg->proc_zoneinfo.member, "" ) != 0 )
             return ( 0 );
     }
     else if ( strcmp ( "proc/net/dev", member ) == 0 )
