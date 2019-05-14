@@ -52,6 +52,24 @@ etc/host=all
 
 proc/meminfo=all
 
+## proc/zoneinfo
+##
+## All you can set is 'all'
+
+proc/zoneinfo=all
+
+## proc/buddyinfo
+##
+## All you can set is 'all'
+
+proc/buddyinfo=all
+
+## proc/vmstat
+##
+## All you can set is 'all'
+
+proc/vmstat=all
+
 ## proc/interrupts
 ##
 ## All you can set is 'all'

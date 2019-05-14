@@ -1675,9 +1675,15 @@ int read_file ( const char *file_name, const char *member, int files )
 
     /* when this function had been called from 'read_analyze_dir()', items should be set only once */
     if ( files == 0)
+//////////////////////////////////////////////////////////
+    {
         if ( set_token_to_item_arr ( file_name, member ) == 1 )
-            printf("set_token_to_item_arr failed in (%s)\n",file_name);
-
+        {
+            printf("set_token_to_item_arr failed in (%s):member %s\n",file_name,member);
+            exit ( EXIT_FAILURE );
+        }
+    }
+    
     /* open file */
     if ( ( fp=fopen ( file_name, "r" ) ) == NULL )
     {
@@ -1908,9 +1914,12 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "dev/" ) == 0 ) ||
                     ( strcmp ( member, "lib/" ) == 0 ) ||
                     ( strcmp ( member, "root/anaconda-ks.cfg" ) == 0 ) ||
+                    ( strcmp ( member, "proc/buddyinfo" ) == 0 ) ||
                     ( strcmp ( member, "proc/net/dev" ) == 0 ) ||
                     ( strcmp ( member, "proc/net/sockstat" ) == 0 ) ||
                     ( strcmp ( member, "proc/interrupts" ) == 0 ) ||
+                    ( strcmp ( member, "proc/zoneinfo" ) == 0 ) ||
+                    ( strcmp ( member, "proc/vmstat" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/auditd/" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/devicemapper/" ) == 0 ) ||
@@ -2095,11 +2104,14 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "etc/yum/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_yum_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "etc/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->etc_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "lib/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->lib_.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/buddyinfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_buddyinfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/cpuinfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_cpuinfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/interrupts") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_interrupts.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/vmstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_vmstat.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/zoneinfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_zoneinfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "root/anaconda-ks.cfg") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->root_anaconda_ks_cfg.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "sos_commands/abrt/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->sos_commands_abrt_.member, "" ) != 0 ) ) ||
@@ -3065,7 +3077,10 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "etc/yum/" ) == 0 ) ||
         ( strcmp ( member, "etc/" ) == 0 ) ||
         ( strcmp ( member, "lib/" ) == 0 ) ||
+        ( strcmp ( member, "proc/buddyinfo" ) == 0 ) ||
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
+        ( strcmp ( member, "proc/vmstat" ) == 0 ) ||
+        ( strcmp ( member, "proc/zoneinfo" ) == 0 ) ||
         ( strcmp ( member, "proc/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/abrt/" ) == 0 ) ||
         ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||

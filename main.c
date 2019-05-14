@@ -392,6 +392,9 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "cmdlog/", dir_name );
             read_file_pre ( "etc/host", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
+            read_file_pre ( "proc/zoneinfo", dir_name );
+            read_file_pre ( "proc/buddyinfo", dir_name );
+            read_file_pre ( "proc/vmstat", dir_name );
             read_file_pre ( "proc/interrupts", dir_name );
             read_file_pre ( "var/log/dmesg", dir_name );
             read_file_pre ( "etc/crontab", dir_name );
@@ -469,6 +472,9 @@ int main ( int argc, char *argv [ ] )
             read_file_pre ( "free", dir_name );
             read_file_pre ( "sos_commands/memory/", dir_name );
             read_file_pre ( "proc/meminfo", dir_name );
+            read_file_pre ( "proc/zoneinfo", dir_name );
+            read_file_pre ( "proc/buddyinfo", dir_name );
+            read_file_pre ( "proc/vmstat", dir_name );
             /* networking */
             read_file_pre ( "etc/host", dir_name );
             read_file_pre ( "ip_addr", dir_name );

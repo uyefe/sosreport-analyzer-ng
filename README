@@ -76,6 +76,9 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Echo free file.
     Echo files in sos_commands/memory/.
     Analyze proc/meminfo file.
+    Echo proc/zoneinfo file.
+    Echo proc/buddyinfo file.
+    Echo proc/vmstat file.
 
   ==== networking ==== 
     Echo files etc/host*.
@@ -184,6 +187,9 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Echo files etc/sysconfig/network-scripts/ifcfg-*.
   Echo files in etc/.
   Analyze proc/meminfo file.
+  Echo proc/zoneinfo file.
+  Echo proc/buddyinfo file.
+  Echo proc/vmstat file.
   Echo proc/interrupts file.
   Echo var/log/dmesg file.
   Echo etc/crontab file.

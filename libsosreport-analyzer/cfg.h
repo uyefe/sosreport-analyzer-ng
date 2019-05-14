@@ -166,6 +166,9 @@ struct sosreport_analyzer_config
     config_each proc_net_dev;
     config_each proc_net_sockstat;
     config_each proc_interrupts;
+    config_each proc_vmstat;
+    config_each proc_zoneinfo;
+    config_each proc_buddyinfo;
     config_each proc_;
 };
 
