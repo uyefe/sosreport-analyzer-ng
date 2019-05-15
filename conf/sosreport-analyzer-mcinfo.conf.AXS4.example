@@ -64,6 +64,12 @@ proc/zoneinfo=all
 
 proc/buddyinfo=all
 
+## proc/slabinfo
+##
+## All you can set is 'all'
+
+proc/slabinfo=all
+
 ## proc/vmstat
 ##
 ## All you can set is 'all'

@@ -1675,11 +1675,11 @@ int read_file ( const char *file_name, const char *member, int files )
 
     /* when this function had been called from 'read_analyze_dir()', items should be set only once */
     if ( files == 0)
-//////////////////////////////////////////////////////////
     {
         if ( set_token_to_item_arr ( file_name, member ) == 1 )
         {
             printf("set_token_to_item_arr failed in (%s):member %s\n",file_name,member);
+            free_sosreport_analyzer_obj ( );
             exit ( EXIT_FAILURE );
         }
     }
@@ -1918,6 +1918,7 @@ int set_token_to_item_arr ( const char *file_name, const char *member )
                     ( strcmp ( member, "proc/net/dev" ) == 0 ) ||
                     ( strcmp ( member, "proc/net/sockstat" ) == 0 ) ||
                     ( strcmp ( member, "proc/interrupts" ) == 0 ) ||
+                    ( strcmp ( member, "proc/slabinfo" ) == 0 ) ||
                     ( strcmp ( member, "proc/zoneinfo" ) == 0 ) ||
                     ( strcmp ( member, "proc/vmstat" ) == 0 ) ||
                     ( strcmp ( member, "sos_commands/apache/" ) == 0 ) ||
@@ -2110,6 +2111,7 @@ void read_file_pre ( const char *member, const char *dir_name )
         ( ( strcmp ( member, "proc/meminfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_meminfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/dev") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_dev.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/net/sockstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_net_sockstat.member, "" ) != 0 ) ) ||
+        ( ( strcmp ( member, "proc/slabinfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_slabinfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/vmstat") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_vmstat.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/zoneinfo") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_zoneinfo.member, "" ) != 0 ) ) ||
         ( ( strcmp ( member, "proc/") == 0 ) && ( strcmp ( sosreport_analyzer_cfg->proc_.member, "" ) != 0 ) ) ||
@@ -3079,6 +3081,7 @@ int append_item_to_sos_line_obj ( char *line, const char *member, const char *it
         ( strcmp ( member, "lib/" ) == 0 ) ||
         ( strcmp ( member, "proc/buddyinfo" ) == 0 ) ||
         ( strcmp ( member, "proc/meminfo" ) == 0 ) ||
+        ( strcmp ( member, "proc/slabinfo" ) == 0 ) ||
         ( strcmp ( member, "proc/vmstat" ) == 0 ) ||
         ( strcmp ( member, "proc/zoneinfo" ) == 0 ) ||
         ( strcmp ( member, "proc/" ) == 0 ) ||
