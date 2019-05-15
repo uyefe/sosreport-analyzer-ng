@@ -78,6 +78,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
     Analyze proc/meminfo file.
     Echo proc/zoneinfo file.
     Echo proc/buddyinfo file.
+    Echo proc/slabinfo file.
     Echo proc/vmstat file.
 
   ==== networking ==== 
@@ -189,6 +190,7 @@ Binary path: /usr/local/bin/sosreport-analyzer
   Analyze proc/meminfo file.
   Echo proc/zoneinfo file.
   Echo proc/buddyinfo file.
+  Echo proc/slabinfo file.
   Echo proc/vmstat file.
   Echo proc/interrupts file.
   Echo var/log/dmesg file.

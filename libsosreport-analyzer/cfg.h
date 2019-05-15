@@ -162,13 +162,14 @@ struct sosreport_analyzer_config
     config_each var_log_secure;
     config_each var_spool_cron_;
     config_each var_;
+    config_each proc_buddyinfo;
+    config_each proc_interrupts;
     config_each proc_meminfo;
     config_each proc_net_dev;
     config_each proc_net_sockstat;
-    config_each proc_interrupts;
+    config_each proc_slabinfo;
     config_each proc_vmstat;
     config_each proc_zoneinfo;
-    config_each proc_buddyinfo;
     config_each proc_;
 };
 

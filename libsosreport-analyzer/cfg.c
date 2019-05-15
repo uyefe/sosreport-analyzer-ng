@@ -118,6 +118,8 @@ int set_member_to_struct ( const char *keyword, char *line, struct sosreport_ana
             strncpy ( cfg->proc_interrupts.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/meminfo" ) == 0 )
             strncpy ( cfg->proc_meminfo.member, line, MAX_LINE_LENGTH - 1 );
+        else if ( strcmp ( keyword, "proc/slabinfo" ) == 0 )
+            strncpy ( cfg->proc_slabinfo.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/vmstat" ) == 0 )
             strncpy ( cfg->proc_vmstat.member, line, MAX_LINE_LENGTH - 1 );
         else if ( strcmp ( keyword, "proc/zoneinfo" ) == 0 )
@@ -434,6 +436,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/zoneinfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/buddyinfo", cfg, mcinfo );
+        append_sos_header_obj ( "proc/slabinfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/vmstat", cfg, mcinfo );
         append_sos_header_obj ( "proc/interrupts", cfg, mcinfo );
         append_sos_header_obj ( "var/log/dmesg", cfg, mcinfo );
@@ -490,6 +493,7 @@ void cfg_read ( const char *file_name, struct sosreport_analyzer_config *cfg, in
         append_sos_header_obj ( "proc/meminfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/zoneinfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/buddyinfo", cfg, mcinfo );
+        append_sos_header_obj ( "proc/slabinfo", cfg, mcinfo );
         append_sos_header_obj ( "proc/vmstat", cfg, mcinfo );
         /* networking */
         append_sos_header_obj ( "==== networking ====", cfg, mcinfo );
@@ -623,6 +627,8 @@ void append_sos_header_obj ( const char *member, struct sosreport_analyzer_confi
         strcat ( str_tmp, cfg->proc_zoneinfo.member );
     else if ( strcmp ( member, "proc/buddyinfo" ) == 0 )
         strcat ( str_tmp, cfg->proc_buddyinfo.member );
+    else if ( strcmp ( member, "proc/slabinfo" ) == 0 )
+        strcat ( str_tmp, cfg->proc_slabinfo.member );
     else if ( strcmp ( member, "proc/vmstat" ) == 0 )
         strcat ( str_tmp, cfg->proc_vmstat.member );
     else if ( strcmp ( member, "proc/interrupts" ) == 0 )
